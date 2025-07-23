@@ -57,7 +57,15 @@
                   <?php endif; ?>
                 <?php endwhile; ?>
               </div>
+              
             <?php endif; ?>
+            <?php
+$footer_pixel_image = get_field('footer_pixel_image', 'option');
+if ($footer_pixel_image): ?>
+  <div class="footer-pixels">
+    <img src="<?php echo esc_url($footer_pixel_image); ?>" alt="" />
+  </div>
+<?php endif; ?>
           </div>
           
         <?php endif; ?>

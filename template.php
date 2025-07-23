@@ -61,6 +61,7 @@ if ( have_rows('home_page_section') ):
             get_template_part('template-parts/section', 'core');
             elseif ( get_row_layout() == 'mission_section' ):
             get_template_part('template-parts/section', 'mission');
+            
         // elseif (get_row_layout() == 'x_wrapper'):
         //     get_template_part('template-parts/section', 'x-wrapper');
         endif;

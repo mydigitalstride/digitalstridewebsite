@@ -59,7 +59,6 @@ text-align: center;
 }
 .hero-section-text {
   padding: 80px 20px;
-  background:white !important; /* light gray background, optional */
   text-align: center;
 }
 
@@ -225,6 +224,7 @@ padding-top: 10px;
   margin-bottom: 12px;
   font-size: 18px;
   color: blue;
+  padding-left: 0;
 }
 
 .bubble-text {
@@ -359,6 +359,15 @@ font-weight: 300;
 .marketing-section {
 padding: 80px 5%;
 }
+.marketing-cta-button{
+        background-color: #f36321;
+    color: #fff;
+    margin-left:20px;
+    padding: 20px 24px;
+    text-decoration: none;
+    transition:background-color .3s ease
+}
+
 .values-bubble-marketing {
  background: linear-gradient(to right,#1d4382,#189da7);
 border-radius: 20px;
@@ -1116,7 +1125,6 @@ padding-left: 21px;
 }
 .resource-listing-section {
   padding: 3rem 1rem;
-  background-color: #ffffff;
 }
 
 .resource-listing-section .section-heading {
@@ -1203,9 +1211,6 @@ margin-bottom: .5rem;
    ------------------ */
 .values-section {
   background-color: var(--darkest-navy);
-}
-.values-section.marketing-section{
-  background-color: white !important;
 }
 .section-title {
   text-align: center;
@@ -1327,8 +1332,8 @@ pointer-events: none;
   min-width: 300px;
   text-align: center;
 }
-.mission-right p{
-    color: #1d4382 !important;
+.mission-right p, h2, li {
+color: rgb(29, 67, 130) !important;
 }
 .mission-left h2 {
   font-size: 32px;
