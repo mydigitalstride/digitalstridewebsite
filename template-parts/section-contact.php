@@ -1,4 +1,12 @@
-<section class="contact-flex-section">
+<?php
+$shared_bg = get_sub_field('x_image');
+$shared_bg_style = '';
+if ($shared_bg) {
+    $image_url = esc_url($shared_bg['url']);
+    $shared_bg_style = 'style="background-image: url(\'' . $image_url . '\'); background-size: cover; background-position: center;"';
+}
+?>
+<section class="contact-flex-section" <?php echo $shared_bg_style; ?>>
   <div class="contact-left">
     <h3><?php the_sub_field('section_title_left'); ?></h3>
     <p class="subtitle"><?php the_sub_field('subtitle_left'); ?></p>

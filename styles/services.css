@@ -490,6 +490,9 @@ padding-left: 20px;
 line-height: 36px;
 padding-right: 176px;
 }
+.service-list li {
+ color: white !important;
+}
 
 .cta-button {
   background-color: #ff5c25;
@@ -715,4 +718,187 @@ margin: 20px 0;
     text-decoration: none;
     font-weight: bold;
     margin-top: 20px;
+}
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+  /* === General Section Container === */
+  .section-container,
+  .bubbles-row,
+  .package-section,
+  .wordpress-services-section,
+  .custom_website_development,
+  .growth-section {
+    padding: 40px 20px;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  /* === Header + Hero === */
+  .hero-text {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .hero-left,
+  .hero-right {
+    text-align: center;
+    flex: 1 1 100%;
+  }
+  .section-image,
+  .laptop-image,
+  .package-background-image {
+    display: none;
+  }
+
+  /* === Bubble Section === */
+  .bubble {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+
+  /* === Package Section === */
+  .package-content-wrapper,
+  .package-header {
+    flex: 1 1 100%;
+    text-align: center;
+  }
+  .package-items-wrapper {
+    padding: 20px;
+  }
+  .package-title {
+    font-size: 1.8rem;
+  }
+
+  /* === Concept Section === */
+  .concept-layout {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .concept-left,
+  .concept-right {
+    padding: 0;
+    text-align: center;
+  }
+  .concept-title,
+  .concept-subtitle {
+    padding-left: 0;
+    margin-right: 0;
+  }
+
+  /* === Timeline Section === */
+  .timeline-bar::before {
+    width: 100%;
+  }
+  .timeline-labels {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .timeline-features-wrapper {
+    flex-direction: column;
+    padding: 20px;
+  }
+  .timeline-features-image {
+    text-align: center;
+  }
+
+  /* === Services Highlight === */
+  .services-content,
+  .custom-services-content {
+    flex-direction: column;
+    align-items: center;
+  }
+  .custom-screw-image {
+    display: none;
+  }
+  .stat-box,
+  .custom-stat-box {
+    position: static;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .custom_website_development,
+  .wordpress-services-section {
+    padding: 40px 20px;
+  }
+
+  /* === Growth Section === */
+  .growth-section {
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px 20px;
+  }
+  .growth-left,
+  .growth-right {
+    flex: 1 1 100%;
+    padding: 20px;
+    text-align: center;
+  }
+  .growth-right p,
+  .growth-right h3 {
+    padding-right: 0;
+  }
+  .growth-sub {
+    padding: 20px;
+  }
+  .growth-section .game-plan-box {
+    padding: 30px;
+  }
+}
+
+/* Optional Small Device (Mobile) Tweak */
+@media screen and (max-width: 480px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+  .cta-button,
+  .custom-cta-button {
+    width: 100%;
+    padding: 12px;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+  .package-title {
+    font-size: 1.6rem;
+  }
+  .timeline-heading {
+    font-size: 24px;
+  }
+}
+@media screen and (max-width: 768px) {
+  /* General list responsiveness */
+  ul,
+  .service-list,
+  .custom-service-list,
+  .timeline-features-list ul,
+  .growth-right ul {
+    padding-left: 20px;
+    text-align: left;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .service-list li,
+  .custom-service-list li,
+  .timeline-features-list ul li,
+  .growth-right ul li {
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  ul,
+  .service-list,
+  .custom-service-list,
+  .timeline-features-list ul,
+  .growth-right ul {
+    padding-left: 15px;
+    font-size: 0.9rem;
+  }
+
+  .service-list li,
+  .custom-service-list li,
+  .timeline-features-list ul li,
+  .growth-right ul li {
+    margin-bottom: 8px;
+  }
 }

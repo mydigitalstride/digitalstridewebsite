@@ -61,9 +61,20 @@ if ( have_rows('home_page_section') ):
             get_template_part('template-parts/section', 'core');
             elseif ( get_row_layout() == 'mission_section' ):
             get_template_part('template-parts/section', 'mission');
-            
-        // elseif (get_row_layout() == 'x_wrapper'):
-        //     get_template_part('template-parts/section', 'x-wrapper');
+             elseif ( get_row_layout() == 'strategy' ):
+            get_template_part('template-parts/section', 'strategy');
+                 elseif ( get_row_layout() == 'mindset' ):
+            get_template_part('template-parts/section', 'mindset');
+                 elseif ( get_row_layout() == 'our_team_section' ):
+            get_template_part('template-parts/section', 'team-members');
+              elseif ( get_row_layout() == 'our_fur_section' ):
+            get_template_part('template-parts/section', 'our-fur');
+             elseif ( get_row_layout() == 'call_to_action_section' ):
+            get_template_part('template-parts/section', 'call-to-action');
+        elseif (get_row_layout() == 'x_image'):
+            get_template_part('template-parts/section', 'core-and-mission-wrapped');
+             elseif (get_row_layout() == 'we_also_do_section'):
+            get_template_part('template-parts/section', 'we-also-do');
         endif;
     endwhile;
 endif;

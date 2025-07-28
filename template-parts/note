@@ -1,0 +1,87 @@
+/* ------------------
+   5. VALUES SECTION
+   ------------------ */
+/* .section-title {
+  text-align: center;
+  margin-bottom: 60px;
+}
+.values-list {
+ display: flex;
+  flex-direction: column;
+  align-items: flex-end; 
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.value-item {
+  background: linear-gradient(to right,#189da7,#1977a3);
+  padding: 0;
+  width: 444px;
+  border-radius: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: white;
+  font-size: 16px;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+
+.value-item:hover {
+  transform: translateY(-10px);
+}
+
+.value-item p {
+  position: relative;
+  padding-left: 20px;
+  color:white;
+}
+
+.values-bubble {
+background: linear-gradient(to right,#189da7,#1977a3);
+border-radius: 20px;
+padding: 40px 40px 78px;
+max-width: 1300px;
+margin: 0 auto;
+box-shadow: 0 8px 20px rgba(0,0,0,.1);
+}
+.values-bubble h2 {
+  color: white;
+  text-align: left;
+  margin-bottom: 20px;
+  font-size:43px;
+}
+.values-cta {
+   display: inline-block;
+background-color: orange;
+font-weight: 700;
+color: #fff;
+padding: 29px 26px;
+text-decoration: none;
+margin-top: 70px;
+border-radius: 0;
+margin-left: 0;
+float: left;
+} */
+/* VALUES SECTION STYLES */
+/* .values-section {
+ position: relative;
+padding: 80px 5%;
+background-color: transparent !important;
+  
+}
+
+.values-bubble {
+  position: relative;
+  z-index: 2;
+}
+
+.values-background-image {
+position: absolute;
+top: 43%;
+transform: translateY(-50%);
+width: 40%;
+opacity: 0.9;
+z-index: 3;
+} */
