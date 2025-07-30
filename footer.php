@@ -73,3 +73,19 @@ if ($footer_pixel_image): ?>
     <?php endif; ?>
   </div>
 </footer>
+<?php wp_footer(); ?>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const toggle = document.querySelector('.mega-menu-toggle');
+    const menuWrap = document.querySelector('#mega-menu-wrap-primary');
+
+    if (toggle && menuWrap) {
+      toggle.addEventListener('click', function () {
+        menuWrap.classList.toggle('mega-menu-open');
+      });
+    }
+  });
+</script>
+
+</body>
+</html>

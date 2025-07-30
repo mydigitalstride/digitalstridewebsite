@@ -75,6 +75,16 @@ if ( have_rows('home_page_section') ):
             get_template_part('template-parts/section', 'core-and-mission-wrapped');
              elseif (get_row_layout() == 'we_also_do_section'):
             get_template_part('template-parts/section', 'we-also-do');
+              elseif (get_row_layout() == 'package'):
+            get_template_part('template-parts/section', 'package');
+               elseif (get_row_layout() == 'concept'):
+            get_template_part('template-parts/section', 'concept');
+             elseif (get_row_layout() == 'timeline_scope'):
+            get_template_part('template-parts/section', 'timeline-scope');
+             elseif (get_row_layout() == 'wordpress_services_section'):
+            get_template_part('template-parts/section', 'timeline-scope');
+             elseif (get_row_layout() == 'custom_website_development'):
+            get_template_part('template-parts/section', 'custom');
         endif;
     endwhile;
 endif;

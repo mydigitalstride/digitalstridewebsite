@@ -88,16 +88,20 @@
 						?>
 					</a>
 				</div>
-				<div class="header-menu-container">
-				<?php
-					wp_nav_menu(
-						array(
-							'theme_location' => 'primary',
-							'menu_id'        => 'primary-menu',
-						)
-					);
-				?>
-				</div>
+			<div class="header-menu-container">
+  <nav id="mega-menu-wrap-primary" class="mega-menu-wrap">
+    <?php
+      wp_nav_menu(
+        array(
+          'theme_location' => 'primary',
+          'menu_id'        => 'primary-menu',
+          'container'      => false,
+          'menu_class'     => 'mega-menu',
+        )
+      );
+    ?>
+  </nav>
+</div>
 			</div>
 		</div><!-- .site-branding -->
 	</header><!-- #masthead -->

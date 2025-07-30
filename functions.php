@@ -153,3 +153,15 @@ function digitalstride_enqueue_fonts() {
 add_action('wp_enqueue_scripts', 'digitalstride_enqueue_fonts');
 add_filter( 'megamenu_load_css', '__return_false' );
 add_filter( 'megamenu_load_js', '__return_false' );
+
+function my_theme_enqueue_scripts() {
+  // Enqueue your mobile menu toggle script
+  wp_enqueue_script(
+    'mobile-menu-toggle',
+    get_template_directory_uri() . '/js/menu-toggle.js',
+    array(), // No dependencies
+    null, // No version number
+    true // Load in footer
+  );
+}
+add_action('wp_enqueue_scripts', 'my_theme_enqueue_scripts');
