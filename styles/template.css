@@ -198,6 +198,14 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
   50%  { transform: translateY(-5px); }
   100% { transform: translateY(0); }
 }
+.we-also-do-link {
+    color: black; 
+}
+
+.we-also-do-link:hover {
+    color:#f36e21;
+}
+
 .val-plus-icon {
     display: flex;
     font-size: 28px;
