@@ -292,31 +292,34 @@ if (have_rows('services_sections')):
 
 <section class="custom_website_development">
   <div class="services-content">
-    <h2><?php echo esc_html($section_title); ?></h2>
-    <div class="plus-divider">+ + + + + + + + + +</div>
-    <p class="subheading"><?php echo esc_html($subheading); ?></p>
+    <div class="left-section">
+        <h2><?php echo esc_html($section_title); ?></h2>
+            <div class="plus-divider">+ + + + + + + + + +</div>
+            <p class="subheading"><?php echo esc_html($subheading); ?></p>
 
-    <ul class="service-list">
-      <?php if (have_rows('list_items')): while (have_rows('list_items')): the_row(); ?>
-        <li><?php echo esc_html(get_sub_field('item_text')); ?></li>
-      <?php endwhile; endif; ?>
-    </ul>
+            <ul class="service-list">
+            <?php if (have_rows('list_items')): while (have_rows('list_items')): the_row(); ?>
+                <li><?php echo esc_html(get_sub_field('item_text')); ?></li>
+            <?php endwhile; endif; ?>
+            </ul>
 
-    <?php if ($button_link): ?>
-      <a href="<?php echo esc_url($button_link['url']); ?>" target="<?php echo esc_attr($button_link['target']); ?>" class="custom-cta-button">
-        <?php echo esc_html($button_text); ?>
-      </a>
-    <?php endif; ?>
+            <?php if ($button_link): ?>
+            <a href="<?php echo esc_url($button_link['url']); ?>" target="<?php echo esc_attr($button_link['target']); ?>" class="custom-cta-button">
+                <?php echo esc_html($button_text); ?>
+            </a>
+            <?php endif; ?>
+    </div>
+    <div class="right-section">
+        <div class="graphic-wrap">
+        <?php if ($laptop_image): ?>
+            <img src="<?php echo esc_url($laptop_image['url']); ?>" alt="Laptop Graphic" class="laptop-image" />
+        <?php endif; ?>
 
-    <div class="graphic-wrap">
-      <?php if ($laptop_image): ?>
-        <img src="<?php echo esc_url($laptop_image['url']); ?>" alt="Laptop Graphic" class="laptop-image" />
-      <?php endif; ?>
-
-      <div class="stat-box">
-        <span class="stat-value"><?php echo esc_html($stat_value); ?></span>
-        <span class="stat-subtext"><?php echo esc_html($stat_subtext); ?></span>
-      </div>
+        <div class="stat-box">
+            <span class="stat-value"><?php echo esc_html($stat_value); ?></span>
+            <span class="stat-subtext"><?php echo esc_html($stat_subtext); ?></span>
+        </div>
+        </div>
     </div>
   </div>
 </section>
