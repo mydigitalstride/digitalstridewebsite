@@ -9,6 +9,60 @@ DIGITAL STRIDE - FULL CSS STYLESHEET
   padding-left: 5%
 }
 
+:root {
+  /* Primary Colors */
+  --color-blue: #1d4382;       /* rgb(29, 67, 130) */
+  --color-text: #020b24;            /* rgb(2, 11, 36) */
+  --color-white: #f2f5fb;           /* rgb(242, 245, 251) */
+  --color-black: #141414;           /* rgb(20, 20, 20) */
+  --color-orange: #f36e21;     /* rgb(243, 110, 33) */
+  --color-teal: #189DA7;            /* rgb(24, 157, 167) */
+
+
+  /* Background Colors */
+  --color-light-orange: #f6ddd3;    /* rgb(246, 221, 211) */
+  --color-light-blue: #dae3ff;      /* rgb(218, 227, 255) */
+  --color-light-teal: #D3E9EB;      /* rgb(211, 233, 235) */
+
+    /* Secondary Colors */
+  --color-yellow: #f2c814;    /* rgb(242, 200, 20) */
+  --color-red: #B6200C;      /* rgb(182, 32, 12) */
+  --color-purple: #70077B;      /* rgb(112, 7, 123) */
+  --color-green: #0A484C;            /* rgb(10, 72, 76) */
+
+  /* Gradients */
+  --gradient-teal: linear-gradient(90deg, #189da7, #1D4382); /* rgb(24,157,167 → 25,119,163) */
+  --gradient-dark-teal: linear-gradient(135deg, #189da7, #0A484C); /* rgb(24,157,167 → 10,72,76) */
+  --gradient-orange: linear-gradient(135deg, #2e2d2d, #ff4a07); /* rgb(246,221,211 → 255,74,7) */
+  --gradient-yellow-orange: linear-gradient(135deg, #f2c814, #ff4a07); /* rgb(246,221,211 → 255,74,7) */
+  --gradient-white-teal: linear-gradient(135deg, #f2f5fb, #189da7); /* rgb(246,221,211 → 255,74,7) */
+  --gradient-white-blue: linear-gradient(135deg, #f2f5fb, #1D4382); /* rgb(246,221,211 → 255,74,7) */
+
+    /* Font Families */
+  --font-sans: 'josefin sans', sans-serif;
+
+  /* Font Sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-xxl: 2rem;
+  --font-size-xxxl: 2.5rem;
+  --font-size-giant: 4rem;
+
+  /* Line Heights */
+  --line-height-base: 1.5;
+  --line-height-tight: 1.2;
+  --line-height-loose: 1.75;
+
+  /* Font Weights */
+  --font-weight-thin: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 600;
+  --font-weight-bold: 700;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -38,7 +92,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: josefin sans;
+  font-family: var(--font-sans);
   word-wrap: break-word;
   overflow-wrap: break-word
 }
@@ -46,7 +100,7 @@ h6 {
 body,
 html,
 section {
-  background-color: #f2f5fb;
+  background-color: var(--color-white);
   width: 100%;
   margin: 0;
   padding: 0;
@@ -68,46 +122,50 @@ h4,
 h5,
 h6 {
   color: #000;
-  font-weight: 600;
-  line-height: 1.5;
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-base);
   margin-bottom: 20px
 }
 
 h1 {
-  font-size: 2.5rem;
-  line-height: 1.5;
+  font-size: var(--font-size-xxxl);
+  line-height: var(--line-height-base);
   margin-bottom: 2rem;
   margin-top: 2.5rem
 }
 
 h2 {
-  font-size: 2rem;
-  line-height: 1;
+  font-size: var(--font-size-xxl);
+  line-height: var(--line-height-tight);
   margin-bottom: 1.25rem;
   margin-top: 1.75rem
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: var(--font-size-xl);
   margin-bottom: 1rem
 }
 
 h4 {
-  font-size: 1.25rem;
-   margin-bottom:1rem;
+  font-size: var(--font-size-lg);
+   margin-bottom: 1rem;
 }
 
 p,
 body {
   margin-bottom: 1rem;
-  line-height: 1.75;
-  font-size: 1rem
+  line-height: var(--line-height-loose);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  font-weight: var(--font-weight-regular);
 }
 
 a {
   text-decoration: none;
   transition: all .3s ease
 }
+
+
 
 .mega-menu-item-814,
 .mega-menu-item-813 {
@@ -181,7 +239,7 @@ a {
     li {
       a {
         text-decoration: none !important;
-        color: #FFFFFF !important;
+        color: var(--color-white) !important;
         text-align: center !important;
         padding: 1rem !important;
         margin: 0 3rem !important;
@@ -192,7 +250,7 @@ a {
         }
 
         &:visited {
-          color: #FFFFFF !important;
+          color: var(--color-white) !important;
         }
       }
     }
@@ -281,7 +339,7 @@ a {
   align-items: center;
 
   a {
-    color: #FFFFFF;
+    color: var(--color-white);
     font-weight: 600;
     text-decoration: none;
 
@@ -305,7 +363,7 @@ a {
     display: inline;
 
     a {
-      color: #FFFFFF;
+      color: var(--color-white);
       text-decoration: none;
       padding: 0.5rem 1rem;
       font-weight: 600;

@@ -3,7 +3,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .body {
-    background-color: #f2f5fb !important;
+    background-color: var(--color-white) !important;
     -webkit-font-smoothing:antialiased
 }
 
@@ -28,7 +28,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     display: flex;
     font-size: 1.5rem;
     font-weight: 700;
-    color: #f36e21;
+    color: var(--color-orange);
     padding-right: 0;
     margin: 20px auto;
     text-align:center;
@@ -43,7 +43,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .hero-content {
     max-width: 100%;
     text-align:center;
-    color:#f2f5fb;
+    color:var(--color-white);
         
     @media screen and (min-width: 768px) {
             max-width: 800px;
@@ -53,13 +53,13 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .hero-section h1 {
     font-size: clamp(2.5rem, 5vw, 4rem);
     margin-bottom: 10px;
-    color:#f2f5fb
+    color:var(--color-white)
 }
 
 .hero-section h2 {
     font-size: clamp(1.5rem, 3vw, 2.5rem);
     margin-bottom: 30px;
-    color:#f2f5fb
+    color:var(--color-white)
 }
 
 .hero-text {
@@ -85,7 +85,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .hero-content-text h1 {
     font-weight: 700;
-    color: #1d4382;
+    color: var(--color-blue);
     margin: 0;
     line-height:1.2
 }
@@ -121,7 +121,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .we-also-do-section h2 {
-    color: #1a1a6e;
+    color: var(--color-blue);
     margin-bottom:40px
 }
 
@@ -166,7 +166,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .we-also-do-link:hover {
-    color:#f36e21;
+    color:var(--color-orange);
 }
 
 .val-plus-icon {
@@ -174,7 +174,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     font-size: 28px;
     font-weight: 700;
     padding-left: 24px;
-    color: #f36e21;
+    color: var(--color-orange);
     text-align:center
 }
 
@@ -194,7 +194,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     background: linear-gradient(to right, #a0e7e5, #00b4d8);
     padding: 20px;
     border-radius: 4px;
-    color: #f2f5fb;
+    color: var(--color-white);
     font-size: 16px;
     text-align: left;
     box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
@@ -208,7 +208,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .value-item p {
     position: relative;
-    color:#f2f5fb
+    color:var(--color-white)
 }
 
 .value-item p:before {
@@ -225,14 +225,14 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .values-bubble h2 {
-    color: #f2f5fb !important;
+    color: var(--color-white) !important;
     text-align: left;
     margin-bottom: 19px;
     padding-left:20px
 }
 
 .values-bubble, h3 {
-    color: #f2f5fb;
+    color: var(--color-white);
     text-align: left;
     margin-bottom: 19px;
     padding-left: 20px;
@@ -280,7 +280,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     display: flex;
     font-size: 28px;
     font-weight: 700;
-    color: #f36e21;
+    color: var(--color-orange);
     margin: 8px 0 19px;
     text-align:left
 }
@@ -299,7 +299,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     font-weight: 700;
     margin-bottom: 12px;
     font-size: 18px;
-    color: #1d4382;
+    color: var(--color-blue);
     padding-left:0
 }
 
@@ -317,7 +317,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     display: inline-block;
     padding: 12px 40px;
     background: linear-gradient(135deg, #00bcd4, #00838f);
-    color: #f2f5fb;
+    color: var(--color-white);
     font-weight: 600;
     font-size: 18px;
     border: none;
@@ -333,7 +333,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .bubble {
     flex: 0 0 calc(33.333% - 30px);
     max-width: calc(25.33% - 30px);
-    background: #f6ddd3;
+    background: var(--color-white);
     border-radius: 15px;
     padding: 20px;
     position: relative;
@@ -361,7 +361,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .bubble-text {
     font-size: 14px;
     line-height: 1.4;
-    color:#1d4382
+    color:var(--color-blue)
 }
 
 .bubbles-button-wrapper {
@@ -373,7 +373,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     display: inline-block;
     padding: 12px 40px;
     background: linear-gradient(135deg, #00bcd4, #00838f);
-    color: #f2f5fb;
+    color: var(--color-white);
     font-weight: 600;
     font-size: 18px;
     border: none;
@@ -391,12 +391,12 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .marketing-section .client-spotlight-section {
-    color: #f2f5fb;
+    color: var(--color-white);
     padding:80px 5%
 }
 
 .marketing-section h2, .marketing-section p, .marketing-section, .marketing-section .marketing-text, .marketing-section .marketing-button .client-spotlight-section {
-    color: #f2f5fb !important;
+    color: var(--color-white) !important;
     padding-left: 20px;
     padding-top:21px
 }
@@ -413,11 +413,11 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .marketing-stars, .marketing-stars-title .icon_plus {
-    color: #f36e21 !important
+    color: var(--color-orange) !important
 }
 
 .marketing-stars-title {
-    color: #f36e21 !important
+    color: var(--color-orange) !important
 }
 
 .marketing-content {
@@ -434,7 +434,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .marketing-cta-button {
     background-color: #f36321;
-    color: #f2f5fb;
+    color: var(--color-white);
     margin-left: 20px;
     padding: 20px 24px;
     text-decoration: none;
@@ -442,7 +442,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .values-bubble-marketing {
-    background: linear-gradient(to right, #1d4382, #189da7);
+    background: linear-gradient(to right, var(--color-blue), #189da7);
     border-radius: 20px;
     padding: 40px 40px 78px;
     max-width: 80%;
@@ -451,7 +451,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .values-bubble-marketing h2 {
-    color: #f2f5fb;
+    color: var(--color-white);
     text-align: left;
     margin-bottom: 19px;
     padding-left: 20px;
@@ -459,7 +459,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .values-bubble-marketing h3 {
-    color: #f2f5fb;
+    color: var(--color-white);
     text-align: left;
     margin-bottom: 19px;
     padding-left:20px
@@ -490,16 +490,16 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .highlight-orange {
-    color:#ff5c25 !important
+    color:var(--color-orange) !important
 }
 
 .growth-right p {
     padding-right: 128px;
-    color:#f2f5fb !important
+    color:var(--color-white) !important
 }
 
 .growth-left h2 {
-    color:#1a1a6e
+    color:var(--color-blue)
 }
 
 .growth-sub {
@@ -512,13 +512,13 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .growth-left h4 {
     font-size: 20px;
-    color:#1a1a6e
+    color:var(--color-blue)
 }
 
 .growth-right {
     flex: 1.3;
     min-width: 350px;
-    background: #d9f4f6;
+    background: var(--color-white);
     padding: 40px;
     border-radius: 20px;
     font-size: 16px;
@@ -527,7 +527,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .growth-right h3 {
     margin-top: 20px;
-    color: #f2f5fb !important;
+    color: var(--color-white) !important;
     padding-right:272px
 }
 
@@ -538,8 +538,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .growth-section .cta-button {
     display: inline-block;
-    background-color: #f36e21 !important;
-    color: #f2f5fb;
+    background-color: var(--color-orange) !important;
+    color: var(--color-white);
     padding: 12px 30px;
     text-decoration: none;
     margin-top:20px
@@ -551,8 +551,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .custom-cta-button {
-    background-color: #ff5c25;
-    color: #f2f5fb !important;
+    background-color: var(--color-orange);
+    color: var(--color-white) !important;
     padding: 12px 24px;
     text-decoration: none;
     width: 262px;
@@ -561,8 +561,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .plus-divider-banner {
-    background: linear-gradient(to right, #00a3ad, #0a2c72);
-    color: #f2f5fb;
+    background: var(--gradient-teal);
+    color: var(--color-white);
     padding: 15px 0;
     text-align: center;
     margin: auto;
@@ -600,7 +600,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .centered-bubbles-container {
     flex: 0 0 calc(25.33% - 30px);
     max-width: calc(33.333% - 30px);
-    background: #fbd7b7;
+    background: var(--color-light-orange);
     border-radius: 15px;
     padding: 60px 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
@@ -629,7 +629,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .values-section .cta-wrapper .cta-title {
-    color:#1d4382 !important
+    color:var(--color-blue) !important
 }
 
 .before-after-slider .slide-inner img {
@@ -652,7 +652,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     transform: translateY(-50%);
     font-size: 2rem;
     background: rgba(0, 0, 0, .4);
-    color: #f2f5fb;
+    color: var(--color-white);
     border: none;
     padding: 10px 16px;
     cursor: pointer;
@@ -725,7 +725,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     bottom: 0;
     left: 50%;
     width: 4px;
-    background: #f2f5fb;
+    background: var(--color-white);
     z-index: 3;
     cursor: ew-resize;
     transition:background .3s ease
@@ -733,8 +733,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .slider-label {
     text-align: center;
-    background-color: #5a2577;
-    color: #f2f5fb;
+    background-color: var(--color-purple);
+    color: var(--color-white);
     margin-top: 20px;
     padding: 10px;
     border-radius:5px
@@ -748,7 +748,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .cta-decoration {
     font-size: 1.5rem;
-    color: #70007b;
+    color: var(--color-purple);
     margin: 12px 0;
     letter-spacing:12px
 }
@@ -761,8 +761,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .cta-button {
     transition: background .3s ease;
-    background-color: #ff5c25 !important;
-    color: #f2f5fb !important;
+    background-color: var(--color-orange) !important;
+    color: var(--color-white) !important;
     padding: 23px 0;
     text-decoration: none;
     width: 333px;
@@ -780,7 +780,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     justify-content: space-between;
     gap: 30px;
     padding: 162px 20px;
-    background-color:#f2f8fc
+    background-color:var(--color-white)
 }
 
 
@@ -795,7 +795,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     display: flex;
     flex-direction: column;
     position: relative;
-    color: #f2f5fb;
+    color: var(--color-white);
     box-sizing:border-box
 }
 
@@ -816,14 +816,14 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     margin-top: 120px;
     margin-bottom: 14px;
     font-size: 20px;
-    color: #f2f5fb !important;
+    color: var(--color-white) !important;
     text-align:left
 }
 
 .bubble-plus-icon {
     font-size: 24px;
     font-weight: 700;
-    color: #f36e21;
+    color: var(--color-orange);
     display: block;
     text-align: left;
     margin-bottom:10px
@@ -838,7 +838,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .bubble-list li {
     font-size: 14px;
     line-height: 1.5;
-    color: #f2f5fb;
+    color: var(--color-white);
     margin-bottom:6px
 }
 
@@ -850,8 +850,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .bubbles-main-button {
     display: inline-block;
     padding: 12px 40px;
-    background-color: #f36e21;
-    color: #f2f5fb;
+    background-color: var(--color-orange);
+    color: var(--color-white);
     font-weight: 600;
     font-size: 18px;
     border: none;
@@ -872,7 +872,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .acf-404-section {
-    background: #f7f9fc;
+    background: var(--color-white);
     padding: 100px 20px;
     text-align: center;
     font-family:helvetica neue, sans-serif
@@ -904,8 +904,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .acf-404-button {
-    background: #f36e21;
-    color: #f2f5fb !important;
+    background: var(--color-orange);
+    color: var(--color-white) !important;
     text-transform: uppercase;
     font-weight: 500;
     padding: 14px 40px;
@@ -916,7 +916,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .acf-404-button:hover {
-    background:#d95b12
+    background:var(--color-orange)
 }
 
 .contact-flex-section {
@@ -931,26 +931,26 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: flex-start;
-    color:#f2f5fb
+    color:var(--color-white)
 }
 
 .contact-left, .contact-right {
     flex: 1 1 480px;
-    background: #f2f5fb;
+    background: var(--color-white);
     padding: 40px;
     box-shadow:0 4px 20px rgba(0, 0, 0, 5%)
 }
 
 .contact-left h3, .contact-right h3 {
     font-size: 38px !important;
-    color: #1b3c74;
+    color: var(--color-blue);
     margin-bottom: 10px;
     padding-left:initial
 }
 
 .subtitle {
     font-size: 16px;
-    color: #187da7;
+    color: var(--color-teal);
     padding-right: 114px;
     margin-bottom:40px !important
 }
@@ -964,21 +964,21 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .cf7-form-wrap label {
     display: block;
     font-size: 14px;
-    color: #1b3c74;
+    color: var(--color-blue);
     margin-bottom:8px
 }
 
 .cf7-form-wrap input[type=text], .cf7-form-wrap input[type=email], .cf7-form-wrap input[type=tel], .cf7-form-wrap textarea {
     padding: 10px;
-    border: 1px solid #1b3c74;
+    border: 1px solid var(--color-blue);
     font-size: 14px;
     width: 100%;
     box-sizing:border-box
 }
 
 .cf7-form-wrap input[type=submit] {
-    background-color: #f4731c;
-    color: #f2f5fb;
+    background-color: var(--color-orange);
+    color: var(--color-white);
     font-size: 16px;
     border: none;
     padding: 12px 25px;
@@ -995,12 +995,12 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .contact-info li {
     font-size: 17px;
     margin-bottom: 50px;
-    color:#1b3c74
+    color:var(--color-blue)
 }
 
 .orange-button {
-    background-color: #f4731c !important;
-    color: #f2f5fb !important;
+    background-color: var(--color-orange) !important;
+    color: var(--color-white) !important;
     border: none;
     margin-top: 100px;
     padding: 12px 25px;
@@ -1009,7 +1009,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .contact-right {
-    background-color:#f6ddd3
+    background-color:var(--color-white)
 }
 
 .cf7-form-wrap form {
@@ -1032,7 +1032,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .cf7-field label {
     font-size: 14px;
-    color: #1b3c74;
+    color: var(--color-blue);
     font-weight:500
 }
 
@@ -1040,14 +1040,14 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     margin-top: 6px;
     padding: 12px;
     font-size: 14px;
-    border: 1px solid #1b3c74;
+    border: 1px solid var(--color-blue);
     width: 100%;
     box-sizing:border-box
 }
 
 .cf7-submit input[type=submit] {
-    background-color: #f4731c !important;
-    color: #f2f5fb !important;
+    background-color: var(--color-orange) !important;
+    color: var(--color-white) !important;
     font-size: 16px;
     border: none;
     padding: 12px 25px;
@@ -1100,7 +1100,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     text-align: center;
     text-decoration: none;
     border-radius: 5px;
-    color:#f2f5fb
+    color:var(--color-white)
 }
 
 .post-button.red {
@@ -1117,7 +1117,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .resource-cards-section {
     padding: 3rem 1rem;
-    background-color:#f2f5fb !important
+    background-color:var(--color-white) !important
 }
 
 .resource-cards-section .section-heading {
@@ -1147,7 +1147,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .resource-card:hover {
-    box-shadow:0 0 0 2px #f27d42
+    box-shadow:0 0 0 2px var(--color-orange)
 }
 
 .card-content {
@@ -1162,7 +1162,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .decor-line {
-    color: #f27d42;
+    color: var(--color-orange);
     font-weight: 700;
     margin: .5rem 0;
     letter-spacing:4px
@@ -1197,14 +1197,14 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     gap: 1.5rem;
     padding-left: 21px;
     padding-right: 500px;
-    color:#f2f5fb !important
+    color:var(--color-white) !important
 }
 
 .listing-card {
     background: linear-gradient(to right, #0074b7, #053e7a);
     padding: 2rem;
     border-radius: 1.5rem;
-    color: #f2f5fb !important;
+    color: var(--color-white) !important;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -1218,7 +1218,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .listing-card h3 {
     font-size: 1.5rem !important;
     font-weight: 700 !important;
-    color: #f2f5fb !important;
+    color: var(--color-white) !important;
     margin-bottom:.75rem
 }
 
@@ -1229,8 +1229,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .listing-btn {
-    background: #f27d42;
-    color: #f2f5fb !important;
+    background: var(--color-orange);
+    color: var(--color-white) !important;
     padding: .6rem 1.2rem;
     text-decoration: none;
     font-weight: 700;
@@ -1239,7 +1239,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .peach-banner {
     background: #ffdab9;
-    color: #f2f5fb;
+    color: var(--color-white);
     font-size: 24px;
     font-weight: 600;
     padding: 25px 0;
@@ -1249,7 +1249,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .listing-header {
-    color: #1d4382;
+    color: var(--color-blue);
     text-align: left;
     font-weight: 700 !important;
     padding-left: 21px;
@@ -1301,7 +1301,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     margin: 0 auto;
     box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
     position: relative;
-    color:#f2f5fb
+    color:var(--color-white)
 }
 
 .values-bubble h2 {
@@ -1313,7 +1313,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .values-cta {
     display: inline-block;
     background-color: #f75c03;
-    color: #f2f5fb;
+    color: var(--color-white);
     padding: 16px 36px;
     margin: 16px 0 32px;
     font-weight: 400;
@@ -1335,7 +1335,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     background: linear-gradient(to right, #189da7, #1977a3);
     border-radius: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
-    color: #f2f5fb;
+    color: var(--color-white);
     text-align: left;
     cursor: pointer;
     transition: all .3s ease;
@@ -1355,12 +1355,12 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     font-size: 15px;
     margin-top: 12px;
     line-height: 1.5;
-    color:#f2f5fb
+    color:var(--color-white)
 }
 
 .value-block.open .value-item {
-    background: linear-gradient(to right, #f6ddd3, #189da7);
-    color:#f2f5fb
+    background: var(--gradient-white-teal);
+    color:var(--color-white)
 }
 
 .value-block.open .value-description {
@@ -1402,24 +1402,24 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .mission-right p, h2, li {
-    color:#f2f5fb;
+    color:var(--color-white);
 }
 
 .mission-left h2 {
     font-size: 32px;
     font-weight: 700;
-    color:#f2f5fb;
+    color:var(--color-white);
 }
 
 .mission-sub {
     font-size: 28px;
-    color: #ff9206;
+    color: var(--color-orange);
     margin:20px 0;
 }
 
 .mission-left h4 {
     font-size: 20px;
-    color:#1a1a6e
+    color:var(--color-blue)
 }
 
 .pa-map-img img {
@@ -1430,7 +1430,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .mission-right {
     flex: 1.3;
     min-width: 350px;
-    background: #d9f4f6;
+    background: var(--color-white);
     padding: 40px;
     border-radius: 20px;
     font-size:16px
@@ -1457,7 +1457,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     background-position: 50%;
     background-repeat: no-repeat;
     position: relative;
-    background-color:#f2f5fb !important
+    background-color:var(--color-white) !important
 }
 
 .ds-background-image-section::before {
@@ -1487,7 +1487,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     display: flex;
     font-size: 28px;
     font-weight: 700;
-    color: #f36e21;
+    color: var(--color-orange);
     padding-right: 38px;
     margin: -320px 0 22px;
     text-align:center
@@ -1532,12 +1532,12 @@ section {
 .ds-about-digital-stride-section .ds-section-title {
     font-size: clamp(2.5rem, 5vw, 4rem);
     margin-bottom: 10px;
-    color:#f2f5fb
+    color:var(--color-white)
 }
 
 .ds-about-digital-stride-section .ds-section-content {
     margin-bottom: 30px;
-    color:#f2f5fb
+    color:var(--color-white)
 }
 
 .ds-about-digital-stride-section .ds-hero-text {
@@ -1557,12 +1557,12 @@ section {
 }
 
 .ds-strategy-right h2 {
-    color: #1d4382;
+    color: var(--color-blue);
     font-weight:700 !important
 }
 
 .ds-strategy-image {
-    border: 4px solid #ff5c25;
+    border: 4px solid var(--color-orange);
     max-width: 48%;
     margin-top: 78px;
     height: auto;
@@ -1592,24 +1592,24 @@ section {
 }
 
 .ds-strategy-right p {
-    color:#1d4382
+    color:var(--color-blue)
 }
 
 .ds-strategy-left h2 {
     font-size: 32px;
     font-weight: 700;
-    color:#1a1a6e
+    color:var(--color-blue)
 }
 
 .ds-strategy-left h4 {
     font-size: 20px;
-    color:#1a1a6e
+    color:var(--color-blue)
 }
 
 .ds-strategy-right {
     flex: 1.3;
     min-width: 350px;
-    background: #d9f4f6;
+    background: var(--color-white);
     padding: 40px;
     border-radius: 20px;
     font-size: 16px;
@@ -1670,17 +1670,17 @@ section {
 .ds-mindset-item {
     display: flex;
     flex-direction: column;
-    background: #007c91;
+    background: var(--color-green);
     overflow: hidden;
-    color: #f2f5fb;
+    color: var(--color-white);
     width: 500px;
     transition: all .3s ease;
     max-width:600px
 }
 
 .ds-mindset-title {
-    background: linear-gradient(to right, #0e9aa7, #007c91);
-    color: #f2f5fb;
+    background: var(--gradient-dark-teal);
+    color: var(--color-white);
     font-weight: 600;
     font-size: 16px;
     border: none;
@@ -1691,13 +1691,13 @@ section {
 }
 
 .ds-mindset-block.open .ds-mindset-item {
-    background: linear-gradient(to right, #f6ddd3, #189da7);
-    color:#f2f5fb
+    background: var(--gradient-white-teal);
+    color:var(--color-white)
 }
 
 .ds-mindset-block.open .ds-mindset-item {
-    background: linear-gradient(to right, #f6ddd3, #189da7);
-    color:#f2f5fb
+    background: var(--gradient-white-teal);
+    color:var(--color-white)
 }
 
 .ds-mindset-block.open .ds-point-content-outside {
@@ -1722,7 +1722,7 @@ section {
 
 .ds-our-team-section .ds-section-title {
     font-size: 2.2rem !important;
-    color: #004d7f;
+    color: var(--color-blue);
     margin-bottom: 15px;
     font-weight: 700 !important;
     display: inline-flex;
@@ -1761,8 +1761,8 @@ section {
 }
 
 .ds-our-team-section .ds-team-member-card {
-    background-color: #004d7f;
-    color: #f2f5fb;
+    background-color: var(--color-blue);
+    color: var(--color-white);
     border-radius: 15px;
     padding: 30px;
     text-align: left;
@@ -1783,7 +1783,7 @@ section {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: linear-gradient(to right, #e3c250, #e3507d);
+    background: var(--gradient-yellow-orange);
     margin-left: 8px;
     flex-shrink:0
 }
@@ -1794,7 +1794,7 @@ section {
     border-radius: 50%;
     overflow: hidden;
     margin: 15px auto;
-    border: 3px solid #ff8c00;
+    border: 3px solid var(--color-orange);
     box-shadow:0 0 0 5px rgba(255, 140, 0, .3)
 }
 
@@ -1838,8 +1838,8 @@ section {
 
 .ds-our-team-section .ds-member-cta {
     display: inline-block;
-    background-color: #ff8c00;
-    color: #f2f5fb;
+    background-color: var(--color-orange);
+    color: var(--color-white);
     padding: 12px 25px;
     border-radius: 5px;
     text-decoration: none;
@@ -1848,7 +1848,7 @@ section {
 }
 
 .ds-our-team-section .ds-member-cta:hover {
-    background-color:#e67e00
+    background-color:var(--color-orange);
 }
 
 
@@ -1862,7 +1862,7 @@ section {
 }
 
 .ds-bubble {
-    background: #f6ddd3;
+    background: var(--color-white);
     border-radius: 15px;
     padding: 20px;
     position: relative;
@@ -1888,14 +1888,14 @@ section {
     margin-top: 25px !important;
     margin-bottom: 8px;
     font-size: 18px !important;
-    color:#1d4382 !important
+    color:var(--color-blue) !important
 }
 
 .ds-bubble-text {
     font-weight: 700;
     line-height: 1.4;
     margin: 10px;
-    color: #1d4382 !important;
+    color: var(--color-blue) !important;
     text-align:center
 }
 
@@ -1907,14 +1907,14 @@ section {
 .ds-bubbles-main-button {
     display: inline-block;
     padding: 6px 38px;
-    background: #f36e21;
-    color: #f2f5fb !important;
+    background: var(--color-orange);
+    color: var(--color-white) !important;
     font-weight: 400;
     font-size: 18px;
     border: none;
     cursor: pointer;
     text-decoration: none;
-    transition:background .3s ease
+    transition:background .3s ease;
 }
 
 .ds-centered-stars {
@@ -1954,8 +1954,8 @@ section {
 }
 
 .ds-plus-divider-banner {
-    background: linear-gradient(to right, #00a3ad, #0a2c72);
-    color: #f2f5fb;
+    background: var(--gradient-teal);
+    color: var(--color-white);
     font-size: 24px;
     font-weight: 600;
     padding: 15px 0;
@@ -1969,7 +1969,7 @@ section {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 50%;
-    background-color: #f2f5fb;
+    background-color: var(--color-white);
     position:relative
 }
 
@@ -1992,7 +1992,7 @@ section {
     font-size: 2.2rem !important;
     font-weight: 700 !important;
     text-align: center;
-    color: #1a1a6e;
+    color: var(--color-blue);
     margin-bottom:15px
 }
 
@@ -2010,13 +2010,13 @@ section {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: 50%;
-    color:#f2f5fb
+    color:var(--color-white)
 }
 
 .ds-our-fur-section .ds-section-stars {
     justify-content: center;
     gap: 8px;
-    color: purple;
+    color: var(--color-purple);
     font-size: 28px;
     margin-bottom:40px
 }
@@ -2053,20 +2053,20 @@ section {
 
 .ds-plus-icon {
     font-size: 32px;
-    color: purple;
+    color: var(--color-purple);
     padding-left:4px
 }
 
 .ds-fur-member h3 {
     font-size: 20px;
-    color: #036;
+    color: var(--color-blue);
     text-align: center;
     margin-bottom:8px
 }
 
 .ds-fur-member p {
     font-size: 14px;
-    color: #1d4382;
+    color: var(--color-blue);
     font-weight: 600;
     margin: 0;
     text-align:center
@@ -2081,16 +2081,16 @@ section {
 }
 
 .ds-cta-stars-above-image .ds-star-icon {
-    color: #f2f5fb;
+    color: var(--color-white);
     font-size: 1.5em;
     line-height:1
 }
 
 .ds-call-to-action-section {
-    background-color: #1e3a8a;
+    background-color: var(--color-blue);
     padding: 60px 20px;
     text-align: center;
-    color:#f2f5fb
+    color:var(--color-white)
 }
 
 .ds-cta-container {
@@ -2101,7 +2101,7 @@ section {
 .ds-cta-image-wrapper {
     margin-bottom: 40px;
     display: inline-block;
-    border:5px solid #ff5c25
+    border:5px solid var(--color-orange)
 }
 
 .ds-cta-main-image {
@@ -2113,7 +2113,7 @@ section {
 .ds-cta-title {
     font-size: 2.5em;
     margin-bottom: 20px;
-    color:#f2f5fb !important
+    color:var(--color-white) !important
 }
 
 .ds-cta-stars {
@@ -2121,7 +2121,7 @@ section {
 }
 
 .ds-cta-stars .ds-star-icon {
-    color: #f36e21;
+    color: var(--color-orange);
     font-size: 1.5em;
     margin:0 5px
 }
@@ -2137,8 +2137,8 @@ section {
 }
 
 .ds-cta-button {
-    background-color: #ff5c25 !important;
-    color: #f2f5fb !important;
+    background-color: var(--color-orange) !important;
+    color: var(--color-white) !important;
     text-decoration: none;
     font-weight: 200;
     display: initial;
@@ -2152,7 +2152,7 @@ section {
 }
 
 .ds-plus-icon-teams {
-    color: purple;
+    color: var(--color-purple);
     font-size: 28px;
     font-weight: 700;
     padding-left: 21px;
@@ -2166,7 +2166,7 @@ section {
     background-repeat: no-repeat;
     position: relative;
     padding: 60px 20px;
-    background-color:#f2f5fb !important
+    background-color:var(--color-white) !important
 }
 
 .package-section {
@@ -2195,12 +2195,12 @@ section {
 .package-title {
     font-size: 2.5em;
     margin-bottom: 10px;
-    color:#70077b !important
+    color:var(--color-purple) !important
 }
 
 .package-subtitle {
     font-size: 1.2em;
-    color:#1d4382
+    color:var(--color-blue)
 }
 
 .package-content-wrapper {
@@ -2281,7 +2281,7 @@ section {
     padding: 80px 20px;
     background-size: cover;
     background-repeat: no-repeat;
-    background-color:#f2f5fb
+    background-color:var(--color-white)
 }
 
 .concept-overlay {
@@ -2332,11 +2332,11 @@ section {
     margin-bottom: 0;
     margin-right: 221px;
     padding-left: 40px;
-    color:#1d4382
+    color:var(--color-blue)
 }
 
 .concept-subtitle {
-    color: #ff6a00;
+    color: var(--color-orange);
     padding-left: 40px;
     font-weight: 600;
     margin-bottom:25px
@@ -2349,22 +2349,22 @@ section {
 }
 
 .concept-step {
-    background-color: #008c95;
-    color: #f2f5fb;
+    background-color: var(--color-teal);
+    color: var(--color-white);
     padding: 14px 20px;
     border-radius: 4px;
     font-weight:700
 }
 
 .concept-step.highlight-step {
-    background: linear-gradient(to right, #ffd5c3, #f7aa84);
-    color:#002147
+    background: var(--gradient-orange);
+    color: var(--color-text);
 }
 
 .timeline-scope {
     padding: 60px 20px;
     text-align: center;
-    background-color: #f8f8fc;
+    background-color: var(--color-white);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 50%;
@@ -2374,7 +2374,7 @@ section {
 .timeline-heading {
     font-size: 32px;
     font-weight: 600;
-    color: #0a2c72;
+    color: var(--color-blue);
     margin-bottom:30px
 }
 
@@ -2392,7 +2392,7 @@ section {
     position: absolute;
     width: 300px;
     height: 6px;
-    background: #00a3ad;
+    background: var(--color-teal);
     top: 50%;
     transform: translateY(-50%);
     z-index:1
@@ -2401,8 +2401,8 @@ section {
 .circle {
     width: 30px;
     height: 30px;
-    border: 4px solid #00a3ad;
-    background-color: #f2f5fb;
+    border: 4px solid var(--color-teal);
+    background-color: var(--color-white);
     border-radius: 50%;
     margin: 0 54px;
     z-index:2
@@ -2488,8 +2488,8 @@ section {
 }
 
 .plus-divider-banner {
-    background: linear-gradient(to right, #00a3ad, #0a2c72);
-    color: #f2f5fb;
+    background: var(--gradient-teal);
+    color: var(--color-white);
     font-size: 24px;
     font-weight: 600;
     padding: 15px 0;
@@ -2502,14 +2502,14 @@ section {
     background-color: #0faeb5;
     padding: 60px 40px;
     border-radius: 30px;
-    color: #f2f5fb;
+    color: var(--color-white);
     position: relative;
     max-width: 1200px;
     margin:57px auto
 }
 
 .wordpress-services-section h2 {
-    color:#f2f5fb !important
+    color:var(--color-white) !important
 }
 
 .services-content {
@@ -2520,7 +2520,7 @@ section {
 }
 
 .plus-divider {
-    color: #ff5c25;
+    color: var(--color-orange);
     font-weight: 700;
     margin-bottom:10px
 }
@@ -2538,12 +2538,12 @@ section {
 }
 
 .service-list li {
-    color:#f2f5fb !important
+    color:var(--color-white) !important
 }
 
 .cta-button {
-    background-color: #ff5c25;
-    color: #f2f5fb;
+    background-color: var(--color-orange);
+    color: var(--color-white);
     padding: 12px 24px;
     text-decoration: none;
     border-radius: 4px;
@@ -2564,7 +2564,7 @@ section {
 
 .stat-box {
     background: linear-gradient(90deg, #561a8e, #252b90);
-    color: #f2f5fb;
+    color: var(--color-white);
     padding: 16px 51px;
     position: absolute;
     top: 35%;
@@ -2584,10 +2584,10 @@ section {
 }
 
 .custom_website_development {
-    background-color: #1d4382;
+    background-color: var(--color-blue);
     padding: 60px 40px;
     border-radius: 30px;
-    color: #f2f5fb;
+    color: var(--color-white);
     position: relative;
     max-width: 1200px;
     margin:57px auto
@@ -2596,7 +2596,7 @@ section {
 }
 
 .custom_website_development h2 {
-    color:#f2f5fb !important
+    color:var(--color-white) !important
 }
 
 .custom-services-content {
@@ -2631,7 +2631,7 @@ section {
 
 .custom-stat-box {
     background: linear-gradient(90deg, #561a8e, #252b90);
-    color: #f2f5fb;
+    color: var(--color-white);
     padding: 16px 32px;
     position: absolute;
     top: 35%;
@@ -2664,8 +2664,8 @@ section {
 }
 
 .custom-cta-button {
-    background-color: #ff5c25;
-    color: #f2f5fb !important;
+    background-color: var(--color-orange);
+    color: var(--color-white) !important;
     padding: 10px 25px;
     text-decoration: none;
     width: 312px;
@@ -3041,7 +3041,7 @@ section {
 
     .hero-content-text h1 {
         font-size: 1.8rem;
-        color:#1d4382
+        color:var(--color-blue)
     }
     
     /* Mobile Responsive Styles Bubbles */
