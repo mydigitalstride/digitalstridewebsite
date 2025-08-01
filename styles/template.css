@@ -8,6 +8,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .section, main, .container {
+    padding-left: 10% I !important;
+    padding-right:10% !important
 }
 
 .hero-section {
@@ -18,36 +20,14 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding-top: 100px;
     max-width: 100%;
     margin: 0 auto;
-    background:linear-gradient(to right, #189da7, #1977a3)
+    background:var(--gradient-teal)
 }
 
 .plus-icon {
     display: flex;
-    font-size: 28px;
-    font-weight: 700;
-<<<<<<< HEAD
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
     color: var(--color-orange);
-    padding-right: 0;
-    margin: 20px auto;
-    text-align:center;
-
-        @media screen and (min-width: 768px) {
-        margin: -320px 0 22px;
-        padding-right: 38px;
-        justify-content:center
-    }
-}
-
-.hero-content {
-    max-width: 100%;
-    text-align:center;
-    color:var(--color-white);
-        
-    @media screen and (min-width: 768px) {
-            max-width: 800px;
-    }
-=======
-    color: #f36e21;
     padding-right: 38px;
     margin: -320px 0 22px;
     text-align:center
@@ -55,8 +35,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .hero-content {
     max-width: 800px;
-    color:#f2f5fb
->>>>>>> parent of f83675d (Updated CSS, Organized Mobile CSS, Fixed some Issues.)
+    color:var(--color-white)
 }
 
 .hero-section h1 {
@@ -93,7 +72,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .hero-content-text h1 {
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     color: var(--color-blue);
     margin: 0;
     line-height:1.2
@@ -145,7 +124,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     .plus-icon {
         margin: 20px auto;
         padding-right: 0;
-        font-size: 22px;
+        font-size: var(--font-size-xl);
         text-align: center;
         justify-content:center
     }
@@ -169,7 +148,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
     .hero-content-text h1 {
         font-size: 1.8rem;
-        color:#1d4382
+        color:var(--color-blue)
     }
 }
 
@@ -220,7 +199,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
   100% { transform: translateY(0); }
 }
 .we-also-do-link {
-    color: #020b24; 
+    color: black; 
 }
 
 .we-also-do-link:hover {
@@ -229,8 +208,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .val-plus-icon {
     display: flex;
-    font-size: 28px;
-    font-weight: 700;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
     padding-left: 24px;
     color: var(--color-orange);
     text-align:center
@@ -249,11 +228,11 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .value-item {
-    background: linear-gradient(to right, #a0e7e5, #00b4d8);
+    background: var(--gradient-white-teal);
     padding: 20px;
     border-radius: 4px;
     color: var(--color-white);
-    font-size: 16px;
+    font-size: var(--font-size-base);
     text-align: left;
     box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
     cursor: pointer;
@@ -272,7 +251,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .value-item p:before {
     position: absolute;
     left: 0;
-    color:var(--green)
+    color:var(--color-green)
 }
 
 .values-bubble {
@@ -299,13 +278,13 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .section-header {
     padding: 60px 0;
-    background-color: #f9f9f9;
+    background-color: var(--color-white);
     text-align:center
 }
 
 .section-header h1 {
     font-size: 2.5rem;
-    color:#333
+    color:var(--color-black)
 }
 
 @media screen and (max-width: 767px) {
@@ -317,7 +296,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     .val-plus-icon {
         justify-content: center;
         padding-left: 0;
-        font-size: 24px;
+        font-size: var(--font-size-xl);
         text-align: center;
         margin-bottom:20px
     }
@@ -364,18 +343,14 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    flex-wrap: wrap;
-    padding: 100px 5%;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    text-align: center;
+    flex-wrap: nowrap;
+    padding: 40px 20px;
 }
 
 .bubble {
     flex: 1;
     min-width: 180px;
-    background: #f0ceb1;
+    background: var(--color-light-orange);
     border-radius: 15px;
     padding: 20px;
     position: relative;
@@ -386,8 +361,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .bubble-plus-icon {
     display: flex;
-    font-size: 28px;
-    font-weight: 700;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
     color: var(--color-orange);
     margin: 8px 0 19px;
     text-align:left
@@ -404,9 +379,9 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .bubble-header {
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     margin-bottom: 12px;
-    font-size: 18px;
+    font-size: var(--font-size-lg);
     color: var(--color-blue);
     padding-left:0
 }
@@ -424,10 +399,10 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .bubbles-main-button {
     display: inline-block;
     padding: 12px 40px;
-    background: linear-gradient(135deg, #00bcd4, #00838f);
+    background: var(--gradient-teal-green);
     color: var(--color-white);
-    font-weight: 600;
-    font-size: 18px;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-lg);
     border: none;
     cursor: pointer;
     text-decoration: none;
@@ -435,13 +410,21 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .bubbles-main-button:hover {
-    background:linear-gradient(135deg, #00838f, #00575b)
+    background:var(--gradient-teal-green)
+}
+
+.bubbles-row {
+    display: flex;
+    justify-content: space-around;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding:45px
 }
 
 .bubble {
     flex: 0 0 calc(33.333% - 30px);
     max-width: calc(25.33% - 30px);
-    background: var(--color-white);
+    background: var(--color-light-orange);
     border-radius: 15px;
     padding: 20px;
     position: relative;
@@ -461,9 +444,9 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .bubble-header {
-    font-weight: 700 !important;
-    font-size: 18px !important;
-    color:#001d79
+    font-weight: var(--font-weight-bold) !important;
+    font-size: var(--font-size-lg) !important;
+    color:var(--color-blue)
 }
 
 .bubble-text {
@@ -480,10 +463,10 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .bubbles-main-button {
     display: inline-block;
     padding: 12px 40px;
-    background: linear-gradient(135deg, #00bcd4, #00838f);
+    background: var(--gradient-teal-green);
     color: var(--color-white);
-    font-weight: 600;
-    font-size: 18px;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-lg);
     border: none;
     cursor: pointer;
     text-decoration: none;
@@ -491,7 +474,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .bubbles-main-button:hover {
-    background:linear-gradient(135deg, #00838f, #00575b)
+    background:var(--gradient-teal-green);
 }
 
 .marketing-section .client-spotlight-section .marketing-video-wrapper {
@@ -516,20 +499,24 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .marketing-image {
-    max-width: 450px;
-    height: 100%;
+    max-width: 100%;
+    margin-top: -205px;
+    margin-left: 783px;
+    width:431px
 }
 
 .marketing-stars, .marketing-stars-title .icon_plus {
-    color: var(--color-orange) !important
+    font-weight: var(--font-weight-bold) !important;
+    color:orange !important
 }
 
 .marketing-stars-title {
-    color: var(--color-orange) !important
+    color:orange !important
 }
 
 .marketing-content {
     padding-right: 474px;
+    font-weight:300
 }
 
 .marketing-section {
@@ -541,7 +528,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .marketing-cta-button {
-    background-color: #f36321;
+    background-color: var(--color-orange);
     color: var(--color-white);
     margin-left: 20px;
     padding: 20px 24px;
@@ -550,10 +537,17 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .values-bubble-marketing {
-    background: linear-gradient(to right, var(--color-blue), #189da7);
+    background: var(--gradient-teal-blue);
     border-radius: 20px;
     padding: 40px 40px 78px;
-    max-width: 80%;
+    max-width: 1300px;
+    margin: 0 auto;
+    box-shadow:0 8px 20px rgba(0, 0, 0, .1)
+}
+
+.values-bubble-marketing {
+    border-radius: 20px;
+    max-width: 100%;
     margin: 0 auto;
     box-shadow:0 8px 20px rgba(0, 0, 0, .1)
 }
@@ -566,7 +560,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding-top:10px
 }
 
-.values-bubble-marketing h3 {
+.values-bubble-marketing, h3 {
     color: var(--color-white);
     text-align: left;
     margin-bottom: 19px;
@@ -675,7 +669,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .growth-section .game-plan-box {
-    background: #f5f5f5;
+    background: var(--color-white);
     padding: 50px;
     margin-top: 40px;
     border-radius:8px
@@ -689,11 +683,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .highlight-orange {
-<<<<<<< HEAD
     color:var(--color-orange) !important
-=======
-    color:#f2c814 !important
->>>>>>> parent of f83675d (Updated CSS, Organized Mobile CSS, Fixed some Issues.)
 }
 
 .growth-right p {
@@ -702,33 +692,36 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .growth-left h2 {
+    font-weight: var(--font-weight-bold);
     color:var(--color-blue)
 }
 
 .growth-sub {
     font-size: 17px;
-    color: #000;
+    color: var(--color-black);
     padding: 80px;
     padding-left: 24px;
     margin:20px 0
 }
 
 .growth-left h4 {
-    font-size: 20px;
+    font-size: var(--font-size-lg);
     color:var(--color-blue)
 }
 
 .growth-right {
     flex: 1.3;
     min-width: 350px;
-    background: var(--color-white);
+    background: var(--color-light-teal);
     padding: 40px;
     border-radius: 20px;
-    font-size: 16px;
-    background-color:#70077b !important
+    font-size: var(--font-size-base);
+    background-color:var(--color-purple) !important
 }
 
 .growth-right h3 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold) !important;
     margin-top: 20px;
     color: var(--color-white) !important;
     padding-right:272px
@@ -745,11 +738,12 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     color: var(--color-white);
     padding: 12px 30px;
     text-decoration: none;
+    font-weight: var(--font-weight-bold);
     margin-top:20px
 }
 
 .icon_plus {
-    color: purple;
+    color: var(--color-purple);
     font-size:28px
 }
 
@@ -759,13 +753,16 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding: 12px 24px;
     text-decoration: none;
     width: 262px;
+    font-weight: var(--font-weight-bold);
     display: inline-block;
     margin-top:20px
 }
 
 .plus-divider-banner {
-    background: var(--gradient-teal);
+    background: var(--gradient-teal-blue);
     color: var(--color-white);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-medium);
     padding: 15px 0;
     text-align: center;
     margin: auto;
@@ -779,7 +776,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .hero-content-subtext h2 {
-    font-size: 1.5rem !important;
+    font-size: var(--font-size-xl) !important;
     margin: 0 auto !important;
     line-height: 1.2 !important;
     text-align:center !important
@@ -817,7 +814,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     }
 
     .growth-right h3 {
-        font-size: 18px;
+        font-size: var(--font-size-lg);
         padding-right:0
     }
 
@@ -911,7 +908,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     position: absolute;
     top: 254px;
     transform: translateY(-50%);
-    font-size: 2rem;
+    font-size: var(--font-size-xxl);
     background: rgba(0, 0, 0, .4);
     color: var(--color-white);
     border: none;
@@ -996,6 +993,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     text-align: center;
     background-color: var(--color-purple);
     color: var(--color-white);
+    font-weight: var(--font-weight-bold);
     margin-top: 20px;
     padding: 10px;
     border-radius:5px
@@ -1008,15 +1006,15 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .cta-decoration {
-    font-size: 1.5rem;
+    font-size: var(--font-size-xl);
     color: var(--color-purple);
     margin: 12px 0;
     letter-spacing:12px
 }
 
 .cta-description {
-    font-size: 1rem;
-    color: #333;
+    font-size: var(--font-size-base);
+    color:var(--color-black);
     margin-bottom:20px
 }
 
@@ -1069,7 +1067,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     }
 
     .slider-label {
-        font-size: 1rem;
+        font-size: var(--font-size-base);
         padding:8px
     }
 
@@ -1099,7 +1097,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     justify-content: space-between;
     gap: 30px;
     padding: 162px 20px;
-    background-color:var(--color-white)
+    background-color: var(--color-white);
 }
 
 @media (max-width: 1024px) {
@@ -1118,7 +1116,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     flex: 1 1 calc(33.333% - 40px);
     max-width: calc(33.333% - 40px);
     min-width: 260px;
-    background: linear-gradient(to right, #189da7, #1977a3);
+    background: var(--gradient-teal);
     border-radius: 15px;
     padding: 20px 24px 30px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 8%);
@@ -1142,17 +1140,17 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .blue-bubbles-row .bubble-header {
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     margin-top: 120px;
     margin-bottom: 14px;
-    font-size: 20px;
+    font-size: var(--font-size-lg);
     color: var(--color-white) !important;
     text-align:left
 }
 
 .bubble-plus-icon {
-    font-size: 24px;
-    font-weight: 700;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
     color: var(--color-orange);
     display: block;
     text-align: left;
@@ -1182,8 +1180,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding: 12px 40px;
     background-color: var(--color-orange);
     color: var(--color-white);
-    font-weight: 600;
-    font-size: 18px;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-lg);
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -1202,7 +1200,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .acf-404-section {
-    background: var(--color-white);
+    background: var(--color-light-blue);
     padding: 100px 20px;
     text-align: center;
     font-family:helvetica neue, sans-serif
@@ -1221,14 +1219,14 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .acf-404-message {
-    font-size: 18px;
-    color: #333;
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
     margin-bottom:15px
 }
 
 .acf-404-subtext {
-    font-size: 18px;
-    color: #0057b7;
+    font-size: var(--font-size-lg);
+    color: var(--color-blue);
     font-weight: 500;
     margin-bottom:30px
 }
@@ -1246,7 +1244,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .acf-404-button:hover {
-    background:var(--color-orange)
+    background:#d95b12
 }
 
 .contact-flex-section {
@@ -1272,14 +1270,14 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .contact-left h3, .contact-right h3 {
-    font-size: 38px !important;
+    font-size: var(--font-size-xxl) !important;
     color: var(--color-blue);
     margin-bottom: 10px;
     padding-left:initial
 }
 
 .subtitle {
-    font-size: 16px;
+    font-size: var(--font-size-base);
     color: var(--color-teal);
     padding-right: 114px;
     margin-bottom:40px !important
@@ -1309,7 +1307,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .cf7-form-wrap input[type=submit] {
     background-color: var(--color-orange);
     color: var(--color-white);
-    font-size: 16px;
+    font-size: var(--font-size-base);
     border: none;
     padding: 12px 25px;
     cursor: pointer;
@@ -1334,12 +1332,12 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     border: none;
     margin-top: 100px;
     padding: 12px 25px;
-    font-size: 16px;
+    font-size: var(--font-size-base);
     cursor:pointer
 }
 
 .contact-right {
-    background-color:var(--color-white)
+    background-color:var(--color-light-orange)
 }
 
 .cf7-form-wrap form {
@@ -1378,7 +1376,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .cf7-submit input[type=submit] {
     background-color: var(--color-orange) !important;
     color: var(--color-white) !important;
-    font-size: 16px;
+    font-size: var(--font-size-base);
     border: none;
     padding: 12px 25px;
     cursor: pointer;
@@ -1452,7 +1450,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .resource-cards-section .section-heading {
     font-size: 3rem;
-    color: #1d2951 !important;
+    color: var(--color-text) !important;
     margin-bottom: 2rem;
     text-align:left
 }
@@ -1469,7 +1467,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #fcded4;
+    background-color: var(--color-light-orange);
     padding: 2rem;
     border-radius: 2rem;
     box-shadow: 0 0 0 2px transparent;
@@ -1485,15 +1483,15 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .card-content h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #1d2951;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
     margin-bottom:.5rem
 }
 
 .decor-line {
     color: var(--color-orange);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     margin: .5rem 0;
     letter-spacing:4px
 }
@@ -1501,7 +1499,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .card-content p {
     font-size: .95rem;
     line-height: 1.6;
-    color:#333
+    color:var(--color-black)
 }
 
 .card-icon img {
@@ -1514,8 +1512,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .resource-listing-section .section-heading {
-    font-size: 2rem;
-    color: #1d2951;
+    font-size: var(--font-size-xxl);
+    color: var(--color-text);
     margin-bottom: 2rem;
     text-align:left
 }
@@ -1531,7 +1529,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .listing-card {
-    background: linear-gradient(to right, #0074b7, #053e7a);
+    background: var(--gradient-teal-blue);
     padding: 2rem;
     border-radius: 1.5rem;
     color: var(--color-white) !important;
@@ -1546,8 +1544,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .listing-card h3 {
-    font-size: 1.5rem !important;
-    font-weight: 700 !important;
+    font-size: var(--font-size-xl) !important;
+    font-weight: var(--font-weight-bold) !important;
     color: var(--color-white) !important;
     margin-bottom:.75rem
 }
@@ -1563,15 +1561,15 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     color: var(--color-white) !important;
     padding: .6rem 1.2rem;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     align-self:flex-start
 }
 
 .peach-banner {
-    background: #ffdab9;
+    background: var(--color-light-orange);
     color: var(--color-white);
-    font-size: 24px;
-    font-weight: 600;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-medium);
     padding: 25px 0;
     text-align: center;
     margin: auto;
@@ -1581,25 +1579,25 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .listing-header {
     color: var(--color-blue);
     text-align: left;
-    font-weight: 700 !important;
+    font-weight: var(--font-weight-bold) !important;
     padding-left: 21px;
     font-size: 1.8rem;
     margin-bottom:.5rem
 }
 
 .plus-icon-listing {
-    color: purple;
-    font-size: 28px;
-    font-weight: 700;
+    color: var(--color-purple);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
     padding-left: 21px;
     text-align: left;
     margin-bottom:1.5rem
 }
 
 .plus-icon-teams {
-    color: purple;
-    font-size: 28px;
-    font-weight: 700;
+    color: var(--color-purple);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
     padding-left: 21px;
     text-align: center;
     margin-bottom:1.5rem
@@ -1626,7 +1624,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     border-radius: 20px;
     z-index: 1;
     padding: 40px;
-    background: linear-gradient(90deg, #0089a0 0%, #134e77 100%);
+    background: var(--gradient-teal-blue);
     max-width: 100%;
     margin: 0 auto;
     box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
@@ -1636,20 +1634,20 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .values-bubble h2 {
     font-size: 2.4rem !important;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     margin-bottom:20px
 }
 
 .values-cta {
     display: inline-block;
-    background-color: #f75c03;
+    background-color: var(--color-orange);
     color: var(--color-white);
     padding: 16px 36px;
     margin: 16px 0 32px;
-    font-weight: 400;
+    font-weight: var(--font-weight-regular);
     text-decoration: none;
     border-radius: 2px;
-    font-size: 18px;
+    font-size: var(--font-size-lg);
     position:relative !important
 }
 
@@ -1662,7 +1660,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .value-item {
-    background: linear-gradient(to right, #189da7, #1977a3);
+    background: var(--gradient-teal);
     border-radius: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
     color: var(--color-white);
@@ -1732,23 +1730,23 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .mission-right p, h2, li {
-    color:var(--color-white);
+    color:var(--color-blue) !important
 }
 
 .mission-left h2 {
-    font-size: 32px;
-    font-weight: 700;
-    color:var(--color-white);
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-weight-bold);
+    color:var(--color-blue) !important
 }
 
 .mission-sub {
-    font-size: 28px;
+    font-size: var(--font-size-xl);
     color: var(--color-orange);
-    margin:20px 0;
+    margin:20px 0
 }
 
 .mission-left h4 {
-    font-size: 20px;
+    font-size: var(--font-size-lg);
     color:var(--color-blue)
 }
 
@@ -1760,15 +1758,15 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .mission-right {
     flex: 1.3;
     min-width: 350px;
-    background: var(--color-white);
+    background: var(--color-light-teal);
     padding: 40px;
     border-radius: 20px;
     font-size:16px
 }
 
 .mission-right h3 {
-    font-size: 20px;
-    font-weight: 700;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
     margin-top:20px
 }
 
@@ -1808,7 +1806,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     }
 
     .bubble-plus-icon {
-        font-size: 20px;
+        font-size: var(--font-size-lg);
         text-align:center
     }
 
@@ -1861,7 +1859,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     }
 
     .contact-left h3, .contact-right h3 {
-        font-size: 24px !important;
+        font-size: var(--font-size-xl) !important;
         text-align:center
     }
 
@@ -1950,7 +1948,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .ds-about-us-page {
     font-family: Arial, sans-serif;
-    color:#333
+    color:var(--color-black)
 }
 
 .ds-background-image-section {
@@ -1981,13 +1979,13 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding-top: 100px;
     max-width: 100%;
     margin: 0 auto;
-    background:linear-gradient(to right, #189da7, #1977a3)
+    background:var(--gradient-teal)
 }
 
 .ds-bubble-plus-icon {
     display: flex;
-    font-size: 28px;
-    font-weight: 700;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
     color: var(--color-orange);
     padding-right: 38px;
     margin: -320px 0 22px;
@@ -2063,11 +2061,7 @@ section {
 }
 
 .ds-strategy-image {
-<<<<<<< HEAD
     border: 4px solid var(--color-orange);
-=======
-    border: 4px solid orange;
->>>>>>> parent of f83675d (Updated CSS, Organized Mobile CSS, Fixed some Issues.)
     max-width: 48%;
     margin-top: 78px;
     height: auto;
@@ -2101,29 +2095,29 @@ section {
 }
 
 .ds-strategy-left h2 {
-    font-size: 32px;
-    font-weight: 700;
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-weight-bold);
     color:var(--color-blue)
 }
 
 .ds-strategy-left h4 {
-    font-size: 20px;
+    font-size: var(--font-size-lg);
     color:var(--color-blue)
 }
 
 .ds-strategy-right {
     flex: 1.3;
     min-width: 350px;
-    background: var(--color-white);
+    background: var(--color-light-teal);
     padding: 40px;
     border-radius: 20px;
-    font-size: 16px;
-    color:#004a5e
+    font-size: var(--font-size-base);
+    color:var(--color-green)
 }
 
 .ds-strategy-right h3 {
-    font-size: 20px;
-    font-weight: 700;
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
     margin-top:20px
 }
 
@@ -2133,7 +2127,7 @@ section {
 }
 
 .ds-mindset-bubble {
-    background-color: #dae3ff;
+    background-color: var(--color-light-blue);
     border-radius: 30px;
     padding: 60px;
     max-width: 1300px;
@@ -2145,10 +2139,10 @@ section {
 }
 
 .ds-mindset-bubble h2 {
-    color: #0c2651;
+    color: var(--color-text);
     text-align: left;
     font-size: 2.2rem !important;
-    font-weight: 700 !important;
+    font-weight: var(--font-weight-bold) !important;
     line-height: 1.2;
     margin-bottom:-101px
 }
@@ -2175,7 +2169,7 @@ section {
 .ds-mindset-item {
     display: flex;
     flex-direction: column;
-    background: var(--color-green);
+    background: var(--color-teal);
     overflow: hidden;
     color: var(--color-white);
     width: 500px;
@@ -2184,10 +2178,10 @@ section {
 }
 
 .ds-mindset-title {
-    background: var(--gradient-dark-teal);
+    background: var(--gradient-teal-blue);
     color: var(--color-white);
-    font-weight: 600;
-    font-size: 16px;
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-base);
     border: none;
     text-align: left;
     padding: 20px;
@@ -2213,8 +2207,8 @@ section {
     display: none;
     padding: 10px;
     background: 0 0;
-    color: #000;
-    font-size: 1rem;
+    color: var(--color-black);
+    font-size: var(--font-size-base);
     max-width: 413px;
     line-height: 1.6;
     text-align:left
@@ -2256,7 +2250,7 @@ section {
         font-size: .95rem;
         max-width: 100%;
         padding: 10px 15px;
-        color:#000
+        color:var(--color-black)
     }
 }
 
@@ -2267,9 +2261,9 @@ section {
 
 .ds-our-team-section .ds-section-title {
     font-size: 2.2rem !important;
-    color: var(--color-blue);
+    color: var(--color-green);
     margin-bottom: 15px;
-    font-weight: 700 !important;
+    font-weight: var(--font-weight-bold) !important;
     display: inline-flex;
     align-items:center
 }
@@ -2284,18 +2278,18 @@ section {
 
 .ds-our-team-section .ds-section-stars {
     margin-bottom: 40px;
-    color:purple
+    color:var(--color-purple)
 }
 
 .ds-our-team-section .ds-star-icon {
-    color: #ff8c00;
+    color: var(--color-orange);
     font-size: 1.5em;
     margin-right:5px
 }
 
 .ds-our-team-section .ds-team-members-wrapper {
     flex: 1 1 22%;
-    background: #fbd7b7;
+    background: var(--gradient-light-orange);
     border-radius: 15px;
     padding: 20px;
     position: relative;
@@ -2306,7 +2300,7 @@ section {
 }
 
 .ds-our-team-section .ds-team-member-card {
-    background-color: var(--color-blue);
+    background-color: var(--color-green);
     color: var(--color-white);
     border-radius: 15px;
     padding: 30px;
@@ -2388,12 +2382,12 @@ section {
     padding: 12px 25px;
     border-radius: 5px;
     text-decoration: none;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     transition:background-color .3s ease
 }
 
 .ds-our-team-section .ds-member-cta:hover {
-    background-color:var(--color-orange);
+    background-color:var(--color-orange)
 }
 
 @media (max-width: 992px) {
@@ -2455,7 +2449,7 @@ section {
 }
 
 .ds-bubble {
-    background: var(--color-white);
+    background: var(--color-light-orange);
     border-radius: 15px;
     padding: 20px;
     position: relative;
@@ -2477,15 +2471,15 @@ section {
 }
 
 .ds-bubble-header {
-    font-weight: 700 !important;
+    font-weight: var(--font-weight-bold) !important;
     margin-top: 25px !important;
     margin-bottom: 8px;
-    font-size: 18px !important;
+    font-size: var(--font-size-lg) !important;
     color:var(--color-blue) !important
 }
 
 .ds-bubble-text {
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     line-height: 1.4;
     margin: 10px;
     color: var(--color-blue) !important;
@@ -2502,19 +2496,19 @@ section {
     padding: 6px 38px;
     background: var(--color-orange);
     color: var(--color-white) !important;
-    font-weight: 400;
-    font-size: 18px;
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-lg);
     border: none;
     cursor: pointer;
     text-decoration: none;
-    transition:background .3s ease;
+    transition:background .3s ease
 }
 
 .ds-centered-stars {
     display: flex;
     justify-content: center;
     margin-bottom: 10px;
-    color: #ff9800;
+    color: var(--color-orange);
     font-size:20px
 }
 
@@ -2532,8 +2526,8 @@ section {
 }
 
 .ds-bubble-header {
-    font-weight: 700;
-    font-size: 18px;
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-lg);
     text-align: center;
     margin-top: 0;
     margin-bottom:8px
@@ -2568,7 +2562,7 @@ section {
     }
 
     .ds-bubble-header {
-        font-size: 16px !important;
+        font-size: var(--font-size-base) !important;
         margin-top:40px !important
     }
 
@@ -2582,14 +2576,14 @@ section {
     }
 
     .ds-bubbles-main-button {
-        font-size: 16px;
+        font-size: var(--font-size-base);
         padding: 10px 28px;
         width: 90%;
         max-width:300px
     }
 
     .ds-centered-stars {
-        font-size: 18px;
+        font-size: var(--font-size-lg);
         margin-bottom:8px
     }
 
@@ -2606,10 +2600,10 @@ section {
 }
 
 .ds-plus-divider-banner {
-    background: var(--gradient-teal);
+    background: var(--gradient-teal-blue);
     color: var(--color-white);
-    font-size: 24px;
-    font-weight: 600;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-medium);
     padding: 15px 0;
     text-align: center;
     margin: auto;
@@ -2642,7 +2636,7 @@ section {
 
 .ds-our-fur-section .ds-section-title {
     font-size: 2.2rem !important;
-    font-weight: 700 !important;
+    font-weight: var(--font-weight-bold) !important;
     text-align: center;
     color: var(--color-blue);
     margin-bottom:15px
@@ -2669,7 +2663,7 @@ section {
     justify-content: center;
     gap: 8px;
     color: var(--color-purple);
-    font-size: 28px;
+    font-size: var(--font-size-xl);
     margin-bottom:40px
 }
 
@@ -2704,13 +2698,13 @@ section {
 }
 
 .ds-plus-icon {
-    font-size: 32px;
+    font-size: var(--font-size-xxl);
     color: var(--color-purple);
     padding-left:4px
 }
 
 .ds-fur-member h3 {
-    font-size: 20px;
+    font-size: var(--font-size-lg);
     color: var(--color-blue);
     text-align: center;
     margin-bottom:8px
@@ -2719,7 +2713,7 @@ section {
 .ds-fur-member p {
     font-size: 14px;
     color: var(--color-blue);
-    font-weight: 600;
+    font-weight: var(--font-weight-medium);
     margin: 0;
     text-align:center
 }
@@ -2753,11 +2747,7 @@ section {
 .ds-cta-image-wrapper {
     margin-bottom: 40px;
     display: inline-block;
-<<<<<<< HEAD
     border:5px solid var(--color-orange)
-=======
-    border:5px solid orange
->>>>>>> parent of f83675d (Updated CSS, Organized Mobile CSS, Fixed some Issues.)
 }
 
 .ds-cta-main-image {
@@ -2804,13 +2794,13 @@ section {
 }
 
 .ds-cta-button:hover {
-    background:linear-gradient(to right, #189da7, #1977a3) !important
+    background:var(--gradient-teal) !important
 }
 
 .ds-plus-icon-teams {
     color: var(--color-purple);
-    font-size: 28px;
-    font-weight: 700;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
     padding-left: 21px;
     text-align: center;
     margin-bottom:1.5rem
@@ -2906,8 +2896,8 @@ section {
 
 .package-item-header {
     font-size: 1.1em;
-    font-weight: 600;
-    color: #1f2937;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-black);
     margin-bottom:5px
 }
 
@@ -2984,7 +2974,7 @@ section {
 
 .concept-title {
     font-size: 2.5rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-medium);
     margin-bottom: 0;
     margin-right: 221px;
     padding-left: 40px;
@@ -2994,7 +2984,7 @@ section {
 .concept-subtitle {
     color: var(--color-orange);
     padding-left: 40px;
-    font-weight: 600;
+    font-weight: var(--font-weight-medium);
     margin-bottom:25px
 }
 
@@ -3013,8 +3003,8 @@ section {
 }
 
 .concept-step.highlight-step {
-    background: var(--gradient-orange);
-    color: var(--color-text);
+    background: var(--gradient-light-orange);
+    color:var(--color-text)
 }
 
 .timeline-scope {
@@ -3028,8 +3018,8 @@ section {
 }
 
 .timeline-heading {
-    font-size: 32px;
-    font-weight: 600;
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-weight-medium);
     color: var(--color-blue);
     margin-bottom:30px
 }
@@ -3069,9 +3059,9 @@ section {
     justify-content: space-between;
     max-width: 600px;
     margin: 0 auto 40px;
-    font-size: 18px;
+    font-size: var(--font-size-lg);
     font-weight: 500;
-    color:#0a2c72
+    color:var(--color-blue)
 }
 
 .left-label, .right-label {
@@ -3079,13 +3069,13 @@ section {
 }
 
 .timeline-features {
-    background: #e8e9f9;
+    background: var(--color-white);
     max-width: 1e3px;
     margin: 0 auto;
     padding: 40px 30px;
     text-align: left;
-    font-size: 18px;
-    color: #111;
+    font-size: var(--font-size-lg);
+    color: var(--color-black);
     position:relative
 }
 
@@ -3098,10 +3088,10 @@ section {
     max-width: 1e3px;
     margin: 0 auto;
     padding: 40px 30px;
-    background: #e8e9f9;
+    background: var(--color-light-blue);
     text-align: left;
-    font-size: 18px;
-    color:#111
+    font-size: var(--font-size-lg);
+    color:var(--color-black)
 }
 
 .timeline-features-list {
@@ -3144,10 +3134,10 @@ section {
 }
 
 .plus-divider-banner {
-    background: var(--gradient-teal);
+    background: var(--gradient-teal-blue);
     color: var(--color-white);
-    font-size: 24px;
-    font-weight: 600;
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-medium);
     padding: 15px 0;
     text-align: center;
     margin: auto;
@@ -3155,7 +3145,7 @@ section {
 }
 
 .wordpress-services-section {
-    background-color: #0faeb5;
+    background-color: var(--color-teal);
     padding: 60px 40px;
     border-radius: 30px;
     color: var(--color-white);
@@ -3177,12 +3167,12 @@ section {
 
 .plus-divider {
     color: var(--color-orange);
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     margin-bottom:10px
 }
 
 .subheading {
-    font-size: 1rem;
+    font-size: var(--font-size-base);
     line-height:1.6
 }
 
@@ -3203,7 +3193,7 @@ section {
     padding: 12px 24px;
     text-decoration: none;
     border-radius: 4px;
-    font-weight: 700;
+    font-weight: var(--font-weight-bold);
     display: inline-block;
     margin-top:20px
 }
@@ -3219,7 +3209,7 @@ section {
 }
 
 .stat-box {
-    background: linear-gradient(90deg, #561a8e, #252b90);
+    background: var(--gradient-purple-blue);
     color: var(--color-white);
     padding: 16px 51px;
     position: absolute;
@@ -3229,13 +3219,13 @@ section {
 }
 
 .stat-value {
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-weight-bold);
     display:block
 }
 
 .stat-subtext {
-    font-size: 1rem;
+    font-size: var(--font-size-base);
     display:block
 }
 
@@ -3260,17 +3250,17 @@ section {
 }
 
 .custom_website_development {
-    background-color: #1d4382;
+    background-color: var(--color-blue);
     padding: 59px 184px;
     border-radius: 30px;
-    color: #f2f5fb;
+    color: var(--color-white);
     position: relative;
     max-width: 1200px;
     margin:57px auto
 }
 
 .custom_website_development h2 {
-    color:#f2f5fb !important
+    color:var(--color-white) !important
 }
 
 .custom-services-content {
@@ -3288,17 +3278,16 @@ section {
 }
 
 .custom-screw-image {
-    max-width: 100%;
-    height: 500px;
+    max-width: 118%;
+    height: auto;
     padding: 3px;
+    margin-left: -181px;
     display: flex;
-    position:absolute;
-    left: -10%;
-    top: 5%;
+    position:relative
 }
 
 .custom-stat-box {
-    background: linear-gradient(90deg, #561a8e, #252b90);
+    background: var(--gradient-purple-blue);
     color: var(--color-white);
     padding: 16px 32px;
     position: absolute;
@@ -3308,13 +3297,13 @@ section {
 }
 
 .custom-stat-value {
-    font-size: 2rem;
-    font-weight: 700;
+    font-size: var(--font-size-xxl);
+    font-weight: var(--font-weight-bold);
     display:block
 }
 
 .custom-stat-subtext {
-    font-size: 1rem;
+    font-size: var(--font-size-base);
     display:block
 }
 
@@ -3337,639 +3326,7 @@ section {
     padding: 10px 25px;
     text-decoration: none;
     width: 312px;
-    font-weight: 400;
+    font-weight: var(--font-weight-regular);
     display: initial;
     margin-top: 15px
 }
-
-
-/* Right Section and Left Section */
-.right-section
-{
-    display: flex;
-    width: 50%;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-}
-.left-section
-{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-<<<<<<< HEAD
-
-/* Mobile Responsive Styles Start */
-@media screen and (max-width: 767px) {
-    .ds-about-digital-stride-section .ds-section-title, .ds-our-team-section .ds-section-title {
-        font-size:2em
-    }
-
-    .ds-about-digital-stride-section .ds-section-content, .ds-strategy-people-no-fluff-section .ds-block-content, .ds-mindset-bullet-points-section .ds-point-content {
-        font-size:1em
-    }
-    
-    .ds-bubbles-row {
-        flex-direction: column;
-        align-items: center;
-        padding: 30px 15px;
-        gap:20px
-    }
-
-    .ds-bubble {
-        width: 100%;
-        max-width: 100%;
-        padding:20px 15px
-    }
-
-    .ds-bubble-image {
-        top: 10px;
-        left: 10px;
-        width: 30px;
-        height:30px
-    }
-
-    .ds-bubble-header {
-        font-size: 16px !important;
-        margin-top:40px !important
-    }
-
-    .ds-bubble-text {
-        font-size: 14px;
-        margin:10px auto
-    }
-
-    .ds-bubbles-button-wrapper {
-        margin-top:20px
-    }
-
-    .ds-bubbles-main-button {
-        font-size: 16px;
-        padding: 10px 28px;
-        width: 90%;
-        max-width:300px
-    }
-
-    .ds-centered-stars {
-        font-size: 18px;
-        margin-bottom:8px
-    }
-
-    .ds-bubble-img-center {
-        margin:15px 0
-    }
-
-    .ds-bubble-image-center {
-        width: 100%;
-        max-width: 300px;
-        height: auto;
-        border-radius:10px
-    }
-    
-    .ds-mindset-bubble {
-        padding: 30px 20px;
-        border-radius: 20px;
-        max-width: 100%;
-        padding-bottom:100px
-    }
-
-    .ds-mindset-bubble h2 {
-        text-align: center;
-        margin-bottom:20px
-    }
-
-    .ds-mindset-list, .ds-mindset-items {
-        align-items: center;
-        margin-top: 0;
-        margin-bottom: 0;
-        gap:16px
-    }
-
-    .ds-mindset-item {
-        width: 100%;
-        max-width: 100%;
-        font-size:15px
-    }
-
-    .ds-mindset-title {
-        font-size: 15px;
-        padding: 16px;
-        text-align:left
-    }
-
-    .ds-point-content-outside {
-        font-size: .95rem;
-        max-width: 100%;
-        padding: 10px 15px;
-        color:#000
-    }
-    
-    .blue-bubbles-row {
-        flex-direction: column;
-        gap: 20px;
-        padding:0 15px
-    }
-
-    .blue-bubbles-row .bubble {
-        flex: 1 1 100%;
-        max-width: 100%;
-        min-width: 100%;
-        padding: 20px;
-        margin-bottom:20px
-    }
-
-    .blue-bubbles-row .bubble-image {
-        position: static;
-        transform: none;
-        width: 80px;
-        height: auto !important;
-        margin: 0 auto 20px;
-        display:block
-    }
-
-    .blue-bubbles-row .bubble-header {
-        margin-top: 10px;
-        text-align: center;
-        font-size:18px
-    }
-
-    .bubble-plus-icon {
-        font-size: 20px;
-        text-align:center
-    }
-
-    .bubble-list {
-        margin-left: 0;
-        padding-left:20px
-    }
-
-    .bubble-list li {
-        font-size:14px
-    }
-
-    .bubbles-button-wrapper {
-        text-align:center
-    }
-
-    .bubbles-main-button {
-        width: 100%;
-        padding: 14px 0;
-        font-size:16px
-    }
-
-    .bubbles-blue-right {
-        font-size: 14px;
-        text-align:center
-    }
-
-    .acf-404-heading-image {
-        max-width:80%
-    }
-
-    .acf-404-message, .acf-404-subtext {
-        font-size:16px
-    }
-
-    .acf-404-button {
-        width: 100%;
-        font-size:16px
-    }
-
-    .contact-flex-section {
-        padding: 40px 20px;
-        flex-direction: column;
-        gap:20px
-    }
-
-    .contact-left, .contact-right {
-        flex: 1 1 100%;
-        padding:20px
-    }
-
-    .contact-left h3, .contact-right h3 {
-        font-size: 24px !important;
-        text-align:center
-    }
-
-    .subtitle {
-        font-size: 14px;
-        padding-right: 0;
-        text-align:center
-    }
-
-    .cf7-two-cols {
-        flex-direction:column
-    }
-
-    .values-section {
-        padding:60px 20px
-    }
-
-    .values-bubble {
-        padding:30px 20px
-    }
-
-    .values-bubble h2 {
-        font-size:1.8rem
-    }
-
-    .value-description {
-        font-size:14px
-    }
-
-    .values-background-image {
-        display:none
-    }
-
-    .mission-local-section {
-        padding: 60px 20px;
-        gap:30px
-    }
-
-    .mission-left h2 {
-        font-size:24px
-    }
-
-    .mission-sub {
-        font-size:20px
-    }
-
-    .mission-right {
-        padding:20px
-    }
-
-    .card-wrapper {
-        padding-right: 0;
-        padding-left:10px
-    }
-
-    .resource-card {
-        flex-direction: column;
-        padding: 1.5rem;
-        gap:1rem
-    }
-
-    .card-content {
-        max-width: 100%;
-        text-align:center
-    }
-
-    .card-icon img {
-        margin:0 auto
-    }
-
-    .listing-wrapper {
-        grid-template-columns: 1fr;
-        padding-right:20px
-    }
-
-    .listing-header, .plus-icon-listing, .plus-icon-teams {
-        font-size: 1.2rem;
-        text-align: center;
-        padding-left:0
-    }
-
-    .floating-sidebar {
-        display:none
-    }
-    /* Mobile Responsive Values */
-    .val-plus-icon {
-        justify-content: center;
-        padding-left: 0;
-        font-size: 24px;
-        text-align: center;
-        margin-bottom:20px
-    }
-
-    .values-list {
-        align-items: center;
-        flex-direction: column;
-        margin-top: 0 !important;
-        gap:16px
-    }
-
-    .value-block {
-        width: 100%;
-        padding:0 15px
-    }
-
-    .value-item {
-        font-size: 15px;
-        text-align: left;
-        padding:16px
-    }
-
-    .values-bubble {
-        border-radius: 12px;
-        margin: 20px auto;
-        padding:15px
-    }
-
-    .values-bubble h2, .values-bubble h3 {
-        text-align: center;
-        padding-left:0
-    }
-    /* Mobile Responsive Section Header */
-    .section-header {
-        padding:40px 0
-    }
-
-    .section-header h1 {
-        font-size:2rem
-    }
-    .section-title {
-        margin-bottom: 40px;
-        font-size:1.5rem
-    }
-    /* Mobile Responsive Hero Section */
-    .hero-section h1 {
-        font-size:2rem
-    }
-
-    .hero-section h2 {
-        font-size:1.2rem
-    }
-
-    .hero-text {
-        max-width: 100%;
-        margin-bottom:30px
-    }
-
-    .hero-right {
-        display:none
-    }
-
-    .section-image, .overlay-gradient {
-        display:none
-    }
-
-    .hero-section-text {
-        padding:40px 15px
-    }
-
-    .hero-content-text h1 {
-        font-size: 1.8rem;
-        color:var(--color-blue)
-    }
-    
-    /* Mobile Responsive Styles Bubbles */
-    .bubbles-row {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        padding:30px 15px
-    }
-
-    .bubble {
-        width: 100%;
-        max-width: 100%;
-        margin: 0 auto;
-        padding: 20px 15px;
-        display: flex;
-        flex-direction:column
-    }
-
-    .bubble-image {
-        position: relative;
-        top: 0;
-        left: 0;
-        width: 60px;
-        height: 60px;
-        transform: none;
-        margin:0 auto 20px
-    }
-
-    .bubble-header {
-        margin-top: 0;
-        text-align:center
-    }
-
-    .bubble-text {
-        text-align:center
-    }
-
-    .bubbles-button-wrapper {
-        margin-top: 20px;
-        text-align:center
-    }
-
-    .bubbles-main-button {
-        padding: 10px 30px;
-        width: 90%;
-        max-width:300px
-    }
-    /* Mobile Responsive Marketing Section */
-    .marketing-section {
-        padding:60px 20px
-    }
-
-    .marketing-content {
-        padding-right: 0;
-        text-align:center
-    }
-
-    .marketing-image {
-        width: 100%;
-        margin: 20px 0 0;
-        max-width: 100%;
-        height:auto
-    }
-
-    .marketing-section h2, .marketing-section p, .marketing-text {
-        padding-left: 0;
-        padding-top: 10px;
-        text-align:center
-    }
-
-    .marketing-cta {
-        padding-top: 20px;
-        text-align:center
-    }
-
-    .marketing-cta-button {
-        display: block;
-        margin: 10px auto 0;
-        width: 90%;
-        max-width: 280px;
-        padding:12px 20px
-    }
-    /* Mobile Responsive Values Bubble Marketing */
-    .values-bubble-marketing {
-        padding:30px 20px 60px
-    }
-
-    .values-bubble-marketing h2, .values-bubble-marketing h3 {
-        text-align: center;
-        padding-left:0
-    }
-    /* Mobile Responsive Growth Section */
-        .growth-section {
-        flex-direction: column;
-        padding: 40px 20px;
-        gap:20px
-    }
-
-    .growth-left, .growth-right {
-        min-width: 100%;
-        padding: 20px;
-        text-align:center
-    }
-
-    .growth-left h2 {
-        font-size:24px
-    }
-
-    .growth-sub {
-        font-size: 15px;
-        padding:20px 10px
-    }
-
-    .growth-left h4 {
-        font-size:18px
-    }
-
-    .growth-right {
-        font-size: 14px;
-        padding:20px
-    }
-
-    .growth-right h3 {
-        font-size: 18px;
-        padding-right:0
-    }
-
-    .growth-right p {
-        padding-right:0
-    }
-    /* Mobile Responsive Growth Section CTA */
-    .hero-section-subtext {
-        padding: 40px 20px !important;
-        margin-top:-32px
-    }
-
-    .hero-content-subtext h2 {
-        font-size:1.2rem !important
-    }
-
-    .custom-cta-button {
-        width:100%
-    }
-
-    .growth-section .cta-button {
-        width:100%
-    }
-    /* Mobile Responsive centered bubbles */
-    .centered-bubbles-section {
-        flex-direction: column;
-        gap: 20px;
-        padding:20px 10px
-    }
-
-    .centered-bubbles-container {
-        flex: 0 0 100%;
-        max-width: 100%;
-        padding: 30px 15px;
-        height:auto
-    }
-
-    .centered-bubble-image {
-        max-width: 80px;
-        max-height:80px
-    }
-    /* Mobile Responsive Before-After Slider */
-    .before-after-slider .slide-inner {
-        flex-direction: column;
-        gap: 20px;
-        padding:0 10px
-    }
-
-    .before-after-slider .slide-inner img {
-        width:100% !important
-    }
-    
-    .slider-nav {
-        top: 50%;
-        padding: 8px 12px;
-        font-size:1.5rem
-    }
-
-    .slider-label {
-        font-size: 1rem;
-        padding:8px
-    }
-    /* Mobile Responsive CTA */
-    .cta-wrapper {
-        padding:0 15px
-    }
-
-    .cta-button {
-        width: 100%;
-        padding: 18px 0;
-        font-size:1rem
-    }
-
-    .cta-decoration {
-        font-size: 1.2rem;
-        letter-spacing:6px
-    }
-
-    .cta-description {
-        font-size:.95rem
-    }
-}
-/*mobile responsive styles end*/
-
-@media (max-width: 1024px) {
-    .blue-bubbles-row {
-        grid-template-columns:repeat(2, 1fr)
-    }
-}
-
-@media (max-width: 600px) {
-    .blue-bubbles-row {
-        grid-template-columns:1fr
-    }
-}
-
-@media (max-width: 992px) {
-    .ds-strategy-people-no-fluff-section .ds-container, .ds-mindset-bullet-points-section .ds-container {
-        flex-direction: column;
-        align-items: center;
-        text-align:center
-    }
-
-    .ds-strategy-people-no-fluff-section .ds-strategy-column, .ds-mindset-bullet-points-section .ds-mindset-column {
-        max-width: 100%;
-        margin-bottom:30px
-    }
-
-    .ds-strategy-people-no-fluff-section .ds-content-columns, .ds-mindset-bullet-points-section .ds-bullet-points-list {
-        max-width:100%
-    }
-
-    .ds-our-team-section .ds-team-member-card {
-        flex-direction: column;
-        text-align:center
-    }
-
-    .ds-our-team-section .ds-member-header, .ds-our-team-section .ds-member-details {
-        width:100%
-    }
-}
-
-@media (max-width: 576px) {
-    .ds-container {
-        padding:15px
-    }
-
-    section {
-        padding:40px 0
-    }
-
-    .ds-strategy-people-no-fluff-section .ds-content-block, .ds-mindset-bullet-points-section .ds-bullet-point-item {
-        padding:20px
-    }
-}
-=======
->>>>>>> parent of f83675d (Updated CSS, Organized Mobile CSS, Fixed some Issues.)

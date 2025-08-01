@@ -5,9 +5,6 @@ Version: 1.0
 /* ===========================================
 DIGITAL STRIDE - FULL CSS STYLESHEET
 ===========================================*/
-.wp-soft-margin {
-  padding-left: 5%
-}
 
 :root {
   /* Primary Colors */
@@ -31,25 +28,26 @@ DIGITAL STRIDE - FULL CSS STYLESHEET
   --color-green: #0A484C;            /* rgb(10, 72, 76) */
 
   /* Gradients */
-  --gradient-teal: linear-gradient(90deg, #189da7, #1D4382); /* rgb(24,157,167 → 25,119,163) */
-  --gradient-dark-teal: linear-gradient(135deg, #189da7, #0A484C); /* rgb(24,157,167 → 10,72,76) */
-  --gradient-orange: linear-gradient(135deg, #2e2d2d, #ff4a07); /* rgb(246,221,211 → 255,74,7) */
+  --gradient-teal-blue: linear-gradient(90deg, #189da7, #1D4382); /* rgb(24,157,167 → 25,119,163) */
+  --gradient-teal-green: linear-gradient(135deg, #189da7, #0A484C); /* rgb(24,157,167 → 10,72,76) */
+  --gradient-light-orange: linear-gradient(135deg, #f6ddd3, #ff4a07); /* rgb(246,221,211 → 255,74,7) */
   --gradient-yellow-orange: linear-gradient(135deg, #f2c814, #ff4a07); /* rgb(246,221,211 → 255,74,7) */
-  --gradient-white-teal: linear-gradient(135deg, #f2f5fb, #189da7); /* rgb(246,221,211 → 255,74,7) */
+  --gradient-light-teal: linear-gradient(135deg, #D3E9EB, #189da7); /* rgb(246,221,211 → 255,74,7) */
   --gradient-white-blue: linear-gradient(135deg, #f2f5fb, #1D4382); /* rgb(246,221,211 → 255,74,7) */
+  --gradient-purple-blue: linear-gradient(135deg, #70077B, #1D4382); /* rgb(112,7,123 → 29,67,130) */
 
     /* Font Families */
   --font-sans: 'josefin sans', sans-serif;
 
   /* Font Sizes */
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.25rem;
-  --font-size-xl: 1.5rem;
-  --font-size-xxl: 2rem;
-  --font-size-xxxl: 2.5rem;
-  --font-size-giant: 4rem;
+  --font-size-xs: clamp(0.75rem, 5vw, 0.875rem);
+  --font-size-sm: clamp(0.875rem, 5vw, 1.125rem);
+  --font-size-base: clamp(1rem, 5vw, 1.25rem);
+  --font-size-lg: clamp(1.25rem, 5vw, 1.5rem);
+  --font-size-xl: clamp(1.5rem, 5vw, 2rem);
+  --font-size-xxl: clamp(2rem, 5vw, 3rem);
+  --font-size-xxxl: clamp(2.5rem, 5vw, 4rem);
+  --font-size-giant: clamp(4rem, 5vw, 6rem);
 
   /* Line Heights */
   --line-height-base: 1.5;
@@ -61,6 +59,11 @@ DIGITAL STRIDE - FULL CSS STYLESHEET
   --font-weight-regular: 400;
   --font-weight-medium: 600;
   --font-weight-bold: 700;
+}
+
+/* General Styles */
+.wp-soft-margin {
+  padding-left: 5%
 }
 
 * {
@@ -92,7 +95,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-sans);
+  font-family: josefin sans;
   word-wrap: break-word;
   overflow-wrap: break-word
 }
@@ -100,7 +103,7 @@ h6 {
 body,
 html,
 section {
-  background-color: var(--color-white);
+  background-color: #f2f5fb;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -122,50 +125,46 @@ h4,
 h5,
 h6 {
   color: #000;
-  font-weight: var(--font-weight-medium);
-  line-height: var(--line-height-base);
+  font-weight: 600;
+  line-height: 1.5;
   margin-bottom: 20px
 }
 
 h1 {
-  font-size: var(--font-size-xxxl);
-  line-height: var(--line-height-base);
+  font-size: 2.5rem;
+  line-height: 1.5;
   margin-bottom: 2rem;
   margin-top: 2.5rem
 }
 
 h2 {
-  font-size: var(--font-size-xxl);
-  line-height: var(--line-height-tight);
+  font-size: 2rem;
+  line-height: 1;
   margin-bottom: 1.25rem;
   margin-top: 1.75rem
 }
 
 h3 {
-  font-size: var(--font-size-xl);
+  font-size: 1.5rem;
   margin-bottom: 1rem
 }
 
 h4 {
-  font-size: var(--font-size-lg);
-   margin-bottom: 1rem;
+  font-size: 1.25rem;
+   margin-bottom:1rem;
 }
 
 p,
 body {
   margin-bottom: 1rem;
-  line-height: var(--line-height-loose);
-  font-size: var(--font-size-base);
-  color: var(--color-text);
-  font-weight: var(--font-weight-regular);
+  line-height: 1.75;
+  font-size: 1rem
 }
 
 a {
   text-decoration: none;
   transition: all .3s ease
 }
-
-
 
 .mega-menu-item-814,
 .mega-menu-item-813 {
@@ -239,7 +238,7 @@ a {
     li {
       a {
         text-decoration: none !important;
-        color: var(--color-white) !important;
+        color: #FFFFFF !important;
         text-align: center !important;
         padding: 1rem !important;
         margin: 0 3rem !important;
@@ -250,7 +249,7 @@ a {
         }
 
         &:visited {
-          color: var(--color-white) !important;
+          color: #FFFFFF !important;
         }
       }
     }
@@ -339,7 +338,7 @@ a {
   align-items: center;
 
   a {
-    color: var(--color-white);
+    color: #FFFFFF;
     font-weight: 600;
     text-decoration: none;
 
@@ -363,7 +362,7 @@ a {
     display: inline;
 
     a {
-      color: var(--color-white);
+      color: #FFFFFF;
       text-decoration: none;
       padding: 0.5rem 1rem;
       font-weight: 600;
