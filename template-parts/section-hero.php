@@ -2,13 +2,12 @@
   <div class="hero-content">
     
     <div class="hero-left">
+      <?php if (get_sub_field('hero_subheading')): ?>
+        <h2><?php the_sub_field('hero_subheading'); ?></h2>
+      <?php endif; ?>
 
       <?php if (get_sub_field('hero_heading')): ?>
         <h1><?php the_sub_field('hero_heading'); ?></h1>
-      <?php endif; ?>
-
-            <?php if (get_sub_field('hero_subheading')): ?>
-        <h2><?php the_sub_field('hero_subheading'); ?></h2>
       <?php endif; ?>
 
       <?php if (get_sub_field('hero_text')): ?>
@@ -24,7 +23,7 @@
       if ($image): ?>
         <img class="section-image" src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>">
       <?php else: ?>
-        <img class="section-image" src="https://mydigitalstride.com/wp-content/uploads/2023/08/Digital-Stride-Logo_Emblem-Full-Color-e1722535066484.png" alt="Placeholder image">
+        <img class="section-image" src="https://via.placeholder.com/600x400" alt="Placeholder image">
       <?php endif; ?>
     </div>
 

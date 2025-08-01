@@ -15,11 +15,11 @@ margin: 0 auto;
 background: linear-gradient(to right,#189da7,#1977a3);
 }
 .section-container h2{
-  color:#f2f5fb !important;
+  color:white !important;
 }
 .section-title{
   text-align: left !important;
-  color:#f2f5fb;
+  color:white;
 }
 .hero-text {
 display: flex;
@@ -32,7 +32,6 @@ flex-wrap: wrap; /* Ensures responsiveness */
 .hero-left {
 flex: 1 1 60%;
 min-width: 250px;
-color: #f2f5fb;
 }
 
 .hero-right {
@@ -53,12 +52,12 @@ border-radius: 8px;
 .section-title {
 font-size: clamp(2.5rem, 5vw, 4rem);
 margin-bottom: 10px;
-color: #f2f5fb;
+color: white;
 }
 
 .section-content {
 margin-bottom: 30px;
-color: #f2f5fb;
+color: white;
 }
 .hero-text {
 max-width: 600px;
@@ -233,7 +232,7 @@ text-align: right;
   padding: 80px 20px;
   background-size:cover;
   background-repeat: no-repeat;
-  background-color: #f2f5fb;
+  background-color: white;
 }
 .concept-overlay {
   position: absolute;
@@ -300,7 +299,7 @@ text-align: right;
 
 .concept-step {
   background-color: #008c95;
-  color: #f2f5fb;
+  color: white;
   padding: 14px 20px;
   border-radius: 4px;
   font-weight: bold;
@@ -314,7 +313,7 @@ text-align: right;
 .timeline-scope {
 padding: 60px 20px;
 text-align: center;
-background-color: #f2f5fb;
+background-color: #f8f8fc;
 background-size: cover;
 background-repeat: no-repeat;
 background-position: center;
@@ -352,7 +351,7 @@ z-index: 1;
 width: 30px;
 height: 30px;
 border: 4px solid #00a3ad;
-background-color: #f2f5fb;
+background-color: #fff;
 border-radius: 50%;
 margin: 0 54px;
 z-index: 2;
@@ -439,7 +438,7 @@ border-radius: 8px;
 
 .plus-divider-banner {
 background: linear-gradient(to right, #00a3ad, #0a2c72);
-color: #f2f5fb;
+color: white;
 font-size: 24px;
 font-weight: 600;
 padding: 15px 0;
@@ -459,7 +458,7 @@ max-width: 800px;
 h2 {
 font-size: 2rem;
 margin-bottom: 10px;
-color:#f2f5fb;
+color:white;
 }
 
 .plus-divider {
@@ -480,12 +479,12 @@ line-height: 36px;
 padding-right: 176px;
 }
 .service-list li {
-color: #f2f5fb !important;
+color: white !important;
 }
 
 .cta-button {
 background-color: #ff5c25;
-color: #f2f5fb;
+color: white;
 padding: 12px 24px;
 text-decoration: none;
 border-radius: 4px;
@@ -506,7 +505,7 @@ margin-top: -32pc;
 
 .stat-box {
 background: linear-gradient(90deg, #561a8e, #252b90);
-color: #f2f5fb;
+color: white;
 padding: 16px 51px;
 position: absolute;
 top: 35%;
@@ -529,13 +528,13 @@ display: block;
   background-color: #1d4382;
 padding: 60px 40px;
 border-radius: 30px;
-color: #f2f5fb;
+color: white;
 position: relative;
 max-width: 1200px;
 margin: 57px auto;
 }
 .custom_website_development h2 {
-color: #f2f5fb !important;
+color: #fff !important;
 }
 .custom-services-content {
 display: flex;
@@ -548,14 +547,14 @@ align-items: flex-end;
 background-color: #1d4382;
 padding: 59px 184px;
 border-radius: 30px;
-color: #f2f5fb;
+color: #fff;
 position: relative;
 max-width: 1200px;
 margin: 57px auto;
 }
 
 .custom_website_development h2 {
-color: #f2f5fb !important;
+color: #fff !important;
 }
 
 .custom-services-content {
@@ -575,7 +574,7 @@ text-align: left;
 
 .custom-stat-box {
 background: linear-gradient(90deg, #561a8e, #252b90);
-color: #f2f5fb;
+color: white;
 padding: 16px 32px;
 position: absolute;
 top: 35%;
@@ -609,7 +608,7 @@ line-height: 36px;
 
 .custom-cta-button {
 background-color: #ff5c25;
-color: #f2f5fb !important;
+color: #fff!important;
 padding: 10px 25px;
 text-decoration: none;
 width: 312px;
@@ -630,11 +629,11 @@ justify-content: space-between;
 align-items: flex-start;
 gap: 40px;
 padding: 80px 40px;
-background-color: #f2f5fb;
+background-color: #f2f8fc;
 flex-wrap: wrap;
 }
 .growth-section .game-plan-box {
-  background: #f2f5fb;
+  background: #f5f5f5;
   padding: 50px;
   margin-top: 40px;
   border-radius: 8px;
@@ -646,11 +645,11 @@ text-align: center;
 padding-top: 28px;
 }
 .highlight-orange {
-color: #ff5c25 !important;
+color: #f2c814 !important;
 }
 .growth-right p{
   padding-right: 128px;
-  color: #f2f5fb !important;
+  color: white !important;
 }
 .growth-left h2 {
 font-size: 32px;
@@ -683,7 +682,7 @@ background-color: #70077b !important;
 font-size: 20px;
 font-weight: bold !important;
 margin-top: 20px;
-color: #f2f5fb !important;
+color: white !important;
 }
 
 .growth-right ul {
@@ -693,7 +692,7 @@ margin-left: 20px;
 .growth-section .cta-button {
   display: inline-block;
  background-color: #f36e21 !important;
-  color: #f2f5fb;
+  color: white;
   padding: 12px 30px;
   text-decoration: none;
   font-weight: bold;
