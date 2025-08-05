@@ -6,11 +6,11 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     background-color: var(--color-white) !important;
     -webkit-font-smoothing:antialiased
 }
-
+/* 
 .section, main, .container {
-    padding-left: 10% I !important;
+    padding-left: 10% !important;
     padding-right:10% !important
-}
+} */
 
 .hero-section {
     min-height: 75vh;
@@ -20,7 +20,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding-top: 100px;
     max-width: 100%;
     margin: 0 auto;
-    background:var(--gradient-teal)
+    background: linear-gradient(90deg, #189da7, #1D4382);
 }
 
 .plus-icon {
