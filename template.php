@@ -85,7 +85,12 @@ if ( have_rows('home_page_section') ):
             get_template_part('template-parts/section', 'timeline-scope');
              elseif (get_row_layout() == 'custom_website_development'):
             get_template_part('template-parts/section', 'custom');
+              elseif (get_row_layout() == 'web_audit_form'):
+            get_template_part('template-parts/section', 'seo');
+             elseif (get_row_layout() == 'featured_cards'):
+            get_template_part('template-parts/section', 'featured-cards');
         endif;
+
     endwhile;
 endif;
 
