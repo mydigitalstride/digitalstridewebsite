@@ -90,12 +90,9 @@ flex-wrap: wrap; /* Ensures responsiveness */
 }
 
 .bubble-images {
-position: absolute;
-top: 33%;
-left: 47%;
+position: relative;
 width: 180px;
 height: 120px;
-transform: translate(-50%,-50%);
 object-fit: contain;
 pointer-events: none;
 z-index: 0;
@@ -106,6 +103,7 @@ z-index: 0;
   margin-top: 8px;
   line-height: 1.4;
   font-style: italic;
+
 }
 
 /* Left-align text */
@@ -123,15 +121,6 @@ font-weight: var(--font-weight-bold);
 color: var(--color-blue);
 }
 /* ========== Package Section ========== */
-.package-section {
-  padding: 47px 5%;
-  background-color: var(--color-white);
-  display: block;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 40px;
-  position: relative;
-}
 .package-background-image {
 opacity: .6;
 max-width: 100%;
@@ -436,29 +425,7 @@ border-radius: 8px;
   border-radius: 8px;
 }
 
-.plus-divider-banner {
-  background: var(--gradient-teal-blue);
-  color: var(--color-white);
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-medium);
-  padding: 15px 0;
-  text-align: center;
-  margin: auto;
-  letter-spacing: 10px;
-}
 /* Services Highlight Section */
-.wordpress-services-section {
-  background-color: var(--color-teal);
-  padding: 60px 40px;
-  border-radius: 30px;
-  color: var(--color-white);
-  position: relative;
-  max-width: 1200px;
- margin: 57px auto;
-}
-.wordpress-services-section h2 {
-  color: var(--color-white) !important;
-}
 
 .services-content {
   display: flex;
@@ -536,16 +503,36 @@ margin-top: -32pc;
   display: block;
 }
 
-.custom_website_development{
-    background-color: var(--color-blue);
-  padding: 60px 40px;
+.custom_website_development,
+.wordpress-services-section,
+.package-section{
   border-radius: 30px;
   color: var(--color-white);
   position: relative;
   max-width: 1200px;
  margin: 57px auto;
+
+  @media screen and (max-width: 768px) {
+    border-radius: 0px;
+    width: 100%;
+    padding: 0px;
+    flex-direction: column;
+    text-align: center;
+    }
 }
+
+.custom_website_development {
+    background-color: var(--color-blue);
+}
+
 .custom_website_development h2 {
+  color: var(--color-white) !important;
+}
+
+.wordpress-services-section {
+      background-color: var(--color-teal);
+}
+.wordpress-services-section h2 {
   color: var(--color-white) !important;
 }
 .custom-services-content {
@@ -555,20 +542,6 @@ flex-wrap: wrap;
 align-items: flex-end;
 /* justify-content: space-between; */
 }
-.custom_website_development {
-background-color: var(--color-blue);
-padding: 59px 184px;
-border-radius: 30px;
-color: var(--color-white);
-position: relative;
-max-width: 1200px;
-margin: 57px auto;
-}
-
-.custom_website_development h2 {
-  color: var(--color-white) !important;
-}
-
 .custom-services-content {
   display: flex;
   flex-wrap: wrap;
@@ -593,6 +566,7 @@ margin-left: -181px;
 display: flex;
 position: relative;
 }
+
 .custom-stat-box {
   background: var(--gradient-purple-blue);
   color: var(--color-white);
@@ -601,6 +575,15 @@ position: relative;
   top: 35%;
   left: 0;
   text-align: left;
+
+  @media screen and (max-width: 768px) {
+    position: relative;
+    margin-top: 20px;
+    text-align: center;
+    width: 100%;
+    top: auto;
+    left: auto;
+  }
 }
 
 .custom-stat-value {
@@ -619,6 +602,11 @@ position: relative;
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  @media screen and (max-width: 768px) {
+    padding: 5%;
+    
+  }
 }
 
 .custom-service-list {
@@ -678,13 +666,8 @@ color: var(--color-orange) !important;
   color: var(--color-text);
 }
 
-.growth-sub {
-font-size: var(--font-size-base);
-color: var(--color-black);
-padding: 80px;
-padding-left: 24px;
-margin: 20px 0;
-}
+
+
 .growth-left h4 {
   font-size: var(--font-size-lg);
   color: #1a1a6e;
@@ -726,7 +709,6 @@ margin: 20px 0;
   .bubbles-row,
   .package-section,
   .wordpress-services-section,
-  .custom_website_development,
   .growth-section {
     padding: 40px 20px;
     flex-direction: column;
@@ -809,15 +791,10 @@ margin: 20px 0;
   .custom-screw-image {
     display: none;
   }
-  .stat-box,
-  .custom-stat-box {
+  .stat-box{
     position: static;
     margin-top: 20px;
     text-align: center;
-  }
-  .custom_website_development,
-  .wordpress-services-section {
-    padding: 40px 20px;
   }
 
   /* === Growth Section === */
@@ -829,7 +806,7 @@ margin: 20px 0;
   .growth-left,
   .growth-right {
     flex: 1 1 100%;
-    padding: 20px;
+    padding: 0px;
     text-align: center;
   }
   .growth-right p,
@@ -837,7 +814,7 @@ margin: 20px 0;
     padding-right: 0;
   }
   .growth-sub {
-    padding: 20px;
+    padding: 0px;
   }
   .growth-section .game-plan-box {
     padding: 30px;

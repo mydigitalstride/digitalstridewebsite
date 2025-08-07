@@ -358,7 +358,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding: 20px;
     position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
-    display: fl-grid;
+    display: flex;
     flex-direction:column
 }
 
@@ -426,7 +426,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .bubble {
     flex: 0 0 calc(33.333% - 30px);
-    max-width: calc(25.33% - 30px);
+    max-width: calc(33.33% - 30px);
     background: var(--color-light-orange);
     border-radius: 15px;
     padding: 20px;
@@ -700,11 +700,11 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .growth-sub {
-    font-size: 17px;
+    font-size: var(--font-size-base);
     color: var(--color-black);
     padding: 80px;
     padding-left: 24px;
-    margin:20px 0
+    margin: 20px 0;
 }
 
 .growth-left h4 {
@@ -719,7 +719,12 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding: 40px;
     border-radius: 20px;
     font-size: var(--font-size-base);
-    background-color:var(--color-purple) !important
+    background-color:var(--color-purple) !important;
+
+        @media screen and (max-width: 768px) {
+        min-width: auto;
+            
+        }
 }
 
 .growth-right h3 {
@@ -762,14 +767,18 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .plus-divider-banner {
-    background: var(--gradient-teal-blue);
-    color: var(--color-white);
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-medium);
-    padding: 15px 0;
-    text-align: center;
-    margin: auto;
-    letter-spacing:10px
+  background: var(--gradient-teal-blue);
+  color: var(--color-white);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  padding: 15px 0;
+  text-align: center;
+  margin: auto;
+  letter-spacing: 10px;
+
+    @media screen and (max-width: 780px) {
+      display: none;
+    }
 }
 
 .hero-section-subtext {
@@ -787,7 +796,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 @media (max-width: 768px) {
     .growth-section {
-        flex-direction: column;
+        flex-direction: row;
         padding: 40px 20px;
         gap:20px
     }
@@ -804,7 +813,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
     .growth-sub {
         font-size: 15px;
-        padding:20px 10px
+        padding: 0px;
     }
 
     .growth-left h4 {
@@ -3232,14 +3241,13 @@ section {
     display:block
 }
 
-.custom_website_development {
-    background-color: var(--color-blue);
-    padding: 60px 40px;
-    border-radius: 30px;
-    color: var(--color-white);
-    position: relative;
-    max-width: 1200px;
-    margin:57px auto
+.custom_website_development{
+  background-color: var(--color-blue);
+  border-radius: 30px;
+  color: var(--color-white);
+  position: relative;
+  max-width: 1200px;
+ margin: 57px auto;
 }
 
 .custom_website_development h2 {
@@ -3250,20 +3258,6 @@ section {
     display: flex;
     flex-wrap: wrap;
     align-items:flex-end
-}
-
-.custom_website_development {
-    background-color: var(--color-blue);
-    padding: 59px 184px;
-    border-radius: 30px;
-    color: var(--color-white);
-    position: relative;
-    max-width: 1200px;
-    margin:57px auto
-}
-
-.custom_website_development h2 {
-    color:var(--color-white) !important
 }
 
 .custom-services-content {
