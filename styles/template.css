@@ -3467,13 +3467,13 @@ justify-content: space-between;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  text-align: left; /* add this */
+  text-align: left; 
 }
 
 .card-title,
 .card-description,
 .card-button {
-  text-align: left; /* add this if needed */
+  text-align: left; 
 }
 
 
@@ -3511,4 +3511,98 @@ justify-content: space-between;
     max-width: 100%;
   }
 }
+
+.featured-cards-section {
+  padding: 100px 20px;
+  background-color: var(--color-white);
+}
+
+.featured-cards-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 145px;
+  justify-content: space-between;
+}
+
+.featured-card {
+  flex: 1 1 calc(50% - 30px);
+  max-width: calc(50% - 30px);
+  background: linear-gradient(90deg, #189da7, #1D4382);
+  border-radius: 15px;
+  overflow: hidden;           
+  display: flex;
+  flex-direction: column;
+  color: var(--color-white);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 0;                  
+  text-align: left;
+}
+
+.featured-card .card-media img {
+  width: 100%;
+  height: 200px;              
+  object-fit: cover;
+  display: block;
+}
+
+
+.featured-card .card-body {
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Typography */
+.card-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 10px;
+}
+.card-title a {
+  color: var(--color-white);
+  text-decoration: none;
+}
+.card-excerpt,
+.card-description {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 20px;
+  color: var(--color-white);
+}
+
+/* Button */
+.card-button, 
+.btn-readmore {
+    margin-top: auto;
+    background-color: #f36e21 !important;
+    color: var(--color-primary);
+    padding: 10px 10px;             
+    text-decoration: none;
+    font-weight: 600;
+    text-align:center;
+    display: inline-block;         
+    transition: background 0.3s ease;
+}
+
+/* View more wrapper */
+.view-more-wrap {
+  text-align: center;
+  margin-top: 28px;
+}
+.btn-view-more {
+  background: #f36e21;
+  color: #fff;
+  padding: 12px 28px;
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .featured-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+
 
