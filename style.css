@@ -20,6 +20,7 @@ DIGITAL STRIDE - FULL CSS STYLESHEET
   --color-light-orange: #f6ddd3;    /* rgb(246, 221, 211) */
   --color-light-blue: #dae3ff;      /* rgb(218, 227, 255) */
   --color-light-teal: #D3E9EB;      /* rgb(211, 233, 235) */
+  --color-light-grey: #c6c6c6;      /* rgb(198, 198, 198) */
 
     /* Secondary Colors */
   --color-yellow: #f2c814;    /* rgb(242, 200, 20) */
@@ -32,7 +33,7 @@ DIGITAL STRIDE - FULL CSS STYLESHEET
   --gradient-teal-green: linear-gradient(135deg, #189da7, #0A484C); /* rgb(24,157,167 → 10,72,76) */
   --gradient-light-orange: linear-gradient(135deg, #f6ddd3, #ff4a07); /* rgb(246,221,211 → 255,74,7) */
   --gradient-yellow-orange: linear-gradient(135deg, #f2c814, #ff4a07); /* rgb(246,221,211 → 255,74,7) */
-  --gradient-light-teal: linear-gradient(135deg, #D3E9EB, #189da7); /* rgb(246,221,211 → 255,74,7) */
+  --gradient-white-teal: linear-gradient(135deg, #D3E9EB, #189da7); /* rgb(246,221,211 → 255,74,7) */
   --gradient-white-blue: linear-gradient(135deg, #f2f5fb, #1D4382); /* rgb(246,221,211 → 255,74,7) */
   --gradient-purple-blue: linear-gradient(135deg, #70077B, #1D4382); /* rgb(112,7,123 → 29,67,130) */
 
@@ -40,19 +41,28 @@ DIGITAL STRIDE - FULL CSS STYLESHEET
   --font-sans: 'josefin sans', sans-serif;
 
   /* Font Sizes */
-  --font-size-xs: clamp(0.75rem, 5vw, 0.875rem);
-  --font-size-sm: clamp(0.875rem, 5vw, 1.125rem);
-  --font-size-base: clamp(1rem, 5vw, 1.25rem);
-  --font-size-lg: clamp(1.25rem, 5vw, 1.5rem);
-  --font-size-xl: clamp(1.5rem, 5vw, 2rem);
-  --font-size-xxl: clamp(2rem, 5vw, 3rem);
-  --font-size-xxxl: clamp(2.5rem, 5vw, 4rem);
-  --font-size-giant: clamp(4rem, 5vw, 6rem);
+  --font-size-xs: clamp(0.75rem, 5vw, 0.875rem); /* 12px */
+  --font-size-sm: clamp(0.875rem, 5vw, 1.125rem); /* 14px */
+  --font-size-base: clamp(1rem, 5vw, 1.25rem); /* 16px */
+  --font-size-med: clamp(1.25rem, 5vw, 1.5rem); /* 20px */
+  --font-size-lg: clamp(1.5rem, 5vw, 2rem); /* 24px */ 
+  --font-size-xl: clamp(1.75rem, 5vw, 2.5rem); /* 28px */
+  --font-size-2xl: clamp(2rem, 5vw, 3rem); /* 32px */
+  --font-size-3xl: clamp(2.25rem, 5vw, 3.5rem); /* 36px */
+  --font-size-4xl: clamp(2.5rem, 5vw, 4rem); /* 40px */
+  --font-size-mega: clamp(3rem, 5vw, 5rem); /* 48px */
+  --font-size-wow: clamp(3.5rem, 5vw, 5.5rem); /* 56px */
+  --font-size-giant: clamp(4rem, 5vw, 6rem); /* 64px */
 
   /* Line Heights */
-  --line-height-base: 1.5;
-  --line-height-tight: 1.2;
-  --line-height-loose: 1.75;
+  --line-height-tight: 1.2; /* 19px */
+  --line-height-normal: 1.25; /* 20px */
+  --line-height-relaxed-tight: 1.4; /* 22px */
+  --line-height-base: 1.5; /* 24px */
+  --line-height-relaxed: 1.6; /* 26px */
+  --line-height-loose: 1.75; /* 28px */
+  --line-height-looser: 2; /* 32px */
+  --line-height-extra-loose: 2.25; /* 36px */
 
   /* Font Weights */
   --font-weight-thin: 300;
@@ -63,7 +73,11 @@ DIGITAL STRIDE - FULL CSS STYLESHEET
 
 /* General Styles */
 .wp-soft-margin {
-  padding-left: 5%
+  padding-left: 5%;
+
+    @media screen and (max-width: 768px) {
+      padding-right: 5%;
+    }
 }
 
 * {
@@ -95,7 +109,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: josefin sans;
+  font-family: var(--font-sans);
   word-wrap: break-word;
   overflow-wrap: break-word
 }
@@ -103,7 +117,7 @@ h6 {
 body,
 html,
 section {
-  background-color: #f2f5fb;
+  background-color: var(--color-white);
   width: 100%;
   margin: 0;
   padding: 0;
@@ -124,41 +138,41 @@ h3,
 h4,
 h5,
 h6 {
-  color: #000;
-  font-weight: 600;
-  line-height: 1.5;
-  margin-bottom: 20px
+  color: var(--color-text);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-base);
+  margin-bottom: 20px;
 }
 
 h1 {
-  font-size: 2.5rem;
-  line-height: 1.5;
+  font-size: var(--font-size-4xl);
+  line-height: var(--line-height-base);
   margin-bottom: 2rem;
   margin-top: 2.5rem
 }
 
 h2 {
-  font-size: 2rem;
-  line-height: 1;
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-tight);
   margin-bottom: 1.25rem;
   margin-top: 1.75rem
 }
 
 h3 {
-  font-size: 1.5rem;
+  font-size: var(--font-size-med);
   margin-bottom: 1rem
 }
 
 h4 {
-  font-size: 1.25rem;
+  font-size: var(--font-size-med);
    margin-bottom:1rem;
 }
 
 p,
 body {
   margin-bottom: 1rem;
-  line-height: 1.75;
-  font-size: 1rem
+  line-height: var(--line-height-relaxed);
+  font-size: var(--font-size-base)
 }
 
 a {
@@ -178,7 +192,7 @@ a {
 }
 
 .mega-menu {
-  background: #d3e9eb !important;
+  background: var(--color-white) !important;
   padding-top: 3rem !important;
 
   @media screen and (min-width:768px) {
@@ -209,12 +223,12 @@ a {
 #mega-menu-item-814 a {
   @media screen and (max-width:768px) {
     padding: 5px 10px !important;
-    background-color: #aaadb8 !important;
+    background-color: var(--color-white) !important;
   }
 }
 
 #mega-menu-wrap-header-menu:has(.mega-menu-open) #mega-menu-header-menu[data-effect-mobile^=slide_]+button.mega-close:before {
-  font-size: 2rem !important;
+  font-size: var(--font-size-med) !important;
   margin: 2rem 1rem
 }
 
@@ -229,7 +243,7 @@ a {
 
 .mega-menu-toggle {
   @media screen and (max-width:768px) {
-    background: #3d658c !important;
+    background: var(--color-light-blue) !important;
   }
 }
 
@@ -238,7 +252,7 @@ a {
     li {
       a {
         text-decoration: none !important;
-        color: #FFFFFF !important;
+        color: var(--color-white) !important;
         text-align: center !important;
         padding: 1rem !important;
         margin: 0 3rem !important;
@@ -249,7 +263,7 @@ a {
         }
 
         &:visited {
-          color: #FFFFFF !important;
+          color: var(--color-white) !important;
         }
       }
     }
@@ -262,7 +276,7 @@ a {
   padding-left: 0 !important;
   background-color: initial !important;
   width: 100%;
-  font-size: 1rem
+  font-size: var(--font-size-base);
 }
 
 .stone-type-menu-link {
@@ -304,12 +318,12 @@ a {
 }
 
 .site-branding {
-  background: #d3e9eb;
-  background-color: #d3e9eb;
+  background: var(--color-light-teal);
+  background-color: var(--color-light-teal);
   padding: 1rem 0;
 
   @media screen and (min-width:768px) {
-    background-color: #d3e9eb;
+    background-color: var(--color-light-teal);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: right;
@@ -319,7 +333,7 @@ a {
 .header-grid-container {
   display: grid;
   grid-template-columns: 20% 80%;
-  color: #fff
+  color: var(--color-white)
 }
 
 .header-logo {
@@ -338,7 +352,7 @@ a {
   align-items: center;
 
   a {
-    color: #FFFFFF;
+    color: var(--color-white);
     font-weight: 600;
     text-decoration: none;
 
@@ -362,7 +376,7 @@ a {
     display: inline;
 
     a {
-      color: #FFFFFF;
+      color: var(--color-white);
       text-decoration: none;
       padding: 0.5rem 1rem;
       font-weight: 600;
@@ -371,16 +385,16 @@ a {
 }
 
 .white-text {
-  color: #000 !important
+  color: var(--color-black) !important
 }
 
 .black-text {
-  color: #000
+  color: var(--color-black)
 }
 
 .site-footer {
-  background-color: #d3e9eb;
-  color: #000;
+  background-color: var(--color-light-teal);
+  color: var(--color-black);
   max-height: 400px;
   padding-bottom: 100px
 }
@@ -388,7 +402,7 @@ a {
 .footer-contact a,
 .footer-contact a:visited,
 .footer-contact a:active {
-  color: #000 !important;
+  color: var(--color-black) !important;
   text-decoration: none
 }
 
@@ -428,7 +442,7 @@ a {
 }
 
 .footer-contact {
-  font-size: 16px;
+  font-size: var(--font-size-base);
   line-height: 1.6
 }
 
@@ -439,8 +453,8 @@ a {
 }
 
 .footer-services {
-  font-weight: 700;
-  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-med);
   margin-top: 100px
 }
 
@@ -453,8 +467,8 @@ a {
 }
 
 .footer-cta-button {
-  background-color: #f36321;
-  color: #fff;
+  background-color: var(--color-orange);
+  color: var(--color-white);
   padding: 12px 24px;
   text-decoration: none;
   transition: background-color .3s ease
@@ -541,18 +555,14 @@ a {
     padding: 0
   }
 
-  .footer-logo img {
-    max-width: 160px
-  }
-
   .footer-contact {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     line-height: 1.4
   }
 
   .footer-services {
     margin-top: 20px;
-    font-size: 18px
+    font-size: var(--font-size-med)
   }
 
   .footer-right-col {
@@ -561,7 +571,7 @@ a {
 
   .footer-cta-button {
     padding: 10px 20px;
-    font-size: 15px
+    font-size: var(--font-size-sm)
   }
 
   .footer-social-icons {

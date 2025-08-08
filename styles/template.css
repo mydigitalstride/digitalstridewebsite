@@ -20,12 +20,12 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding-top: 100px;
     max-width: 100%;
     margin: 0 auto;
-    background: linear-gradient(90deg, #189da7, #1D4382);
+    background: var(--gradient-teal-blue);
 }
 
 .plus-icon {
     display: flex;
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     color: var(--color-orange);
     padding-right: 38px;
@@ -65,7 +65,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .hero-section-text {
-    padding: 80px 20px;
+    padding: 20px 5%;
     text-align:center
 }
 
@@ -127,7 +127,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     .plus-icon {
         margin: 20px auto;
         padding-right: 0;
-        font-size: var(--font-size-xl);
+        font-size: var(--font-size-lg);
         text-align: center;
         justify-content:center
     }
@@ -150,7 +150,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     }
 
     .hero-content-text h1 {
-        font-size: 1.8rem;
+        font-size: var(--font-size-xl);
         color:var(--color-blue)
     }
 }
@@ -169,8 +169,13 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 30px;
-    max-width: 1200px;
-    margin:0 auto
+    max-width: 100%;
+    margin:0 auto;
+
+    @media screen and (max-width: 1024px) {
+        grid-template-columns: repeat(1, 1fr);
+        gap:0px;
+    }
 }
 .we-also-do-item {
 
@@ -202,16 +207,19 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
   100% { transform: translateY(0); }
 }
 .we-also-do-link {
-    color: black; 
+    color: var(--color-black); 
+    font-size: var(--font-size-med);
+
 }
 
 .we-also-do-link:hover {
     color:var(--color-orange);
+    font-weight: var(--font-weight-bold);
 }
 
 .val-plus-icon {
     display: flex;
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     padding-left: 24px;
     color: var(--color-orange);
@@ -231,19 +239,18 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .value-item {
-    background: var(--gradient-white-teal);
-    padding: 20px;
-    border-radius: 4px;
-    color: var(--color-white);
-    font-size: var(--font-size-base);
-    text-align: left;
+    background: var(--color-teal);
+    border-radius: 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
+    color: var(--color-white);
+    text-align: left;
     cursor: pointer;
-    transition:transform .2s ease
+    transition: all .3s ease;
+    overflow:hidden
 }
 
 .value-item:hover {
-    transform:translateY(-10px)
+    transform:translateY(-5px);
 }
 
 .value-item p {
@@ -271,7 +278,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding-left:20px
 }
 
-.values-bubble, h3 {
+.values-bubble h3 {
     color: var(--color-white);
     text-align: left;
     margin-bottom: 19px;
@@ -286,20 +293,20 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .section-header h1 {
-    font-size: 2.5rem;
+    font-size: var(--font-size-4xl);
     color:var(--color-black)
 }
 
 @media screen and (max-width: 767px) {
     .section-title {
         margin-bottom: 40px;
-        font-size:1.5rem
+        font-size: var(--font-size-2xl)
     }
 
     .val-plus-icon {
         justify-content: center;
         padding-left: 0;
-        font-size: var(--font-size-xl);
+        font-size: var(--font-size-lg);
         text-align: center;
         margin-bottom:20px
     }
@@ -317,7 +324,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     }
 
     .value-item {
-        font-size: 15px;
+        font-size: var(--font-size-sm);
         text-align: left;
         padding:16px
     }
@@ -338,16 +345,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     }
 
     .section-header h1 {
-        font-size:2rem
+        font-size:var(--font-size-2xl)
     }
-}
-
-.bubbles-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    flex-wrap: nowrap;
-    padding: 40px 20px;
 }
 
 .bubble {
@@ -359,12 +358,28 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
     display: flex;
-    flex-direction:column
+    flex-direction:column;
+    width: 100%;
+}
+
+
+@media screen and (min-width: 768px) {
+    .bubbles-row:has(.bubble:nth-child(3):last-child) .bubble {
+        max-width: calc(33.333% - 40px);
+    }
+
+    .bubbles-row:has(.bubble:nth-child(4):last-child) .bubble {
+        max-width: calc(25% - 30px);
+    }
+
+    .bubbles-row:has(.bubble:nth-child(5)) .bubble {
+        max-width: calc(20% - 20px);
+    }
 }
 
 .bubble-plus-icon {
     display: flex;
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     color: var(--color-orange);
     margin: 8px 0 19px;
@@ -384,13 +399,13 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .bubble-header {
     font-weight: var(--font-weight-bold);
     margin-bottom: 12px;
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     color: var(--color-blue);
     padding-left:0
 }
 
 .bubble-text {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     line-height:1.4
 }
 
@@ -405,11 +420,11 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     background: var(--gradient-teal-green);
     color: var(--color-white);
     font-weight: var(--font-weight-medium);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     border: none;
     cursor: pointer;
     text-decoration: none;
-    transition:background .3s ease
+    transition:background .3s ease;
 }
 
 .bubbles-main-button:hover {
@@ -424,18 +439,6 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding:45px
 }
 
-.bubble {
-    flex: 0 0 calc(33.333% - 30px);
-    max-width: calc(33.33% - 30px);
-    background: var(--color-light-orange);
-    border-radius: 15px;
-    padding: 20px;
-    position: relative;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
-    display: flex;
-    flex-direction:column
-}
-
 .bubble-image {
     top: 20%;
     left: 24%;
@@ -448,13 +451,13 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .bubble-header {
     font-weight: var(--font-weight-bold) !important;
-    font-size: var(--font-size-lg) !important;
+    font-size: var(--font-size-med) !important;
     color:var(--color-blue)
 }
 
 .bubble-text {
-    font-size: 14px;
-    line-height: 1.4;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed-tight);
     color:var(--color-blue)
 }
 
@@ -469,7 +472,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     background: var(--gradient-teal-green);
     color: var(--color-white);
     font-weight: var(--font-weight-medium);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     border: none;
     cursor: pointer;
     text-decoration: none;
@@ -563,7 +566,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding-top:10px
 }
 
-.values-bubble-marketing, h3 {
+.values-bubble-marketing h3 {
     color: var(--color-white);
     text-align: left;
     margin-bottom: 19px;
@@ -592,7 +595,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
         top: 0;
         left: 0;
         width: 60px;
-        height: 60px;
+        height: 15vh;
         transform: none;
         margin:0 auto 20px
     }
@@ -667,8 +670,14 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     justify-content: space-between;
     align-items: flex-start;
     gap: 40px;
-    padding: 80px 40px;
-    flex-wrap:wrap
+    padding: 80px 5%;
+    flex-wrap:wrap;
+
+    @media screen and (max-width: 768px) {
+        flex-direction: row;
+        padding: 40px 5%;
+        gap:20px
+    }
 }
 
 .growth-section .game-plan-box {
@@ -708,7 +717,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .growth-left h4 {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     color:var(--color-blue)
 }
 
@@ -728,7 +737,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .growth-right h3 {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     font-weight: var(--font-weight-bold) !important;
     margin-top: 20px;
     color: var(--color-white) !important;
@@ -769,7 +778,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .plus-divider-banner {
   background: var(--gradient-teal-blue);
   color: var(--color-white);
-  font-size: var(--font-size-xl);
+  font-size: var(--font-size-lg);
   font-weight: var(--font-weight-medium);
   padding: 15px 0;
   text-align: center;
@@ -788,18 +797,14 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .hero-content-subtext h2 {
-    font-size: var(--font-size-xl) !important;
+    font-size: var(--font-size-lg) !important;
     margin: 0 auto !important;
-    line-height: 1.2 !important;
+    line-height: var(--line-height-tight) !important;
     text-align:center !important
 }
 
 @media (max-width: 768px) {
-    .growth-section {
-        flex-direction: row;
-        padding: 40px 20px;
-        gap:20px
-    }
+
 
     .growth-left, .growth-right {
         min-width: 100%;
@@ -808,25 +813,25 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     }
 
     .growth-left h2 {
-        font-size:24px
+        font-size:var(--font-size-lg)
     }
 
     .growth-sub {
-        font-size: 15px;
+        font-size: var(--font-size-base);
         padding: 0px;
     }
 
     .growth-left h4 {
-        font-size:18px
+        font-size:var(--font-size-med)
     }
 
     .growth-right {
-        font-size: 14px;
+        font-size: var(--font-size-sm);
         padding:20px
     }
 
     .growth-right h3 {
-        font-size: var(--font-size-lg);
+        font-size: var(--font-size-med);
         padding-right:0
     }
 
@@ -840,7 +845,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     }
 
     .hero-content-subtext h2 {
-        font-size:1.2rem !important
+        font-size:var(--font-size-med) !important
     }
 
     .custom-cta-button {
@@ -867,23 +872,36 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding:40px 20px
 }
 
+/* Dynamic bubble count based on the number of children */
+@media screen and (min-width: 768px) {
+    .centered-bubbles-section:has(.centered-bubbles-container:nth-child(3):last-child) .centered-bubbles-container {
+        max-width: calc(33.333% - 40px);
+    }
+
+    .centered-bubbles-section:has(.centered-bubbles-container:nth-child(4):last-child) .centered-bubbles-container {
+        max-width: calc(25% - 30px);
+    }
+
+    .centered-bubbles-section:has(.centered-bubbles-container:nth-child(5)) .centered-bubbles-container {
+        max-width: calc(20% - 20px); 
+}
+}
 .centered-bubbles-container {
-    flex: 0 0 calc(25.33% - 30px);
-    max-width: calc(33.333% - 30px);
     background: var(--color-light-orange);
     border-radius: 15px;
-    padding: 60px 20px;
+    padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
     display: flex;
     justify-content: center;
     align-items: center;
     margin-left:-11.5px;
     position: relative;
-    height:200px
+    height:200px;
+    width: 100%;
 }
 
 .centered-bubble-image {
-    max-width: 100px;
+    max-width: 50%;
     max-height: 100px;
     object-fit:contain
 }
@@ -921,7 +939,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     position: absolute;
     top: 254px;
     transform: translateY(-50%);
-    font-size: var(--font-size-xxl);
+    font-size: var(--font-size-2xl);
     color: var(--color-white);
     background: transparent;
     border: none;
@@ -1018,7 +1036,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .cta-decoration {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     color: var(--color-purple);
     margin: 12px 0;
     letter-spacing:12px
@@ -1037,7 +1055,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding: 23px 0;
     text-decoration: none;
     width: 333px;
-    font-weight: 200;
+    font-weight: var(--font-weight-thin);
     display: inline-block;
     margin-top: 20px;
     border-radius:0
@@ -1075,7 +1093,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     .slider-nav {
         top: 50%;
         padding: 8px 12px;
-        font-size:1.5rem
+        font-size:var(--font-size-lg)
     }
 
     .slider-label {
@@ -1090,16 +1108,16 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     .cta-button {
         width: 100%;
         padding: 18px 0;
-        font-size:1rem
+        font-size:var(--font-size-base)
     }
 
     .cta-decoration {
-        font-size: 1.2rem;
+        font-size: var(--font-size-med);
         letter-spacing:6px
     }
 
     .cta-description {
-        font-size:.95rem
+        font-size:var(--font-size-sm)
     }
 }
 
@@ -1128,7 +1146,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     flex: 1 1 calc(33.333% - 40px);
     max-width: calc(33.333% - 40px);
     min-width: 260px;
-   background: linear-gradient(90deg, #189da7, #1D4382);
+   background: var(--gradient-teal-blue);
     border-radius: 15px;
     padding: 20px 24px 30px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 8%);
@@ -1156,13 +1174,13 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     font-weight: var(--font-weight-bold);
     margin-top: 120px;
     margin-bottom: 14px;
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     color: var(--color-white) !important;
     text-align:left
 }
 
 .bubble-plus-icon {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     color: var(--color-orange);
     display: block;
@@ -1177,8 +1195,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .bubble-list li {
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-base);
     color: var(--color-white);
     margin-bottom:6px
 }
@@ -1194,7 +1212,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     background-color: var(--color-orange);
     color: var(--color-white);
     font-weight: var(--font-weight-medium);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     border: none;
     border-radius: 6px;
     cursor: pointer;
@@ -1203,7 +1221,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .bubbles-blue-right {
-    font-size:16px
+    font-size:var(--font-size-base)
 }
 
 .right {
@@ -1232,15 +1250,15 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .acf-404-message {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     color: var(--color-text);
     margin-bottom:15px
 }
 
 .acf-404-subtext {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     color: var(--color-blue);
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     margin-bottom:30px
 }
 
@@ -1248,7 +1266,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     background: var(--color-orange);
     color: var(--color-white) !important;
     text-transform: uppercase;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     padding: 14px 40px;
     text-decoration: none;
     display: inline-block;
@@ -1257,7 +1275,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .acf-404-button:hover {
-    background:#d95b12
+    background: var(--gradient-teal-blue);
 }
 
 .contact-flex-section {
@@ -1283,7 +1301,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .contact-left h3, .contact-right h3 {
-    font-size: var(--font-size-xxl) !important;
+    font-size: var(--font-size-2xl) !important;
     color: var(--color-blue);
     margin-bottom: 10px;
     padding-left:initial
@@ -1304,14 +1322,14 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .cf7-form-wrap label {
     display: block;
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     color: var(--color-blue);
 }
 
 .cf7-form-wrap input[type=text], .cf7-form-wrap input[type=email], .cf7-form-wrap input[type=tel], .cf7-form-wrap textarea {
     padding: 10px;
     border: 1px solid var(--color-blue);
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     width: 100%;
     box-sizing:border-box
 }
@@ -1333,7 +1351,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .contact-info li {
-    font-size: 17px;
+    font-size: var(--font-size-med);
     margin-bottom: 50px;
     color:var(--color-blue)
 }
@@ -1371,15 +1389,15 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .cf7-field label {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     color: var(--color-blue);
-    font-weight:500
+    font-weight:var(--font-weight-medium)
 }
 
 .cf7-field input, .cf7-field textarea {
     margin-top: 6px;
     padding: 10px;
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     border: 1px solid var(--color-blue);
     width: 100%;
     box-sizing:border-box
@@ -1444,15 +1462,15 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .post-button.red {
-    background-color:#e74c3c
+    background-color:var(--color-red)
 }
 
 .post-button.green {
-    background-color:#27ae60
+    background-color:var(--color-green)
 }
 
 .post-button.blue {
-    background-color:#3498db
+    background-color:var(--color-blue)
 }
 
 .resource-cards-section {
@@ -1461,7 +1479,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .resource-cards-section .section-heading {
-    font-size: 3rem;
+    font-size: var(--font-size-mega);
     color: var(--color-text) !important;
     margin-bottom: 2rem;
     text-align:left
@@ -1495,7 +1513,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .card-content h3 {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     font-weight: var(--font-weight-bold);
     color: var(--color-text);
     margin-bottom:.5rem
@@ -1509,8 +1527,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .card-content p {
-    font-size: .95rem;
-    line-height: 1.6;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-base);
     color:var(--color-black)
 }
 
@@ -1524,7 +1542,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .resource-listing-section .section-heading {
-    font-size: var(--font-size-xxl);
+    font-size: var(--font-size-2xl);
     color: var(--color-text);
     margin-bottom: 2rem;
     text-align:left
@@ -1556,15 +1574,15 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .listing-card h3 {
-    font-size: var(--font-size-xl) !important;
+    font-size: var(--font-size-lg) !important;
     font-weight: var(--font-weight-bold) !important;
     color: var(--color-white) !important;
     margin-bottom:.75rem
 }
 
 .listing-card p {
-    font-size: .95rem;
-    line-height: 1.5;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-base);
     margin-bottom:1.25rem
 }
 
@@ -1580,7 +1598,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 .peach-banner {
     background: var(--color-light-orange);
     color: var(--color-white);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-medium);
     padding: 25px 0;
     text-align: center;
@@ -1593,13 +1611,13 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     text-align: left;
     font-weight: var(--font-weight-bold) !important;
     padding-left: 21px;
-    font-size: 1.8rem;
+    font-size: var(  --font-size-2xl);
     margin-bottom:.5rem
 }
 
 .plus-icon-listing {
     color: var(--color-purple);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     padding-left: 21px;
     text-align: left;
@@ -1608,7 +1626,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .plus-icon-teams {
     color: var(--color-purple);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     padding-left: 21px;
     text-align: center;
@@ -1619,7 +1637,11 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     position: relative;
     padding: 80px 5%;
     background-color: initial !important;
-    z-index:0
+    z-index:0;
+
+        @media screen {
+            padding:40px 5%;
+        }
 }
 
 .values-background-image img {
@@ -1645,7 +1667,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .values-bubble h2 {
-    font-size: 2.4rem !important;
+    font-size: var(--font-size-4xl) !important;
     font-weight: var(--font-weight-bold);
     margin-bottom:20px
 }
@@ -1659,7 +1681,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     font-weight: var(--font-weight-regular);
     text-decoration: none;
     border-radius: 2px;
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     position:relative !important
 }
 
@@ -1671,20 +1693,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     margin-top:30px
 }
 
-.value-item {
-    background: var(--gradient-teal);
-    border-radius: 0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .1);
-    color: var(--color-white);
-    text-align: left;
-    cursor: pointer;
-    transition: all .3s ease;
-    overflow:hidden
-}
 
-.value-item:hover {
-    transform:translateY(-5px)
-}
 
 .value-title {
     font-weight:700
@@ -1692,14 +1701,9 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .value-description {
     display: none;
-    font-size: 15px;
+    font-size: var(--font-size-base);
     margin-top: 12px;
-    line-height: 1.5;
-    color:var(--color-white)
-}
-
-.value-block.open .value-item {
-    background: var(--gradient-white-teal);
+    line-height: var(--line-height-base);
     color:var(--color-white)
 }
 
@@ -1707,18 +1711,19 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     display:block
 }
 
+.value-block.open .value-item {
+    background: var(--gradient-white-teal);
+}
+
+.value-block.open .value-item .value-title {
+	color: var(--color-blue);
+}
+
 .values-background-image {
     position: absolute;
     top: 43%;
     transform: translateY(-50%);
     width:40%
-}
-
-.mission-local-section {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 40px;
-    padding:80px 5%
 }
 
 .mission-left, .mission-right {
@@ -1730,35 +1735,44 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     justify-content: space-between;
     align-items: flex-start;
     gap: 40px;
-    padding: 80px 40px;
+    padding: 80px 5%;
     background-color: initial !important;
-    flex-wrap:wrap
+    flex-wrap:wrap;
+
+        @media screen {
+            padding: 40px 0;
+            gap:30px;
+        }
 }
 
 .mission-left {
     flex: 1;
     min-width: 300px;
-    text-align:center
+    text-align:center;
+
+    @media screen {
+        padding: 40px 5%;
+    }
 }
 
-.mission-right p, h2, li {
+.mission-right p, .mission-right h2, .mission-right li {
     color:var(--color-blue) !important
 }
 
 .mission-left h2 {
-    font-size: var(--font-size-xxl);
+    font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-bold);
     color:var(--color-blue) !important
 }
 
 .mission-sub {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     color: var(--color-orange);
     margin:20px 0
 }
 
 .mission-left h4 {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     color:var(--color-blue)
 }
 
@@ -1777,7 +1791,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .mission-right h3 {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     font-weight: var(--font-weight-bold);
     margin-top:20px
 }
@@ -1818,7 +1832,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     }
 
     .bubble-plus-icon {
-        font-size: var(--font-size-lg);
+        font-size: var(--font-size-med);
         text-align:center
     }
 
@@ -1842,7 +1856,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     }
 
     .bubbles-blue-right {
-        font-size: 14px;
+        font-size: var(--font-size-sm);
         text-align:center
     }
 
@@ -1871,12 +1885,12 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     }
 
     .contact-left h3, .contact-right h3 {
-        font-size: var(--font-size-xl) !important;
+        font-size: var(--font-size-lg) !important;
         text-align:center
     }
 
     .subtitle {
-        font-size: 14px;
+        font-size: var(--font-size-sm);
         padding-right: 0;
         text-align:center
     }
@@ -1885,9 +1899,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
         flex-direction:column
     }
 
-    .values-section {
-        padding:60px 20px
-    }
+
 
     .values-bubble {
         padding:30px 20px
@@ -1905,10 +1917,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
         display:none
     }
 
-    .mission-local-section {
-        padding: 60px 20px;
-        gap:30px
-    }
+    
 
     .mission-left h2 {
         font-size:24px
@@ -1948,7 +1957,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     }
 
     .listing-header, .plus-icon-listing, .plus-icon-teams {
-        font-size: 1.2rem;
+        font-size: var(--font-size-med);
         text-align: center;
         padding-left:0
     }
@@ -1991,12 +2000,12 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding-top: 100px;
     max-width: 100%;
     margin: 0 auto;
-    background:var(--gradient-teal)
+    background:var(--color-teal)
 }
 
 .ds-bubble-plus-icon {
     display: flex;
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     color: var(--color-orange);
     padding-right: 38px;
@@ -2107,13 +2116,13 @@ section {
 }
 
 .ds-strategy-left h2 {
-    font-size: var(--font-size-xxl);
+    font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-bold);
     color:var(--color-blue)
 }
 
 .ds-strategy-left h4 {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     color:var(--color-blue)
 }
 
@@ -2128,7 +2137,7 @@ section {
 }
 
 .ds-strategy-right h3 {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     font-weight: var(--font-weight-bold);
     margin-top:20px
 }
@@ -2153,9 +2162,9 @@ section {
 .ds-mindset-bubble h2 {
     color: var(--color-text);
     text-align: left;
-    font-size: 2.2rem !important;
+    font-size: var(--font-size-2xl) !important;
     font-weight: var(--font-weight-bold) !important;
-    line-height: 1.2;
+    line-height: var(--line-height-tight);
     margin-bottom:-101px
 }
 
@@ -2222,7 +2231,7 @@ section {
     color: var(--color-black);
     font-size: var(--font-size-base);
     max-width: 413px;
-    line-height: 1.6;
+    line-height: var(--line-height-relaxed);
     text-align:left
 }
 
@@ -2253,7 +2262,7 @@ section {
     }
 
     .ds-mindset-title {
-        font-size: 15px;
+        font-size: var(--font-size-base);
         padding: 16px;
         text-align:left
     }
@@ -2272,7 +2281,7 @@ section {
 }
 
 .ds-our-team-section .ds-section-title {
-    font-size: 2.2rem !important;
+    font-size: var(--font-size-2xl) !important;
     color: var(--color-green);
     margin-bottom: 15px;
     font-weight: var(--font-weight-bold) !important;
@@ -2295,7 +2304,7 @@ section {
 
 .ds-our-team-section .ds-star-icon {
     color: var(--color-orange);
-    font-size: 1.5em;
+    font-size: var(--font-size-lg);
     margin-right:5px
 }
 
@@ -2324,7 +2333,7 @@ section {
 }
 
 .ds-our-team-section .ds-member-name {
-    font-size: 1.8em;
+    font-size: var(--font-size-xl);
     margin-bottom: 5px;
     display: inline-flex;
     align-items:center
@@ -2356,7 +2365,7 @@ section {
 }
 
 .ds-our-team-section .ds-member-title {
-    font-size: 1.1em;
+    font-size: 1.1rem;
     opacity:.8
 }
 
@@ -2372,7 +2381,7 @@ section {
 
 .ds-our-team-section .ds-member-details li {
     font-size: 1em;
-    line-height: 1.6;
+    line-height: var(--line-height-relaxed);
     margin-bottom: 8px;
     position: relative;
     padding-left:20px
@@ -2380,8 +2389,8 @@ section {
 
 .ds-our-team-section .ds-member-details li::before {
     content: '•';
-    color: #50e3c2;
-    font-size: 1.2em;
+    color: #1ec1cd;
+    font-size: var(--font-size-med);
     position: absolute;
     left: 0;
     top:0
@@ -2486,13 +2495,13 @@ section {
     font-weight: var(--font-weight-bold) !important;
     margin-top: 25px !important;
     margin-bottom: 8px;
-    font-size: var(--font-size-lg) !important;
+    font-size: var(--font-size-med) !important;
     color:var(--color-blue) !important
 }
 
 .ds-bubble-text {
     font-weight: var(--font-weight-bold);
-    line-height: 1.4;
+    line-height: var(--line-height-relaxed-tight);
     margin: 10px;
     color: var(--color-blue) !important;
     text-align:center
@@ -2509,7 +2518,7 @@ section {
     background: var(--color-orange);
     color: var(--color-white) !important;
     font-weight: var(--font-weight-regular);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     border: none;
     cursor: pointer;
     text-decoration: none;
@@ -2539,15 +2548,15 @@ section {
 
 .ds-bubble-header {
     font-weight: var(--font-weight-bold);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     text-align: center;
     margin-top: 0;
     margin-bottom:8px
 }
 
 .ds-bubble-text {
-    font-size: 14px;
-    line-height: 1.4;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed-tight);
     margin: 10px;
     text-align:center
 }
@@ -2579,7 +2588,7 @@ section {
     }
 
     .ds-bubble-text {
-        font-size: 14px;
+        font-size: var(--font-size-sm);
         margin:10px auto
     }
 
@@ -2595,7 +2604,7 @@ section {
     }
 
     .ds-centered-stars {
-        font-size: var(--font-size-lg);
+        font-size: var(--font-size-med);
         margin-bottom:8px
     }
 
@@ -2614,7 +2623,7 @@ section {
 .ds-plus-divider-banner {
     background: var(--gradient-teal-blue);
     color: var(--color-white);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-medium);
     padding: 15px 0;
     text-align: center;
@@ -2647,7 +2656,7 @@ section {
 }
 
 .ds-our-fur-section .ds-section-title {
-    font-size: 2.2rem !important;
+    font-size: var(--font-size-3xl) !important;
     font-weight: var(--font-weight-bold) !important;
     text-align: center;
     color: var(--color-blue);
@@ -2675,7 +2684,7 @@ section {
     justify-content: center;
     gap: 8px;
     color: var(--color-purple);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     margin-bottom:40px
 }
 
@@ -2710,20 +2719,20 @@ section {
 }
 
 .ds-plus-icon {
-    font-size: var(--font-size-xxl);
+    font-size: var(--font-size-2xl);
     color: var(--color-purple);
     padding-left:4px
 }
 
 .ds-fur-member h3 {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     color: var(--color-blue);
     text-align: center;
     margin-bottom:8px
 }
 
 .ds-fur-member p {
-    font-size: 14px;
+    font-size: var(--font-size-sm);
     color: var(--color-blue);
     font-weight: var(--font-weight-medium);
     margin: 0;
@@ -2740,7 +2749,7 @@ section {
 
 .ds-cta-stars-above-image .ds-star-icon {
     color: var(--color-white);
-    font-size: 1.5em;
+    font-size: var(--font-size-lg);
     line-height:1
 }
 
@@ -2769,7 +2778,7 @@ section {
 }
 
 .ds-cta-title {
-    font-size: 2.5em;
+    font-size: var(--font-size-4xl);
     margin-bottom: 20px;
     color:var(--color-white) !important
 }
@@ -2780,13 +2789,13 @@ section {
 
 .ds-cta-stars .ds-star-icon {
     color: var(--color-orange);
-    font-size: 1.5em;
+    font-size: var(--font-size-lg);
     margin:0 5px
 }
 
 .ds-cta-text {
-    font-size: 1.2em;
-    line-height: 1.5;
+    font-size: var(--font-size-med);
+    line-height: var(--line-height-base);
     margin-bottom:40px
 }
 
@@ -2798,7 +2807,7 @@ section {
     background-color: var(--color-orange) !important;
     color: var(--color-white) !important;
     text-decoration: none;
-    font-weight: 200;
+    font-weight: var(--font-weight-thin);
     display: initial;
     margin-top: 20px;
     border-radius: 0;
@@ -2806,12 +2815,12 @@ section {
 }
 
 .ds-cta-button:hover {
-    background:var(--gradient-teal) !important
+    background:var(--gradient-teal-blue) !important
 }
 
 .ds-plus-icon-teams {
     color: var(--color-purple);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     padding-left: 21px;
     text-align: center;
@@ -2851,13 +2860,13 @@ section {
 }
 
 .package-title {
-    font-size: 2.5em;
+    font-size: var(--font-size-4xl);
     margin-bottom: 10px;
     color:var(--color-purple) !important
 }
 
 .package-subtitle {
-    font-size: 1.2em;
+    font-size: var(--font-size-med);
     color:var(--color-blue)
 }
 
@@ -2907,7 +2916,7 @@ section {
 }
 
 .package-item-header {
-    font-size: 1.1em;
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-medium);
     color: var(--color-black);
     margin-bottom:5px
@@ -2916,7 +2925,7 @@ section {
 .package-item-desc {
     font-size: .95em;
     color: #475569;
-    line-height: 1.5;
+    line-height: var(--line-height-base);
     margin:0
 }
 
@@ -2924,7 +2933,7 @@ section {
     color: #9ca3af;
     text-align: center;
     padding: 5px 0;
-    font-size: 1.2em;
+    font-size: var(--font-size-med);
     letter-spacing:2px
 }
 
@@ -2985,7 +2994,7 @@ section {
 }
 
 .concept-title {
-    font-size: 2.5rem;
+    font-size: var(--font-size-4xl);
     font-weight: var(--font-weight-medium);
     margin-bottom: 0;
     margin-right: 221px;
@@ -3030,7 +3039,7 @@ section {
 }
 
 .timeline-heading {
-    font-size: var(--font-size-xxl);
+    font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-medium);
     color: var(--color-blue);
     margin-bottom:30px
@@ -3071,8 +3080,8 @@ section {
     justify-content: space-between;
     max-width: 600px;
     margin: 0 auto 40px;
-    font-size: var(--font-size-lg);
-    font-weight: 500;
+    font-size: var(--font-size-med);
+    font-weight: var(--font-weight-medium);
     color:var(--color-blue)
 }
 
@@ -3086,7 +3095,7 @@ section {
     margin: 0 auto;
     padding: 40px 30px;
     text-align: left;
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     color: var(--color-black);
     position:relative
 }
@@ -3102,7 +3111,7 @@ section {
     padding: 40px 30px;
     background: var(--color-light-blue);
     text-align: left;
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-med);
     color:var(--color-black)
 }
 
@@ -3148,7 +3157,7 @@ section {
 .plus-divider-banner {
     background: var(--gradient-teal-blue);
     color: var(--color-white);
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-medium);
     padding: 15px 0;
     text-align: center;
@@ -3191,8 +3200,12 @@ section {
 .service-list {
     list-style: disc;
     padding-left: 20px;
-    line-height: 36px;
-    padding-right:176px
+    line-height: var(--line-height-extra-loose);
+    padding-right:176px;
+
+        @media screen and (max-width: 767px) {
+            padding-right:0;
+        }
 }
 
 .service-list li {
@@ -3217,7 +3230,10 @@ section {
     display: block;
     margin: 0 auto;
     margin-left: 47pc;
-    margin-top:-32pc
+    margin-top:-32pc;
+    mask-image: linear-gradient(45deg, rgba(0, 0, 0, 1) 00%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-composite: source-over;
+    mask-composite: source-over;
 }
 
 .stat-box {
@@ -3231,7 +3247,7 @@ section {
 }
 
 .stat-value {
-    font-size: var(--font-size-xxl);
+    font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-bold);
     display:block
 }
@@ -3271,8 +3287,9 @@ section {
 .custom-graphic-wrap {
     flex: 1 1 24%;
     position: revert;
-    text-align:left
+    text-align:left;
 }
+
 
 .custom-screw-image {
     max-width: 118%;
@@ -3280,7 +3297,10 @@ section {
     padding: 3px;
     margin-left: -181px;
     display: flex;
-    position:relative
+    position:relative;
+    mask-image: linear-gradient(270deg, rgba(0, 0, 0, 1) 00%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-composite: source-over;
+    mask-composite: source-over;
 }
 
 .custom-stat-box {
@@ -3294,7 +3314,7 @@ section {
 }
 
 .custom-stat-value {
-    font-size: var(--font-size-xxl);
+    font-size: var(--font-size-2xl);
     font-weight: var(--font-weight-bold);
     display:block
 }
@@ -3339,31 +3359,31 @@ section {
 
 .audit-form {
 flex: 1 1 48%;
-  background: linear-gradient(90deg, #189da7, #1D4382);
+  background: var(--gradient-teal-blue);
   padding: 40px;
   margin-bottom:100px;
 }
 .audit-benefits{
   flex: 1 1 48%;
-  background: #dae3ff;
+  background: var(--color-light-blue);
   padding: 40px;
   margin-bottom:100px;
 }
 .audit-form h3 {
-  font-size: 28px;
+  font-size: var(--font-size-xl);
   margin-bottom: 15px;
   margin-left: -13px;
 }
 .audit-benefits h3{
-     font-size: 28px;
+     font-size: var(--font-size-xl);
   margin-bottom: 15px;
   margin-left: -35px;
-  color:#1d3482;
+  color:var(--color-blue);
 }
 
 .description-text {
   margin-bottom: 25px;
-  color: #f6ddd3;
+  color: var(--color-light-orange);
   font-size: 22px;
 }
 
@@ -3415,7 +3435,7 @@ flex: 1 1 48%;
 .form-row input[type="tel"] {
   flex: 1 1 100%;
   padding: 12px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--light-grey) ;
   border-radius: 6px;
 }
 
@@ -3426,7 +3446,7 @@ flex: 1 1 48%;
 
 /* Submit button */
 .form-row input[type="submit"] {
-  background-color: #ff6600;
+  background-color: var(--color-orange);
   color: white;
   border: none;
   padding: 14px 28px;
@@ -3459,7 +3479,7 @@ justify-content: space-between;
 .featured-card {
   flex: 1 1 calc(50% - 30px);
   max-width: calc(50% - 30px);
-  background: linear-gradient(90deg, #189da7, #1D4382);
+  background: var(--gradient-teal-blue);
   border-radius: 15px;
   padding: 40px 30px;
   color: var(--color-white);
@@ -3484,24 +3504,24 @@ justify-content: space-between;
 }
 
 .card-title {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-med);
   font-weight: var(--font-weight-bold);
   margin-bottom: 10px;
 }
 
 .card-description {
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
   margin-bottom: 20px;
 }
 
 .card-button {
   margin-top: auto;
-  background-color: #f36e21 !important;
+  background-color: var(--color-orange) !important;
   color: var(--color-primary);
   padding: 10px 60px;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: var(--font-weight-medium);
   transition: background 0.3s ease;
 }
 
@@ -3528,7 +3548,7 @@ justify-content: space-between;
 .featured-card {
   flex: 1 1 calc(50% - 30px);
   max-width: calc(50% - 30px);
-  background: linear-gradient(90deg, #189da7, #1D4382);
+  background: var(--gradient-teal-blue);
   border-radius: 15px;
   overflow: hidden;           
   display: flex;
@@ -3556,7 +3576,7 @@ justify-content: space-between;
 
 /* Typography */
 .card-title {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-med);
   font-weight: var(--font-weight-bold);
   margin: 0 0 10px;
 }
@@ -3566,8 +3586,8 @@ justify-content: space-between;
 }
 .card-excerpt,
 .card-description {
-  font-size: 14px;
-  line-height: 1.6;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
   margin: 0 0 20px;
   color: var(--color-white);
 }
@@ -3576,11 +3596,11 @@ justify-content: space-between;
 .card-button, 
 .btn-readmore {
     margin-top: auto;
-    background-color: #f36e21 !important;
+    background-color: var(--color-orange) !important;
     color: var(--color-primary);
     padding: 10px 10px;             
     text-decoration: none;
-    font-weight: 600;
+    font-weight: var(--font-weight-medium);
     text-align:center;
     display: inline-block;         
     transition: background 0.3s ease;
@@ -3592,8 +3612,8 @@ justify-content: space-between;
   margin-top: 28px;
 }
 .btn-view-more {
-  background: #f36e21;
-  color: #fff;
+  background: var(--color-orange);
+  color: var(--color-white);
   padding: 12px 28px;
   display: inline-block;
 }
