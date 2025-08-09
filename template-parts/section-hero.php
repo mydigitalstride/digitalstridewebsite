@@ -1,7 +1,7 @@
 <section class="hero-section">
-  <div class="hero-container" style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;">
+  <div class="hero-container">
 
-    <div class="hero-left" style="flex: 1; min-width: 300px;">
+    <div class="hero-left">
       <?php if (get_sub_field('hero_heading')): ?>
         <h1><?php the_sub_field('hero_heading'); ?></h1>
       <?php endif; ?>
@@ -15,7 +15,7 @@
       <?php endif; ?>
     </div>
 
-    <div class="hero-right" style="flex: 1; min-width: 300px; text-align: center;">
+    <div class="hero-right">
       <?php $image = get_sub_field('hero_image'); ?>
       <?php if ($image): ?>
         <img class="section-image" src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>" style="max-width: 100%; height: auto;">

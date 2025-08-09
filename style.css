@@ -42,17 +42,17 @@ DIGITAL STRIDE - FULL CSS STYLESHEET
 
   /* Font Sizes */
   --font-size-xs: clamp(0.75rem, 5vw, 0.875rem); /* 12px */
-  --font-size-sm: clamp(0.875rem, 5vw, 1.125rem); /* 14px */
-  --font-size-base: clamp(1rem, 5vw, 1.25rem); /* 16px */
+  --font-size-sm: clamp(0.875rem, 5vw, 1rem); /* 14px */
+  --font-size-base: clamp(1rem, 5vw, 1.125rem); /* 16px */
   --font-size-med: clamp(1.25rem, 5vw, 1.5rem); /* 20px */
-  --font-size-lg: clamp(1.5rem, 5vw, 2rem); /* 24px */ 
-  --font-size-xl: clamp(1.75rem, 5vw, 2.5rem); /* 28px */
-  --font-size-2xl: clamp(2rem, 5vw, 3rem); /* 32px */
-  --font-size-3xl: clamp(2.25rem, 5vw, 3.5rem); /* 36px */
-  --font-size-4xl: clamp(2.5rem, 5vw, 4rem); /* 40px */
-  --font-size-mega: clamp(3rem, 5vw, 5rem); /* 48px */
-  --font-size-wow: clamp(3.5rem, 5vw, 5.5rem); /* 56px */
-  --font-size-giant: clamp(4rem, 5vw, 6rem); /* 64px */
+  --font-size-lg: clamp(1.5rem, 5vw, 1.75rem); /* 24px */ 
+  --font-size-xl: clamp(1.75rem, 5vw, 2rem); /* 28px */
+  --font-size-2xl: clamp(2rem, 5vw, 2.25rem); /* 32px */
+  --font-size-3xl: clamp(2.25rem, 5vw, 2.5rem); /* 36px */
+  --font-size-4xl: clamp(2.5rem, 5vw, 3rem); /* 40px */
+  --font-size-mega: clamp(3rem, 5vw, 3.5rem); /* 48px */
+  --font-size-wow: clamp(3.5rem, 5vw, 4rem); /* 56px */
+  --font-size-giant: clamp(4rem, 5vw, 5rem); /* 64px */
 
   /* Line Heights */
   --line-height-tight: 1.2; /* 19px */
@@ -332,7 +332,7 @@ a {
 
 .header-grid-container {
   display: grid;
-  grid-template-columns: 20% 80%;
+  grid-template-columns: 30% 70%;
   color: var(--color-white)
 }
 
@@ -340,10 +340,12 @@ a {
   padding: .25rem 0;
   display: flex;
   align-items: center
+
 }
 
 .header-logo-img {
   width: 100%;
+  object-fit: contain;
   max-height: 45px
 }
 
@@ -365,7 +367,8 @@ a {
 .header-menu-container {
   display: block;
   align-items: center;
-  justify-content: right
+  justify-content: right;
+  align-self: center;
 }
 
 #header-menu {
@@ -471,7 +474,8 @@ a {
   color: var(--color-white);
   padding: 12px 24px;
   text-decoration: none;
-  transition: background-color .3s ease
+  transition: background-color .3s ease;
+  border-radius: 4px;
 }
 
 .footer-social-icons {
