@@ -1518,7 +1518,7 @@ z-index: 0;
     position: fixed;
     top: 10%;
     right: 5%;
-    width: 400px;
+    width: 25%;
     height: calc(100vh - 100px);
     background-color: var(--color-teal);
     padding: 20px;
@@ -1622,10 +1622,14 @@ z-index: 0;
 
 .card-wrapper {
     display: flex;
-    flex-direction: column;
-    padding-right: 800px;
+    flex-direction: column;;
     gap: 2rem;
-    padding-left:21px
+    width: 60%;
+
+        @media screen and (max-width: 768px) {
+            width: 100%;
+            padding: 40px 0;
+        }
 }
 
 .resource-card {
@@ -1688,9 +1692,13 @@ z-index: 0;
     grid-template-columns: repeat(auto-fit, minmax(237px, 1fr));
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-    padding-left: 21px;
-    padding-right: 500px;
-    color:var(--color-white) !important
+    width: 70%;
+    color:var(--color-white);
+
+        @media screen and (max-width: 768px) {
+            width: 100%;
+            padding: 40px 0;
+        }
 }
 
 .listing-card {
@@ -1763,7 +1771,6 @@ z-index: 0;
     color: var(--color-blue);
     text-align: left;
     font-weight: var(--font-weight-bold) !important;
-    padding-left: 21px;
     font-size: var(  --font-size-2xl);
     margin-bottom:.5rem
 }
@@ -1772,7 +1779,6 @@ z-index: 0;
     color: var(--color-purple);
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
-    padding-left: 21px;
     text-align: left;
     margin-bottom:1.5rem
 }
@@ -2126,15 +2132,10 @@ z-index: 0;
         padding:20px
     }
 
-    .card-wrapper {
-        padding-right: 0;
-        padding-left:10px
-    }
-
     .resource-card {
         flex-direction: column;
         padding: 1.5rem;
-        gap:1rem
+        gap:1rem;
     }
 
     .card-content {
@@ -2155,10 +2156,6 @@ z-index: 0;
         font-size: var(--font-size-med);
         text-align: center;
         padding-left:0
-    }
-
-    .floating-sidebar {
-        display:none
     }
 }
 
@@ -2770,17 +2767,15 @@ ul.ds-mindset-items{
     display: flex;
     justify-content: center;
     margin:10px 0;
-    aspect-ratio: 3/2;
 }
 
 .ds-bubble-image-center {
-    width: 60%;
+    width: 70%;
     border-radius: 10px;
     height: 100%;
-    object-fit:cover
+    object-fit:cover;
+    aspect-ratio: 1;
 }
-
-
 
 .ds-bubble-text {
     font-size: var(--font-size-sm);
