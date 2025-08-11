@@ -165,3 +165,19 @@ function my_theme_enqueue_scripts() {
   );
 }
 add_action('wp_enqueue_scripts', 'my_theme_enqueue_scripts');
+
+<?php
+/**
+ * Enqueue custom scripts and styles.
+ */
+function enqueue_custom_assets() {
+    wp_enqueue_script( 
+        'floating-sidebar', 
+        get_template_directory_uri() . '/js/floating-sidebar.js',
+        array(),
+        null,
+        true );
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_custom_assets' );
+
+?>

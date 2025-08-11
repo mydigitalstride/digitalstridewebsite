@@ -36,6 +36,9 @@ DIGITAL STRIDE - FULL CSS STYLESHEET
   --gradient-white-teal: linear-gradient(135deg, #D3E9EB, #189da7); /* rgb(246,221,211 → 255,74,7) */
   --gradient-white-blue: linear-gradient(135deg, #f2f5fb, #1D4382); /* rgb(246,221,211 → 255,74,7) */
   --gradient-purple-blue: linear-gradient(135deg, #70077B, #1D4382); /* rgb(112,7,123 → 29,67,130) */
+  --gradient-white-light-teal: linear-gradient(180deg, #f2f5fb, #D3E9EB); /* rgb(242,245,251 → 211,233,235) */
+  --gradient-white-light-blue: linear-gradient(180deg, #f2f5fb, #dae3ff); /* rgb(242,245,251 → 218,227,255) */
+  --gradient-white-light-orange: linear-gradient(180deg, #f2f5fb, #f6ddd3); /* rgb(242,245,251 → 246,221
 
     /* Font Families */
   --font-sans: 'josefin sans', sans-serif;
@@ -114,11 +117,41 @@ h6 {
   overflow-wrap: break-word
 }
 
+button {
+  cursor: pointer;
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-medium);
+  border: none;
+  outline: none;
+  width: fit-content;
+  border-radius: 4px;
+  position:relative !important;
+  width: fit-content;
+  text-align: center;
+  background-color: var(--color-orange);
+  background-image: var(--gradient-yellow-orange);
+  background-size: 0% 100%; /* Initially, the gradient has 0 width */
+  background-position: 0% 0%; /* Start at the left */
+  background-repeat: no-repeat; /* Prevent tiling */
+  transition: background-size 0.4s ease-in-out,
+              background-color 0.4s ease-in-out;
+
+      @media screen and (max-width: 768px) {
+          width: 100%;
+          max-width: none;
+          
+      }
+}
+
+button:hover {
+    background-size: 100% 100%;
+    background-color: var(--color-orange)
+}
+
 body,
 html,
 section {
   background-color: var(--color-white);
-  width: 100%;
   margin: 0;
   padding: 0;
   overflow-x: hidden;
@@ -138,34 +171,38 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--color-text);
+  color: var(--color-blue);
   font-weight: var(--font-weight-medium);
   line-height: var(--line-height-base);
   margin-bottom: 20px;
 }
 
 h1 {
-  font-size: var(--font-size-4xl);
+  font-size: var(--font-size-mega);
   line-height: var(--line-height-base);
-  margin-bottom: 2rem;
-  margin-top: 2.5rem
+  margin-top: 2.5rem;
+  color: var(--gradient-white-light-orange);
 }
 
 h2 {
-  font-size: var(--font-size-2xl);
+  font-size: var(--font-size-3xl);
   line-height: var(--line-height-tight);
-  margin-bottom: 1.25rem;
-  margin-top: 1.75rem
+  margin-top: 1.75rem;
+  background: var(--gradient-teal-blue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 h3 {
-  font-size: var(--font-size-med);
-  margin-bottom: 1rem
+  font-size: var(--font-size-2xl);
+  margin-bottom: 1rem;
+  color: var(--color-blue);
 }
 
 h4 {
-  font-size: var(--font-size-med);
-   margin-bottom:1rem;
+  font-size: var(--font-size-lg);
+  margin-bottom:1rem;
+  color: var(--color-teal);
 }
 
 p,
@@ -193,7 +230,6 @@ a {
 
 .mega-menu {
   background: var(--color-white) !important;
-  padding-top: 3rem !important;
 
   @media screen and (min-width:768px) {
     background: transparent !important;
@@ -243,7 +279,7 @@ a {
 
 .mega-menu-toggle {
   @media screen and (max-width:768px) {
-    background: var(--color-light-blue) !important;
+    background: var(--color-teal) !important;
   }
 }
 
@@ -306,7 +342,6 @@ a {
     }
   }
 }
-
 .mega-menu-button-wrapper {
   & ul {
     & li {
@@ -318,8 +353,7 @@ a {
 }
 
 .site-branding {
-  background: var(--color-light-teal);
-  background-color: var(--color-light-teal);
+  background: var(--gradient-white-light-blue);
   padding: 1rem 0;
 
   @media screen and (min-width:768px) {
@@ -333,20 +367,32 @@ a {
 .header-grid-container {
   display: grid;
   grid-template-columns: 30% 70%;
-  color: var(--color-white)
+  color: var(--color-white);
+    
+    @media screen and (max-width: 768px) {
+        grid-template-columns: 40% 60%;
+    }
 }
 
 .header-logo {
   padding: .25rem 0;
   display: flex;
-  align-items: center
-
+  align-items: center;
+    
+  a {
+      line-height: 0;
+    }
 }
 
 .header-logo-img {
   width: 100%;
   object-fit: contain;
-  max-height: 45px
+  max-height: 45px;
+    
+  @media screen and (max-width: 768px) {
+      width: fit-content;
+      max-width: 40vw;
+    }
 }
 
 .shop-link-container {
@@ -470,12 +516,31 @@ a {
 }
 
 .footer-cta-button {
-  background-color: var(--color-orange);
   color: var(--color-white);
-  padding: 12px 24px;
+  padding: 16px 36px;
   text-decoration: none;
-  transition: background-color .3s ease;
   border-radius: 4px;
+  position:relative !important;
+  width: fit-content;
+  text-align: center;
+  background-color: var(--color-orange);
+  background-image: var(--gradient-yellow-orange);
+  background-size: 0% 100%; /* Initially, the gradient has 0 width */
+  background-position: 0% 0%; /* Start at the left */
+  background-repeat: no-repeat; /* Prevent tiling */
+  transition: background-size 0.4s ease-in-out,
+              background-color 0.4s ease-in-out;
+
+      @media screen and (max-width: 768px) {
+          width: 100%;
+          max-width: none;
+          
+      }
+}
+
+.footer-cta-button:hover {
+    background-size: 100% 100%;
+    background-color: var(--color-orange)
 }
 
 .footer-social-icons {
@@ -609,6 +674,36 @@ a {
   }
 
   .mega-menu-toggle {
-    display: none
+    display: none;
+    
+  }
+
+}
+
+@media only screen and (max-width: 768px) {
+    #mega-menu-wrap-primary .mega-menu-toggle .mega-toggle-blocks-right {
+      justify-content: center !important;
+      aspect-ratio: 1 !important;
+  } 
+
+  .mega-menu-open .mega-toggle-blocks-right{
+    background: var(--gradient-teal-blue) !important;
+    transition: all .5s ease-in-out !important;
+  }
+
+  #mega-menu-wrap-primary .mega-menu-toggle .mega-toggle-block-1:after {
+    margin: 0px !important;
+  }
+
+  #mega-menu-wrap-primary .mega-menu-toggle+#mega-menu-primary {
+    top: 60px !important;
+  }
+#mega-menu-wrap-primary .mega-menu-toggle.mega-menu-open+#mega-menu-primary {
+    border-bottom: 8px solid transparent !important; /* Essential fallback and height */
+    border-image: linear-gradient(135deg, #f2c814, #ff4a07) 1 !important; /* Apply the variable and slice evenly */
+  }
+
+  .mega-sub-menu:nth-child(1) {
+    background: var(--gradient-white-light-teal) !important;
   }
 }
