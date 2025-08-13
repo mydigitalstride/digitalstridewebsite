@@ -137,6 +137,56 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     margin: 0;
     line-height: var(--line-height-tight);
 }
+/* Wrap for subheading (+) on left, heading+text on right */
+.hero-heading-wrap {
+  display: flex;
+  align-items: flex-start; /* align tops */
+  gap: 16px;
+}
+
+/* The "+" column */
+.hero-subheading {
+  flex: 0 0 auto;
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--color-accent, #F36E21); /* your brand orange */
+  line-height: 1;
+  margin-top: 5px; /* small visual adjustment */
+}
+
+/* Heading + text column */
+.hero-title-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Heading style */
+.hero-title {
+  margin: 0;
+  color: var(--color-white);
+  line-height: 1.2;
+}
+
+/* Text under heading */
+.hero-lede {
+  margin: 0;
+  color: var(--color-white);
+  max-width: 60ch;
+  line-height: 1.5;
+}
+
+/* Mobile: stack nicely */
+@media (max-width: 768px) {
+  .hero-heading-wrap {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .hero-lede {
+    max-width: 100%;
+  }
+}
 
 .section-image {
     mask-image: linear-gradient(45deg, rgba(0, 0, 0, 1) 00%, rgba(0, 0, 0, 0) 100%);
@@ -307,7 +357,9 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 }
 
 .value-item:hover {
-    transform:translateY(-5px);
+background: var(--gradient-light-orange);
+  transform: translateY(-2px); /* subtle lift */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
 }
 
 .value-item p {
@@ -1882,7 +1934,7 @@ z-index: 0;
     position: relative;
     color:var(--color-white);
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100%;
 
         @media screen and (max-width: 768px) {
@@ -3944,3 +3996,84 @@ justify-content: space-between;
     max-width: 100%;
   }
 }
+/* ===== Digital Stride Single Post ===== */
+
+/* Full-bleed hero */
+.ds-hero { margin:0; padding:0; }
+.ds-hero__inner{
+  width:100vw; max-width:100vw;
+  margin-left:calc(50% - 50vw);
+  margin-right:calc(50% - 50vw);
+
+  display:grid;
+  grid-template-columns: 1.25fr 1fr; /* TEXT | IMAGE */
+  gap:0;
+  align-items:stretch;
+  overflow:hidden;
+  background:transparent;
+}
+
+/* Text (left) */
+.ds-hero__text{
+  background: linear-gradient(90deg, #189da7 0%, #1d4382 100%);
+  color:#fff;
+  padding:36px 32px;
+  display:flex; flex-direction:column; justify-content:flex-start; /* top-aligned */
+  min-height:320px;
+}
+.ds-hero__kicker{ color:#ff9856; font-weight:700; font-size:22px; margin-bottom:8px; }
+.ds-hero__title{ font-size:clamp(28px,3.2vw,40px); line-height:1.1; margin:0 0 12px; font-weight:800; }
+.ds-hero__excerpt{ font-size:16px; max-width:56ch; opacity:.95; margin:0; }
+.ds-hero__meta{ font-size:14px; margin-top:12px; opacity:.9; }
+.ds-meta__dot{ margin:0 8px; }
+
+/* Image (right) */
+.ds-hero__media{ background:#0e3b6b; }
+.ds-hero__img{ width:100%; height:100%; min-height:320px; display:block; object-fit:cover; }
+
+/* Body area (no theme container) */
+.ds-body{ background:#f5f7fb; padding:24px 0 72px; }
+.ds-post-content{ color:#2a2a2a; font-size:18px; line-height:1.7; }
+.ds-post-content h2, .ds-post-content h3{ color:#1d4382; }
+.ds-content-wrap {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding:0 24px
+}
+
+/* CTA button */
+.ds-post-actions{ display:flex; justify-content:center; margin-top:40px; }
+.ds-btn{ text-decoration:none; display:inline-block; }
+.ds-btn--primary{
+  background:#f36e21; color:#fff; padding:12px 28px; border-radius:8px; font-weight:700;
+  transition:transform .15s ease, opacity .15s ease;
+}
+.ds-btn--primary:hover{ transform:translateY(-1px); opacity:.95; }
+
+/* Mobile */
+@media (max-width:900px){
+  .ds-hero__inner{ grid-template-columns:1fr; }
+  .ds-hero__img{ min-height:220px; }
+}
+
+/*section button*/
+.cta-button-section {
+  text-align: center; /* centers button horizontally */
+  padding: 40px 0; /* optional spacing */
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 16px 28px;
+  background: linear-gradient(90deg, #16a6b6, #1d4382);
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.cta-button:hover {
+    background: #f36e21; /* orange default */
+    transform: translateY(-2px);
+}
+

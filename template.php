@@ -89,6 +89,8 @@ if ( have_rows('home_page_section') ):
             get_template_part('template-parts/section', 'seo');
              elseif (get_row_layout() == 'featured_cards'):
             get_template_part('template-parts/section', 'featured-cards');
+  elseif (get_row_layout() == 'ds_button'):
+            get_template_part('template-parts/section', 'button');
         endif;
 
     endwhile;
