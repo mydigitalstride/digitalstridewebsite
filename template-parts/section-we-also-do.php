@@ -8,17 +8,23 @@
           $icon = get_sub_field('icon');
           $link = get_sub_field('link_url'); 
         ?>
-          <div class="we-also-do-item">
-            <?php if ($icon): ?>
-              <img class="we-also-do-icon" src="<?php echo esc_url($icon['url']); ?>" alt="<?php echo esc_attr($item_text); ?>">
-            <?php endif; ?>
 
+          <div class="we-also-do-item">
             <?php if ($link): ?>
-              <p><a class="we-also-do-link" href="<?php echo esc_url($link); ?>"><?php echo esc_html($item_text); ?></a></p>
+              <a class="we-also-do-link" href="<?php echo esc_url($link); ?>">
+                <?php if ($icon): ?>
+                  <img class="we-also-do-icon" src="<?php echo esc_url($icon['url']); ?>" alt="<?php echo esc_attr($item_text); ?>">
+                <?php endif; ?>
+                <span><?php echo esc_html($item_text); ?></span>
+              </a>
             <?php else: ?>
-              <p><?php echo esc_html($item_text); ?></p>
+              <?php if ($icon): ?>
+                <img class="we-also-do-icon" src="<?php echo esc_url($icon['url']); ?>" alt="<?php echo esc_attr($item_text); ?>">
+              <?php endif; ?>
+              <span><?php echo esc_html($item_text); ?></span>
             <?php endif; ?>
           </div>
+
         <?php endwhile; ?>
       <?php endif; ?>
     </div>

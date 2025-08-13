@@ -44,7 +44,7 @@ $q = new WP_Query($args);
             <?php if ( has_post_thumbnail() ) {
               the_post_thumbnail('medium_large', ['alt'=>esc_attr(get_the_title())]);
             } else { ?>
-              <img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/default.jpg' ); ?>" alt="">
+              <img src="<?php echo esc_url( get_template_directory_uri() . '/images/Pattern.png' ); ?>" alt="">
             <?php } ?>
           </a>
 

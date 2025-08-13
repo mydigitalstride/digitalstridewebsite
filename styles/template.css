@@ -210,6 +210,18 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     color: var(--color-blue);
     margin-bottom:40px
 }
+.we-also-do-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.we-also-do-icon {
+  width: 40px; /* adjust as needed */
+  height: auto;
+}
 
 .we-also-do-grid {
     display: grid;
@@ -1624,7 +1636,7 @@ z-index: 0;
     display: flex;
     flex-direction: column;;
     gap: 2rem;
-    width: 60%;
+    width: 70%;
 
         @media screen and (max-width: 768px) {
             width: 100%;
@@ -1750,6 +1762,28 @@ z-index: 0;
             
         }
     
+}
+.listing-card {
+  display: block;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.listing-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  cursor: pointer;
+}
+
+.listing-btn {
+  display: inline-block;
+  margin-top: 10px;
+  font-weight: bold;
 }
 
 .listing-btn:hover {

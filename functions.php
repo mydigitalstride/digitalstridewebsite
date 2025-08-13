@@ -166,7 +166,6 @@ function my_theme_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'my_theme_enqueue_scripts');
 
-<?php
 /**
  * Enqueue custom scripts and styles.
  */
