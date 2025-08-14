@@ -147,11 +147,9 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 /* The "+" column */
 .hero-subheading {
   flex: 0 0 auto;
-  font-size: 24px;
-  font-weight: bold;
-  color: var(--color-accent, #F36E21); /* your brand orange */
-  line-height: 1;
-  margin-top: 5px; /* small visual adjustment */
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-orange);
 }
 
 /* Heading + text column */
@@ -958,7 +956,7 @@ z-index: 0;
     }
 }
 
-.hero-content-subtext h2 {
+.hero-content-subtext {
     font-size: var(--font-size-lg) !important;
     margin: 0 auto !important;
     line-height: var(--line-height-tight) !important;
@@ -1469,11 +1467,21 @@ z-index: 0;
     color: var(--color-blue);
     margin-bottom: 10px;
     padding-left:initial
+
+}
+
+.contact-right {
+    background-color:var(--color-light-orange)
+}
+
+.contact-right a {
+    color: var(--color-orange);
+    text-decoration: none;
 }
 
 .subtitle {
     font-size: var(--font-size-base);
-    color: var(--color-teal);
+    color: var(--color-blue);
     padding-right: 114px;
     margin-bottom:40px !important
 }
@@ -1531,9 +1539,6 @@ z-index: 0;
     width: fit-content;
 }
 
-.contact-right {
-    background-color:var(--color-light-orange)
-}
 
 .cf7-form-wrap form {
     display: flex;
