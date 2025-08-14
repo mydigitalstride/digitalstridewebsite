@@ -1081,36 +1081,41 @@ z-index: 0;
 }
 
 .slider-nav {
-    position: absolute;
-    top: 254px;
-    transform: translateY(-50%);
-    font-size: var(--font-size-2xl);
-    color: var(--color-white);
-    background: transparent;
-    border: none;
-    padding: 10px 16px;
-    cursor: pointer;
-    z-index: 10;
-    transition: background .3s ease;
+  position: absolute;
+  top: 50%;                 
+  transform: translateY(-50%);
+  font-size: var(--font-size-2xl);
+  color: var(--color-white);
+  background: transparent;
+  border: 0;
+  padding: 10px 16px;
+  cursor: pointer;
+  z-index: 3;
+  line-height: 1;
+  transition: background .3s ease;
 }
-
 .slider-nav:hover {
     background:rgba(0, 0, 0, .7)
 }
 
 .slider-nav.prev {
-    left:10px
+    left:1px;
+    top:200px;
+    
 }
 
 .slider-nav.next {
-    right:10px
+    left:1150px;
+    bottom:200px;
 }
 
 .before-after-slider .slider-wrapper {
-    width: 100%;
-    margin: 0 auto;
-    overflow: hidden;
-    border-radius:8px
+ position: relative;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 8px;
+  padding: 0 44px;          
 }
 
 .before-after-slider .slider {
@@ -1136,7 +1141,8 @@ z-index: 0;
 
 .slider img {
     width: 100% !important;
-    display: flex !important;
+    display: block !important;    
+    transition: clip-path .3s ease;
     top: 0;
     left: 0;
     transition:clip-path .3s ease
@@ -1206,9 +1212,9 @@ z-index: 0;
     border-radius: 4px;
     background-color: var(--color-orange);
     background-image: var(--gradient-yellow-orange);
-    background-size: 0% 100%; /* Initially, the gradient has 0 width */
-    background-position: 0% 0%; /* Start at the left */
-    background-repeat: no-repeat; /* Prevent tiling */
+    background-size: 0% 100%; 
+    background-position: 0% 0%; 
+    background-repeat: no-repeat; 
     transition: background-size 0.4s ease-in-out,
                 background-color 0.4s ease-in-out;
 }
@@ -1274,7 +1280,55 @@ z-index: 0;
         font-size:var(--font-size-sm)
     }
 }
+.corner-accent {
+    position: absolute;
+    width: 300px;
+    height: auto;
+    pointer-events: none;
+    z-index: 5;
+    opacity:.1
+}
 
+.corner-accent--left {
+  top: 331px;
+  left: 0px;
+  transform: rotate(180deg);      
+  transform-origin: center; 
+   
+}
+
+.corner-accent--right {
+    top: -14px;
+    right: -14px;
+    transform: rotate(360deg); 
+   
+}
+
+@media (max-width: 1024px){
+  .corner-accent{ width: clamp(120px, 20vw, 220px); }
+  .corner-accent--left{ top: 240px; left: -8px; }
+  .corner-accent--right{ top: -10px; right: -8px; }
+}
+
+/* mobile */
+@media (max-width: 768px){
+  .corner-accent{ width: 100px; opacity: .12; }
+  .corner-accent--left{
+    top: auto; bottom: -8px; left: -8px;      
+    transform: rotate(180deg);
+  }
+  .corner-accent--right{
+    top: -8px; right: -8px;
+    transform: scaleX(-1) rotate(180deg);
+  }
+}
+
+/* small phones */
+@media (max-width: 480px){
+  .corner-accent{ width: 72px; }
+  .corner-accent--left{ bottom: -6px; left: -6px; }
+  .corner-accent--right{ top: -6px; right: -6px; }
+}
 .blue-bubbles-row {
     display: flex;
     flex-wrap: wrap;
@@ -1771,7 +1825,7 @@ z-index: 0;
 }
 
 .listing-card {
-    background: var(--gradient-teal-blue);
+    background: var(--gradient-teal-blue) !important;
     padding: 2rem;
     border-radius: 1.5rem;
     color: var(--color-white) !important;
@@ -1927,6 +1981,49 @@ z-index: 0;
             padding:40px 5%;
         }
 }
+.values-bubble-spotlight {
+    border-radius: 20px;
+    z-index: 1;
+    padding: 40px;
+    background: var(--gradient-teal-blue);
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .15);
+    position: relative;
+    color:var(--color-white);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+        @media screen and (max-width: 768px) {
+            flex-direction: column;
+            align-items: center;
+        }
+
+}
+
+.values-bubble-spotlight {
+    border-radius: 20px;
+    max-width: 100%;
+    margin: 0 auto;
+    box-shadow:0 8px 20px rgba(0, 0, 0, .1)
+}
+
+.values-bubble-spotlight h2 {
+    background: none;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: var(--color-white);
+    text-align: left;
+    margin-bottom: 19px;
+}
+
+.values-bubble-spotlight h3 {
+    color: var(--color-white);
+    text-align: left;
+    margin-bottom: 19px;
+    padding-left: 20px;
+    padding-top:10px
+}
 
 .values-bubble {
     border-radius: 20px;
@@ -1939,7 +2036,7 @@ z-index: 0;
     position: relative;
     color:var(--color-white);
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
 
         @media screen and (max-width: 768px) {
@@ -1968,9 +2065,9 @@ z-index: 0;
     border-radius: 4px;
     background-color: var(--color-orange);
     background-image: var(--gradient-yellow-orange);
-    background-size: 0% 100%; /* Initially, the gradient has 0 width */
-    background-position: 0% 0%; /* Start at the left */
-    background-repeat: no-repeat; /* Prevent tiling */
+    background-size: 0% 100%; 
+    background-position: 0% 0%; 
+    background-repeat: no-repeat; 
     transition: background-size 0.4s ease-in-out,
                 background-color 0.4s ease-in-out;
 
@@ -2498,6 +2595,11 @@ section {
     width: 100%;
     cursor:pointer
 }
+.ds-mindset-title:hover {
+    background: var(--gradient-light-orange);
+    transform: translateY(-2px);
+    box-shadow:0 4px 8px rgba(0, 0, 0, 8%)
+}
 
 .ds-mindset-block.open .ds-mindset-item {
     background: var(--gradient-white-teal);
@@ -2754,28 +2856,27 @@ ul.ds-mindset-items{
         padding:20px
     }
 }
-
 .ds-bubbles-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 14px;
-    flex-wrap: wrap;
-    padding: 40px 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* 3 per row */
+ justify-content: space-around;
+  padding: 40px 0;
+padding-left: 50px;
 }
 
 .ds-bubble {
-    min-width: 180px;
+    min-width: 380px;
     background: var(--gradient-white-light-teal);
     border-radius: 15px;
     position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
     display: flex;
-    flex-direction:column;
+    flex-direction: column;
     width: 100%;
     justify-content: space-between;
-    margin: 40px 0 0 0;
+    margin: 40px 0 0;
     border: 5px solid var(--color-teal);
-    padding: 20px 0;
+    padding:20px 0
 }
 
 @media screen and (min-width: 768px) {
@@ -2836,9 +2937,9 @@ ul.ds-mindset-items{
     border-radius: 4px;
     background-color: var(--color-orange);
     background-image: var(--gradient-yellow-orange);
-    background-size: 0% 100%; /* Initially, the gradient has 0 width */
-    background-position: 0% 0%; /* Start at the left */
-    background-repeat: no-repeat; /* Prevent tiling */
+    background-size: 0% 100%; 
+    background-position: 0% 0%; 
+    background-repeat: no-repeat; 
     transition: background-size 0.4s ease-in-out,
                 background-color 0.4s ease-in-out;
 }
@@ -3032,7 +3133,8 @@ ul.ds-mindset-items{
 }
 
 .ds-mindset-heading h2 {
-    margin-bottom:8pxl;
+    margin-bottom:8px;
+    font-size: 50px !important;
     background: var(--gradient-purple-blue);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -3106,8 +3208,12 @@ ul.ds-mindset-items{
 
 }
 
-.ds-cta-stars {
-    margin-bottom:20px
+.ds-cta-stars{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  margin-bottom:20px;
 }
 
 .ds-cta-stars .ds-star-icon {
@@ -3138,9 +3244,9 @@ ul.ds-mindset-items{
     text-decoration: none;
     background-color: var(--color-orange);
     background-image: var(--gradient-yellow-orange);
-    background-size: 0% 100%; /* Initially, the gradient has 0 width */
-    background-position: 0% 0%; /* Start at the left */
-    background-repeat: no-repeat; /* Prevent tiling */
+    background-size: 0% 100%; 
+    background-position: 0% 0%; 
+    background-repeat: no-repeat;
     transition: background-size 0.4s ease-in-out,
 }
 
@@ -3167,21 +3273,22 @@ ul.ds-mindset-items{
     background-color:var(--color-white) !important
 }
 
-.package-section {
-    padding: 47px 5%;
-    display: block;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 40px;
-    position:relative
+.package-section{
+  position: relative;
+  width: 100vw;                            
+  margin-left: calc(50% - 50vw);           
+  margin-right: calc(50% - 50vw);
+  padding: 0;                              
+  overflow: hidden;                        
+  display: block;                         
 }
 
 .package-background-image {
     opacity: .6;
-    max-width: 100%;
+    max-width: 1000%;
     height: auto;
     position: absolute;
-    margin-left: 64pc;
+    margin-left: 68pc;
     margin-top: 3pc;
     border-radius:8px
 }
@@ -3513,12 +3620,13 @@ ul.ds-mindset-items{
 
 .services-content {
     display: flex;
-    flex-direction: row;
-    gap: 20px;
-        @media screen and (max-width: 767px) {
-            flex-direction: column;
-        }
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+    justify-content:space-between
+
 }
+
 
 
 .plus-divider {
@@ -3559,9 +3667,9 @@ ul.ds-mindset-items{
     text-decoration: none;
     background-color: var(--color-orange);
     background-image: var(--gradient-yellow-orange);
-    background-size: 0% 100%; /* Initially, the gradient has 0 width */
-    background-position: 0% 0%; /* Start at the left */
-    background-repeat: no-repeat; /* Prevent tiling */
+    background-size: 0% 100%; 
+    background-position: 0% 0%; 
+    background-repeat: no-repeat; 
     transition: background-size 0.4s ease-in-out,
 }
 
@@ -3570,28 +3678,13 @@ ul.ds-mindset-items{
     background-color: var(--color-orange)
         }
 
+
 .laptop-image {
-    max-width: 450px;
-    height: auto;
-    width: 50%;
-    display: block;
-    mask-image: linear-gradient(45deg, rgba(0, 0, 0, 1) 00%, rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(270deg, #000 0%, transparent 100%);
     -webkit-mask-composite: source-over;
-    mask-composite: source-over;
-    position: absolute;
-    right: 0;
+    mask-composite:source-over;
 }
 
-
-.stat-box {
-    background: var(--gradient-purple-blue);
-    color: var(--color-white);
-    padding: 16px 51px;
-    position: absolute;
-    top: 35%;
-    right: 0%;
-    text-align:right
-}
 
 
 .stat-value {
@@ -3622,7 +3715,9 @@ ul.ds-mindset-items{
     text-align: center;
     }
 }
-
+.wordpress-services-section{
+    color: var( --colot-gradient-teal-blue);
+}
 .custom_website_development {
     background-color: var(--color-blue);
     padding: 60px 40px;
@@ -4003,7 +4098,7 @@ justify-content: space-between;
 }
 /* ===== Digital Stride Single Post ===== */
 
-/* Full-bleed hero */
+
 .ds-hero { margin:0; padding:0; }
 .ds-hero__inner{
   width:100vw; max-width:100vw;
@@ -4063,22 +4158,110 @@ justify-content: space-between;
 
 /*section button*/
 .cta-button-section {
-  text-align: center; /* centers button horizontally */
-  padding: 40px 0; /* optional spacing */
+  text-align: center; 
+  padding: 40px 0; 
 }
 
 .cta-button {
   display: inline-block;
   padding: 16px 28px;
-  background: linear-gradient(90deg, #16a6b6, #1d4382);
-  color: #ffffff;
+  background: #f36e21;
   font-weight: 600;
   text-decoration: none;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
-.cta-button:hover {
-    background: #f36e21; /* orange default */
-    transform: translateY(-2px);
+
+/* ===== WordPress Services ===== */
+.wordpress-services-section{
+  --pad-x: clamp(24px, 5vw, 64px);
+  --pad-y: clamp(28px, 5vw, 72px);
+  --radius: 36px;
+
+  background: var(--color-teal);
+  border-radius: var(--radius);
+  padding: var(--pad-y) var(--pad-x);
+  position: relative;
+  overflow: visible; 
 }
 
+.wordpress-services-section.has-outline{ border: 6px solid #6b2bbd; }
+
+/* layout */
+.wordpress-services-section .services-content{
+  display:flex; align-items:center; justify-content:space-between;
+  gap: clamp(24px, 4vw, 56px); flex-wrap:wrap;
+}
+.wordpress-services-section .services-text-wrap{ flex:1 1 55%; min-width:320px; }
+.wordpress-services-section .graphic-wrap{
+  flex:1 1 45%; min-width:320px; position:relative;
+  display:flex; justify-content:flex-end;
+  margin-right: calc(var(--pad-x) * -1); 
+}
+
+/* typography + list */
+.wordpress-services-section h2{
+  color:#fff; font-weight: var(--font-weight-bold);
+  font-size: clamp(28px, 3.4vw, 56px); margin:0 0 6px;
+}
+.wordpress-services-section .plus-divider{
+  color: var(--color-orange); font-weight: var(--font-weight-bold);
+  letter-spacing: 6px; margin: 8px 0 24px;
+}
+.wordpress-services-section .subheading{
+  color:#fff; font-size: clamp(16px, 1.4vw, 22px);
+  line-height:1.6; max-width:60ch; margin:0 0 16px;
+}
+.wordpress-services-section .service-list{ list-style: disc; padding-left:24px; margin:0 0 28px; }
+.wordpress-services-section .service-list li{ color:#fff; font-size: clamp(15px,1.25vw,22px); line-height:1.9; }
+
+/* CTA button */
+.wordpress-services-section .custom-cta-button{
+  background: var(--color-orange); color:#fff !important;
+  padding:18px 36px; border-radius:4px; display:inline-block; text-decoration:none;
+  font-weight: var(--font-weight-medium);
+}
+
+.wordpress-services-section .laptop-image {
+    max-width: 100%;
+    height: auto;
+    padding: 3px;
+    margin-left: -181px;
+    display: flex;
+    position: relative;
+    mask-image: linear-gradient(270deg, #000 0%, transparent 100%);
+    -webkit-mask-composite: source-over;
+    mask-composite:source-over
+}
+
+
+
+.wordpress-services-section .stat-box {
+ background: var(--gradient-purple-blue);
+    color: var(--color-white);
+    padding: 16px 32px;
+    position: absolute;
+    top: 35%;
+/*     left: 0; */
+    text-align: left;
+    @media screen and (max-width: 768px) {
+        position: relative;
+        margin-top: 20px;
+        text-align: center;
+        width: 100%;
+        top: auto;
+        left: auto;
+    }
+}
+
+
+.wordpress-services-section .stat-value{ font-weight:800; font-size: clamp(22px,2.8vw,42px); line-height:1; display:block; }
+.wordpress-services-section .stat-subtext{ font-size: clamp(12px,1.1vw,18px); opacity:.95; display:block; }
+
+/* responsive */
+@media (max-width: 900px){
+  .wordpress-services-section{ --pad-x:20px; --pad-y:28px; --radius:22px; border-width:4px; }
+  .wordpress-services-section .services-content{ flex-direction:column; }
+  .wordpress-services-section .graphic-wrap{ margin-right:0; justify-content:center; }
+  .wordpress-services-section .stat-box{ position:relative; right:auto; transform:none; margin-top:12px; text-align:center; }
+}

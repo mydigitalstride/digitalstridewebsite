@@ -30,10 +30,6 @@
       <?php else: ?>
         <img class="section-image" src="https://via.placeholder.com/600x400" alt="Placeholder image">
       <?php endif; ?>
-      <?php $gradient_image = get_sub_field('hero_gradient_image'); ?>
-    </div>
- <?php if ($gradient_image): ?>
-        <img class="hero-gradient-image" src="<?php echo esc_url($gradient_image['url']); ?>" alt="<?php echo esc_attr($gradient_image['alt']); ?>">
-      <?php endif; ?>
+     
   </div>
 </section>

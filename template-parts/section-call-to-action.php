@@ -9,13 +9,17 @@
 
         <h2 class="ds-cta-title" style="color: white;"><?php the_sub_field('main_title'); ?></h2>
 
-        <?php if (have_rows('star_icons_repeater')): ?>
-            <div class="ds-cta-stars">
-                <?php while (have_rows('star_icons_repeater')): the_row(); ?>
-                    <span class="ds-star-icon">+</span>
-                <?php endwhile; ?>
-            </div>
-        <?php endif; ?>
+  <?php if (have_rows('star_icon_repeater')): ?>
+  <div class="ds-cta-stars" role="img" aria-label="Rating">
+    <?php while (have_rows('star_icon_repeater')): the_row(); 
+      $icon = trim((string) get_sub_field('star_icon'));
+      if ($icon === '') { $icon = '★'; } 
+    ?>
+      <span class="ds-star-icon"><?php echo esc_html($icon); ?></span>
+    <?php endwhile; ?>
+  </div>
+<?php endif; ?>
+
 
         <p class="ds-cta-text"><?php the_sub_field('sub_text'); ?></p>
 

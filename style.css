@@ -707,3 +707,21 @@ a {
     background: var(--gradient-white-light-teal) !important;
   }
 }
+.site-footer .footer-services,
+.site-footer .footer-services p,
+.site-footer .footer-services li { 
+  color: var(--color-black);     
+}
+
+.site-footer .footer-services a,
+.site-footer .footer-services a:link,
+.site-footer .footer-services a:visited {
+  color: var(--color-black) !important; 
+  text-decoration: none;                  
+}
+
+.site-footer .footer-services a:hover,
+.site-footer .footer-services a:focus {
+  color: var(--color-black) !important;   
+       
+}

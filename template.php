@@ -82,7 +82,7 @@ if ( have_rows('home_page_section') ):
              elseif (get_row_layout() == 'timeline_scope'):
             get_template_part('template-parts/section', 'timeline-scope');
              elseif (get_row_layout() == 'wordpress_services_section'):
-            get_template_part('template-parts/section', 'timeline-scope');
+            get_template_part('template-parts/section', 'wordpress');
              elseif (get_row_layout() == 'custom_website_development'):
             get_template_part('template-parts/section', 'custom');
               elseif (get_row_layout() == 'web_audit_form'):

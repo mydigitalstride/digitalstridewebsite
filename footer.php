@@ -28,7 +28,7 @@
           <div class="footer-middle-col">
             <?php if($links_cta['footer_services_text']): ?>
               <div class="footer-services">
-                <?php echo esc_html($links_cta['footer_services_text']); ?>
+               <?php echo apply_filters('the_content', $links_cta['footer_services_text']); ?>
               </div>
             <?php endif; ?>
           </div>
