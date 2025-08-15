@@ -443,20 +443,37 @@ a {
 
 .site-footer {
   background-color: var(--color-light-teal);
-  color: var(--color-black);
+  color: var(--color-text);
   max-height: 400px;
-  padding-bottom: 100px
+  padding-bottom: 100px;
+  background-size: cover;
+  position: relative;
+}
+
+.site-footer::before {
+    content: '';
+    position: absolute !important;
+    bottom: 0;
+    right: 0;
+    width: 30vw;
+    height: 100%;
+    background-image: var(--footer-overlay-image);
+    background-repeat: no-repeat;
+    background-position: bottom right;
+    opacity: .66;
+    object-fit: contain;
 }
 
 .footer-contact a,
 .footer-contact a:visited,
 .footer-contact a:active {
-  color: var(--color-black) !important;
+  color: var(--color-text);
   text-decoration: none
 }
 
 .footer-contact a:hover {
-  text-decoration: underline
+  text-decoration: none;
+  color: var(--color-orange);
 }
 
 .footer-pixels img {
@@ -471,9 +488,8 @@ a {
   display: grid;
   grid-template-columns: 2fr 1fr 2fr;
   gap: 20px;
-  margin: 0 auto;
-  max-width: 1e3px;
-  padding: 10px 0;
+  max-width: 100%;
+  padding: 5vw;
   align-items: flex-start;
   position: relative
 }
@@ -710,18 +726,17 @@ a {
 .site-footer .footer-services,
 .site-footer .footer-services p,
 .site-footer .footer-services li { 
-  color: var(--color-black);     
+  color: var(--color-text);     
 }
 
 .site-footer .footer-services a,
 .site-footer .footer-services a:link,
 .site-footer .footer-services a:visited {
-  color: var(--color-black) !important; 
+  color: var(--color-text) !important; 
   text-decoration: none;                  
 }
 
 .site-footer .footer-services a:hover,
 .site-footer .footer-services a:focus {
-  color: var(--color-black) !important;   
-       
+  color: var(--color-orange) !important;      
 }

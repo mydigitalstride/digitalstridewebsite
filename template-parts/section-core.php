@@ -1,12 +1,11 @@
+<?php
+    $background_image = get_sub_field('side_image');
+    $side_image_url = $background_image ? esc_url($background_image['url']) : 'https://staging8.mydigitalstride.com/wp-content/uploads/2024/10/Treasure-Chest-Sketch.png';
+?>
+
 <section class="values-section">
   <div class="values-bubble">
-    <div class="values-left" style="<?php
-
-        $side_image = get_sub_field('side_image');
-        if ($side_image && isset($side_image['url'])) {
-            echo 'background-image: url(\'' . esc_url($side_image['url']) . '\');';
-        }
-    ?>">
+    <div class="values-left" style="--dynamic-background-url: url('<?php echo $side_image_url; ?>');">
         <h2><?php the_sub_field('values_title'); ?></h2>
         <div class="val-plus-icon">+ + + + + + +</div>
 

@@ -1,4 +1,4 @@
-<footer class="site-footer">
+<footer class="site-footer" style="--footer-overlay-image: url('https://staging8.mydigitalstride.com/wp-content/uploads/2025/06/3-1.png');">
   <div class="footer-grid-container">
     <?php if(have_rows('global_header_and_footer', 'option')): ?>
       <?php while(have_rows('global_header_and_footer', 'option')): the_row(); ?>

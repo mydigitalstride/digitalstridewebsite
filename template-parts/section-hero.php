@@ -1,4 +1,9 @@
-<section class="hero-section">
+<?php
+    $background_image = get_sub_field('hero_gradient_image');
+    $background_url = $background_image ? esc_url($background_image['url']) : 'https://staging8.mydigitalstride.com/wp-content/uploads/2025/06/2.png';
+?>
+
+<section class="hero-section hero-background" style="--background-url: url('<?php echo $background_url; ?>');">
   <div class="hero-container">
 
     <div class="hero-left">
@@ -22,8 +27,6 @@
     </div>
 
     <div class="hero-right">
-
-
       <?php $image = get_sub_field('hero_image'); ?>
       <?php if ($image): ?>
         <img class="section-image" src="<?php echo esc_url($image['url']); ?>" alt="<?php echo esc_attr($image['alt']); ?>">
