@@ -1509,13 +1509,18 @@ z-index: 0;
     color:var(--color-white)
 }
 
-.contact-left, .contact-right {
+.contact-left{
     flex: 1 1 480px;
     background: var(--color-white);
     padding: 40px;
     box-shadow:0 4px 20px rgba(0, 0, 0, 5%)
 }
-
+.contact-right {
+    flex: 1 1 480px;
+    background: var(--color-white);
+    padding: 51px;
+    box-shadow:0 4px 20px rgba(0, 0, 0, 5%)
+}
 .contact-left h3, .contact-right h3 {
     font-size: var(--font-size-2xl) !important;
     color: var(--color-blue);
@@ -1586,16 +1591,14 @@ z-index: 0;
 }
 
 .orange-button {
-    background-color: var(--color-orange) !important;
+   background-color: var(--color-orange) !important;
     color: var(--color-white) !important;
-    border: none;
-    margin-top: 100px;
-    padding: 12px 25px;
     font-size: var(--font-size-base);
-    cursor:pointer;
-    width: fit-content;
+    border-radius: 0px;
+    padding: 12px 25px;
+    cursor: pointer;
+    width:fit-content
 }
-
 
 .cf7-form-wrap form {
     display: flex;
