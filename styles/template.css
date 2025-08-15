@@ -269,6 +269,40 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
         color:var(--color-blue)
     }
 }
+/* Text-only bob (works whether there's a link or not) */
+.we-also-do-item > .we-also-do-link > span,
+.we-also-do-item > span{
+  display: inline-block;                 /* needed for transform */
+  animation: text-bob 3.2s ease-in-out infinite;
+  transform-origin: center;
+}
+
+/* Subtle stagger so items don’t sync */
+.we-also-do-item:nth-child(3n+2) > .we-also-do-link > span,
+.we-also-do-item:nth-child(3n+2) > span{ animation-delay: .3s; }
+.we-also-do-item:nth-child(3n+3) > .we-also-do-link > span,
+.we-also-do-item:nth-child(3n+3) > span{ animation-delay: .6s; }
+
+/* Pause on hover/focus for readability */
+.we-also-do-item:hover > .we-also-do-link > span,
+.we-also-do-item:hover > span,
+.we-also-do-item:focus-within > .we-also-do-link > span,
+.we-also-do-item:focus-within > span{
+  animation-play-state: paused;
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .we-also-do-item > .we-also-do-link > span,
+  .we-also-do-item > span{ animation: none; }
+}
+
+/* Keyframes: up & down only */
+@keyframes text-bob{
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-4px); } /* raise text */
+  100% { transform: translateY(0); }
+}
 
 .we-also-do-section {
     padding: 80px 5%;
@@ -383,7 +417,7 @@ background: var(--gradient-light-orange);
 }
 
 .value-item p:hover {
-    color:var(--color-blue)
+    color:#1d4382;
 }
 
 .value-item p:before {
@@ -1643,33 +1677,6 @@ z-index: 0;
     width:fit-content
 }
 
-.floating-sidebar {
-    position: fixed;
-    top: 10%;
-    right: 5%;
-    width: 25%;
-    height: calc(100vh - 100px);
-    background-color: var(--color-teal);
-    padding: 20px;
-    overflow-y: auto;
-    z-index: 9999;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, .1);
-    opacity: 0; /* Start completely transparent */
-    visibility: hidden; /* Hide from screen readers and pointer events */
-    pointer-events: none; /* Crucial: Prevents interaction when hidden */
-    transition: opacity 0.5s ease-out, visibility 0.5s ease-out; /* Smooth fade-in/out */
-        @media screen and (max-width: 768px) {
-            display: none;
-            
-        }
-}
-
-/* Class added by JavaScript when scrolled past 75vh */
-.floating-sidebar.is-visible {
-    opacity: 1; /* Fully visible */
-    visibility: visible; /* Make visible to screen readers and pointer events */
-    pointer-events: auto; /* Allow interaction when visible */
-}
 
 /* Optional: Media query for smaller screens */
 @media (max-width: 1024px) {
@@ -2485,7 +2492,8 @@ section {
 
 .ds-strategy-image {
     border: 5px solid var(--color-orange);
-    height: auto;
+    height: 35vw;
+    
     border-radius: 12px;
     box-sizing:border-box
 }
@@ -2618,10 +2626,12 @@ section {
     cursor:pointer
 }
 .ds-mindset-title:hover {
+    color:#1d4382;
     background: var(--gradient-light-orange);
     transform: translateY(-2px);
     box-shadow:0 4px 8px rgba(0, 0, 0, 8%)
 }
+
 
 .ds-mindset-block.open .ds-mindset-item {
     background: var(--gradient-white-teal);
@@ -4115,7 +4125,7 @@ justify-content: space-between;
 .ds-hero__text{
   background: linear-gradient(90deg, #189da7 0%, #1d4382 100%);
   color:#fff;
-  padding:36px 32px;
+  padding:5vw;
   display:flex; flex-direction:column; justify-content:flex-start; /* top-aligned */
   min-height:320px;
 }
@@ -4136,7 +4146,7 @@ justify-content: space-between;
 .ds-content-wrap {
     max-width: 1400px;
     margin: 0 auto;
-    padding:0 24px
+    padding:5vw;
 }
 
 /* CTA button */
@@ -4255,3 +4265,85 @@ justify-content: space-between;
   .wordpress-services-section .graphic-wrap{ margin-right:0; justify-content:center; }
   .wordpress-services-section .stat-box{ position:relative; right:auto; transform:none; margin-top:12px; text-align:center; }
 }
+/* ===== Scrolling Sidebar ===== */
+/* Layout sizing */
+:root {
+  --sidebar-w: 340px;             /* sidebar width */
+  --sidebar-gap: 28px;            /* space between content and sidebar */
+  --header-h: 80px;               /* your sticky header height */
+  --container-max: 1200px;        /* your site content max-width */
+}
+
+@media (min-width: 1200px) {
+  /* Fixed to the right edge of your content container */
+  .floating-sidebar {
+    position: absolute;
+    top: 50vw;
+    right: 0px;
+    width: var(--sidebar-w);
+    z-index: 30;
+  }
+
+  /* Make the inside scroll independently (so it “slides” as you scroll) */
+  .floating-sidebar .sidebar-inner {
+    max-height: calc(100dvh - var(--header-h) - 40px);
+    overflow: auto;
+    padding: 18px;
+    background: #14376a;                  /* navy like your mock */
+    color: #fff;
+  }
+}
+
+/* Mobile/tablet: stack it */
+@media (max-width: 1199.98px) {
+  .floating-sidebar {
+    position: static;
+    width: auto;
+    margin: 28px 0 0;
+  }
+  .floating-sidebar .sidebar-inner {
+    padding: 16px;
+    background: #14376a;
+    color: #fff;
+  }
+}
+
+/* Cosmetics */
+.floating-sidebar .sb-h {
+    font-size: 20px;
+    line-height: 1.2;
+    margin:0 0 8px;
+    color:white;
+    text-align: center;
+}
+.floating-sidebar .sb-sub { opacity: .9; margin: 0 0 14px; }
+.floating-sidebar .sb-search form { display: flex; gap: 8px; margin: 10px 0 16px; }
+.floating-sidebar .sb-social {
+  display: flex;
+  gap: 40px;
+  margin: 10px 0 16px;
+  justify-content: center;  /* centers the icons horizontally */
+  align-items: center;       /* centers them vertically in the row */
+}
+
+.floating-sidebar .sb-social a { display:inline-flex; width:32px; height:32px;  align-items:center; justify-content:center; background:#0ea5a5; color:#fff; text-decoration:none; }
+
+.floating-sidebar .sb-label { font-weight: 700; margin: 16px 0 8px; }
+.floating-sidebar .sb-list { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 8px; }
+.floating-sidebar .sb-list a {
+    display: block;
+    padding: 8px 10px;
+     background: #0ea5a5;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+}
+.floating-sidebar .sb-list a:hover { filter: brightness(0.95); }
+
+.floating-sidebar .sb-pills { display: grid; gap: 8px; margin-top: 12px; }
+.floating-sidebar .pill { display:block; padding:8px 10px; text-decoration:none; font-weight:600; }
+.floating-sidebar .pill-teal { background:#10b981; color:#062; }
+.floating-sidebar .pill-green { background:#a7f3d0; color:#064e3b; }
+.floating-sidebar .pill-amber { background:#fbbf24; color:#3b2c00; }
+
+.floating-sidebar .sb-foot { opacity: .85; font-size: 13px; margin-top: 12px; }

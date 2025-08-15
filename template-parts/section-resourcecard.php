@@ -3,12 +3,23 @@
     <h2 class="section-heading">Find Your Resource</h2>
     <div class="card-wrapper">
       <?php while (have_rows('resource_cards')): the_row(); 
-        // Accept either ACF Link (array) or plain text/anchor
+        // Existing link (can be full URL or '#anchor')
         $link_raw = get_sub_field('resource_link');
-        $url     = is_array($link_raw) ? ($link_raw['url'] ?? '') : $link_raw;
-        $target  = is_array($link_raw) ? ($link_raw['target'] ?? '') : '';
-        $title   = get_sub_field('resource_title');
-        $icon    = get_sub_field('resource_icon');
+        $url      = is_array($link_raw) ? ($link_raw['url'] ?? '') : trim((string)$link_raw);
+        $target   = is_array($link_raw) ? ($link_raw['target'] ?? '') : '';
+
+        // NEW: anchor-based linking
+        $anchor_slug = trim((string)get_sub_field('target_anchor')); // e.g. "marketing-resources"
+        $target_page = get_sub_field('target_page'); // optional
+
+        if ($anchor_slug !== '') {
+          $anchor = '#' . ltrim(sanitize_title($anchor_slug), '#');
+          $url    = $target_page ? (get_permalink($target_page) . $anchor) : $anchor;
+          $target = ''; // anchors should open in same tab
+        }
+
+        $title = get_sub_field('resource_title');
+        $icon  = get_sub_field('resource_icon');
       ?>
 
         <?php if ($url): ?>

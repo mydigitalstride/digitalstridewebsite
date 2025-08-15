@@ -29,16 +29,16 @@ DIGITAL STRIDE - FULL CSS STYLESHEET
   --color-green: #0A484C;            /* rgb(10, 72, 76) */
 
   /* Gradients */
-  --gradient-teal-blue: linear-gradient(90deg, #189da7, #1D4382); /* rgb(24,157,167 → 25,119,163) */
-  --gradient-teal-green: linear-gradient(135deg, #189da7, #0A484C); /* rgb(24,157,167 → 10,72,76) */
-  --gradient-light-orange: linear-gradient(135deg, #f6ddd3, #ff4a07); /* rgb(246,221,211 → 255,74,7) */
-  --gradient-yellow-orange: linear-gradient(135deg, #f2c814, #ff4a07); /* rgb(246,221,211 → 255,74,7) */
-  --gradient-white-teal: linear-gradient(135deg, #D3E9EB, #189da7); /* rgb(246,221,211 → 255,74,7) */
-  --gradient-white-blue: linear-gradient(135deg, #f2f5fb, #1D4382); /* rgb(246,221,211 → 255,74,7) */
-  --gradient-purple-blue: linear-gradient(135deg, #70077B, #1D4382); /* rgb(112,7,123 → 29,67,130) */
-  --gradient-white-light-teal: linear-gradient(180deg, #f2f5fb, #D3E9EB); /* rgb(242,245,251 → 211,233,235) */
-  --gradient-white-light-blue: linear-gradient(180deg, #f2f5fb, #dae3ff); /* rgb(242,245,251 → 218,227,255) */
-  --gradient-white-light-orange: linear-gradient(180deg, #f2f5fb, #f6ddd3); /* rgb(242,245,251 → 246,221
+  --gradient-teal-blue: linear-gradient(90deg, #189da7, #1D4382); /* rgb(24,157,167 â†’ 25,119,163) */
+  --gradient-teal-green: linear-gradient(135deg, #189da7, #0A484C); /* rgb(24,157,167 â†’ 10,72,76) */
+  --gradient-light-orange: linear-gradient(135deg, #f6ddd3, #ff4a07); /* rgb(246,221,211 â†’ 255,74,7) */
+  --gradient-yellow-orange: linear-gradient(135deg, #f2c814, #ff4a07); /* rgb(246,221,211 â†’ 255,74,7) */
+  --gradient-white-teal: linear-gradient(135deg, #D3E9EB, #189da7); /* rgb(246,221,211 â†’ 255,74,7) */
+  --gradient-white-blue: linear-gradient(135deg, #f2f5fb, #1D4382); /* rgb(246,221,211 â†’ 255,74,7) */
+  --gradient-purple-blue: linear-gradient(135deg, #70077B, #1D4382); /* rgb(112,7,123 â†’ 29,67,130) */
+  --gradient-white-light-teal: linear-gradient(180deg, #f2f5fb, #D3E9EB); /* rgb(242,245,251 â†’ 211,233,235) */
+  --gradient-white-light-blue: linear-gradient(180deg, #f2f5fb, #dae3ff); /* rgb(242,245,251 â†’ 218,227,255) */
+  --gradient-white-light-orange: linear-gradient(180deg, #f2f5fb, #f6ddd3); /* rgb(242,245,251 â†’ 246,221
 
     /* Font Families */
   --font-sans: 'josefin sans', sans-serif;
@@ -445,7 +445,7 @@ a {
     background-color: var(--color-light-teal);
     color: var(--color-text);
     max-height: 500px;
-    margin-top:50px;
+    margin-top:0px;
     padding-bottom: 100px;
     background-size: cover;
     position:relative
@@ -741,4 +741,23 @@ a {
 .site-footer .footer-services a:hover,
 .site-footer .footer-services a:focus {
   color: var(--color-orange) !important;      
+}
+
+
+.back-to-top-band{
+  margin-top:48px;
+  padding:22px 16px;
+  display:flex;
+  justify-content:center;
+}
+
+.back-to-top-link{
+  display:inline-flex;
+  align-items:center;
+  padding:12px 18px;
+  border-radius:999px;
+  color:#000;
+  text-decoration:none;
+  font-weight:700;
+  letter-spacing:.2px;
 }
