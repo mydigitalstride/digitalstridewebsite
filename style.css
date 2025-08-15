@@ -442,13 +442,15 @@ a {
 }
 
 .site-footer {
-  background-color: var(--color-light-teal);
-  color: var(--color-text);
-  max-height: 400px;
-  padding-bottom: 100px;
-  background-size: cover;
-  position: relative;
+    background-color: var(--color-light-teal);
+    color: var(--color-text);
+    max-height: 500px;
+    margin-top:50px;
+    padding-bottom: 100px;
+    background-size: cover;
+    position:relative
 }
+
 
 .site-footer::before {
     content: '';
