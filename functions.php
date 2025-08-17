@@ -166,6 +166,16 @@ function my_theme_enqueue_scripts() {
 }
 add_action('wp_enqueue_scripts', 'my_theme_enqueue_scripts');
 
+function enqueue_custom_accordion_script() {
+    wp_enqueue_script(
+        'custom-accordion', // A unique handle for your script
+        get_template_directory_uri() . '/js/accordion.js', // The file path
+        array(), // Dependencies (optional)
+        '1.0.0', // Version number
+        true // Load in the footer
+    );
+}
+add_action('wp_enqueue_scripts', 'enqueue_custom_accordion_script');
 /**
  * Enqueue custom scripts and styles.
  */

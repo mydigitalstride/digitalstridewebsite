@@ -51,8 +51,8 @@ DIGITAL STRIDE - FULL CSS STYLESHEET
   --font-size-lg: clamp(1.5rem, 5vw, 1.75rem); /* 24px */ 
   --font-size-xl: clamp(1.75rem, 5vw, 2rem); /* 28px */
   --font-size-2xl: clamp(2rem, 5vw, 2.25rem); /* 32px */
-  --font-size-3xl: clamp(2.25rem, 5vw, 2.5rem); /* 36px */
-  --font-size-4xl: clamp(2.5rem, 5vw, 3rem); /* 40px */
+  --font-size-3xl: clamp(2.25rem, 5vw, 3rem); /* 36px */
+  --font-size-4xl: clamp(2.5rem, 5vw, 3.25rem); /* 40px */
   --font-size-mega: clamp(3rem, 5vw, 3.5rem); /* 48px */
   --font-size-wow: clamp(3.5rem, 5vw, 4rem); /* 56px */
   --font-size-giant: clamp(4rem, 5vw, 5rem); /* 64px */
@@ -444,11 +444,10 @@ a {
 .site-footer {
     background-color: var(--color-light-teal);
     color: var(--color-text);
-    max-height: 500px;
     margin-top:0px;
-    padding-bottom: 100px;
     background-size: cover;
-    position:relative
+    position:relative;
+    padding: 5vh 5vw;
 }
 
 
@@ -520,17 +519,19 @@ a {
 }
 
 .footer-services {
-  font-weight: var(--font-weight-bold);
+  font-weight: var(--font-weight-medium);
   font-size: var(--font-size-med);
-  margin-top: 100px
 }
 
 .footer-right-col {
   display: flex;
+  align-items: center;
+  position: relative;
   flex-direction: column;
-  align-items: flex-end;
-  padding-top: 200px;
-  gap: 20px
+  gap: 5vh;
+  width: 100%;
+  height: 100%;
+  justify-content: flex-start;
 }
 
 .footer-cta-button {
@@ -564,8 +565,6 @@ a {
 .footer-social-icons {
   display: flex;
   gap: 15px;
-  padding-top: 25px;
-  padding-left: 200px
 }
 
 .footer-social-icons img {
@@ -648,7 +647,6 @@ a {
   }
 
   .footer-services {
-    margin-top: 20px;
     font-size: var(--font-size-med)
   }
 
