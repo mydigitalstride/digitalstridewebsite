@@ -1,7 +1,10 @@
 <!-- <section class="back-to-top-band" aria-label="Back to top">
-  <a href="#site-top-anchor" class="back-to-top-link">Back to top</a>
-</section>
- -->
+  <a href="#site-top-anchor" class="back-to-top-link" aria-label="Scroll to Top">
+    Scroll to Top
+  </a>
+</section> -->
+
+
 <footer class="site-footer" style="--footer-overlay-image: url('https://staging8.mydigitalstride.com/wp-content/uploads/2025/06/3-1.png');">
   <div class="footer-grid-container">
     <?php if(have_rows('global_header_and_footer', 'option')): ?>
@@ -77,19 +80,81 @@ if ($footer_pixel_image): ?>
     <?php endif; ?>
   </div>
 </footer>
+<a id="backToTop"
+   class="back-to-top-fab"
+   href="#site-top-anchor"
+   aria-label="Back to top">
+  <span class="btp-icon" aria-hidden="true"></span>
+  <span class="btp-label">Scroll to Top</span>
+</a>
 <?php wp_footer(); ?>
+
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
+(function() {
+  function init() {
+    /* ===== Primary menu toggle ===== */
     const toggle = document.querySelector('.mega-menu-toggle');
     const menuWrap = document.querySelector('#mega-menu-wrap-primary');
-
-    if (toggle && menuWrap) {
-      toggle.addEventListener('click', function () {
-        menuWrap.classList.toggle('mega-menu-open');
-      });
+    if (toggle && menuWrap && !toggle.dataset.bound) {
+      toggle.addEventListener('click', () => menuWrap.classList.toggle('mega-menu-open'));
+      toggle.dataset.bound = '1';
     }
-  });
+
+    /* ===== Back-to-top FAB ===== */
+    const fab    = document.getElementById('backToTop');
+    const footer = document.querySelector('footer.site-footer');
+    const topAnchor = document.querySelector('#site-top-anchor');
+
+    if (!fab) return;
+
+
+    const showOnScroll = () => {
+      fab.classList.toggle('is-visible', window.scrollY > 600);
+    };
+    window.addEventListener('scroll', showOnScroll, { passive: true });
+    showOnScroll();
+
+    if ('IntersectionObserver' in window && footer) {
+      const io = new IntersectionObserver(
+        (entries) => {
+          if (entries[0].isIntersecting) fab.classList.add('is-visible');
+        },
+        { root: null, threshold: 0 }
+      );
+      io.observe(footer);
+    }
+
+    // Smooth scroll back to the top anchor with header offset fallback
+    fab.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (topAnchor) {
+   
+        if (topAnchor.scrollIntoView) {
+          topAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          const headerH = parseInt(getComputedStyle(document.documentElement)
+            .getPropertyValue('--header-h')) || 0;
+          const y = topAnchor.getBoundingClientRect().top + window.scrollY - headerH;
+          window.scrollTo({ top: y < 0 ? 0 : y, behavior: 'smooth' });
+        }
+        if (topAnchor.id && history.replaceState) {
+          history.replaceState(null, '', '#' + topAnchor.id);
+        }
+      } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  }
+
+  // Run now if DOM is already parsed; otherwise wait.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 </script>
+
 
 </body>
 </html>

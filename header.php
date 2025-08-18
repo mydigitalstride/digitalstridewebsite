@@ -63,7 +63,7 @@
 <?php endif; ?>
 
 <div id="page" class="site">
-	<!-- <div id="site-top-anchor"></div> -->
+	<div id="site-top-anchor" class="visually-hidden" aria-hidden="true"></div>
 	<a class="skip-link screen-reader-text" href="#primary"><?php esc_html_e( 'Skip to content', 'digitalstride' ); ?></a>
 
 	<header id="masthead" class="site-header">

@@ -747,9 +747,112 @@ a {
   display:inline-flex;
   align-items:center;
   padding:12px 18px;
-  border-radius:999px;
   color:#000;
   text-decoration:none;
   font-weight:700;
   letter-spacing:.2px;
 }
+/* Utility for the top anchor
+.visually-hidden{
+  position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
+}
+
+/* Floating Back-to-Top FAB (bottom-left) */
+.back-to-top-fab{
+  --fab-left: clamp(16px, 3vw, 28px);
+  --fab-bottom: calc(env(safe-area-inset-bottom, 0px) + 96px);
+  position: fixed;
+  left: var(--fab-left);
+  bottom: var(--fab-bottom);
+  z-index: 9999;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  color: var(--color-black);
+  padding: 10px 14px;
+  line-height: 1.1;
+  font-weight: 600;
+  background: transparent;
+  opacity: 0;               /* hidden until .is-visible is toggled by JS */
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .25s ease, transform .25s ease, color .25s ease;
+}
+
+/* Transparent hover ring (no fill) */
+.back-to-top-fab::after{
+  content:"";
+  position:absolute;
+  inset:-6px -8px;
+  border-radius:14px;
+  background: transparent;
+  opacity: 0;
+  transform: scale(.96);
+  transition: opacity .2s ease, transform .2s ease, border-color .2s ease;
+  z-index:-1;
+}
+
+.back-to-top-fab:hover,
+.back-to-top-fab:focus-visible{
+  color: var(--color-black);
+}
+.back-to-top-fab:hover::after,
+.back-to-top-fab:focus-visible::after{
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Up chevrons (SVG mask uses currentColor) */
+.back-to-top-fab .btp-icon{
+  width: 26px; height: 26px; background-color: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M7 14l5-5 5 5M7 18l5-5 5 5'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M7 14l5-5 5 5M7 18l5-5 5 5'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.back-to-top-fab .btp-label{ font-size: clamp(13px, 1.3vw, 16px); }
+
+/* Visible state toggled by JS when the footer is in view */
+.back-to-top-fab.is-visible{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Tiny phones */
+@media (max-width: 420px){
+  .back-to-top-fab{
+    left: clamp(12px, 2.5vw, 18px);
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 88px);
+  }
+}
+ */
+/* Clickable, visible FAB */
+.back-to-top-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease;
+}
+.back-to-top-fab.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+.sr-only-anchor {
+  position: relative;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  scroll-margin-top: var(--header-h, 80px);
+}
+
+/* (Optional) smooth by CSS for any in-page anchors */
+html { scroll-behavior: smooth; }

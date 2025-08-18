@@ -1031,7 +1031,19 @@ z-index: 0;
     }
 
     .custom-cta-button {
-        width:100%
+        width:100%;
+         display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: auto !important;                 /* override old 100% */
+    max-width: min(280px, 90%);             /* keep it compact */
+    margin: 12px auto 0 !important;         /* center horizontally */
+    padding: clamp(10px, 3.4vw, 14px) clamp(16px, 6vw, 24px);
+    font-size: clamp(14px, 3.8vw, 16px);
+    border-radius: 8px;
+    text-align: center;
+    padding-bottom:10px;
+        
     }
 
     .growth-section .cta-button {
@@ -2063,20 +2075,32 @@ z-index: 0;
         }
 }
 
+/* Values section — base */
 .values-section {
-    position: relative;
-    padding: 5vh 5vw;
-    background-color: initial !important;
-    z-index:0;
-    display: flex;
-    flex-direction: column;
-    align-content: center;
-    justify-content: center;    
-        
-        @media screen and (max-width: 768px) {
-            padding: 2.5vh 5vw;
-        }
+  position: relative;
+  padding: 5vh 5vw;
+  background-color: initial !important;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
 }
+
+/* Mobile (≤768px) */
+@media (max-width: 768px) {
+  .values-section {
+    padding: 2.5vh 5vw;
+  }
+}
+
+/* Small phones (≤480px) — optional */
+@media (max-width: 480px) {
+  .values-section {
+    padding: 2vh 4vw;
+  }
+}
+
 
 .values-bubble-spotlight {
     border-radius: 20px;
@@ -2724,47 +2748,6 @@ ul.ds-mindset-items{
 }
 
 
-
-@media screen and (max-width: 767px) {
-    .ds-mindset-bubble {
-        padding: 30px 20px;
-        border-radius: 20px;
-        max-width: 100%;
-        padding-bottom:100px
-    }
-
-    .ds-mindset-bubble h2 {
-        text-align: center;
-        margin-bottom:20px
-    }
-
-    .ds-mindset-list, .ds-mindset-items {
-        align-items: center;
-        margin-top: 0;
-        margin-bottom: 0;
-        gap:16px
-    }
-
-    .ds-mindset-item {
-        width: 100%;
-        max-width: 100%;
-        font-size:15px
-    }
-
-    .ds-mindset-title {
-        font-size: var(--font-size-base);
-        padding: 16px;
-        text-align:left
-    }
-
-    .ds-point-content-outside {
-        font-size: .95rem;
-        max-width: 100%;
-        padding: 10px 15px;
-        color:var(--color-black)
-    }
-}
-
 .ds-our-team-section {
     padding: 5vh 5vw;
     text-align:center
@@ -3349,6 +3332,196 @@ padding-left: 50px;
     background-size: 100% 100%;
     background-color: var(--color-orange)
 }
+/* =========================================================
+   DS ABOUT — MOBILE OVERRIDES (≤768px)
+   ========================================================= */
+@media (max-width: 768px) {
+  /* Global container/typography rhythm */
+  .ds-container {
+    min-height: auto;
+    align-items: flex-start;
+    padding: 24px 5vw;
+    padding-top: 56px;
+  }
+
+  .ds-bubble-plus-icon {
+    margin: 12px 0 8px;
+    padding-right: 0;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .ds-section-title { 
+    text-align: center; 
+    font-size: clamp(24px, 7vw, 34px) !important; 
+  }
+
+  /* ===== Hero / Intro ===== */
+  .ds-about-digital-stride-section .ds-hero-text {
+    flex-direction: column;
+    gap: 16px;
+    max-width: 100%;
+    margin-bottom: 24px;
+  }
+  .ds-about-digital-stride-section .ds-hero-left,
+  .ds-about-digital-stride-section .ds-hero-right {
+    flex: 1 1 100%;
+    min-width: 0;
+    text-align: left;
+  }
+  /* Hide the large offset image on mobile */
+  .ds-about-digital-stride-section .ds-section-image { display: none !important; }
+
+  .ds-about-digital-stride-section .ds-section-content {
+    margin-bottom: 20px;
+    font-size: clamp(14px, 4vw, 18px);
+  }
+
+  /* ===== Strategy section ===== */
+  .ds-strategy-local-section {
+    padding: 24px 5vw;
+    gap: 20px;
+  }
+  .ds-strategy-left,
+  .ds-strategy-right {
+    flex: 1 1 100%;
+    min-width: 0;
+  }
+  .ds-strategy-left { text-align: center; }
+  .ds-strategy-image { height: auto !important; max-width: 100%; }
+  .ds-strategy-right { padding: 20px; border-radius: 16px; font-size: var(--font-size-sm); }
+  .ds-strategy-right h3 { margin-top: 16px; }
+
+  /* ===== Mindset bubble =====
+     Ensure heading is ON TOP and the list of titles is BELOW it */
+  .ds-mindset-bubble {
+    margin: 24px 0;
+    padding: 24px 16px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;       /* stack vertically */
+    align-items: stretch;
+    gap: 16px;
+  }
+
+  /* Heading at the top */
+  .ds-mindset-heading {
+    order: 1;                     /* comes first */
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .ds-mindset-heading h2 {
+    font-size: clamp(22px, 6.5vw, 32px) !important;
+    text-align: center;
+    margin: 0;
+  }
+
+  /* Titles/list below the heading */
+  .ds-mindset-list {
+    order: 2;                     /* comes second */
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  .ds-mindset-items { gap: 10px; }
+
+  .ds-mindset-item {
+    width: 100%;
+    max-width: 100%;
+    font-size: 15px;
+    background: var(--gradient-teal-blue);
+  }
+
+  .ds-mindset-title {
+    padding: 14px;
+    text-align: left;
+  }
+
+  /* When open, keep readable spacing */
+  .ds-point-content-outside {
+    font-size: .95rem;
+    max-width: 100%;
+    padding: 10px 15px;
+    color: var(--color-black);
+  }
+
+  /* ===== Team ===== */
+  .ds-our-team-section { padding: 24px 5vw; }
+  .ds-our-team-section .ds-section-title { font-size: clamp(24px, 7vw, 34px); }
+  .ds-our-team-section .ds-team-member-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+    gap: 16px;
+  }
+  .ds-our-team-section .ds-member-header,
+  .ds-our-team-section .ds-member-details { width: 100%; }
+  .ds-our-team-section .ds-member-cta {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* ===== Bubbles grid (fixes grid→flex and width constraints) ===== */
+  .ds-bubbles-row {
+    display: flex !important;   /* override grid */
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 15px;
+    gap: 20px;
+  }
+  .ds-bubble {
+    min-width: 0 !important;
+    width: 100%;
+    max-width: 100%;
+    padding: 20px 15px;
+    margin: 0;
+  }
+  .ds-bubble-image { top: 10px; left: 10px; width: 30px; height: 30px; }
+  .ds-bubble-header { font-size: var(--font-size-base) !important; margin-top: 48px !important; }
+  .ds-bubbles-main-button { width: 90%; max-width: 300px; padding: 10px 28px; }
+
+  /* ===== “Our Fur” grid ===== */
+  .ds-our-fur-section { margin: 24px 0; padding: 0 5vw; }
+  .ds-fur-container { min-height: auto; padding-top: 40px; }
+  .ds-fur-members-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .ds-fur-member { padding: 16px; }
+  .ds-fur-member img { height: auto; aspect-ratio: 3/2; }
+
+  /* ===== CTA block ===== */
+  .ds-call-to-action-section { padding: 32px 5vw; }
+  .ds-cta-container { padding: 0; }
+  .ds-cta-image-wrapper { margin-bottom: 24px; }
+  .ds-cta-text { font-size: var(--font-size-base); margin-bottom: 24px; }
+  .ds-cta-button { display: block; width: 100%; text-align: center; }
+
+  /* ===== Dividers / banners ===== */
+  .ds-plus-divider-banner {
+    letter-spacing: 6px;
+    padding: 10px 0;
+    font-size: clamp(14px, 3.8vw, 16px);
+  }
+}
+
+/* =========================================================
+   DS ABOUT — SMALL PHONES (≤480px)
+   ========================================================= */
+@media (max-width: 480px) {
+  .ds-container { padding: 18px 16px; padding-top: 40px; }
+  .ds-our-fur-section { margin: 16px 0; }
+  .ds-fur-members-grid { grid-template-columns: 1fr; gap: 16px; }
+  .ds-bubble-header { margin-top: 36px !important; }
+  .ds-cta-button { padding: 12px; }
+
+  /* A bit tighter in the mindset area */
+  .ds-mindset-bubble { padding: 20px 14px; gap: 12px; }
+  .ds-mindset-title { padding: 12px; }
+}
 
 .background-image-section {
     background-size: cover;
@@ -3828,7 +4001,7 @@ padding-left: 50px;
 .custom-stat-box {
   background: var(--gradient-purple-blue);
   color: var(--color-white);
-  padding: 16px 32px;
+padding: 1.111vw 2.222vw;
   position: absolute;
   top: 35%;
   left: 0;
@@ -3878,6 +4051,97 @@ padding-left: 50px;
     line-height:36px
 }
 
+/* =======================
+   CUSTOM/WORDPRESS/PACKAGE — MOBILE (≤768px)
+   ======================= */
+@media (max-width: 768px) {
+  .custom_website_development,
+  .wordpress-services-section,
+  .package-section {
+    border-radius: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    padding: 24px 5vw !important;
+    text-align: center !important;
+  }
+
+  /* stack content */
+  .custom-services-content {
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 20px !important;
+  }
+
+  /* media on top, centered */
+  .custom-graphic-wrap {
+    flex: 0 0 100% !important;
+    text-align: center !important;
+    order: -1; /* image above text */
+  }
+
+  /* remove desktop offset on image */
+  .custom-screw-image {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    display: block !important;
+    max-width: 90% !important;
+    height: auto !important;
+    margin-inline: auto !important;
+  }
+
+  /* stat ribbon becomes full-width block */
+  .custom-stat-box {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    text-align: center !important;
+    margin-top: 12px !important;
+    padding: clamp(10px, 3vw, 16px) clamp(16px, 5vw, 28px) !important;
+    min-width: 0 !important;
+    border-radius: 10px !important;
+  }
+
+  /* text area full width; keep body copy left-aligned for readability */
+  .custom-text-wrap {
+    flex: 0 0 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    text-align: left !important;
+  }
+  .custom-text-wrap h2 {
+    text-align: center !important;
+    margin: 0 0 10px !important;
+  }
+
+  .custom-service-list {
+    padding-left: 20px !important;
+    line-height: 1.7 !important;
+    max-width: 60ch;
+    margin: 0 auto;
+    text-align: left !important;
+  }
+}
+
+/* Tiny phones (≤480px) */
+@media (max-width: 480px) {
+  .custom_website_development,
+  .wordpress-services-section,
+  .package-section {
+    padding: 18px 16px !important;
+  }
+  .custom-stat-box { padding: 12px !important; }
+  .custom-screw-image { max-width: 100% !important; }
+}
+@media (max-width: 768px) {
+  .custom_website_development,
+  .wordpress-services-section,
+  .package-section {
+    margin: 24px 0 !important;  /* vertical gap only */
+  }
+}
 
 /*seo page*/
 
@@ -4287,14 +4551,26 @@ justify-content: space-between;
     padding: 3px;
     margin-left: -181px;
     display: flex;
-    position: relative;
-    mask-image: linear-gradient(270deg, #000 0%, transparent 100%);
+    position:relative;
+    mask-image: linear-gradient(270deg, rgba(0, 0, 0, 1) 00%, rgba(0, 0, 0, 0) 100%);
     -webkit-mask-composite: source-over;
-    mask-composite:source-over
+    mask-composite: source-over;
+    @media screen and (max-width: 768px){
+  margin-left: 0 !important;
+    margin-right: 0 !important;
+    display: block !important;
+    max-width: 90% !important;
+    height: auto !important;
+    margin-inline: auto !important;
+    }
 }
 
-
-
+ .wordpress-services-section .services-text-wrap{
+   @media screen and (max-width: 768px){
+flex: 0 0 100% !important;
+    text-align: center !important;
+    order: -1; /* image above text */
+   }}
 .wordpress-services-section .stat-box {
  background: var(--gradient-purple-blue);
     color: var(--color-white);
@@ -4303,14 +4579,16 @@ justify-content: space-between;
     top: 35%;
 /*     left: 0; */
     text-align: left;
-    @media screen and (max-width: 768px) {
-        position: relative;
-        margin-top: 20px;
-        text-align: center;
-        width: 100%;
-        top: auto;
-        left: auto;
-    }
+    /* @media screen and (max-width: 768px) {
+   position: relative;
+    margin-top: 20px;
+    padding: 12px;
+    text-align: center;
+    width: 100%;
+    top: auto;
+    left: auto; */
+
+    /* } */
 }
 
 
@@ -4322,8 +4600,50 @@ justify-content: space-between;
   .wordpress-services-section{ --pad-x:20px; --pad-y:28px; --radius:22px; border-width:4px; }
   .wordpress-services-section .services-content{ flex-direction:column; }
   .wordpress-services-section .graphic-wrap{ margin-right:0; justify-content:center; }
-  .wordpress-services-section .stat-box{ position:relative; right:auto; transform:none; margin-top:12px; text-align:center; }
+  /* .wordpress-services-section .stat-box{ position:relative; right:auto; transform:none; margin-top:12px; text-align:center; } */
 }
+/* ===== Mobile: stat box above image & centered ===== */
+@media (max-width: 768px){
+  /* Stack and center the visual column */
+  .wordpress-services-section .graphic-wrap{
+    display: flex;
+    flex-direction: column;   /* vertical stack */
+    align-items: center;      /* center horizontally */
+    justify-content: center;
+    gap: 12px;
+    margin-right: 0;          /* kill the negative edge pull */
+    width: 100%;
+  }
+
+  /* Stat box becomes a centered "button" */
+@media screen and (max-width: 768px){
+  .wordpress-services-section .graphic-wrap{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .wordpress-services-section .stat-box{
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    order: -1;          /* ensures stat-box appears above the image */
+    border-radius: 10px;
+    padding: clamp(10px, 3vw, 16px) clamp(16px, 5vw, 28px);
+  }
+}
+  /* Image sits below, centered and constrained */
+  .wordpress-services-section .graphic-wrap .laptop-image{
+    order: 0;
+    display: block;
+    max-width: 90%;
+    height: auto;
+    margin-inline: auto;
+  }
+}
+
 /* ===== Scrolling Sidebar ===== */
 /* Layout sizing */
 :root {
