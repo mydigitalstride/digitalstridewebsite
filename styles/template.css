@@ -1,3 +1,6 @@
+/* =========================================================
+   GLOBAL BASE & TOKENS
+   ========================================================= */
 body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     font-family: var(--font-sans);
 }
@@ -13,7 +16,9 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 } */
 
 
-
+/* =========================================================
+   HERO SECTION
+   ========================================================= */
 .plus-icon {
     display: flex;
     font-size: var(--font-size-lg);
@@ -29,7 +34,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     flex-direction: row;
         @media screen and (max-width: 768px) {
             flex-direction: column;
-            align-items: center;
+            align-items: left;
             
         }
 }
@@ -145,7 +150,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
         padding: 2.5vh 5vw;
         
     }
-}
+} 
 
 .hero-content-text {
     margin:20px 5vw;
@@ -1816,11 +1821,6 @@ z-index: 0;
     gap: 1.5rem;
     width: 70%;
     color:var(--color-white);
-
-        @media screen and (max-width: 768px) {
-            width: 100%;
-            padding: 5vh 0;
-        }
 }
 
 .listing-card {
@@ -1866,12 +1866,6 @@ z-index: 0;
     transition: background-size 0.4s ease-in-out,
                 background-color 0.4s ease-in-out;
 
-        @media screen and (max-width: 768px) {
-            width: 100%;
-            max-width: none;
-            
-        }
-    
 }
 .listing-card {
   display: block;
@@ -1888,6 +1882,89 @@ z-index: 0;
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   cursor: pointer;
+}
+/* =========================
+   LISTING GRID — MOBILE 
+   ========================= */
+@media (max-width: 768px) {
+  .resource-listing-section {
+    padding: 24px 5vw;
+  }
+
+  .listing-wrapper {
+    width: 100% !important;
+    padding: 0 !important;
+    display: grid;
+    grid-template-columns: 1fr !important; /* single column */
+    gap: 16px !important;
+  }
+
+
+  .resource-listing-section .listing-card {
+    background: var(--gradient-teal-blue) !important;
+    color: var(--color-white) !important;
+    border-radius: 12px;
+    padding: 18px !important;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    display: block;              
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+
+  .resource-listing-section .listing-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  }
+
+  .resource-listing-section .listing-card h3 {
+    font-size: clamp(18px, 5.2vw, 20px) !important;
+    margin-bottom: 10px;
+  }
+
+  .resource-listing-section .listing-card p {
+    font-size: clamp(14px, 4vw, 16px);
+    line-height: 1.55;
+    margin-bottom: 14px;
+  }
+
+  .resource-listing-section .listing-btn {
+    width: 100% !important;
+    max-width: none;
+    text-align: center;
+    padding: 14px 18px;
+  }
+  .listing-btn {
+    display: block !important;
+    width: 100% !important;
+    max-width: none !important;
+    text-align: center;
+    margin-top: 12px;
+    padding: 14px 18px;          
+    font-size: var(--font-size-base);
+    border-radius: 6px;
+  }
+
+
+  .listing-btn + .listing-btn {
+    margin-top: 12px;
+  }
+
+  .listing-btn:active {
+    transform: scale(0.99);
+  }
+}
+
+/* Accessibility ( desktop ) */
+.listing-btn:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .listing-wrapper {
+    width: 100%;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px;
+  }
 }
 
 .listing-btn {
@@ -4146,7 +4223,12 @@ justify-content: space-between;
   text-align: center; 
   padding: 5vh 0; 
 }
-
+@media (max-width: 768px) {
+  .cta-button-section {
+    text-align: center;
+    padding: 24px 5vw; /* tighter, with side padding */
+  }
+}
 
 
 /* ===== WordPress Services ===== */
