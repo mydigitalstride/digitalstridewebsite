@@ -125,8 +125,8 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
     @media screen and (max-width: 768px) {
         width: 100%;
-        text-align: center;
         align-items: center;
+        text-align: left;
     }
 }
 .hero-right {
@@ -142,6 +142,7 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     
     @media screen and (max-width: 768px) {
         text-align:left;
+        padding: 2.5vh 5vw;
         
     }
 }
@@ -169,6 +170,10 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-medium);
   color: var(--color-orange);
+    @media screen and (max-width: 768px) {
+        display: none; /* hide on mobile */
+
+    }
 }
 
 /* Heading + text column */
@@ -334,6 +339,12 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: 12px; /* spacing between icon and text */
   animation: float 3s ease-in-out infinite;
+
+    @media screen and (max-width: 768px) {
+        padding: 20px 0;
+        justify-content: center;
+        
+    }
 }
 .we-also-do-item:hover {
     transform:translateY(-6px)
@@ -371,10 +382,6 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     padding-left: 24px;
     color: var(--color-orange);
     text-align:center
-}
-
-.value-block {
-    width:600px
 }
 
 .value-item {
@@ -475,7 +482,6 @@ background: var(--gradient-light-orange);
 
     .value-block {
         width: 100%;
-        padding:0 15px
     }
 
     .value-item {
@@ -545,7 +551,12 @@ background: var(--gradient-light-orange);
     -webkit-text-fill-color: transparent;
     font-size: var(--font-size-2xl);
     margin: 5px 0;
-    text-align:left
+    text-align:left;
+
+        @media screen and (max-width: 768px) {
+            line-height: var(--line-height-tight);   
+            margin: 0 0 5px 0;
+        }
 }
 
 .bubble-images {
@@ -760,7 +771,7 @@ z-index: 0;
         flex-direction: column;
         align-items: center;
         gap: 20px;
-        padding:30px 5vw;
+        padding:2.5vh 5vw;
     }
 
     .bubble {
@@ -778,16 +789,11 @@ z-index: 0;
         left: 0;
         height: 15vh;
         transform: none;
-        margin:0 auto 20px
+        margin: 2.5vh 0
     }
 
     .bubble-header {
-        margin-top: 0;
-        text-align:center
-    }
-
-    .bubble-text {
-        text-align:center
+        margin: 0;
     }
 
     .bubbles-button-wrapper {
@@ -1961,6 +1967,10 @@ z-index: 0;
     background-position: 50%;
     opacity: .2;
     z-index: -1;
+
+    @media screen and (max-width: 768px) {
+        width: 100%;        
+    }
 }
 
 .values-right,
@@ -1987,7 +1997,7 @@ z-index: 0;
     justify-content: center;    
         
         @media screen and (max-width: 768px) {
-            padding:5vh 5vw;
+            padding: 2.5vh 5vw;
         }
 }
 
@@ -2140,7 +2150,7 @@ z-index: 0;
     flex-wrap:wrap;
 
         @media screen  and (max-width: 768px) {
-            padding: 5vh 0;
+            padding: 2.5vh 5vw;
             gap:30px;
         }
 }
@@ -2181,7 +2191,6 @@ z-index: 0;
     background: var(--color-light-teal);
     padding: 40px;
     border-radius: 20px;
-    font-size:16px
 }
 
 .mission-right h3 {
@@ -2223,11 +2232,6 @@ z-index: 0;
         margin-top: 10px;
         text-align: center;
         font-size:18px
-    }
-
-    .bubble-plus-icon {
-        font-size: var(--font-size-med);
-        text-align:center
     }
 
     .bubble-list {
@@ -2275,7 +2279,11 @@ z-index: 0;
 
     .contact-left, .contact-right {
         flex: 1 1 100%;
-        padding:20px
+        padding:20px;
+
+        @media screen and (max-width: 768px) {
+            width: 100%;
+        }
     }
 
     .contact-left h3, .contact-right h3 {
@@ -2301,10 +2309,6 @@ z-index: 0;
 
     .values-bubble h2 {
         font-size:1.8rem
-    }
-
-    .value-description {
-        font-size:14px
     }
 
     .values-background-image {

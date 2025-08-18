@@ -551,9 +551,8 @@ a {
               background-color 0.4s ease-in-out;
 
       @media screen and (max-width: 768px) {
-          width: 100%;
           max-width: none;
-          
+          width: fit-content;
       }
 }
 
@@ -652,11 +651,6 @@ a {
 
   .footer-right-col {
     padding-top: 0
-  }
-
-  .footer-cta-button {
-    padding: 10px 20px;
-    font-size: var(--font-size-sm)
   }
 
   .footer-social-icons {
