@@ -84,69 +84,145 @@ if ($footer_pixel_image): ?>
    class="back-to-top-fab"
    href="#site-top-anchor"
    aria-label="Back to top">
-  <span class="btp-icon" aria-hidden="true"></span>
-  <span class="btp-label">Scroll to Top</span>
+  <span class="btp-icon" aria-hidden="true"></span><!-- only arrow -->
 </a>
+
 <?php wp_footer(); ?>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const sidebar = document.querySelector('.floating-sidebar');
+  if (!sidebar) return;
+
+  // Adjust to your real hero selector if different
+  const hero   = document.querySelector('.resources-hero, .hero-section, [data-section="hero"], #hero');
+  const footer = document.querySelector('footer.site-footer');
+
+  function updateSidebar() {
+    const y = window.scrollY;
+
+    // 1) After the hero is out of view, pin the sidebar under the header
+    const heroEnd = hero ? (hero.getBoundingClientRect().bottom + window.scrollY) : 400;
+    if (y >= heroEnd) {
+      sidebar.classList.add('after-hero');
+    } else {
+      sidebar.classList.remove('after-hero');
+    }
+
+    // 2) Keep inner height from overlapping footer
+    const inner = sidebar.querySelector('.sidebar-inner');
+    if (inner) {
+      const topOffset = parseInt(getComputedStyle(sidebar).top) || 0;
+      const footerTop = footer ? (footer.getBoundingClientRect().top + window.scrollY) : Infinity;
+      const available = footerTop - y - topOffset - 16;  // small buffer
+      inner.style.maxHeight = Math.max(240, available) + 'px';
+    }
+  }
+
+  window.addEventListener('scroll', updateSidebar, { passive: true });
+  window.addEventListener('resize', updateSidebar);
+  updateSidebar();
+});
+</script>
 
 <script>
 (function() {
   function init() {
     /* ===== Primary menu toggle ===== */
-    const toggle = document.querySelector('.mega-menu-toggle');
+    const toggle   = document.querySelector('.mega-menu-toggle');
     const menuWrap = document.querySelector('#mega-menu-wrap-primary');
     if (toggle && menuWrap && !toggle.dataset.bound) {
       toggle.addEventListener('click', () => menuWrap.classList.toggle('mega-menu-open'));
       toggle.dataset.bound = '1';
     }
 
-    /* ===== Back-to-top FAB ===== */
+    /* ===== Back-to-Top FAB behavior ===== */
     const fab    = document.getElementById('backToTop');
-    const footer = document.querySelector('footer.site-footer');
-    const topAnchor = document.querySelector('#site-top-anchor');
-
+    const footer = document.querySelector('footer.site-footer'); // change selector if needed
     if (!fab) return;
 
+    // prevent double-binding if this template loads twice
+    if (fab.dataset.bound === '1') return;
+    fab.dataset.bound = '1';
 
-    const showOnScroll = () => {
-      fab.classList.toggle('is-visible', window.scrollY > 600);
+    // Detect all possible scroll roots (window OR container)
+    const getScrollCandidates = () => {
+      const roots = [
+        document.scrollingElement || document.documentElement,
+        document.body
+      ];
+      const likelyContainers = document.querySelectorAll('#page, .site, main, [data-scroll-container]');
+      return Array.from(new Set([...roots, ...likelyContainers])).filter(Boolean);
     };
-    window.addEventListener('scroll', showOnScroll, { passive: true });
-    showOnScroll();
 
+    const scrollToAbsoluteTop = () => {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const behavior = prefersReduced ? 'auto' : 'smooth';
+
+      // 1) Try window first
+      try { window.scrollTo({ top: 0, behavior }); } catch(_) { window.scrollTo(0, 0); }
+
+      // 2) Then any container that actually scrolls
+      const cands = getScrollCandidates();
+      for (const el of cands) {
+        if (!el) continue;
+        // Only bother if it can scroll
+        const canScroll = (el.scrollHeight - el.clientHeight) > 0 || el.scrollTop > 0;
+        if (!canScroll) continue;
+        if (typeof el.scrollTo === 'function') {
+          try { el.scrollTo({ top: 0, behavior }); } catch(_) { el.scrollTop = 0; }
+        } else {
+          el.scrollTop = 0;
+        }
+      }
+
+      // Optional: clear hash to avoid anchor re-jumps
+      if (history.replaceState) history.replaceState(null, '', location.pathname + location.search);
+    };
+
+    // State: once clicked, stay hidden until footer is seen again.
+    let dismissed = false;
+
+    const show = () => fab.classList.add('is-visible');
+    const hide = () => fab.classList.remove('is-visible');
+
+    // Show when scrolled down, unless dismissed
+    const updateVisibility = () => {
+      if (dismissed) { hide(); return; }
+      const scrolled = (window.scrollY || (document.scrollingElement || document.documentElement).scrollTop) > 600;
+      scrolled ? show() : hide();
+    };
+
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    window.addEventListener('resize', updateVisibility);
+    updateVisibility();
+
+    // Reset dismissal ONLY when the footer enters view
     if ('IntersectionObserver' in window && footer) {
-      const io = new IntersectionObserver(
-        (entries) => {
-          if (entries[0].isIntersecting) fab.classList.add('is-visible');
-        },
-        { root: null, threshold: 0 }
-      );
+      const io = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          dismissed = false;
+          show();
+        }
+      }, { threshold: 0 });
       io.observe(footer);
+    } else {
+      // Fallback: near bottom = "footer seen"
+      window.addEventListener('scroll', () => {
+        if (!dismissed) return;
+        const nearBottom = (window.innerHeight + (window.scrollY || (document.scrollingElement || document.documentElement).scrollTop)) >= (document.body.offsetHeight - 200);
+        if (nearBottom) { dismissed = false; show(); }
+      }, { passive: true });
     }
 
-    // Smooth scroll back to the top anchor with header offset fallback
+    // Click => scroll to absolute top on window AND any scroll container
     fab.addEventListener('click', (e) => {
       e.preventDefault();
-      if (topAnchor) {
-   
-        if (topAnchor.scrollIntoView) {
-          topAnchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        } else {
-          const headerH = parseInt(getComputedStyle(document.documentElement)
-            .getPropertyValue('--header-h')) || 0;
-          const y = topAnchor.getBoundingClientRect().top + window.scrollY - headerH;
-          window.scrollTo({ top: y < 0 ? 0 : y, behavior: 'smooth' });
-        }
-        if (topAnchor.id && history.replaceState) {
-          history.replaceState(null, '', '#' + topAnchor.id);
-        }
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+      dismissed = true;
+      hide();
+      scrollToAbsoluteTop();
     });
   }
 
-  // Run now if DOM is already parsed; otherwise wait.
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
@@ -154,7 +230,6 @@ if ($footer_pixel_image): ?>
   }
 })();
 </script>
-
 
 </body>
 </html>

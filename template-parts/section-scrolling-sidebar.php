@@ -1,76 +1,106 @@
 <?php
 /**
- * Scrolling Sidebar — matches your ACF:
- * heading (text), subheading (text), search (true_false or text),
- * facebook_link (url), instagram_link (url), linkedin_link (url),
- * post_buttons (repeater: button_text (text), button_link (url), color_style (select)),
- * footer_text (text)
+ * Scrolling Sidebar (latest 3 posts; colors from repeater; chip links to newest post)
  */
 
-// helper: cast mixed truthy to bool (supports true_false or text like "1","true")
-$to_bool = function($v) {
-  if (is_bool($v)) return $v;
-  return filter_var((string)$v, FILTER_VALIDATE_BOOLEAN);
-};
+$heading = get_sub_field('heading');
+$sub     = get_sub_field('subheading');
+$fb      = get_sub_field('facebook_link');
+$ig      = get_sub_field('instagram_link');
+$li      = get_sub_field('linkedin_link');
+$desc    = get_sub_field('description');   // optional
+$footer  = get_sub_field('footer_text');   // optional
 
-// fields
-$heading     = get_sub_field('heading');
-$subheading  = get_sub_field('subheading');
-$show_search = $to_bool(get_sub_field('search'));
+// Read only color_style from repeater (row order matters)
+$color_styles = [];
+if (have_rows('post_buttons')) {
+  while (have_rows('post_buttons')) { the_row();
+    $c = strtolower((string) get_sub_field('color_style'));
+    $c = $c ? preg_replace('/[^a-z0-9\-]/', '', $c) : '';
+    if ($c) { $color_styles[] = $c; }
+  }
+}
+$fallback_colors = ['teal','blue','peach'];
 
-$fb_url = esc_url((string) get_sub_field('facebook_link'));
-$ig_url = esc_url((string) get_sub_field('instagram_link'));
-$li_url = esc_url((string) get_sub_field('linkedin_link'));
+// Latest 3 posts (we'll also use the first one for the chip link)
+$q = new WP_Query([
+  'post_type'           => 'post',
+  'posts_per_page'      => 3,
+  'ignore_sticky_posts' => 1,
+  'no_found_rows'       => true,
+]);
 
-$footer_text = get_sub_field('footer_text');
+// Compute "latest post" URL for the chip
+$latest_url = '';
+if (!empty($q->posts) && isset($q->posts[0]->ID)) {
+  $latest_url = get_permalink($q->posts[0]->ID);
+} else {
+  // Fallback to Posts page if set, otherwise home
+  $blog_page_id = (int) get_option('page_for_posts');
+  $latest_url   = $blog_page_id ? get_permalink($blog_page_id) : home_url('/');
+}
 ?>
 
-<aside class="floating-sidebar" aria-label="Latest posts, links and updates">
+<aside class="resources-sidebar" aria-label="Resources quick actions">
   <div class="sidebar-inner">
 
     <?php if ($heading): ?>
-      <h3 class="sb-h"><?php echo esc_html($heading); ?></h3>
+      <h4 class="sidebar-title"><?php echo esc_html($heading); ?></h4>
     <?php endif; ?>
 
-    <?php if ($subheading): ?>
-      <p class="sb-sub"><?php echo esc_html($subheading); ?></p>
+    <?php if ($sub): ?>
+      <p class="sidebar-sub"><?php echo esc_html($sub); ?></p>
     <?php endif; ?>
 
-    <?php if ($show_search): ?>
-      <div class="sb-search"><?php get_search_form(); ?></div>
-    <?php endif; ?>
+    <!-- Latest posts chip → links directly to newest post -->
+    <a class="latest-posts-chip" href="<?php echo esc_url($latest_url); ?>">
+      <span>Latest posts</span>
+      <!-- swap the icon as you like; or remove the <i> entirely -->
+      <i class="fa-regular fa-newspaper" aria-hidden="true"></i>
+      <span class="screen-reader-text">Open the newest blog post</span>
+    </a>
 
-    <?php if ($fb_url || $ig_url || $li_url): ?>
-      <div class="sb-social">
-        <?php if ($fb_url): ?><a class="sb-ico sb-ico-fb" href="<?php echo $fb_url; ?>" aria-label="Facebook"></a><?php endif; ?>
-        <?php if ($ig_url): ?><a class="sb-ico sb-ico-ig" href="<?php echo $ig_url; ?>" aria-label="Instagram"></a><?php endif; ?>
-        <?php if ($li_url): ?><a class="sb-ico sb-ico-in" href="<?php echo $li_url; ?>" aria-label="LinkedIn"></a><?php endif; ?>
+    <?php if ($fb || $ig || $li): ?>
+      <div class="sidebar-social" role="group" aria-label="Social links">
+        <?php if ($fb): ?>
+          <a href="<?php echo esc_url($fb); ?>" class="social-btn" aria-label="Facebook" target="_blank" rel="noopener">
+            <i class="fa-brands fa-facebook-f" aria-hidden="true"></i>
+          </a>
+        <?php endif; ?>
+        <?php if ($ig): ?>
+          <a href="<?php echo esc_url($ig); ?>" class="social-btn" aria-label="Instagram" target="_blank" rel="noopener">
+            <i class="fa-brands fa-instagram" aria-hidden="true"></i>
+          </a>
+        <?php endif; ?>
+        <?php if ($li): ?>
+          <a href="<?php echo esc_url($li); ?>" class="social-btn" aria-label="LinkedIn" target="_blank" rel="noopener">
+            <i class="fa-brands fa-linkedin-in" aria-hidden="true"></i>
+          </a>
+        <?php endif; ?>
       </div>
     <?php endif; ?>
 
-    <div class="sb-latest">
-      <div class="sb-label"></div>
-      <?php
-      $latest = new WP_Query([
-        'post_type'           => 'post',
-        'posts_per_page'      => 5,
-        'ignore_sticky_posts' => true,
-        'orderby'             => 'date',
-        'order'               => 'DESC',
-      ]);
-      if ($latest->have_posts()):
-        echo '<ul class="sb-list">';
-        while ($latest->have_posts()): $latest->the_post();
-          echo '<li><a href="' . esc_url(get_permalink()) . '">' . esc_html(get_the_title()) . '</a></li>';
-        endwhile;
-        echo '</ul>';
-        wp_reset_postdata();
-      endif;
-      ?>
-    </div>
+    <?php if ($q->have_posts()) : ?>
+      <div class="sidebar-ctas">
+        <?php $i = 0;
+        while ($q->have_posts()) : $q->the_post();
+          $color_key = isset($color_styles[$i]) ? $color_styles[$i] : $fallback_colors[$i % count($fallback_colors)];
+          $class = 'cta-' . $color_key; ?>
+          <a class="sidebar-cta <?php echo esc_attr($class); ?>" href="<?php the_permalink(); ?>">
+            <?php echo esc_html( wp_trim_words( get_the_title(), 10, '…' ) ); ?>
+          </a>
+        <?php $i++; endwhile; wp_reset_postdata(); ?>
+      </div>
+    <?php endif; ?>
 
-    <?php if ($footer_text): ?>
-      <p class="sb-foot"><?php echo esc_html($footer_text); ?></p>
+    <?php if ($desc): ?>
+      <p class="sidebar-desc"><?php echo esc_html($desc); ?></p>
+    <?php endif; ?>
+
+    <?php if ($footer): ?>
+      <div class="sidebar-footer">
+        <?php echo wpautop( wp_kses_post( $footer ) ); ?>
+      </div>
     <?php endif; ?>
 
   </div>

@@ -188,5 +188,14 @@ function enqueue_custom_assets() {
         true );
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_custom_assets' );
+// functions.php
+function ds_enqueue_fontawesome() {
+  wp_enqueue_style(
+    'font-awesome',
+    'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
+    [],
+    '6.5.1'
+  );
+}
+add_action('wp_enqueue_scripts', 'ds_enqueue_fontawesome');
 
-?>

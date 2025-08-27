@@ -28,7 +28,13 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     margin: -320px 0 22px;
     text-align:center
 }
-
+.plus-banner-text {
+   background: var(--gradient-yellow-orange);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text; /* for Firefox */
+  text-fill-color: transparent;
+}
 .hero-container{
     display: flex;
     flex-direction: row;
@@ -382,10 +388,11 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
 
 .val-plus-icon {
     display: flex;
+    color: var(--gradient-yellow-orange);
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     padding-left: 24px;
-    color: var(--color-orange);
+    /* color: var(--color-orange); */
     text-align:center
 }
 
@@ -702,7 +709,13 @@ z-index: 0;
     -webkit-text-fill-color: transparent;
     font-size: var(--font-size-2xl);
 }
-
+.marketing-stars-title{
+     background: var(--gradient-yellow-orange);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+}
 .marketing-section {
     padding:5vh 5vw
 }
@@ -1631,10 +1644,27 @@ z-index: 0;
    background-color: var(--color-orange) !important;
     color: var(--color-white) !important;
     font-size: var(--font-size-base);
-    border-radius: 0px;
+    border-radius: 10px;
     padding: 12px 25px;
     cursor: pointer;
     width:fit-content
+}
+.orange-button:hover {
+    background-size: 100% 100%;
+    background-color: var(--color-orange);
+       background-color: var(--color-orange) !important;
+    color: var(--color-white) !important;
+    font-size: var(--font-size-base);
+    border-radius: 5px;
+    padding: 12px 25px;
+    cursor: pointer;
+    width:fit-content;
+        background-color:#cc5a00;
+      background-color: var(--color-orange);
+    background-image: var(--gradient-yellow-orange);
+    transition:background-size .4s ease-in-out, background-color .4s ease-in-out;
+     background-size: 100% 100%;
+    background-color:var(--color-orange);
 }
 
 .cf7-form-wrap form {
@@ -2009,11 +2039,17 @@ z-index: 0;
 }
 
 .plus-icon-listing {
-    color: var(--color-purple);
+    background: var(--gradient-purple-blue);
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     text-align: left;
-    margin-bottom:1.5rem
+     letter-spacing: 0.5rem;
+    margin-bottom:1.5rem;
+-webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+    font-weight: var(--font-weight-bold);
 }
 
 .plus-icon-teams {
@@ -2777,6 +2813,13 @@ ul.ds-mindset-items{
     color: var(--color-orange);
     font-size: var(--font-size-lg);
     margin-right:5px
+}
+.ds-star-icon{
+background: var(--gradient-yellow-orange);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
 }
 
 .ds-our-team-section .ds-team-members-wrapper {
@@ -3889,7 +3932,12 @@ padding-left: 50px;
 
 
 .plus-divider {
-    color: var(--color-orange);
+    /* color: var(--gradient-yellow-orange); */
+    background: var(--gradient-yellow-orange);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
     font-weight: var(--font-weight-bold);
     margin-bottom:10px
 }
@@ -4543,6 +4591,25 @@ justify-content: space-between;
   background: var(--color-orange); color:#fff !important;
   padding:18px 36px; border-radius:4px; display:inline-block; text-decoration:none;
   font-weight: var(--font-weight-medium);
+    transition: background-size 0.4s ease-in-out, background-color 0.4s ease-in-out;
+    background-color: var(--color-orange);
+    background-image: var(--gradient-yellow-orange);
+    background-size: 0% 100%; /* Initially, the gradient has 0 width */
+    background-position: 0% 0%; /* Start at the left */
+    background-repeat: no-repeat; /* Prevent tiling */
+    transition: background-size 0.4s ease-in-out,
+                background-color 0.4s ease-in-out;
+}
+.wordpress-services-section .custom-cta-button:hover {
+    background-color:#cc5a00;
+      background-color: var(--color-orange);
+    background-image: var(--gradient-yellow-orange);
+    background-size: 0% 100%;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    transition:background-size .4s ease-in-out, background-color .4s ease-in-out;
+     background-size: 100% 100%;
+    background-color:var(--color-orange);
 }
 
 .wordpress-services-section .laptop-image {
@@ -4643,86 +4710,289 @@ flex: 0 0 100% !important;
     margin-inline: auto;
   }
 }
-
-/* ===== Scrolling Sidebar ===== */
-/* Layout sizing */
+/* ===== Scrolling Sidebar (fixed on desktop, stacked on mobile) ===== */
 :root {
-  --sidebar-w: 340px;             /* sidebar width */
-  --sidebar-gap: 28px;            /* space between content and sidebar */
-  --header-h: 80px;               /* your sticky header height */
-  --container-max: 1200px;        /* your site content max-width */
+  /* If your sticky header is taller, update this */
+  --header-h: 80px;
 }
 
-@media (min-width: 1200px) {
-  /* Fixed to the right edge of your content container */
-  .floating-sidebar {
-    position: absolute;
-    top: 50vw;
-    right: 0px;
-    width: var(--sidebar-w);
-    z-index: 30;
-  }
-
-  /* Make the inside scroll independently (so it “slides” as you scroll) */
-  .floating-sidebar .sidebar-inner {
-    max-height: calc(100dvh - var(--header-h) - 40px);
-    overflow: auto;
-    padding: 18px;
-    background: #14376a;                  /* navy like your mock */
-    color: #fff;
-  }
+.resources-sidebar {
+    width: 23vw;
+    float: right;
+    margin: 15vh 1vw 1.5vh 0;
+    position: sticky;
+    top: calc(var(--header-h) + 2vh);
+    z-index:3
 }
 
-/* Mobile/tablet: stack it */
-@media (max-width: 1199.98px) {
-  .floating-sidebar {
-    position: static;
-    width: auto;
-    margin: 28px 0 0;
-  }
-  .floating-sidebar .sidebar-inner {
-    padding: 16px;
-    background: #14376a;
-    color: #fff;
-  }
-}
-
-/* Cosmetics */
-.floating-sidebar .sb-h {
-    font-size: 20px;
-    line-height: 1.2;
-    margin:0 0 8px;
-    color:white;
-    text-align: center;
-}
-.floating-sidebar .sb-sub { opacity: .9; margin: 0 0 14px; }
-.floating-sidebar .sb-search form { display: flex; gap: 8px; margin: 10px 0 16px; }
-.floating-sidebar .sb-social {
+.sidebar-inner{
+    background: linear-gradient(180deg, #183f6e 0%, #0c2f53 100%);
+  color: var(--color-white);
+  border-radius: 2rem;                 
+  padding: 2rem 1.5rem;                 /* keep rem inside card */
+  box-shadow: 0 1rem 2rem rgba(0,0,0,.12);
+  max-height: calc(100dvh - var(--header-h) - 6vh);
+  overflow: auto;
   display: flex;
-  gap: 40px;
-  margin: 10px 0 16px;
-  justify-content: center;  /* centers the icons horizontally */
-  align-items: center;       /* centers them vertically in the row */
+  flex-direction: column;
+  gap: 1rem;
+}
+.resources-sidebar {
+  background: linear-gradient(180deg, #183f6e 0%, #0c2f53 100%);
+  color: var(--color-white);             
+  padding: 2rem 1.5rem;                 /* keep rem inside card */
+  box-shadow: 0 1rem 2rem rgba(0,0,0,.12);
+  max-height: calc(100dvh - var(--header-h) - 6vh);
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+/* Basic visuals (tweak to your brand) */
+.sidebar-sub   { opacity: .9; }
+
+.sidebar-search { margin: 10px 0 4px; }
+.sidebar-search input[type="search"]{
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 14px;
+  outline: none;
+  background: rgba(0,0,0,.05);
 }
 
-.floating-sidebar .sb-social a { display:inline-flex; width:32px; height:32px;  align-items:center; justify-content:center; background:#0ea5a5; color:#fff; text-decoration:none; }
+/* Social chips */
+.sidebar-social { display: flex; gap: 10px; }
+.sidebar-social a{
+  display: inline-flex;
+  width: 36px; height: 36px;
+  align-items: center; justify-content: center;
+  text-decoration: none; font-weight: 700;
+  background: rgba(0,0,0,.08);
+}
 
-.floating-sidebar .sb-label { font-weight: 700; margin: 16px 0 8px; }
-.floating-sidebar .sb-list { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 8px; }
-.floating-sidebar .sb-list a {
-    display: block;
-    padding: 8px 10px;
-     background: #0ea5a5;
-    color: white;
-    text-align: center;
+/* CTA buttons */
+.sidebar-ctas{ display: grid; gap: 10px; }
+.sidebar-cta{
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 14px;
+  font-weight: 700;
+  text-align: center;
+}
+/* Example color variants based on "Color Style" */
+.sidebar-cta.cta-teal  { background: #1fb5b0; color: white; }
+
+/* Make sure main content leaves space on the left of the float.
+   If your content sections already use a max-width or ~70% width, you can skip this.
+   Otherwise, nudge the main column narrower on wide screens. */
+.resource-cards-section .card-wrapper,
+.resource-listing-section .listing-wrapper{
+  width: 70vw;                          /* fuller screen for content */
+}
+
+/* Clear the float near the footer to prevent overlap */
+.site-footer, footer { clear: both; }
+
+/* Responsive: stack on tablet/mobile */
+@media (max-width: 1100px){
+  .resources-sidebar{ position: static; float: none; width: 100%; margin: 2rem 0 0; }
+  .resources-sidebar .sidebar-inner{ max-height: none; overflow: visible; border-radius: 1.2rem; }
+  .resource-cards-section .card-wrapper,
+  .resource-listing-section .listing-wrapper{ width: 100%; }
+}
+/* === Panel look (matches your design screenshot) === */
+
+
+/* Blue gradient panel with rounded corners */
+.resources-sidebar .sidebar-inner{
+  background: linear-gradient(180deg, #183f6e 0%, #0c2f53 100%);
+  color: #fff;
+  padding: 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  max-height: calc(100dvh - var(--header-h, 80px) - 32px);
+  overflow: auto;
+}
+
+/* Typography that matches your sample */
+.sidebar-title { 
+  color:var(--color-white);
+}
+.sidebar-sub{
+  margin: 0 0 14px;
+  opacity: .95;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.social-btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem; height: 2.5rem;
+  border-radius: 4px;                                /* requested */
+  background: var(--color-light-teal);               /* requested */
+  text-decoration: none;
+  transition: background .2s ease;
+}
+.social-btn:hover{ background: var(--gradient-yellow-orange); }
+
+.social-btn .fa-brands{
+  color: var(--color-teal);                           /* requested */
+  transition: color .2s ease;
+}
+.social-btn:hover .fa-brands{ color: var(--color-white); }  /* requested */
+
+/* "Latest posts" pill with a small search icon on the right */
+.latest-posts-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+     background: #189da7;
+    padding: 16px 10px;
+    font-size: 12px;
+    font-weight: 700;
+    margin:2px 0 12px
+}
+.latest-posts-chip:hover{
+  background: var(--cta-peach-bg);
+  color: white; /* keep text white on hover */
+}
+.latest-posts-chip .chip-icon{
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'><path d='M10 18a8 8 0 1 1 5.293-14.707l5.707 5.707-1.414 1.414-5.707-5.707A6 6 0 1 0 10 16a5.96 5.96 0 0 0 3.536-1.121l1.414 1.414A7.96 7.96 0 0 1 10 18z'/></svg>") center / contain no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' fill='white' viewBox='0 0 24 24'><path d='M10 18a8 8 0 1 1 5.293-14.707l5.707 5.707-1.414 1.414-5.707-5.707A6 6 0 1 0 10 16a5.96 5.96 0 0 0 3.536-1.121l1.414 1.414A7.96 7.96 0 0 1 10 18z'/></svg>") center / contain no-repeat;
+  opacity: .9;
+}
+
+/* Round social icon buttons */
+.sidebar-social {
+    display: flex;
+    gap: 10px;
+    justify-content: space-around;
+    align-items: center;
+    margin:8px 0 14px
+}
+.sidebar-social a {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+/*     border-radius: 999px; */
     text-decoration: none;
+    background: white;;
+/*     border: 1px solid rgba(255, 255, 255, .22);
+    box-shadow:0 2px 6px rgba(0, 0, 0, .15)inset */
 }
-.floating-sidebar .sb-list a:hover { filter: brightness(0.95); }
 
-.floating-sidebar .sb-pills { display: grid; gap: 8px; margin-top: 12px; }
-.floating-sidebar .pill { display:block; padding:8px 10px; text-decoration:none; font-weight:600; }
-.floating-sidebar .pill-teal { background:#10b981; color:#062; }
-.floating-sidebar .pill-green { background:#a7f3d0; color:#064e3b; }
-.floating-sidebar .pill-amber { background:#fbbf24; color:#3b2c00; }
+.sidebar-social i {
+    width: 18px;
+    height: 18px;
+    display: block;
+/*     background: #fff; */
+    opacity:1.0;
+}
+/* Simple icon masks (use your real SVGs if you have them) */
+.icon-fb{ -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M13 3h4a1 1 0 0 1 1 1v3h-3c-.6 0-1 .4-1 1v3h4l-1 4h-3v6h-4v-6H7v-4h3V8a5 5 0 0 1 5-5Z'/></svg>") center/contain no-repeat; mask: inherit; }
+.icon-ig{ -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm5 5a5 5 0 1 0 0 10 5 5 0 0 0 0-10Zm6-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2Z'/></svg>") center/contain no-repeat; mask: inherit; }
+.icon-in{ -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M4 3a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2H4Zm3 6h3v9H7V9Zm1.5-4A1.5 1.5 0 1 1 7 6.5 1.5 1.5 0 0 1 8.5 5ZM14 9h3v1.6c.7-1.1 2-1.8 3.4-1.8 2.8 0 3.6 1.8 3.6 4.2V18h-3v-4c0-1.1 0-2.6-1.6-2.6S17 12.7 17 14v4h-3V9Z'/></svg>") center/contain no-repeat; mask: inherit; }
 
-.floating-sidebar .sb-foot { opacity: .85; font-size: 13px; margin-top: 12px; }
+/* Stacked CTA bars (teal/blue/peach) */
+.sidebar-ctas{ display: grid; gap: 10px; margin: 8px 0 14px; }
+.sidebar-cta{
+  display: block;
+  padding: 10px 12px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+}
+.sidebar-cta.cta-teal  { background: #1fb5b0; color: white; transition: background .25s ease, color .2s ease; }
+.sidebar-cta.cta-peach { background: var(--cta-peach-bg); color: white; }
+
+/* hover: teal -> peach */
+.sidebar-cta.cta-teal:hover,
+.sidebar-cta.cta-teal:focus-visible{
+  background: var(--cta-peach-bg);
+  color: white; /* keep text white on hover */
+}
+/* Body copy at the bottom of the panel */
+.sidebar-desc{
+  margin: 8px 0 0;
+  font-size: 13px;
+  line-height: 1.5;
+  opacity: .95;
+}
+
+/* Mobile stacking remains the same as you already have */
+@media (max-width: 1100px){
+  .resources-sidebar{ position: static; float: none; width: 100%; margin: 16px 0 0; }
+  .resources-sidebar .sidebar-inner{ max-height: none; overflow: visible; border-radius: 12px; }
+}
+
+/* Keep everything you already have … then add/tweak these */
+
+/* Footer sits at the bottom of the panel */
+.resources-sidebar .sidebar-inner{
+  display: flex;              /* you already had this; keeping for clarity */
+  flex-direction: column;
+}
+
+.sidebar-footer{
+  margin-top: auto;           /* pushes it to the bottom of the panel */
+  padding-top: 10px;
+  font-size: 12px;
+  text-align: center;
+  line-height: 1.5;
+  opacity: .9;
+}
+
+/* CTA text is white by default */
+.sidebar-cta { color: #fff; }
+
+/* On hover: turn CTA text blue */
+.sidebar-cta:hover,
+.sidebar-cta:focus{
+  color: #1d4382 !important;  /* brand blue; override default white */
+  text-decoration: none;      /* optional: keep clean look */
+}
+
+/* If you want slight hover feedback on the bar itself too */
+.sidebar-cta.cta-teal:hover,
+.sidebar-cta.cta-blue:hover,
+.sidebar-cta.cta-peach:hover{
+  filter: brightness(0.98);
+}
+/* Make chip an anchor look the same */
+.latest-posts-chip{ text-decoration:none; color:#fff; }
+
+/* Blog search row */
+.sidebar-search{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+.sidebar-search input[type="search"]{
+  flex: 1;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 12px;
+  outline: none;
+  background: rgba(255,255,255,.12);
+  color: #fff;
+}
+.sidebar-search ::placeholder{ color: rgba(255,255,255,.8); }
+.sidebar-search .search-btn{
+  border: 0;
+  width: 38px; height: 38px;
+  display: inline-flex; align-items:center; justify-content:center;
+  border-radius: 10px;
+  background: rgba(255,255,255,.18);
+  color: #fff;
+  cursor: pointer;
+}
+.sidebar-search .search-btn:hover{ filter: brightness(1.05); }
+

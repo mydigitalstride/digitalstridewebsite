@@ -38,7 +38,8 @@ DIGITAL STRIDE - FULL CSS STYLESHEET
   --gradient-purple-blue: linear-gradient(135deg, #70077B, #1D4382); /* rgb(112,7,123 â†’ 29,67,130) */
   --gradient-white-light-teal: linear-gradient(180deg, #f2f5fb, #D3E9EB); /* rgb(242,245,251 â†’ 211,233,235) */
   --gradient-white-light-blue: linear-gradient(180deg, #f2f5fb, #dae3ff); /* rgb(242,245,251 â†’ 218,227,255) */
-  --gradient-white-light-orange: linear-gradient(180deg, #f2f5fb, #f6ddd3); /* rgb(242,245,251 â†’ 246,221
+  --gradient-white-light-orange: linear-gradient(180deg, #f2f5fb, #f6ddd3); /* rgb(242,245,251 â†’ 246,221 */
+  --cta-peach-bg: radial-gradient(circle at 0% 0%, #f6ddd3 0%, #f6ddd3 45%,  #189da7 100% );
 
     /* Font Families */
   --font-sans: 'josefin sans', sans-serif;
@@ -828,31 +829,138 @@ a {
   }
 }
  */
-/* Clickable, visible FAB */
-.back-to-top-fab {
+/* Back-to-top floating button (visible state still controlled by .is-visible) */
+.back-to-top-fab{
   position: fixed;
   right: 24px;
   bottom: 24px;
   z-index: 9999;
+
+  /* shape/box */
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1.5px solid currentColor;
+
+  /* colors (tweak with vars if you want) */
+  --btp-bg: #111;     /* default bg */
+  --btp-fg: #fff;     /* arrow color */
+  --btp-fg-hover: #111; /* arrow/border on hover when bg is transparent */
+
+  background: var(--btp-bg);
+  color: var(--btp-fg);
+
+  /* show/hide controlled by class; keep your original logic */
   opacity: 0;
   pointer-events: none;
-  transition: opacity .2s ease;
+
+  /* animation */
+  transition:
+    opacity .2s ease,
+    background-color .2s ease,
+    color .2s ease,
+    transform .15s ease,
+    border-color .2s ease;
 }
-.back-to-top-fab.is-visible {
+
+.back-to-top-fab.is-visible{
   opacity: 1;
   pointer-events: auto;
 }
 
-
-.sr-only-anchor {
-  position: relative;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
-  scroll-margin-top: var(--header-h, 80px);
+/* hover -> transparent box */
+.back-to-top-fab:hover{
+  background: transparent;
+  color: var(--btp-fg-hover);
+  border-color: currentColor;
 }
+
+/* press feedback & keyboard focus */
+.back-to-top-fab:active{ transform: translateY(1px) scale(.98); }
+.back-to-top-fab:focus-visible{
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* draw the arrow */
+.back-to-top-fab .btp-icon::before{
+  content: "↑";       /* or switch to Font Awesome if you prefer */
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* if you kept a .btp-label anywhere, hide it */
+.btp-label{ display:none !important; }
+
 
 /* (Optional) smooth by CSS for any in-page anchors */
 html { scroll-behavior: smooth; }
+/* Back-to-Top button */
+.back-to-top-fab{
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 9999;
+
+  /* shape */
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  border: 1.5px solid currentColor;
+
+  /* colors (tweak if you want) */
+  --btp-bg: #111;          /* default background */
+  --btp-fg: #fff;          /* arrow color */
+  --btp-fg-hover: #111;    /* arrow/border when bg is transparent */
+
+  background: var(--btp-bg);
+  color: var(--btp-fg);
+
+  /* visibility controlled by JS via .is-visible */
+  opacity: 0;
+  pointer-events: none;
+
+  /* motion */
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
+  transition:
+    opacity .2s ease,
+    background-color .2s ease,
+    color .2s ease,
+    border-color .2s ease,
+    transform .15s ease;
+}
+
+/* JS toggles this */
+.back-to-top-fab.is-visible{
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ✨ Hover → transparent box (arrow + border still visible) */
+.back-to-top-fab:hover{
+  background: transparent;
+  color: var(--btp-fg-hover);
+  border-color: currentColor;
+}
+
+/* focus/active niceties */
+.back-to-top-fab:active { transform: translateY(1px) scale(.98); }
+.back-to-top-fab:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+
+/* Arrow icon (uses Font Awesome already loaded in your header) */
+.back-to-top-fab .btp-icon::before{
+  content: "\f062";         /* Font Awesome 'arrow-up' */
+  font: var(--fa-font-solid);
+  font-size: 18px;
+  line-height: 1;
+}
+
+/* If you prefer the plain text arrow instead of FA, use this instead:
+.back-to-top-fab .btp-icon::before{ content:"↑"; font-size:18px; line-height:1; }
+*/
