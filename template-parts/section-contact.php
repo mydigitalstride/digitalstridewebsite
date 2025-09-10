@@ -17,16 +17,17 @@ $label  = $btn_text ?: 'Book your consultation';
 ?>
 <section class="contact-flex-section" <?php echo $shared_bg_style; ?>>
   <div class="contact-left">
-    <h3><?php the_sub_field('section_title_left'); ?></h3>
+    <h3 class="contact-heading"><?php the_sub_field('section_title_left'); ?></h3>
     <p class="subtitle"><?php the_sub_field('subtitle_left'); ?></p>
 
-    <div class="cf7-form-wrap" id="<?php echo esc_attr($anchor_id); ?>">
-      <?php echo do_shortcode(get_sub_field('form_shortcode')); ?>
+    <!-- Clean wrapper for Forminator -->
+    <div class="forminator-form-wrap" id="<?php echo esc_attr($anchor_id); ?>">
+      <?php echo do_shortcode('[forminator_form id="14995"]'); ?>
     </div>
   </div>
 
   <div class="contact-right">
-    <h3><?php the_sub_field('section_title_right'); ?></h3>
+    <h3 class="contact-heading"><?php the_sub_field('section_title_right'); ?></h3>
     <p class="subtitle"><?php the_sub_field('subtitle_right'); ?></p>
 
     <ul class="contact-info">
@@ -35,7 +36,6 @@ $label  = $btn_text ?: 'Book your consultation';
       <li><strong>✚</strong> <?php the_sub_field('contact_address'); ?></li>
     </ul>
 
-    <!-- same class name -->
     <a class="orange-button"
        href="<?php echo $href; ?>"
        target="<?php echo esc_attr($target); ?>"

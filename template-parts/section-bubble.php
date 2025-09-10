@@ -1,24 +1,33 @@
 <section class="bubbles-row">
   <?php if (have_rows('bubbles')): ?>
     <?php while (have_rows('bubbles')): the_row(); ?>
+      <?php $bubble_url = get_sub_field('url'); ?>
       <div class="bubble">
-        <?php if ($image = get_sub_field('bubble_image')): ?>
-          <img
-            src="<?php echo esc_url($image['url']); ?>"
-            alt="<?php echo esc_attr($image['alt'] ?: get_sub_field('bubble_header')); ?>"
-            class="bubble-image"
-          />
+        <?php if ($bubble_url): ?>
+          <a href="<?php echo esc_url($bubble_url); ?>" class="bubble-link">
         <?php endif; ?>
 
-        <?php if (get_sub_field('bubble_header')): ?>
-          <h3 class="bubble-header"><?php the_sub_field('bubble_header'); ?></h3>
-        <?php endif; ?>
+          <?php if ($image = get_sub_field('bubble_image')): ?>
+            <img
+              src="<?php echo esc_url($image['url']); ?>"
+              alt="<?php echo esc_attr($image['alt'] ?: get_sub_field('bubble_header')); ?>"
+              class="bubble-image"
+            />
+          <?php endif; ?>
 
-        <!-- hardcoded plus icon row -->
-        <span class="bubble-plus-icon" aria-hidden="true">+ + + + + +</span>
+          <?php if (get_sub_field('bubble_header')): ?>
+            <h3 class="bubble-header"><?php the_sub_field('bubble_header'); ?></h3>
+          <?php endif; ?>
 
-        <?php if (get_sub_field('bubble_text')): ?>
-          <p class="bubble-text"><?php the_sub_field('bubble_text'); ?></p>
+          <!-- hardcoded plus icon row -->
+          <span class="bubble-plus-icon" aria-hidden="true">+ + + + + +</span>
+
+          <?php if (get_sub_field('bubble_text')): ?>
+            <p class="bubble-text"><?php the_sub_field('bubble_text'); ?></p>
+          <?php endif; ?>
+
+        <?php if ($bubble_url): ?>
+          </a>
         <?php endif; ?>
       </div>
     <?php endwhile; ?>

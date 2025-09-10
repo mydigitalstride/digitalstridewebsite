@@ -30,8 +30,19 @@
               if ($before && $after): ?>
                 <div class="slide">
                   <div class="slide-inner">
-                    <img src="<?php echo esc_url($before['url']); ?>" alt="Before Image" class="slide-img" />
-                    <img src="<?php echo esc_url($after['url']); ?>"  alt="After Image"  class="slide-img" />
+
+                    <!-- BEFORE IMAGE -->
+                    <div class="slide-img-wrapper before">
+                      <img src="<?php echo esc_url($before['url']); ?>" alt="Before Image" class="slide-img" />
+                      <p class="image-label">Before</p>
+                    </div>
+
+                    <!-- AFTER IMAGE -->
+                    <div class="slide-img-wrapper after">
+                      <img src="<?php echo esc_url($after['url']); ?>" alt="After Image" class="slide-img" />
+                      <p class="image-label">After</p>
+                    </div>
+
                   </div>
                 </div>
               <?php endif; ?>
@@ -53,7 +64,6 @@
     </a>
   </div>
 </section>
-
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {

@@ -114,6 +114,9 @@ if ( have_rows('home_page_section') ):
     elseif ( get_row_layout() == 'ds_button' ):
       get_template_part('template-parts/section', 'button');
 
+      elseif ( get_row_layout() == 'quote_calculator' ):
+    get_template_part('template-parts/section', 'quote');
+
     endif;
 
   endwhile;
