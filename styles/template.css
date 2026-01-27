@@ -29,11 +29,23 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     text-align:center
 }
 .plus-banner-text {
-   background: var(--gradient-yellow-orange);
+  display: inline-block;
+  white-space: nowrap;
+  background: var(--gradient-yellow-orange);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text; /* for Firefox */
+  background-clip: text;
   text-fill-color: transparent;
+  animation: scroll-left-to-right 20s linear infinite;
+}
+
+@keyframes scroll-left-to-right {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 .hero-container{
     display: flex;
@@ -556,19 +568,34 @@ background: var(--gradient-light-orange);
 }
 
 .bubble-plus-icon {
-    display: flex;
+    display: inline-block;
     font-weight: var(--font-weight-bold) !important;
     background: var(--gradient-yellow-orange);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: var(--font-size-2xl);
     margin: 5px 0;
-    text-align:left;
+    text-align: left;
+
+    /* Typewriter animation */
+    overflow: hidden;
+    white-space: nowrap;
+    width: 0;
+    animation: typewriter 1.5s steps(11, end) forwards;
 
         @media screen and (max-width: 768px) {
-            line-height: var(--line-height-tight);   
+            line-height: var(--line-height-tight);
             margin: 0 0 5px 0;
         }
+}
+
+@keyframes typewriter {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
 }
 
 .bubble-images {
@@ -1003,6 +1030,7 @@ z-index: 0;
   text-align: center;
   margin: auto;
   letter-spacing: 10px;
+  overflow: hidden;
 
     @media screen and (max-width: 780px) {
       display: none;
