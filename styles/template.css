@@ -29,11 +29,23 @@ body, button, input, select, textarea, h2, h3, h4, h5, h6 {
     text-align:center
 }
 .plus-banner-text {
-   background: var(--gradient-yellow-orange);
+  display: inline-block;
+  white-space: nowrap;
+  background: var(--gradient-yellow-orange);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  background-clip: text; /* for Firefox */
+  background-clip: text;
   text-fill-color: transparent;
+  animation: scroll-left-to-right 20s linear infinite;
+}
+
+@keyframes scroll-left-to-right {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
 }
 .hero-container{
     display: flex;
@@ -1018,6 +1030,7 @@ z-index: 0;
   text-align: center;
   margin: auto;
   letter-spacing: 10px;
+  overflow: hidden;
 
     @media screen and (max-width: 780px) {
       display: none;
