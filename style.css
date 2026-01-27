@@ -679,6 +679,10 @@ a {
   display: block
 }
 
+#mega-menu-wrap-primary #mega-menu-primary {
+  padding: 0px 5% 0px 5%;
+}
+
 @media(min-width:768px) {
   #mega-menu-wrap-primary {
     display: block !important
