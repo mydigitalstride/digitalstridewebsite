@@ -45,18 +45,18 @@ DIGITAL STRIDE - FULL CSS STYLESHEET
   --font-sans: 'josefin sans', sans-serif;
 
   /* Font Sizes */
-  --font-size-xs: clamp(0.75rem, 5vw, 0.875rem); /* 12px */
-  --font-size-sm: clamp(0.875rem, 5vw, 1rem); /* 14px */
-  --font-size-base: clamp(1rem, 5vw, 1.125rem); /* 16px */
-  --font-size-med: clamp(1.25rem, 5vw, 1.5rem); /* 20px */
-  --font-size-lg: clamp(1.5rem, 5vw, 1.75rem); /* 24px */ 
-  --font-size-xl: clamp(1.75rem, 5vw, 2rem); /* 28px */
-  --font-size-2xl: clamp(2rem, 5vw, 2.25rem); /* 32px */
-  --font-size-3xl: clamp(2.25rem, 5vw, 3rem); /* 36px */
-  --font-size-4xl: clamp(2.5rem, 5vw, 3.25rem); /* 40px */
-  --font-size-mega: clamp(3rem, 5vw, 3.5rem); /* 48px */
-  --font-size-wow: clamp(3.5rem, 5vw, 4rem); /* 56px */
-  --font-size-giant: clamp(4rem, 5vw, 5rem); /* 64px */
+  --font-size-xs: clamp(0.75rem, calc(0.7rem + 0.15vw), 0.875rem);
+  --font-size-sm: clamp(0.875rem, calc(0.8rem + 0.2vw), 1rem);
+  --font-size-base: clamp(1rem, calc(0.9rem + 0.25vw), 1.125rem);
+  --font-size-med: clamp(1.15rem, calc(1rem + 0.35vw), 1.25rem);
+  --font-size-lg: clamp(1.5rem, calc(1.3rem + 0.5vw), 1.75rem);
+  --font-size-xl: clamp(1.75rem, calc(1.5rem + 0.6vw), 2rem);
+  --font-size-2xl: clamp(2rem, calc(1.7rem + 0.7vw), 2.25rem);
+  --font-size-3xl: clamp(2.25rem, calc(1.9rem + 0.85vw), 2.5rem);
+  --font-size-4xl: clamp(2.5rem, calc(2rem + 1.2vw), 3rem);
+  --font-size-mega: clamp(3rem, calc(2.3rem + 1.5vw), 3.25rem);
+  --font-size-wow: clamp(3.5rem, calc(2.6rem + 1.8vw), 3.75rem);
+  --font-size-giant: clamp(4rem, calc(3rem + 2vw), 4.25rem);
 
   /* Line Heights */
   --line-height-tight: 1.2; /* 19px */
