@@ -117,20 +117,29 @@ function digitalstride_events_post_type() {
             'not_found'          => __('No events found.', 'digitalstride'),
             'menu_name'          => __('Events', 'digitalstride'),
         ],
-        'public'            => true,
-        'show_ui'           => true,
-        'show_in_menu'      => true,
-        'show_in_nav_menus' => true,
-        'has_archive'       => true,
-        'supports'          => ['title', 'thumbnail'],
-        'menu_icon'         => 'dashicons-calendar-alt',
-        'menu_position'     => 5,
-        'rewrite'           => ['slug' => 'ds-events', 'with_front' => false],
+        'public'             => true,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'show_in_nav_menus'  => true,
+        'publicly_queryable' => true,
+        'has_archive'        => true,
+        'supports'           => ['title', 'thumbnail'],
+        'menu_icon'          => 'dashicons-calendar-alt',
+        'capability_type'    => 'post',
+        'rewrite'            => ['slug' => 'ds-events', 'with_front' => false],
     ]);
 }
 add_action('init', 'digitalstride_events_post_type');
 
-// Flush rewrite rules when the theme is activated so the Events CPT URLs work
+// Flush rewrite rules once after CPT is added (stores a flag in the DB)
+add_action('admin_init', function () {
+    if (get_option('ds_events_flushed') !== '1') {
+        flush_rewrite_rules();
+        update_option('ds_events_flushed', '1');
+    }
+});
+
+// Flush rewrite rules when the theme is switched
 add_action('after_switch_theme', function () {
     digitalstride_events_post_type();
     flush_rewrite_rules();
