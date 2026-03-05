@@ -109,20 +109,32 @@ function digitalstride_events_post_type() {
         'labels' => [
             'name'               => __('Events', 'digitalstride'),
             'singular_name'      => __('Event', 'digitalstride'),
+            'add_new'            => __('Add New', 'digitalstride'),
             'add_new_item'       => __('Add New Event', 'digitalstride'),
             'edit_item'          => __('Edit Event', 'digitalstride'),
             'view_item'          => __('View Event', 'digitalstride'),
             'search_items'       => __('Search Events', 'digitalstride'),
             'not_found'          => __('No events found.', 'digitalstride'),
+            'menu_name'          => __('Events', 'digitalstride'),
         ],
-        'public'      => true,
-        'has_archive' => true,
-        'supports'    => ['title', 'thumbnail'],
-        'menu_icon'   => 'dashicons-calendar-alt',
-        'rewrite'     => ['slug' => 'events'],
+        'public'            => true,
+        'show_ui'           => true,
+        'show_in_menu'      => true,
+        'show_in_nav_menus' => true,
+        'has_archive'       => true,
+        'supports'          => ['title', 'thumbnail'],
+        'menu_icon'         => 'dashicons-calendar-alt',
+        'menu_position'     => 5,
+        'rewrite'           => ['slug' => 'ds-events', 'with_front' => false],
     ]);
 }
 add_action('init', 'digitalstride_events_post_type');
+
+// Flush rewrite rules when the theme is activated so the Events CPT URLs work
+add_action('after_switch_theme', function () {
+    digitalstride_events_post_type();
+    flush_rewrite_rules();
+});
 
 // Register CPT: Services
 function digitalstride_services_post_type() {
