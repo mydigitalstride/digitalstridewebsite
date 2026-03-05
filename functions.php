@@ -361,6 +361,14 @@ function digitalstride_self_canonical() {
 remove_action( 'wp_head', 'rel_canonical' );
 add_action( 'wp_head', 'digitalstride_self_canonical' );
 
+// Suppress canonical output from SEO plugins — we manage canonical centrally above.
+// Yoast SEO
+add_filter( 'wpseo_canonical', '__return_false' );
+// RankMath
+add_filter( 'rank_math/frontend/canonical', '__return_false' );
+// All in One SEO
+add_filter( 'aioseo_canonical_url', '__return_false' );
+
 // Admin notice if ACF is missing
 function digitalstride_required_plugins_notice() {
     if (!function_exists('get_field')) {
