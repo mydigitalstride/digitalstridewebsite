@@ -1,0 +1,525 @@
+/* =============================================================================
+   DS Events Section
+   ============================================================================= */
+
+/* ── Section Wrapper ─────────────────────────────────────────────────────── */
+
+.ds-events-section {
+    padding: 80px 5%;
+    background: var(--color-white);
+}
+
+.ds-events-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.ds-events-header h2 {
+    font-size: var(--font-size-xl);
+    color: var(--color-text);
+}
+
+.ds-events-empty {
+    text-align: center;
+    padding: 48px 0;
+    color: #888;
+    font-style: italic;
+    font-size: var(--font-size-md);
+}
+
+/* ── Calendar ────────────────────────────────────────────────────────────── */
+
+.ds-calendar-wrap {
+    max-width: 860px;
+    margin: 0 auto 64px;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 28px rgba(24, 157, 167, 0.12);
+    overflow: hidden;
+}
+
+.ds-calendar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 28px;
+    background: var(--gradient-teal-blue);
+}
+
+.ds-calendar-nav .ds-cal-month-label {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: #fff;
+    margin: 0;
+}
+
+.ds-cal-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #fff;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 22px;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    flex-shrink: 0;
+}
+
+.ds-cal-btn:hover {
+    background: rgba(255, 255, 255, 0.38);
+}
+
+.ds-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+}
+
+.ds-cal-day-header {
+    padding: 10px 4px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-teal);
+    border-bottom: 2px solid #eef3f8;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.ds-cal-day {
+    min-height: 82px;
+    padding: 8px 7px 6px;
+    border-right: 1px solid #eef3f8;
+    border-bottom: 1px solid #eef3f8;
+    box-sizing: border-box;
+    position: relative;
+    transition: background 0.15s;
+}
+
+.ds-cal-day:nth-child(7n) {
+    border-right: none;
+}
+
+.ds-cal-day.other-month {
+    background: #fafbfd;
+}
+
+.ds-cal-day.other-month .ds-cal-day-num {
+    color: #c8cfd9;
+}
+
+.ds-cal-day-num {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text);
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-bottom: 4px;
+    flex-shrink: 0;
+}
+
+.ds-cal-day.today .ds-cal-day-num {
+    background: var(--color-teal);
+    color: #fff;
+}
+
+.ds-cal-day.has-events {
+    cursor: pointer;
+}
+
+.ds-cal-day.has-events:hover {
+    background: var(--color-light-teal);
+}
+
+.ds-cal-event-dots {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.ds-cal-event-label {
+    background: var(--color-teal);
+    color: #fff;
+    font-size: 10px;
+    line-height: 1.3;
+    padding: 2px 5px;
+    border-radius: 3px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    cursor: pointer;
+    transition: background 0.15s;
+    font-family: var(--font-sans);
+}
+
+.ds-cal-event-label:hover {
+    background: var(--color-blue);
+}
+
+/* ── Events Card Grid ────────────────────────────────────────────────────── */
+
+.ds-events-list-wrap {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.ds-events-list-wrap > h3 {
+    font-size: var(--font-size-lg);
+    color: var(--color-text);
+    margin-bottom: 28px;
+}
+
+.ds-events-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+}
+
+.ds-event-card {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(29, 67, 130, 0.08);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.ds-event-card:hover,
+.ds-event-card:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 32px rgba(24, 157, 167, 0.18);
+    outline: none;
+}
+
+/* 2:1 image banner */
+.ds-event-card-image {
+    width: 100%;
+    padding-bottom: 50%;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.ds-event-card-image img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ds-event-card-image.no-photo {
+    background: var(--gradient-teal-blue);
+}
+
+.ds-event-card-body {
+    padding: 20px 22px 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.ds-event-card-title {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin: 0 0 10px;
+    line-height: var(--line-height-tight);
+}
+
+.ds-event-card-excerpt {
+    font-size: var(--font-size-sm);
+    color: #555;
+    line-height: var(--line-height-normal);
+    margin: 0 0 14px;
+    flex: 1;
+}
+
+.ds-event-card-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: var(--font-size-xs);
+    color: var(--color-teal);
+    margin-top: auto;
+}
+
+.ds-event-card-meta span {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+/* ── Event Modal ─────────────────────────────────────────────────────────── */
+
+.ds-events-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 11, 36, 0.72);
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(3px);
+}
+
+.ds-events-modal-overlay.active {
+    display: flex;
+}
+
+.ds-events-modal {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: ds-modal-in 0.22s ease;
+    box-shadow: 0 20px 60px rgba(2, 11, 36, 0.35);
+}
+
+@keyframes ds-modal-in {
+    from {
+        opacity: 0;
+        transform: scale(0.94) translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.ds-modal-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    background: rgba(255, 255, 255, 0.88);
+    border: none;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 17px;
+    line-height: 1;
+    z-index: 10;
+    color: var(--color-text);
+    transition: background 0.15s;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.15);
+}
+
+.ds-modal-close:hover {
+    background: #fff;
+}
+
+/* 2:1 modal image banner */
+.ds-modal-image-banner {
+    width: 100%;
+    padding-bottom: 50%;
+    position: relative;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.ds-modal-image-banner img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ds-modal-image-banner.no-photo {
+    background: var(--gradient-teal-blue);
+}
+
+.ds-modal-body {
+    padding: 28px 32px 36px;
+}
+
+.ds-modal-title {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    margin: 0 0 14px;
+    line-height: var(--line-height-tight);
+}
+
+.ds-modal-description {
+    font-size: var(--font-size-sm);
+    color: #444;
+    line-height: var(--line-height-loose);
+    margin-bottom: 22px;
+}
+
+.ds-modal-description p {
+    margin: 0 0 10px;
+}
+
+.ds-modal-description p:last-child {
+    margin-bottom: 0;
+}
+
+.ds-modal-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+    padding: 16px 18px;
+    background: var(--color-light-teal);
+    border-radius: 8px;
+}
+
+.ds-modal-meta-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: var(--font-size-sm);
+    color: var(--color-text);
+    line-height: var(--line-height-normal);
+}
+
+.ds-modal-meta-row .ds-meta-icon {
+    color: var(--color-teal);
+    width: 16px;
+    flex-shrink: 0;
+    margin-top: 3px;
+    text-align: center;
+}
+
+.ds-modal-reg-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--color-orange);
+    color: #fff;
+    text-decoration: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: 22px;
+    transition: opacity 0.2s;
+    font-family: var(--font-sans);
+}
+
+.ds-modal-reg-link:hover {
+    opacity: 0.88;
+    color: #fff;
+}
+
+.ds-modal-cal-btns {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.ds-modal-cal-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    border: 2px solid;
+    text-decoration: none;
+    background: transparent;
+    transition: background 0.18s, color 0.18s;
+    font-family: var(--font-sans);
+}
+
+.ds-modal-cal-btn.ds-cal-google {
+    border-color: #4285f4;
+    color: #4285f4;
+}
+
+.ds-modal-cal-btn.ds-cal-google:hover {
+    background: #4285f4;
+    color: #fff;
+}
+
+.ds-modal-cal-btn.ds-cal-apple {
+    border-color: var(--color-text);
+    color: var(--color-text);
+}
+
+.ds-modal-cal-btn.ds-cal-apple:hover {
+    background: var(--color-text);
+    color: #fff;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────────── */
+
+@media screen and (max-width: 960px) {
+    .ds-events-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .ds-events-section {
+        padding: 50px 4%;
+    }
+
+    .ds-events-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ds-calendar-wrap {
+        border-radius: 8px;
+    }
+
+    .ds-calendar-nav {
+        padding: 14px 16px;
+    }
+
+    .ds-cal-day {
+        min-height: 54px;
+        padding: 5px 3px 4px;
+    }
+
+    /* Hide event labels on small screens; show dot instead */
+    .ds-cal-event-label {
+        display: none;
+    }
+
+    .ds-cal-day.has-events::after {
+        content: '';
+        display: block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--color-teal);
+        margin: 3px auto 0;
+    }
+
+    .ds-modal-body {
+        padding: 20px 18px 28px;
+    }
+
+    .ds-modal-title {
+        font-size: var(--font-size-lg);
+    }
+
+    .ds-modal-cal-btns {
+        flex-direction: column;
+    }
+}
