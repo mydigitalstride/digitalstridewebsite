@@ -134,6 +134,38 @@ add_filter('excerpt_length', function() {
     return 25;
 });
 
+// Fix canonical tags: always self-reference the current page's own URL
+function digitalstride_self_canonical() {
+    $canonical_url = '';
+
+    if ( is_singular() ) {
+        $canonical_url = get_permalink();
+    } elseif ( is_front_page() ) {
+        $canonical_url = home_url( '/' );
+    } elseif ( is_home() ) {
+        $page_for_posts = get_option( 'page_for_posts' );
+        $canonical_url  = $page_for_posts ? get_permalink( $page_for_posts ) : home_url( '/' );
+    } elseif ( is_category() || is_tag() || is_tax() ) {
+        $term = get_queried_object();
+        if ( $term && ! is_wp_error( $term ) ) {
+            $canonical_url = get_term_link( $term );
+        }
+    } elseif ( is_post_type_archive() ) {
+        $canonical_url = get_post_type_archive_link( get_post_type() );
+    } elseif ( is_author() ) {
+        $canonical_url = get_author_posts_url( get_queried_object_id() );
+    } elseif ( is_search() ) {
+        $canonical_url = get_search_link();
+    }
+
+    if ( $canonical_url && ! is_wp_error( $canonical_url ) ) {
+        echo '<link rel="canonical" href="' . esc_url( $canonical_url ) . '">' . "\n";
+    }
+}
+// Replace WordPress default canonical with our self-referencing one
+remove_action( 'wp_head', 'rel_canonical' );
+add_action( 'wp_head', 'digitalstride_self_canonical' );
+
 // Admin notice if ACF is missing
 function digitalstride_required_plugins_notice() {
     if (!function_exists('get_field')) {
