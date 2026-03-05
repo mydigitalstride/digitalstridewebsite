@@ -227,18 +227,6 @@ function digitalstride_self_canonical() {
 remove_action( 'wp_head', 'rel_canonical' );
 add_action( 'wp_head', 'digitalstride_self_canonical' );
 
-// DEBUG: show registered post types — remove once Events appears in admin menu
-add_action('admin_notices', function () {
-    global $wp_post_types;
-    $cpts = array_keys($wp_post_types);
-    $ds_event_registered = in_array('ds_event', $cpts);
-    $color = $ds_event_registered ? 'success' : 'error';
-    $msg   = $ds_event_registered
-        ? 'ds_event CPT IS registered. All CPTs: ' . implode(', ', $cpts)
-        : 'ds_event CPT is NOT registered. All CPTs: ' . implode(', ', $cpts);
-    echo '<div class="notice notice-' . $color . '"><p><strong>DS Events Debug:</strong> ' . esc_html($msg) . '</p></div>';
-});
-
 // Admin notice if ACF is missing
 function digitalstride_required_plugins_notice() {
     if (!function_exists('get_field')) {
