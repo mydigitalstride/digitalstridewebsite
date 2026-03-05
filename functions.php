@@ -159,6 +159,12 @@ add_filter('template_include', function ($template) {
     return $template;
 });
 
+// Admin sidebar: remove Services CPT regardless of what registered it (theme or plugin),
+// and ensure Events CPT appears.
+add_action('admin_menu', function () {
+    remove_menu_page('edit.php?post_type=services');
+}, 999);
+
 // Theme Customizer
 function digitalstride_customize_register($wp_customize) {
     $wp_customize->add_section('digitalstride_header', [
