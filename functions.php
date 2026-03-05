@@ -125,17 +125,19 @@ function digitalstride_events_post_type() {
         'has_archive'        => true,
         'supports'           => ['title', 'thumbnail'],
         'menu_icon'          => 'dashicons-calendar-alt',
+        'menu_position'      => 25,
         'capability_type'    => 'post',
         'rewrite'            => ['slug' => 'ds-events', 'with_front' => false],
     ]);
 }
 add_action('init', 'digitalstride_events_post_type');
 
-// Flush rewrite rules once after CPT is added (stores a flag in the DB)
+// Flush rewrite rules once after CPT is added (stores a flag in the DB).
+// Increment the version suffix (e.g. _v2, _v3) to force a re-flush after changes.
 add_action('admin_init', function () {
-    if (get_option('ds_events_flushed') !== '1') {
+    if (get_option('ds_events_flushed_v3') !== '1') {
         flush_rewrite_rules();
-        update_option('ds_events_flushed', '1');
+        update_option('ds_events_flushed_v3', '1');
     }
 });
 
@@ -145,20 +147,17 @@ add_action('after_switch_theme', function () {
     flush_rewrite_rules();
 });
 
-// Register CPT: Services
-function digitalstride_services_post_type() {
-    register_post_type('services', [
-        'labels' => [
-            'name'          => __('Services', 'digitalstride'),
-            'singular_name' => __('Service', 'digitalstride'),
-        ],
-        'public'      => true,
-        'has_archive' => true,
-        'supports'    => ['title', 'editor', 'thumbnail'],
-        'menu_icon'   => 'dashicons-admin-tools',
-    ]);
-}
-add_action('init', 'digitalstride_services_post_type');
+// Force the events page template regardless of the Page Attributes selection in WP Admin.
+// This ensures page-events.php always loads for the page with slug "events".
+add_filter('template_include', function ($template) {
+    if (is_page('events')) {
+        $events_tpl = get_template_directory() . '/page-events.php';
+        if (file_exists($events_tpl)) {
+            return $events_tpl;
+        }
+    }
+    return $template;
+});
 
 // Theme Customizer
 function digitalstride_customize_register($wp_customize) {
