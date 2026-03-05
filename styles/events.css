@@ -24,7 +24,7 @@
     padding: 48px 0;
     color: #888;
     font-style: italic;
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-base);
 }
 
 /* ── Calendar ────────────────────────────────────────────────────────────── */
@@ -46,10 +46,15 @@
     background: var(--gradient-teal-blue);
 }
 
+/* Override global h2 gradient-text rule so the month label stays white */
 .ds-calendar-nav .ds-cal-month-label {
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-bold);
     color: #fff;
+    -webkit-text-fill-color: #fff;
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
     margin: 0;
 }
 
@@ -231,7 +236,7 @@
 }
 
 .ds-event-card-title {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-bold);
     color: var(--color-text);
     margin: 0 0 10px;
@@ -303,8 +308,9 @@
     }
 }
 
+/* global button rule has position:relative !important — must counter it here */
 .ds-modal-close {
-    position: absolute;
+    position: absolute !important;
     top: 12px;
     right: 14px;
     background: rgba(255, 255, 255, 0.88);
@@ -353,10 +359,15 @@
     padding: 28px 32px 36px;
 }
 
+/* Override global h2 gradient-text rule so the modal title is readable */
 .ds-modal-title {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-bold);
     color: var(--color-text);
+    -webkit-text-fill-color: var(--color-text);
+    background: none;
+    -webkit-background-clip: unset;
+    background-clip: unset;
     margin: 0 0 14px;
     line-height: var(--line-height-tight);
 }
@@ -507,7 +518,7 @@
 }
 
 .ds-event-single-description {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-base);
     color: #444;
     line-height: var(--line-height-loose);
     margin-bottom: 32px;
@@ -536,7 +547,7 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-base);
     color: var(--color-text);
 }
 
@@ -560,7 +571,7 @@
     text-decoration: none;
     padding: 14px 28px;
     border-radius: 6px;
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-bold);
     font-family: var(--font-sans);
     transition: opacity 0.2s;
