@@ -42,6 +42,34 @@ function digitalstride_enqueue_assets() {
         wp_enqueue_script('events-js', get_template_directory_uri() . '/js/events.js', [], '1.2.0', true);
     }
 
+    // March Madness Bracket CSS + JS
+    if (is_page_template('page-march-madness.php')) {
+        // Resolve logo URL from ACF options (falls back to empty string gracefully)
+        $mm_logo_url = '';
+        if (function_exists('get_field')) {
+            $mm_logo_id  = get_field('header_logo', 'option');
+            $mm_logo_url = $mm_logo_id ? (string) wp_get_attachment_image_url($mm_logo_id, 'medium') : '';
+        }
+
+        wp_enqueue_style('march-madness-css', get_template_directory_uri() . '/styles/march-madness.css', [], '1.0.1');
+
+        // jsPDF (CDN) must load before march-madness-js
+        wp_enqueue_script(
+            'jspdf',
+            'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js',
+            [],
+            '2.5.1',
+            true
+        );
+        wp_enqueue_script('march-madness-js', get_template_directory_uri() . '/js/march-madness.js', ['jspdf'], '1.0.1', true);
+        wp_localize_script('march-madness-js', 'mmBracket', [
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce'   => wp_create_nonce('mm_bracket_nonce'),
+            'logoUrl' => esc_url($mm_logo_url),
+            'siteUrl' => esc_url(get_bloginfo('url')),
+        ]);
+    }
+
     // ACF flexible content layout: Services CSS
     if (is_page()) {
         $sections = get_field('services_sections');
@@ -437,3 +465,329 @@ function digitalstride_update_legacy_urls( $content ) {
 }
 add_filter( 'the_content', 'digitalstride_update_legacy_urls' );
 add_filter( 'the_excerpt', 'digitalstride_update_legacy_urls' );
+
+/* =============================================================
+   MARCH MADNESS — BRACKET ENTRY CPT
+   ============================================================= */
+
+function ds_register_bracket_entry_cpt() {
+    register_post_type( 'ds_bracket_entry', [
+        'labels' => [
+            'name'               => __( 'Bracket Entries', 'digitalstride' ),
+            'singular_name'      => __( 'Bracket Entry', 'digitalstride' ),
+            'add_new'            => __( 'Add New', 'digitalstride' ),
+            'add_new_item'       => __( 'Add New Entry', 'digitalstride' ),
+            'edit_item'          => __( 'Edit Entry', 'digitalstride' ),
+            'view_item'          => __( 'View Entry', 'digitalstride' ),
+            'search_items'       => __( 'Search Entries', 'digitalstride' ),
+            'not_found'          => __( 'No entries found.', 'digitalstride' ),
+            'menu_name'          => __( 'Bracket Entries', 'digitalstride' ),
+        ],
+        'public'             => false,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'show_in_nav_menus'  => false,
+        'publicly_queryable' => false,
+        'has_archive'        => false,
+        'supports'           => [ 'title', 'custom-fields' ],
+        'menu_icon'          => 'dashicons-awards',
+        'menu_position'      => 26,
+        'capability_type'    => 'post',
+        'map_meta_cap'       => true,
+    ] );
+}
+add_action( 'init', 'ds_register_bracket_entry_cpt' );
+
+/* =============================================================
+   MARCH MADNESS — AJAX: SUBMIT BRACKET
+   ============================================================= */
+
+function ds_handle_mm_bracket_submission() {
+    // Verify nonce
+    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'mm_bracket_nonce' ) ) {
+        wp_send_json_error( 'Security check failed. Please refresh the page and try again.' );
+    }
+
+    // Collect & sanitize fields
+    $name          = isset( $_POST['name'] )         ? sanitize_text_field( wp_unslash( $_POST['name'] ) )         : '';
+    $email         = isset( $_POST['email'] )        ? sanitize_email( wp_unslash( $_POST['email'] ) )             : '';
+    $phone         = isset( $_POST['phone'] )        ? sanitize_text_field( wp_unslash( $_POST['phone'] ) )        : '';
+    $favorite_team = isset( $_POST['favoriteTeam'] ) ? sanitize_text_field( wp_unslash( $_POST['favoriteTeam'] ) ) : '';
+    $picks_raw     = isset( $_POST['picks'] )        ? wp_unslash( $_POST['picks'] )                               : '{}';
+
+    // Basic validation
+    if ( empty( $name ) || empty( $email ) || ! is_email( $email ) || empty( $favorite_team ) ) {
+        wp_send_json_error( 'Please fill in all required fields.' );
+    }
+
+    // Decode and sanitize picks JSON
+    $picks_arr = json_decode( $picks_raw, true );
+    if ( ! is_array( $picks_arr ) ) {
+        wp_send_json_error( 'Invalid bracket data. Please try again.' );
+    }
+    $picks_clean = [];
+    foreach ( $picks_arr as $game_id => $team ) {
+        $picks_clean[ sanitize_key( $game_id ) ] = sanitize_text_field( $team );
+    }
+
+    // Check for duplicate submission (same email)
+    $existing = get_posts( [
+        'post_type'      => 'ds_bracket_entry',
+        'post_status'    => 'publish',
+        'meta_key'       => '_mm_email',
+        'meta_value'     => $email,
+        'posts_per_page' => 1,
+        'fields'         => 'ids',
+    ] );
+    if ( ! empty( $existing ) ) {
+        wp_send_json_error( 'A bracket has already been submitted for this email address.' );
+    }
+
+    // Save as CPT post
+    $post_id = wp_insert_post( [
+        'post_title'  => sanitize_text_field( $name ) . ' — ' . gmdate( 'M j, Y g:i A' ),
+        'post_type'   => 'ds_bracket_entry',
+        'post_status' => 'publish',
+    ] );
+
+    if ( is_wp_error( $post_id ) ) {
+        wp_send_json_error( 'Could not save your bracket. Please try again.' );
+    }
+
+    update_post_meta( $post_id, '_mm_name',          $name );
+    update_post_meta( $post_id, '_mm_email',         $email );
+    update_post_meta( $post_id, '_mm_phone',         $phone );
+    update_post_meta( $post_id, '_mm_favorite_team', $favorite_team );
+    update_post_meta( $post_id, '_mm_picks',         wp_json_encode( $picks_clean ) );
+    update_post_meta( $post_id, '_mm_submitted_at',  gmdate( 'Y-m-d H:i:s' ) );
+
+    // Email admin
+    $admin_email   = get_option( 'admin_email' );
+    $picks_display = '';
+    foreach ( $picks_clean as $game => $team ) {
+        $picks_display .= '  ' . $game . ': ' . $team . "\n";
+    }
+
+    $admin_subject = 'New March Madness Bracket: ' . $name;
+    $admin_message =
+        "A new bracket entry was submitted.\n\n" .
+        "Name:          {$name}\n" .
+        "Email:         {$email}\n" .
+        "Phone:         " . ( $phone ?: 'Not provided' ) . "\n" .
+        "Favorite Team: {$favorite_team}\n" .
+        "Submitted:     " . gmdate( 'M j, Y g:i A T' ) . "\n\n" .
+        "Picks:\n{$picks_display}\n\n" .
+        "View in WP Admin: " . admin_url( 'post.php?post=' . $post_id . '&action=edit' );
+
+    wp_mail( $admin_email, $admin_subject, $admin_message );
+
+    // Confirmation email to entrant (HTML)
+    $confirm_subject  = 'Your Digital Stride March Madness Bracket is In!';
+    $confirm_html     = ds_mm_build_confirmation_email( $name, $email, $phone, $favorite_team, $picks_clean );
+    $confirm_headers  = [ 'Content-Type: text/html; charset=UTF-8' ];
+
+    wp_mail( $email, $confirm_subject, $confirm_html, $confirm_headers );
+
+    wp_send_json_success( 'Bracket submitted successfully.' );
+}
+add_action( 'wp_ajax_mm_submit_bracket',        'ds_handle_mm_bracket_submission' );
+add_action( 'wp_ajax_nopriv_mm_submit_bracket', 'ds_handle_mm_bracket_submission' );
+
+/* =============================================================
+   MARCH MADNESS — HTML CONFIRMATION EMAIL BUILDER
+   ============================================================= */
+
+/**
+ * Builds a single round's picks table (4 region columns).
+ *
+ * @param string   $round_label  Display label for the round.
+ * @param string[] $regions      Region slugs, e.g. ['south', 'east', ...].
+ * @param string[] $labels       Display labels, e.g. ['South', 'East', ...].
+ * @param array    $picks        The full picks array (game_id => team).
+ * @param string   $prefix       Game-ID prefix, e.g. 'r1', 'r2'.
+ * @param int      $count        Games per region in this round.
+ * @return string  HTML fragment.
+ */
+function ds_mm_round_table( $round_label, $regions, $labels, $picks, $prefix, $count ) {
+    $header_style = 'font-size:10px;text-transform:uppercase;letter-spacing:0.06em;'
+                  . 'color:#189da7;text-align:left;padding:5px 8px;background:#f2f5fb;'
+                  . 'border-bottom:2px solid #dae3ff;font-weight:700';
+    $cell_style_odd  = 'font-size:12px;color:#020b24;padding:4px 8px;border-bottom:1px solid #f0f3ff';
+    $cell_style_even = $cell_style_odd . ';background:#f9fafc';
+
+    $html  = '<div style="margin-bottom:20px">';
+    $html .= '<h3 style="font-size:12px;font-weight:700;color:#1d4382;letter-spacing:0.06em;'
+           . 'text-transform:uppercase;border-bottom:2px solid #dae3ff;padding-bottom:5px;margin:0 0 8px">'
+           . esc_html( $round_label ) . '</h3>';
+    $html .= '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse">';
+
+    // Header row
+    $html .= '<tr>';
+    foreach ( $labels as $lbl ) {
+        $html .= '<th style="' . $header_style . '">' . esc_html( $lbl ) . '</th>';
+    }
+    $html .= '</tr>';
+
+    // Pick rows
+    for ( $i = 1; $i <= $count; $i++ ) {
+        $cs   = ( $i % 2 === 0 ) ? $cell_style_even : $cell_style_odd;
+        $html .= '<tr>';
+        foreach ( $regions as $reg ) {
+            $gid  = $prefix . '_' . $reg . '_g' . $i;
+            $pick = isset( $picks[ $gid ] ) ? esc_html( $picks[ $gid ] ) : '&mdash;';
+            $html .= '<td style="' . $cs . '">'
+                   . ( $pick !== '&mdash;' ? '<span style="color:#189da7;font-weight:700">&#10003;</span> ' : '' )
+                   . $pick . '</td>';
+        }
+        $html .= '</tr>';
+    }
+
+    $html .= '</table></div>';
+    return $html;
+}
+
+/**
+ * Assembles the full HTML confirmation email.
+ */
+function ds_mm_build_confirmation_email( $name, $email, $phone, $favorite_team, $picks ) {
+    $regions       = [ 'south', 'east', 'west', 'midwest' ];
+    $region_labels = [ 'South', 'East', 'West', 'Midwest' ];
+    $site_url      = get_bloginfo( 'url' );
+    $site_name     = get_bloginfo( 'name' );
+    $submitted     = gmdate( 'F j, Y \a\t g:i A T' );
+    $champion      = isset( $picks['champ_g1'] ) ? esc_html( $picks['champ_g1'] ) : 'Not Selected';
+
+    // Logo
+    $logo_html = '';
+    if ( function_exists( 'get_field' ) ) {
+        $logo_id = get_field( 'header_logo', 'option' );
+        if ( $logo_id ) {
+            $logo_src = wp_get_attachment_image_url( $logo_id, 'medium' );
+            if ( $logo_src ) {
+                $logo_html = '<img src="' . esc_url( $logo_src ) . '" alt="' . esc_attr( $site_name ) . '" '
+                           . 'style="max-height:44px;max-width:180px;display:block;margin:0 auto 16px" />';
+            }
+        }
+    }
+
+    // Build round pick tables
+    $rounds_html  = ds_mm_round_table( 'Round 1 &mdash; First Round', $regions, $region_labels, $picks, 'r1', 8 );
+    $rounds_html .= ds_mm_round_table( 'Round of 32',                 $regions, $region_labels, $picks, 'r2', 4 );
+    $rounds_html .= ds_mm_round_table( 'Sweet 16',                    $regions, $region_labels, $picks, 'r3', 2 );
+    $rounds_html .= ds_mm_round_table( 'Elite Eight',                 $regions, $region_labels, $picks, 'r4', 1 );
+
+    // Final Four
+    $ff1 = isset( $picks['ff_g1'] ) ? esc_html( $picks['ff_g1'] ) : '&mdash;';
+    $ff2 = isset( $picks['ff_g2'] ) ? esc_html( $picks['ff_g2'] ) : '&mdash;';
+
+    $rounds_html .= '<div style="margin-bottom:20px">'
+        . '<h3 style="font-size:12px;font-weight:700;color:#1d4382;letter-spacing:0.06em;'
+        . 'text-transform:uppercase;border-bottom:2px solid #dae3ff;padding-bottom:5px;margin:0 0 8px">Final Four</h3>'
+        . '<table width="100%" cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse">'
+        . '<tr>'
+        . '<th style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#189da7;text-align:left;padding:5px 8px;background:#f2f5fb;border-bottom:2px solid #dae3ff;font-weight:700">South / East</th>'
+        . '<th style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:#189da7;text-align:left;padding:5px 8px;background:#f2f5fb;border-bottom:2px solid #dae3ff;font-weight:700">West / Midwest</th>'
+        . '</tr>'
+        . '<tr>'
+        . '<td style="font-size:12px;color:#020b24;padding:5px 8px"><span style="color:#189da7;font-weight:700">&#10003;</span> ' . $ff1 . '</td>'
+        . '<td style="font-size:12px;color:#020b24;padding:5px 8px"><span style="color:#189da7;font-weight:700">&#10003;</span> ' . $ff2 . '</td>'
+        . '</tr>'
+        . '</table></div>';
+
+    ob_start();
+    ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Your March Madness Bracket</title>
+</head>
+<body style="margin:0;padding:0;background:#f2f5fb;font-family:'Helvetica Neue',Arial,sans-serif">
+<table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f2f5fb;padding:32px 16px">
+  <tr><td align="center">
+  <table width="600" cellpadding="0" cellspacing="0" border="0" style="max-width:600px;width:100%;background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 4px 20px rgba(29,67,130,0.12)">
+
+    <!-- ── Header ── -->
+    <tr>
+      <td style="background:linear-gradient(90deg,#189da7,#1d4382);padding:32px 40px 28px;text-align:center">
+        <?php echo wp_kses_post( $logo_html ); ?>
+        <h1 style="color:#ffffff;font-size:22px;font-weight:700;margin:0 0 6px;line-height:1.2">Your 2026 March Madness Bracket</h1>
+        <p style="color:rgba(255,255,255,0.82);font-size:13px;margin:0">Digital Stride Competition</p>
+      </td>
+    </tr>
+
+    <!-- ── Body ── -->
+    <tr>
+      <td style="padding:32px 40px 24px">
+        <p style="color:#020b24;font-size:16px;margin:0 0 10px">Hi <strong><?php echo esc_html( $name ); ?></strong>,</p>
+        <p style="color:#555;font-size:14px;line-height:1.65;margin:0 0 28px">
+          Your bracket is locked in! Here&rsquo;s a full summary of all your picks. Good luck &mdash; we hope your bracket is perfect! &#127936;
+        </p>
+
+        <!-- Prizes -->
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px">
+          <tr>
+            <td width="48%" style="background:#fffde6;border:2px solid #f2c814;border-radius:8px;padding:16px 12px;text-align:center;vertical-align:top">
+              <div style="font-size:30px;line-height:1;margin-bottom:6px">&#127942;</div>
+              <div style="font-size:22px;font-weight:700;color:#1d4382;line-height:1">$10,000</div>
+              <div style="font-size:11px;color:#777;margin-top:4px">Perfect Bracket</div>
+            </td>
+            <td width="4%">&nbsp;</td>
+            <td width="48%" style="background:#dae3ff;border:2px solid #1d4382;border-radius:8px;padding:16px 12px;text-align:center;vertical-align:top">
+              <div style="font-size:30px;line-height:1;margin-bottom:6px">&#129351;</div>
+              <div style="font-size:22px;font-weight:700;color:#1d4382;line-height:1">$1,500</div>
+              <div style="font-size:11px;color:#777;margin-top:4px">1st Place &mdash; AEO Audit &amp; Assessment</div>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Champion highlight -->
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f36e21;border-radius:8px;margin-bottom:28px">
+          <tr>
+            <td style="padding:18px 24px;text-align:center">
+              <div style="font-size:11px;font-weight:700;letter-spacing:0.1em;color:rgba(255,255,255,0.8);text-transform:uppercase;margin-bottom:6px">Your 2026 Champion</div>
+              <div style="font-size:22px;font-weight:700;color:#ffffff"><?php echo esc_html( $champion ); ?></div>
+            </td>
+          </tr>
+        </table>
+
+        <!-- Bracket picks by round -->
+        <?php echo wp_kses_post( $rounds_html ); ?>
+
+        <!-- Entrant details -->
+        <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#f2f5fb;border-radius:8px;margin-top:12px">
+          <tr>
+            <td style="padding:14px 18px">
+              <p style="font-size:11px;color:#888;margin:0 0 4px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em">Entry Details</p>
+              <p style="font-size:12px;color:#444;margin:0 0 2px"><strong>Name:</strong> <?php echo esc_html( $name ); ?></p>
+              <p style="font-size:12px;color:#444;margin:0 0 2px"><strong>Email:</strong> <?php echo esc_html( $email ); ?></p>
+              <?php if ( $phone ) : ?><p style="font-size:12px;color:#444;margin:0 0 2px"><strong>Phone:</strong> <?php echo esc_html( $phone ); ?></p><?php endif; ?>
+              <p style="font-size:12px;color:#444;margin:0"><strong>Favorite Team:</strong> <?php echo esc_html( $favorite_team ); ?></p>
+            </td>
+          </tr>
+        </table>
+
+      </td>
+    </tr>
+
+    <!-- ── Footer ── -->
+    <tr>
+      <td style="background:#f2f5fb;padding:18px 40px;border-top:1px solid #dae3ff;text-align:center">
+        <p style="color:#020b24;font-size:13px;font-weight:700;margin:0 0 4px"><?php echo esc_html( $site_name ); ?></p>
+        <p style="color:#888;font-size:11px;margin:0 0 2px">
+          <a href="<?php echo esc_url( $site_url ); ?>" style="color:#189da7;text-decoration:none"><?php echo esc_html( preg_replace( '#^https?://#', '', $site_url ) ); ?></a>
+        </p>
+        <p style="color:#aaa;font-size:10px;margin:8px 0 0">Submitted <?php echo esc_html( $submitted ); ?></p>
+        <p style="color:#bbb;font-size:10px;margin:4px 0 0">You&rsquo;re receiving this because you entered the Digital Stride March Madness competition.</p>
+      </td>
+    </tr>
+
+  </table>
+  </td></tr>
+</table>
+</body>
+</html>
+    <?php
+    return ob_get_clean();
+}
