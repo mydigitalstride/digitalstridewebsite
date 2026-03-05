@@ -36,8 +36,8 @@ function digitalstride_enqueue_assets() {
         wp_enqueue_style('about-us-css', get_template_directory_uri() . '/styles/about-us.css');
     }
 
-    // Events CSS + JS (enqueue whenever events exist or on events archive/single)
-    if (is_post_type_archive('ds_event') || is_singular('ds_event') || digitalstride_page_has_events_section()) {
+    // Events CSS + JS
+    if (is_post_type_archive('ds_event') || is_singular('ds_event') || is_page('events') || digitalstride_page_has_events_section()) {
         wp_enqueue_style('events-css', get_template_directory_uri() . '/styles/events.css', [], '1.0.0');
         wp_enqueue_script('events-js', get_template_directory_uri() . '/js/events.js', [], '1.0.0', true);
     }
