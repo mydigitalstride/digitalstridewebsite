@@ -670,18 +670,299 @@
   function renderSuccess() {
     container.innerHTML =
       '<div class="mm-success">' +
-        '<div class="mm-success__icon">🎉</div>' +
+        '<div class="mm-success__icon">&#127881;</div>' +
         '<h2 class="mm-success__title">Bracket Submitted!</h2>' +
         '<p class="mm-success__body">' +
           'Thanks, <strong>' + escHtml(state.info.name) + '</strong>! Your bracket is locked in. ' +
-          'We\'ll send a confirmation to <strong>' + escHtml(state.info.email) + '</strong>. ' +
-          'Good luck — may your bracket be perfect!' +
+          'A confirmation with your full picks has been sent to <strong>' + escHtml(state.info.email) + '</strong>. ' +
+          'Good luck &mdash; may your bracket be perfect!' +
         '</p>' +
+        '<button class="mm-btn mm-btn--pdf" id="mm-btn-pdf">' +
+          '<svg style="width:1rem;height:1rem;flex-shrink:0" viewBox="0 0 20 20" fill="currentColor">' +
+            '<path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>' +
+          '</svg>' +
+          ' Download My Bracket (PDF)' +
+        '</button>' +
       '</div>';
+
+    var pdfBtn = container.querySelector('#mm-btn-pdf');
+    if (pdfBtn) {
+      pdfBtn.addEventListener('click', function () {
+        pdfBtn.disabled = true;
+        pdfBtn.textContent = 'Generating PDF\u2026';
+        generateBracketPDF(function () {
+          pdfBtn.disabled = false;
+          pdfBtn.innerHTML = '&#10003; Downloaded!';
+        });
+      });
+    }
   }
 
   /* ============================================================
-     9. UTILITIES
+     9. PDF GENERATION
+     ============================================================ */
+
+  /**
+   * Entry point for PDF download.
+   * Loads the logo image asynchronously then calls buildPDF().
+   */
+  function generateBracketPDF(onComplete) {
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+      alert('PDF library not loaded yet. Please wait a moment and try again.');
+      if (onComplete) onComplete();
+      return;
+    }
+    var logoUrl = typeof mmBracket !== 'undefined' && mmBracket.logoUrl ? mmBracket.logoUrl : '';
+    if (logoUrl) {
+      var img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = function () {
+        var canvas = document.createElement('canvas');
+        canvas.width  = img.naturalWidth  || img.width;
+        canvas.height = img.naturalHeight || img.height;
+        canvas.getContext('2d').drawImage(img, 0, 0);
+        try {
+          buildPDF(canvas.toDataURL('image/png'), canvas.width, canvas.height);
+        } catch (e) {
+          buildPDF(null, 0, 0); // CORS blocked — fall back to text logo
+        }
+        if (onComplete) onComplete();
+      };
+      img.onerror = function () {
+        buildPDF(null, 0, 0);
+        if (onComplete) onComplete();
+      };
+      img.src = logoUrl + (logoUrl.indexOf('?') === -1 ? '?' : '&') + '_cb=' + Date.now();
+    } else {
+      buildPDF(null, 0, 0);
+      if (onComplete) onComplete();
+    }
+  }
+
+  /**
+   * Renders the branded bracket PDF using jsPDF.
+   * @param {string|null} logoData  base64 PNG data URI for the logo, or null
+   * @param {number}      logoNatW  natural pixel width of the logo image
+   * @param {number}      logoNatH  natural pixel height of the logo image
+   */
+  function buildPDF(logoData, logoNatW, logoNatH) {
+    var jsPDF = window.jspdf.jsPDF;
+    var doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'letter' });
+
+    var PW  = 215.9; // letter width  (mm)
+    var PH  = 279.4; // letter height (mm)
+    var M   = 14;    // side margin   (mm)
+    var CW  = PW - M * 2; // content width
+
+    // Brand palette (RGB arrays for jsPDF)
+    var CLR = {
+      blue:   [29,  67,  130],  // #1d4382
+      orange: [243, 110, 33],   // #f36e21
+      teal:   [24,  157, 167],  // #189da7
+      white:  [255, 255, 255],
+      text:   [2,   11,  36],   // #020b24
+      lblue:  [218, 227, 255],  // #dae3ff
+      bg:     [242, 245, 251],  // #f2f5fb
+      lgrey:  [198, 198, 198],  // #c6c6c6
+      muted:  [140, 140, 140],
+    };
+
+    function fc(c) { doc.setFillColor(c[0], c[1], c[2]); }
+    function tc(c) { doc.setTextColor(c[0], c[1], c[2]); }
+    function dc(c) { doc.setDrawColor(c[0], c[1], c[2]); }
+
+    var y = 0;
+
+    // ── HEADER ──────────────────────────────────────────────────
+    var headerH = 30;
+    // Teal left half, blue right half to simulate the site's gradient
+    fc(CLR.teal);
+    doc.rect(0, 0, PW * 0.48, headerH, 'F');
+    fc(CLR.blue);
+    doc.rect(PW * 0.48, 0, PW * 0.52, headerH, 'F');
+
+    // Title
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(17);
+    tc(CLR.white);
+    doc.text('2026 March Madness Bracket', PW / 2, 13, { align: 'center' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.text('Digital Stride Competition', PW / 2, 21, { align: 'center' });
+
+    // Logo (top-right inside header)
+    if (logoData && logoNatW > 0 && logoNatH > 0) {
+      var logoMaxW = 38;
+      var logoMaxH = 18;
+      var aspect   = logoNatW / logoNatH;
+      var lw = logoMaxW;
+      var lh = lw / aspect;
+      if (lh > logoMaxH) { lh = logoMaxH; lw = lh * aspect; }
+      var lx = PW - M - lw;
+      var ly = (headerH - lh) / 2;
+      doc.addImage(logoData, 'PNG', lx, ly, lw, lh);
+    } else {
+      // Text fallback
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(10);
+      tc(CLR.white);
+      doc.text('Digital Stride', PW - M, 16, { align: 'right' });
+    }
+
+    y = headerH + 5; // ≈ 35mm
+
+    // ── ENTRANT SECTION ─────────────────────────────────────────
+    fc(CLR.bg);
+    doc.roundedRect(M, y, CW, 20, 2, 2, 'F');
+
+    var col3 = CW / 3;
+    var infoFields = [
+      ['SUBMITTED BY',  state.info.name          ],
+      ['EMAIL',         state.info.email         ],
+      ['FAVORITE TEAM', state.info.favoriteTeam  ],
+    ];
+    infoFields.forEach(function (f, i) {
+      var cx = M + i * col3 + 4;
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(6.5);
+      tc(CLR.teal);
+      doc.text(f[0], cx, y + 6);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(9.5);
+      tc(CLR.text);
+      var val = f[1].length > 26 ? f[1].substring(0, 25) + '\u2026' : f[1];
+      doc.text(val, cx, y + 14);
+    });
+    if (state.info.phone) {
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7);
+      tc(CLR.muted);
+      doc.text('Phone: ' + state.info.phone, M + 4, y + 19);
+    }
+
+    y += 24; // ≈ 59mm
+
+    // ── CHAMPION HIGHLIGHT ──────────────────────────────────────
+    var champion = state.picks['champ_g1'] || 'Not Selected';
+    fc(CLR.orange);
+    doc.roundedRect(M, y, CW, 16, 2, 2, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7);
+    tc(CLR.white);
+    doc.text('YOUR 2026 CHAMPION', PW / 2, y + 6, { align: 'center' });
+    doc.setFontSize(15);
+    doc.text(champion, PW / 2, y + 13, { align: 'center' });
+
+    y += 21; // ≈ 80mm
+
+    // ── BRACKET PICKS BY ROUND ──────────────────────────────────
+    var regions      = ['south', 'east', 'west', 'midwest'];
+    var regionLabels = ['South', 'East', 'West', 'Midwest'];
+    var rowH  = 4.2;
+    var colW4 = CW / 4;
+
+    var rounds = [
+      { label: 'ROUND 1 \u2014 FIRST ROUND', prefix: 'r1', count: 8 },
+      { label: 'ROUND OF 32',               prefix: 'r2', count: 4 },
+      { label: 'SWEET 16',                  prefix: 'r3', count: 2 },
+      { label: 'ELITE EIGHT',               prefix: 'r4', count: 1 },
+    ];
+
+    rounds.forEach(function (rnd) {
+      // Section header
+      fc(CLR.blue);
+      doc.rect(M, y, CW, 6.5, 'F');
+      doc.setFont('helvetica', 'bold');
+      doc.setFontSize(7.5);
+      tc(CLR.white);
+      doc.text(rnd.label, M + 4, y + 4.5);
+      y += 6.5;
+
+      // Region label row
+      fc(CLR.lblue);
+      doc.rect(M, y, CW, 5, 'F');
+      regionLabels.forEach(function (rl, ri) {
+        doc.setFont('helvetica', 'bold');
+        doc.setFontSize(6.5);
+        tc(CLR.blue);
+        doc.text(rl.toUpperCase(), M + ri * colW4 + 3, y + 3.5);
+      });
+      y += 5;
+
+      // Pick rows
+      for (var i = 1; i <= rnd.count; i++) {
+        if (i % 2 === 0) {
+          fc(CLR.bg);
+          doc.rect(M, y, CW, rowH, 'F');
+        }
+        regions.forEach(function (reg, ri) {
+          var gid  = rnd.prefix + '_' + reg + '_g' + i;
+          var pick = state.picks[gid] || '\u2014';
+          if (pick.length > 17) pick = pick.substring(0, 16) + '\u2026';
+          doc.setFont('helvetica', 'normal');
+          doc.setFontSize(7.5);
+          tc(pick === '\u2014' ? CLR.muted : CLR.text);
+          doc.text((pick === '\u2014' ? '' : '\u2022 ') + pick, M + ri * colW4 + 3, y + rowH - 0.9);
+        });
+        y += rowH;
+      }
+
+      y += 2.5; // gap between rounds
+    });
+
+    // ── FINAL FOUR ──────────────────────────────────────────────
+    fc(CLR.teal);
+    doc.rect(M, y, CW, 6.5, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(7.5);
+    tc(CLR.white);
+    doc.text('FINAL FOUR', M + 4, y + 4.5);
+    y += 6.5;
+
+    fc(CLR.lblue);
+    doc.rect(M, y, CW, 5, 'F');
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.5);
+    tc(CLR.blue);
+    doc.text('SOUTH / EAST', M + 3, y + 3.5);
+    doc.text('WEST / MIDWEST', M + CW / 2 + 3, y + 3.5);
+    y += 5;
+
+    var ff1 = state.picks['ff_g1'] || '\u2014';
+    var ff2 = state.picks['ff_g2'] || '\u2014';
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.5);
+    tc(CLR.text);
+    doc.text('\u2022 ' + ff1, M + 3,           y + rowH - 0.9);
+    doc.text('\u2022 ' + ff2, M + CW / 2 + 3,  y + rowH - 0.9);
+    y += rowH + 3;
+
+    // ── FOOTER ──────────────────────────────────────────────────
+    y = PH - 14;
+    dc(CLR.lgrey);
+    doc.line(M, y, PW - M, y);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(6.5);
+    tc(CLR.muted);
+
+    var siteUrl = typeof mmBracket !== 'undefined' && mmBracket.siteUrl
+      ? mmBracket.siteUrl.replace(/^https?:\/\//, '') : 'mydigitalstride.com';
+    doc.text(siteUrl, M, y + 5);
+    doc.text(
+      'Prizes: Perfect Bracket = $10,000  |  1st Place = $1,500 AEO Audit & Assessment',
+      PW / 2, y + 5, { align: 'center' }
+    );
+    doc.text('Submitted: ' + new Date().toLocaleDateString(), PW - M, y + 5, { align: 'right' });
+
+    // Save
+    var safeName = (state.info.name || 'bracket').replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+    doc.save('digital-stride-bracket-' + safeName + '.pdf');
+  }
+
+  /* ============================================================
+     10. UTILITIES
      ============================================================ */
 
   function escHtml(str) {

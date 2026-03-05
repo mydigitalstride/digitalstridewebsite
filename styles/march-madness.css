@@ -456,6 +456,15 @@
   background-size: 200% 200%;
 }
 
+.mm-btn--pdf {
+  background: var(--color-blue);
+  color: #fff;
+  margin-top: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .mm-btn:disabled {
   opacity: 0.45;
   cursor: not-allowed;
