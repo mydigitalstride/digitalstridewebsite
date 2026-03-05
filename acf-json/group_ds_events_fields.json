@@ -52,14 +52,44 @@
             "append": ""
         },
         {
-            "key": "field_ds_evt_location",
-            "label": "Location",
-            "name": "event_location",
+            "key": "field_ds_evt_loc_type",
+            "label": "Location Type",
+            "name": "location_type",
             "aria-label": "",
-            "type": "text",
+            "type": "radio",
             "instructions": "",
             "required": 1,
             "conditional_logic": 0,
+            "wrapper": {"width": "", "class": "", "id": ""},
+            "choices": {
+                "in_person": "In-Person",
+                "virtual": "Virtual"
+            },
+            "allow_null": 0,
+            "other_choice": 0,
+            "default_value": "in_person",
+            "layout": "horizontal",
+            "return_format": "value",
+            "save_other_choice": 0,
+            "allow_in_bindings": 0
+        },
+        {
+            "key": "field_ds_evt_location",
+            "label": "Address",
+            "name": "event_location",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Full address for Google Maps directions, e.g. Digital Stride 410 Kings Mill Rd, York, PA 17401",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_ds_evt_loc_type",
+                        "operator": "==",
+                        "value": "in_person"
+                    }
+                ]
+            ],
             "wrapper": {"width": "", "class": "", "id": ""},
             "default_value": "",
             "maxlength": "",
@@ -67,6 +97,28 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_ds_evt_virtual_link",
+            "label": "Virtual Meeting Link",
+            "name": "event_virtual_link",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Zoom, Teams, Google Meet, or other video call URL.",
+            "required": 0,
+            "conditional_logic": [
+                [
+                    {
+                        "field": "field_ds_evt_loc_type",
+                        "operator": "==",
+                        "value": "virtual"
+                    }
+                ]
+            ],
+            "wrapper": {"width": "", "class": "", "id": ""},
+            "default_value": "",
+            "allow_in_bindings": 0,
+            "placeholder": ""
         },
         {
             "key": "field_ds_evt_reg_link",
@@ -123,5 +175,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1747000000
+    "modified": 1741478400
 }
