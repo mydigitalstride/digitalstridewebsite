@@ -231,3 +231,42 @@ function ds_enqueue_fontawesome() {
 }
 add_action('wp_enqueue_scripts', 'ds_enqueue_fontawesome');
 
+// Rewrite legacy URLs to new URLs in post content.
+// Ordered longest-to-shortest to prevent partial-path replacements.
+function digitalstride_update_legacy_urls( $content ) {
+    $url_map = [
+        // Deep /services/ paths (must come before shallower ones)
+        'https://mydigitalstride.com/services/create-a-digital-foundation-with-digital-marketing/analytics-services/' => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/services/create-a-digital-foundation-with-digital-marketing/website-design/'    => 'https://mydigitalstride.com/web-design/',
+        'https://mydigitalstride.com/services/digital-marketing/search-engine-optimization/local-seo/'               => 'https://mydigitalstride.com/search-engine-optimization/',
+        'https://mydigitalstride.com/services/digital-marketing/search-marketing/local-seo/'                         => 'https://mydigitalstride.com/search-engine-optimization/',
+        'https://mydigitalstride.com/services/revenue-generation-2/search-engine-optimization/'                      => 'https://mydigitalstride.com/search-engine-optimization/',
+        'https://mydigitalstride.com/services/revenue-generation-2/digital-advertising/'                             => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/services/digital-marketing/social-media-advertising/'                           => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/services/digital-marketing/google-ads/'                                         => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/services/digital-marketing/search-marketing/'                                   => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/services/digital-marketing/'                                                    => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/services/analytics-services/'                                                   => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/services/smb-consulting/'                                                       => 'https://mydigitalstride.com/web-design/',
+        'https://mydigitalstride.com/services/website-design/'                                                       => 'https://mydigitalstride.com/web-design/',
+        'https://mydigitalstride.com/services/search-marketing/'                                                     => 'https://mydigitalstride.com/web-design/',
+        'https://mydigitalstride.com/services/consulting/'                                                           => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/services/'                                                                      => 'https://mydigitalstride.com/our-services/',
+        // Other legacy URLs
+        'https://mydigitalstride.com/accessibility-statement/Mydigitalstride.com'                                    => 'https://mydigitalstride.com/accessibility-statement/',
+        'https://mydigitalstride.com/industries/real-estate-2/'                                                      => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/performance-or-brand-advertising/'                                              => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/marketing-persona-template-download/'                                           => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/social-media-platform-finder/'                                                  => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/revenue-generation/'                                                            => 'https://mydigitalstride.com/revenue-generation-service/',
+        'https://mydigitalstride.com/website-design/'                                                                => 'https://mydigitalstride.com/web-design/',
+        'https://mydigitalstride.com/digital-marketing/'                                                             => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/smb-consulting/'                                                                => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/social-marketing/'                                                              => 'https://mydigitalstride.com/digital-advertising/',
+        'https://mydigitalstride.com/home-page-2/'                                                                   => 'https://mydigitalstride.com/',
+    ];
+
+    return str_replace( array_keys( $url_map ), array_values( $url_map ), $content );
+}
+add_filter( 'the_content', 'digitalstride_update_legacy_urls' );
+add_filter( 'the_excerpt', 'digitalstride_update_legacy_urls' );
