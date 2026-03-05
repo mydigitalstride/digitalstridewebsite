@@ -51,8 +51,7 @@
         return '' + today.getFullYear() + pad(today.getMonth() + 1) + pad(today.getDate());
     }
 
-    // Match by either the raw ACF Ymd string OR the ISO string — handles any
-    // minor format variation that ACF might return on the server.
+    // Match by either the raw ACF Ymd string OR the ISO string
     function eventsOnDate(year, month, day) {
         var keyYmd = ymd(year, month, day);
         var keyIso = isoKey(year, month, day);
@@ -75,6 +74,41 @@
 
     function slugify(str) {
         return str.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+    }
+
+    // Parse a single time value from a string like "10:00 AM" or "2 PM"
+    function parseSingleTime(str) {
+        var m = str.match(/(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/i);
+        if (!m) return null;
+        var h   = parseInt(m[1], 10);
+        var min = parseInt(m[2] || '0', 10);
+        var ap  = m[3].toUpperCase();
+        if (ap === 'PM' && h < 12) h += 12;
+        if (ap === 'AM' && h === 12) h = 0;
+        return { h: h, min: min };
+    }
+
+    // Parse a time field that may contain a range like "10:00 AM – 2:00 PM"
+    // Returns { start, end } — end is null if only one time is present
+    function parseTimeRange(timeStr) {
+        if (!timeStr) return { start: null, end: null };
+        var pattern = /(\d{1,2})(?::(\d{2}))?\s*(AM|PM)/gi;
+        var times = [];
+        var m;
+        while ((m = pattern.exec(timeStr)) !== null) {
+            var h   = parseInt(m[1], 10);
+            var min = parseInt(m[2] || '0', 10);
+            var ap  = m[3].toUpperCase();
+            if (ap === 'PM' && h < 12) h += 12;
+            if (ap === 'AM' && h === 12) h = 0;
+            times.push({ h: h, min: min });
+        }
+        return { start: times[0] || null, end: times[1] || null };
+    }
+
+    // Google Maps directions URL from a plain address string
+    function buildMapsURL(address) {
+        return 'https://www.google.com/maps/dir//' + address.trim().replace(/\s+/g, '+');
     }
 
     // ── Calendar Rendering ────────────────────────────────────────────────────
@@ -232,8 +266,28 @@
             var dateText = evt.dateFormatted + (evt.time ? ' \u00b7 ' + evt.time : '');
             metaEl.appendChild(makeMetaRow('fa-regular fa-calendar', dateText));
         }
-        if (evt.location) {
-            metaEl.appendChild(makeMetaRow('fa-solid fa-location-dot', evt.location));
+
+        // Location — in-person links to Google Maps, virtual links to meeting URL
+        if (evt.locationType === 'virtual') {
+            if (evt.virtualLink) {
+                var vLink = document.createElement('a');
+                vLink.href      = evt.virtualLink;
+                vLink.target    = '_blank';
+                vLink.rel       = 'noopener noreferrer';
+                vLink.textContent = 'Join Online';
+                vLink.className = 'ds-meta-link';
+                metaEl.appendChild(makeMetaRowWithEl('fa-solid fa-video', vLink));
+            } else {
+                metaEl.appendChild(makeMetaRow('fa-solid fa-video', 'Virtual'));
+            }
+        } else if (evt.location) {
+            var mLink = document.createElement('a');
+            mLink.href      = buildMapsURL(evt.location);
+            mLink.target    = '_blank';
+            mLink.rel       = 'noopener noreferrer';
+            mLink.textContent = evt.location;
+            mLink.className = 'ds-meta-link';
+            metaEl.appendChild(makeMetaRowWithEl('fa-solid fa-location-dot', mLink));
         }
 
         // Registration link
@@ -275,16 +329,22 @@
         closeBtn.focus();
     }
 
+    // Meta row with plain text
     function makeMetaRow(iconClass, text) {
+        var span = document.createElement('span');
+        span.textContent = text;
+        return makeMetaRowWithEl(iconClass, span);
+    }
+
+    // Meta row with a pre-built element (e.g. an <a> link)
+    function makeMetaRowWithEl(iconClass, contentEl) {
         var row  = document.createElement('div');
         row.className = 'ds-modal-meta-row';
         var icon = document.createElement('i');
         icon.className = iconClass + ' ds-meta-icon';
         icon.setAttribute('aria-hidden', 'true');
-        var span = document.createElement('span');
-        span.textContent = text;
         row.appendChild(icon);
-        row.appendChild(span);
+        row.appendChild(contentEl);
         return row;
     }
 
@@ -303,27 +363,19 @@
 
     // ── Google Calendar URL ───────────────────────────────────────────────────
 
-    function parseTime(timeStr) {
-        // Accepts "10:00 AM", "2:30 PM", or range "10:00 AM – 2:00 PM" (uses start)
-        var m = timeStr ? timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i) : null;
-        if (!m) return null;
-        var h   = parseInt(m[1], 10);
-        var min = parseInt(m[2], 10);
-        var ap  = m[3].toUpperCase();
-        if (ap === 'PM' && h < 12) h += 12;
-        if (ap === 'AM' && h === 12) h = 0;
-        return { h: h, min: min };
-    }
-
     function buildGoogleCalURL(evt) {
         var dateStr = evt.dateISO.replace(/-/g, ''); // '20260315'
         var startDT, endDT;
-        var t = parseTime(evt.time);
+        var tr = parseTimeRange(evt.time);
 
-        if (t) {
-            startDT = dateStr + 'T' + pad(t.h) + pad(t.min) + '00';
-            var endH = t.h + 1;
-            endDT   = dateStr + 'T' + pad(endH > 23 ? 23 : endH) + pad(t.min) + '00';
+        if (tr.start) {
+            startDT = dateStr + 'T' + pad(tr.start.h) + pad(tr.start.min) + '00';
+            if (tr.end) {
+                endDT = dateStr + 'T' + pad(tr.end.h) + pad(tr.end.min) + '00';
+            } else {
+                var endH = tr.start.h + 1;
+                endDT   = dateStr + 'T' + pad(endH > 23 ? 23 : endH) + pad(tr.start.min) + '00';
+            }
         } else {
             // All-day
             var nextDate = new Date(evt.dateISO + 'T00:00:00');
@@ -333,27 +385,36 @@
             endDT   = nextStr;
         }
 
+        // Use virtual URL as location for virtual events; address for in-person
+        var locationForCal = evt.locationType === 'virtual'
+            ? (evt.virtualLink || '')
+            : (evt.location || '');
+
         var base = 'https://calendar.google.com/calendar/render?action=TEMPLATE';
         base += '&text='     + encodeURIComponent(evt.title);
         base += '&dates='    + encodeURIComponent(startDT + '/' + endDT);
         base += '&details='  + encodeURIComponent(evt.description ? stripTags(evt.description) : '');
-        base += '&location=' + encodeURIComponent(evt.location || '');
+        base += '&location=' + encodeURIComponent(locationForCal);
         return base;
     }
 
-    // ── Apple Calendar (.ics via data URI — CSP-safe, no blob needed) ─────────
+    // ── Apple Calendar (.ics via data URI) ────────────────────────────────────
 
     function buildICSDataURI(evt) {
         var uid     = 'ds-event-' + evt.id + '@mydigitalstride.com';
         var dateStr = evt.dateISO.replace(/-/g, '');
         var now     = new Date().toISOString().replace(/[-:.]/g, '').slice(0, 15) + 'Z';
-        var t       = parseTime(evt.time);
+        var tr      = parseTimeRange(evt.time);
 
         var dtStart, dtEnd;
-        if (t) {
-            dtStart = 'DTSTART:' + dateStr + 'T' + pad(t.h) + pad(t.min) + '00';
-            var endH2 = t.h + 1;
-            dtEnd   = 'DTEND:' + dateStr + 'T' + pad(endH2 > 23 ? 23 : endH2) + pad(t.min) + '00';
+        if (tr.start) {
+            dtStart = 'DTSTART:' + dateStr + 'T' + pad(tr.start.h) + pad(tr.start.min) + '00';
+            if (tr.end) {
+                dtEnd = 'DTEND:' + dateStr + 'T' + pad(tr.end.h) + pad(tr.end.min) + '00';
+            } else {
+                var endH2 = tr.start.h + 1;
+                dtEnd = 'DTEND:' + dateStr + 'T' + pad(endH2 > 23 ? 23 : endH2) + pad(tr.start.min) + '00';
+            }
         } else {
             var nextD = new Date(evt.dateISO + 'T00:00:00');
             nextD.setDate(nextD.getDate() + 1);
@@ -379,16 +440,20 @@
         if (evt.description) {
             lines.push('DESCRIPTION:' + stripTags(evt.description).replace(/\r?\n/g, '\\n'));
         }
-        if (evt.location) {
+
+        // LOCATION: virtual meeting URL or physical address
+        if (evt.locationType === 'virtual' && evt.virtualLink) {
+            lines.push('LOCATION:' + evt.virtualLink);
+            lines.push('URL:' + evt.virtualLink);
+        } else if (evt.location) {
             lines.push('LOCATION:' + evt.location);
-        }
-        if (evt.regLink) {
+            if (evt.regLink) lines.push('URL:' + evt.regLink);
+        } else if (evt.regLink) {
             lines.push('URL:' + evt.regLink);
         }
 
         lines.push('END:VEVENT', 'END:VCALENDAR');
 
-        // Use data URI — works without blob: CSP allowance
         return 'data:text/calendar;charset=utf8,' + encodeURIComponent(lines.join('\r\n'));
     }
 

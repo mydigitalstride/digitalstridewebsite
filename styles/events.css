@@ -414,6 +414,16 @@
     text-align: center;
 }
 
+.ds-meta-link {
+    color: var(--color-teal);
+    text-decoration: underline;
+    word-break: break-all;
+}
+
+.ds-meta-link:hover {
+    color: var(--color-blue);
+}
+
 .ds-modal-reg-link {
     display: inline-flex;
     align-items: center;

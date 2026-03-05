@@ -38,7 +38,9 @@ if ( $events_query->have_posts() ) {
             'dateFormatted' => $date_obj ? $date_obj->format( 'F j, Y' ) : '',
             'dateISO'       => $date_obj ? $date_obj->format( 'Y-m-d' ) : '',
             'time'          => (string) get_field( 'event_time' ),
+            'locationType'  => get_field( 'location_type' ) ?: 'in_person',
             'location'      => (string) get_field( 'event_location' ),
+            'virtualLink'   => (string) get_field( 'event_virtual_link' ),
             'regLink'       => (string) get_field( 'event_registration_link' ),
             'photoUrl'      => $photo ? esc_url( $photo['url'] ) : '',
             'photoAlt'      => $photo ? esc_attr( $photo['alt'] ) : '',
@@ -114,7 +116,12 @@ if ( $events_query->have_posts() ) {
                             <?php echo esc_html( $evt['dateFormatted'] . ( $evt['time'] ? ' · ' . $evt['time'] : '' ) ); ?>
                         </span>
                         <?php endif; ?>
-                        <?php if ( $evt['location'] ) : ?>
+                        <?php if ( $evt['locationType'] === 'virtual' ) : ?>
+                        <span>
+                            <i class="fa-solid fa-video" aria-hidden="true"></i>
+                            Virtual
+                        </span>
+                        <?php elseif ( $evt['location'] ) : ?>
                         <span>
                             <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
                             <?php echo esc_html( $evt['location'] ); ?>
