@@ -42,6 +42,16 @@ function digitalstride_enqueue_assets() {
         wp_enqueue_script('events-js', get_template_directory_uri() . '/js/events.js', [], '1.2.0', true);
     }
 
+    // March Madness Bracket CSS + JS
+    if (is_page_template('page-march-madness.php')) {
+        wp_enqueue_style('march-madness-css', get_template_directory_uri() . '/styles/march-madness.css', [], '1.0.0');
+        wp_enqueue_script('march-madness-js', get_template_directory_uri() . '/js/march-madness.js', [], '1.0.0', true);
+        wp_localize_script('march-madness-js', 'mmBracket', [
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce'   => wp_create_nonce('mm_bracket_nonce'),
+        ]);
+    }
+
     // ACF flexible content layout: Services CSS
     if (is_page()) {
         $sections = get_field('services_sections');
@@ -437,3 +447,137 @@ function digitalstride_update_legacy_urls( $content ) {
 }
 add_filter( 'the_content', 'digitalstride_update_legacy_urls' );
 add_filter( 'the_excerpt', 'digitalstride_update_legacy_urls' );
+
+/* =============================================================
+   MARCH MADNESS — BRACKET ENTRY CPT
+   ============================================================= */
+
+function ds_register_bracket_entry_cpt() {
+    register_post_type( 'ds_bracket_entry', [
+        'labels' => [
+            'name'               => __( 'Bracket Entries', 'digitalstride' ),
+            'singular_name'      => __( 'Bracket Entry', 'digitalstride' ),
+            'add_new'            => __( 'Add New', 'digitalstride' ),
+            'add_new_item'       => __( 'Add New Entry', 'digitalstride' ),
+            'edit_item'          => __( 'Edit Entry', 'digitalstride' ),
+            'view_item'          => __( 'View Entry', 'digitalstride' ),
+            'search_items'       => __( 'Search Entries', 'digitalstride' ),
+            'not_found'          => __( 'No entries found.', 'digitalstride' ),
+            'menu_name'          => __( 'Bracket Entries', 'digitalstride' ),
+        ],
+        'public'             => false,
+        'show_ui'            => true,
+        'show_in_menu'       => true,
+        'show_in_nav_menus'  => false,
+        'publicly_queryable' => false,
+        'has_archive'        => false,
+        'supports'           => [ 'title', 'custom-fields' ],
+        'menu_icon'          => 'dashicons-awards',
+        'menu_position'      => 26,
+        'capability_type'    => 'post',
+        'map_meta_cap'       => true,
+    ] );
+}
+add_action( 'init', 'ds_register_bracket_entry_cpt' );
+
+/* =============================================================
+   MARCH MADNESS — AJAX: SUBMIT BRACKET
+   ============================================================= */
+
+function ds_handle_mm_bracket_submission() {
+    // Verify nonce
+    if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'mm_bracket_nonce' ) ) {
+        wp_send_json_error( 'Security check failed. Please refresh the page and try again.' );
+    }
+
+    // Collect & sanitize fields
+    $name          = isset( $_POST['name'] )         ? sanitize_text_field( wp_unslash( $_POST['name'] ) )         : '';
+    $email         = isset( $_POST['email'] )        ? sanitize_email( wp_unslash( $_POST['email'] ) )             : '';
+    $phone         = isset( $_POST['phone'] )        ? sanitize_text_field( wp_unslash( $_POST['phone'] ) )        : '';
+    $favorite_team = isset( $_POST['favoriteTeam'] ) ? sanitize_text_field( wp_unslash( $_POST['favoriteTeam'] ) ) : '';
+    $picks_raw     = isset( $_POST['picks'] )        ? wp_unslash( $_POST['picks'] )                               : '{}';
+
+    // Basic validation
+    if ( empty( $name ) || empty( $email ) || ! is_email( $email ) || empty( $favorite_team ) ) {
+        wp_send_json_error( 'Please fill in all required fields.' );
+    }
+
+    // Decode and sanitize picks JSON
+    $picks_arr = json_decode( $picks_raw, true );
+    if ( ! is_array( $picks_arr ) ) {
+        wp_send_json_error( 'Invalid bracket data. Please try again.' );
+    }
+    $picks_clean = [];
+    foreach ( $picks_arr as $game_id => $team ) {
+        $picks_clean[ sanitize_key( $game_id ) ] = sanitize_text_field( $team );
+    }
+
+    // Check for duplicate submission (same email)
+    $existing = get_posts( [
+        'post_type'      => 'ds_bracket_entry',
+        'post_status'    => 'publish',
+        'meta_key'       => '_mm_email',
+        'meta_value'     => $email,
+        'posts_per_page' => 1,
+        'fields'         => 'ids',
+    ] );
+    if ( ! empty( $existing ) ) {
+        wp_send_json_error( 'A bracket has already been submitted for this email address.' );
+    }
+
+    // Save as CPT post
+    $post_id = wp_insert_post( [
+        'post_title'  => sanitize_text_field( $name ) . ' — ' . gmdate( 'M j, Y g:i A' ),
+        'post_type'   => 'ds_bracket_entry',
+        'post_status' => 'publish',
+    ] );
+
+    if ( is_wp_error( $post_id ) ) {
+        wp_send_json_error( 'Could not save your bracket. Please try again.' );
+    }
+
+    update_post_meta( $post_id, '_mm_name',          $name );
+    update_post_meta( $post_id, '_mm_email',         $email );
+    update_post_meta( $post_id, '_mm_phone',         $phone );
+    update_post_meta( $post_id, '_mm_favorite_team', $favorite_team );
+    update_post_meta( $post_id, '_mm_picks',         wp_json_encode( $picks_clean ) );
+    update_post_meta( $post_id, '_mm_submitted_at',  gmdate( 'Y-m-d H:i:s' ) );
+
+    // Email admin
+    $admin_email   = get_option( 'admin_email' );
+    $picks_display = '';
+    foreach ( $picks_clean as $game => $team ) {
+        $picks_display .= '  ' . $game . ': ' . $team . "\n";
+    }
+
+    $admin_subject = 'New March Madness Bracket: ' . $name;
+    $admin_message =
+        "A new bracket entry was submitted.\n\n" .
+        "Name:          {$name}\n" .
+        "Email:         {$email}\n" .
+        "Phone:         " . ( $phone ?: 'Not provided' ) . "\n" .
+        "Favorite Team: {$favorite_team}\n" .
+        "Submitted:     " . gmdate( 'M j, Y g:i A T' ) . "\n\n" .
+        "Picks:\n{$picks_display}\n\n" .
+        "View in WP Admin: " . admin_url( 'post.php?post=' . $post_id . '&action=edit' );
+
+    wp_mail( $admin_email, $admin_subject, $admin_message );
+
+    // Confirmation email to entrant
+    $confirm_subject = 'Your Digital Stride March Madness Bracket is In!';
+    $confirm_message =
+        "Hi {$name},\n\n" .
+        "Your bracket has been successfully submitted. Good luck!\n\n" .
+        "Prizes:\n" .
+        "  • Perfect Bracket: \$10,000\n" .
+        "  • 1st Place: \$1,500 AEO Audit & Assessment\n\n" .
+        "We'll be in touch with results after the tournament.\n\n" .
+        "— The Digital Stride Team\n" .
+        get_bloginfo( 'url' );
+
+    wp_mail( $email, $confirm_subject, $confirm_message );
+
+    wp_send_json_success( 'Bracket submitted successfully.' );
+}
+add_action( 'wp_ajax_mm_submit_bracket',        'ds_handle_mm_bracket_submission' );
+add_action( 'wp_ajax_nopriv_mm_submit_bracket', 'ds_handle_mm_bracket_submission' );

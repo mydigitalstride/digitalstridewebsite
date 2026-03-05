@@ -1,0 +1,682 @@
+/* ==========================================================
+   DIGITAL STRIDE - MARCH MADNESS BRACKET FORM
+   Matches site design tokens from style.css
+   ========================================================== */
+
+/* ── Layout & Container ─────────────────────────────────── */
+.mm-page {
+  background: var(--color-white);
+  min-height: 100vh;
+}
+
+.mm-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ── Hero ────────────────────────────────────────────────── */
+.mm-hero {
+  background: var(--gradient-teal-blue);
+  color: #fff;
+  text-align: center;
+  padding: 4rem 1.5rem 3rem;
+}
+
+.mm-hero__inner {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.mm-hero__badge {
+  display: inline-block;
+  background: var(--color-orange);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35rem 1rem;
+  border-radius: 2rem;
+  margin-bottom: 1.25rem;
+}
+
+.mm-hero__title {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: #fff;
+  line-height: var(--line-height-tight);
+  margin: 0 0 0.75rem;
+}
+
+.mm-hero__sub {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-med);
+  color: rgba(255,255,255,0.88);
+  margin: 0 0 2rem;
+}
+
+.mm-hero__prizes {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.mm-prize {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(255,255,255,0.12);
+  border: 2px solid rgba(255,255,255,0.3);
+  border-radius: 1rem;
+  padding: 1.25rem 2rem;
+  min-width: 180px;
+  backdrop-filter: blur(4px);
+}
+
+.mm-prize--gold {
+  border-color: var(--color-yellow);
+  background: rgba(242,200,20,0.15);
+}
+
+.mm-prize__icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.mm-prize__amount {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: #fff;
+}
+
+.mm-prize__label {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  color: rgba(255,255,255,0.8);
+  text-align: center;
+  line-height: var(--line-height-relaxed);
+}
+
+/* ── Form Section ────────────────────────────────────────── */
+.mm-form-section {
+  padding: 3rem 0 4rem;
+}
+
+.mm-bracket-form {
+  background: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 32px rgba(29,67,130,0.10);
+  overflow: hidden;
+}
+
+/* ── Progress Bar ────────────────────────────────────────── */
+.mm-progress {
+  padding: 1.25rem 2rem 0;
+  background: #fff;
+}
+
+.mm-progress__label {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  color: var(--color-blue);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.mm-progress__bar-wrap {
+  height: 6px;
+  background: var(--color-light-blue);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.mm-progress__bar-fill {
+  height: 100%;
+  background: var(--gradient-teal-blue);
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+/* ── Step Header ─────────────────────────────────────────── */
+.mm-step-header {
+  padding: 1.75rem 2rem 0.75rem;
+  border-bottom: 1px solid var(--color-light-blue);
+}
+
+.mm-step-header__round {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+  margin-bottom: 0.25rem;
+}
+
+.mm-step-header__title {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-blue);
+  margin: 0;
+  line-height: var(--line-height-tight);
+}
+
+.mm-step-header__desc {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: #666;
+  margin: 0.4rem 0 0;
+}
+
+/* ── Personal Info Form ──────────────────────────────────── */
+.mm-info-form {
+  padding: 1.75rem 2rem;
+}
+
+.mm-field-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.mm-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.mm-field--full {
+  grid-column: 1 / -1;
+}
+
+.mm-field label {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-blue);
+}
+
+.mm-field label .mm-optional {
+  font-weight: var(--font-weight-regular);
+  color: #999;
+  font-size: var(--font-size-xs);
+  margin-left: 0.35rem;
+}
+
+.mm-field input,
+.mm-field select {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  background: var(--color-white);
+  border: 1.5px solid var(--color-light-grey);
+  border-radius: 0.5rem;
+  padding: 0.7rem 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mm-field input:focus,
+.mm-field select:focus {
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(24,157,167,0.15);
+}
+
+.mm-field input.mm-error,
+.mm-field select.mm-error {
+  border-color: var(--color-red);
+}
+
+.mm-field-error {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  color: var(--color-red);
+}
+
+/* ── Matchup Cards ───────────────────────────────────────── */
+.mm-matchups {
+  padding: 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mm-matchup {
+  border: 1.5px solid var(--color-light-blue);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #fff;
+  transition: box-shadow 0.2s;
+}
+
+.mm-matchup:hover {
+  box-shadow: 0 2px 12px rgba(29,67,130,0.08);
+}
+
+.mm-matchup__label {
+  background: var(--color-light-blue);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-blue);
+  padding: 0.35rem 0.85rem;
+  letter-spacing: 0.05em;
+}
+
+.mm-matchup__teams {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.mm-team-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+  background: #fff;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text);
+  transition: background 0.15s, color 0.15s;
+  position: relative;
+}
+
+.mm-team-btn + .mm-team-btn {
+  border-top: 1px solid var(--color-light-blue);
+}
+
+.mm-team-btn:hover {
+  background: var(--color-light-blue);
+}
+
+.mm-team-btn.mm-selected {
+  background: var(--color-blue);
+  color: #fff;
+  font-weight: var(--font-weight-medium);
+}
+
+.mm-team-btn.mm-eliminated {
+  opacity: 0.42;
+}
+
+.mm-team-btn.mm-eliminated.mm-selected {
+  opacity: 1;
+}
+
+.mm-team-seed {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  background: var(--color-light-blue);
+  color: var(--color-blue);
+  flex-shrink: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.mm-team-btn.mm-selected .mm-team-seed {
+  background: var(--color-orange);
+  color: #fff;
+}
+
+.mm-team-name {
+  flex: 1;
+}
+
+.mm-check-icon {
+  margin-left: auto;
+  width: 1.15rem;
+  height: 1.15rem;
+  opacity: 0;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+}
+
+.mm-team-btn.mm-selected .mm-check-icon {
+  opacity: 1;
+}
+
+/* vs divider */
+.mm-vs {
+  text-align: center;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-light-grey);
+  background: var(--color-white);
+  padding: 0.15rem 0;
+  position: relative;
+}
+
+/* ── TBD placeholder (unresolved future game) ─────────────── */
+.mm-team-btn--tbd {
+  opacity: 0.5;
+  cursor: not-allowed;
+  font-style: italic;
+  color: #999;
+}
+
+/* ── Section divider within a step (e.g. South + East on same page) */
+.mm-region-divider {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+  padding: 0.5rem 0 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.mm-region-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-light-teal);
+}
+
+/* ── Navigation Buttons ──────────────────────────────────── */
+.mm-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem 1.75rem;
+  border-top: 1px solid var(--color-light-blue);
+  gap: 1rem;
+}
+
+.mm-btn {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  border-radius: 0.5rem;
+  padding: 0.75rem 1.75rem;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s, transform 0.15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+}
+
+.mm-btn:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.mm-btn:active {
+  transform: translateY(0);
+}
+
+.mm-btn--back {
+  background: transparent;
+  color: var(--color-blue);
+  border: 1.5px solid var(--color-light-blue);
+}
+
+.mm-btn--back:hover {
+  background: var(--color-light-blue);
+  opacity: 1;
+}
+
+.mm-btn--next {
+  background: var(--color-orange);
+  color: #fff;
+  margin-left: auto;
+}
+
+.mm-btn--submit {
+  background: var(--gradient-teal-blue);
+  color: #fff;
+  margin-left: auto;
+  background-size: 200% 200%;
+}
+
+.mm-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.mm-nav__pick-reminder {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  color: var(--color-red);
+  display: none;
+}
+
+.mm-nav__pick-reminder.mm-visible {
+  display: block;
+}
+
+/* ── Review Step ─────────────────────────────────────────── */
+.mm-review {
+  padding: 1.75rem 2rem;
+}
+
+.mm-review__section {
+  margin-bottom: 1.75rem;
+}
+
+.mm-review__section-title {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-blue);
+  border-bottom: 2px solid var(--color-light-blue);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.mm-review__info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1.5rem;
+}
+
+.mm-review__info-item {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+
+.mm-review__info-item strong {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-teal);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: 0.1rem;
+}
+
+.mm-review__picks-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem 1.5rem;
+}
+
+.mm-review__pick {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  color: var(--color-text);
+  display: flex;
+  gap: 0.4rem;
+  align-items: flex-start;
+}
+
+.mm-review__pick::before {
+  content: '✓';
+  color: var(--color-teal);
+  font-weight: var(--font-weight-bold);
+  flex-shrink: 0;
+}
+
+/* ── Success State ───────────────────────────────────────── */
+.mm-success {
+  padding: 3.5rem 2rem;
+  text-align: center;
+}
+
+.mm-success__icon {
+  font-size: 3.5rem;
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.mm-success__title {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-blue);
+  margin: 0 0 0.75rem;
+}
+
+.mm-success__body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  color: #555;
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: var(--line-height-relaxed);
+}
+
+/* ── Error / Loading ─────────────────────────────────────── */
+.mm-submit-error {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--color-red);
+  text-align: center;
+  padding: 0.5rem 1rem;
+}
+
+.mm-spinner {
+  display: inline-block;
+  width: 1.1rem;
+  height: 1.1rem;
+  border: 2px solid rgba(255,255,255,0.5);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: mm-spin 0.7s linear infinite;
+  vertical-align: middle;
+}
+
+@keyframes mm-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Rules Section ───────────────────────────────────────── */
+.mm-rules {
+  background: var(--color-light-blue);
+  padding: 3rem 1.5rem 4rem;
+}
+
+.mm-rules__title {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-blue);
+  margin: 0 0 1rem;
+}
+
+.mm-rules__list {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  line-height: var(--line-height-relaxed);
+  padding-left: 1.5rem;
+  max-width: 720px;
+  margin: 0;
+}
+
+.mm-rules__list li + li {
+  margin-top: 0.5rem;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .mm-hero {
+    padding: 3rem 1.25rem 2.25rem;
+  }
+
+  .mm-hero__title {
+    font-size: var(--font-size-2xl);
+  }
+
+  .mm-hero__prizes {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .mm-prize {
+    min-width: 220px;
+    width: 100%;
+    max-width: 300px;
+  }
+
+  .mm-field-group {
+    grid-template-columns: 1fr;
+  }
+
+  .mm-field--full {
+    grid-column: 1;
+  }
+
+  .mm-step-header,
+  .mm-matchups,
+  .mm-nav,
+  .mm-info-form,
+  .mm-review {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .mm-progress {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+
+  .mm-review__info-grid,
+  .mm-review__picks-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mm-nav {
+    flex-direction: column-reverse;
+    align-items: stretch;
+  }
+
+  .mm-btn--next,
+  .mm-btn--submit {
+    margin-left: 0;
+    justify-content: center;
+  }
+
+  .mm-btn--back {
+    justify-content: center;
+  }
+}
