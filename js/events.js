@@ -37,18 +37,28 @@
         return String(n).padStart(2, '0');
     }
 
+    // Build Ymd key (e.g. '20260315') — month is 0-based JS month
     function ymd(year, month, day) {
-        // month is 0-based JS month
         return '' + year + pad(month + 1) + pad(day);
+    }
+
+    // Build ISO key (e.g. '2026-03-15') — month is 0-based JS month
+    function isoKey(year, month, day) {
+        return year + '-' + pad(month + 1) + '-' + pad(day);
     }
 
     function todayYMD() {
         return '' + today.getFullYear() + pad(today.getMonth() + 1) + pad(today.getDate());
     }
 
+    // Match by either the raw ACF Ymd string OR the ISO string — handles any
+    // minor format variation that ACF might return on the server.
     function eventsOnDate(year, month, day) {
-        var key = ymd(year, month, day);
-        return events.filter(function (e) { return e.date === key; });
+        var keyYmd = ymd(year, month, day);
+        var keyIso = isoKey(year, month, day);
+        return events.filter(function (e) {
+            return e.date === keyYmd || e.dateISO === keyIso;
+        });
     }
 
     function escHTML(str) {
@@ -83,8 +93,8 @@
             }
         });
 
-        var firstDayOfWeek = new Date(currentYear, currentMonth, 1).getDay(); // 0=Sun
-        var daysInMonth    = new Date(currentYear, currentMonth + 1, 0).getDate();
+        var firstDayOfWeek  = new Date(currentYear, currentMonth, 1).getDay(); // 0=Sun
+        var daysInMonth     = new Date(currentYear, currentMonth + 1, 0).getDate();
         var daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
         var tYMD = todayYMD();
 
@@ -231,9 +241,9 @@
         regWrap.innerHTML = '';
         if (evt.regLink) {
             var a = document.createElement('a');
-            a.href   = evt.regLink;
-            a.target = '_blank';
-            a.rel    = 'noopener noreferrer';
+            a.href      = evt.regLink;
+            a.target    = '_blank';
+            a.rel       = 'noopener noreferrer';
             a.className = 'ds-modal-reg-link';
             a.innerHTML = '<i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i> Register Now';
             regWrap.appendChild(a);
@@ -252,11 +262,11 @@
             gBtn.innerHTML = '<i class="fa-brands fa-google" aria-hidden="true"></i> Add to Google Calendar';
             calBtns.appendChild(gBtn);
 
-            var aBtn = document.createElement('button');
-            aBtn.type      = 'button';
+            var aBtn = document.createElement('a');
+            aBtn.href      = buildICSDataURI(evt);
+            aBtn.download  = slugify(evt.title) + '.ics';
             aBtn.className = 'ds-modal-cal-btn ds-cal-apple';
             aBtn.innerHTML = '<i class="fa-brands fa-apple" aria-hidden="true"></i> Add to Apple Calendar';
-            aBtn.addEventListener('click', function () { downloadICS(evt); });
             calBtns.appendChild(aBtn);
         }
 
@@ -294,7 +304,7 @@
     // ── Google Calendar URL ───────────────────────────────────────────────────
 
     function parseTime(timeStr) {
-        // Expects formats like "10:00 AM", "2:30 PM"
+        // Accepts "10:00 AM", "2:30 PM", or range "10:00 AM – 2:00 PM" (uses start)
         var m = timeStr ? timeStr.match(/(\d{1,2}):(\d{2})\s*(AM|PM)/i) : null;
         if (!m) return null;
         var h   = parseInt(m[1], 10);
@@ -306,13 +316,12 @@
     }
 
     function buildGoogleCalURL(evt) {
-        var dateStr = evt.dateISO.replace(/-/g, '');
+        var dateStr = evt.dateISO.replace(/-/g, ''); // '20260315'
         var startDT, endDT;
         var t = parseTime(evt.time);
 
         if (t) {
             startDT = dateStr + 'T' + pad(t.h) + pad(t.min) + '00';
-            // Default duration: 1 hour
             var endH = t.h + 1;
             endDT   = dateStr + 'T' + pad(endH > 23 ? 23 : endH) + pad(t.min) + '00';
         } else {
@@ -332,10 +341,10 @@
         return base;
     }
 
-    // ── Apple Calendar (.ics download) ────────────────────────────────────────
+    // ── Apple Calendar (.ics via data URI — CSP-safe, no blob needed) ─────────
 
-    function downloadICS(evt) {
-        var uid     = 'ds-event-' + evt.id + '-' + Date.now() + '@mydigitalstride.com';
+    function buildICSDataURI(evt) {
+        var uid     = 'ds-event-' + evt.id + '@mydigitalstride.com';
         var dateStr = evt.dateISO.replace(/-/g, '');
         var now     = new Date().toISOString().replace(/[-:.]/g, '').slice(0, 15) + 'Z';
         var t       = parseTime(evt.time);
@@ -346,7 +355,6 @@
             var endH2 = t.h + 1;
             dtEnd   = 'DTEND:' + dateStr + 'T' + pad(endH2 > 23 ? 23 : endH2) + pad(t.min) + '00';
         } else {
-            // All-day
             var nextD = new Date(evt.dateISO + 'T00:00:00');
             nextD.setDate(nextD.getDate() + 1);
             var nextS = nextD.getFullYear() + pad(nextD.getMonth() + 1) + pad(nextD.getDate());
@@ -380,15 +388,8 @@
 
         lines.push('END:VEVENT', 'END:VCALENDAR');
 
-        var blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
-        var url  = URL.createObjectURL(blob);
-        var link = document.createElement('a');
-        link.href     = url;
-        link.download = slugify(evt.title) + '.ics';
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
+        // Use data URI — works without blob: CSP allowance
+        return 'data:text/calendar;charset=utf8,' + encodeURIComponent(lines.join('\r\n'));
     }
 
     // ── Init ──────────────────────────────────────────────────────────────────
