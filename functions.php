@@ -36,6 +36,12 @@ function digitalstride_enqueue_assets() {
         wp_enqueue_style('about-us-css', get_template_directory_uri() . '/styles/about-us.css');
     }
 
+    // Events CSS + JS (enqueue whenever events exist or on events archive/single)
+    if (is_post_type_archive('ds_event') || is_singular('ds_event') || digitalstride_page_has_events_section()) {
+        wp_enqueue_style('events-css', get_template_directory_uri() . '/styles/events.css', [], '1.0.0');
+        wp_enqueue_script('events-js', get_template_directory_uri() . '/js/events.js', [], '1.0.0', true);
+    }
+
     // ACF flexible content layout: Services CSS
     if (is_page()) {
         $sections = get_field('services_sections');
@@ -79,10 +85,44 @@ if (function_exists('acf_add_options_page')) {
     ]);
 }
 
+// Helper: detect if the current page uses the events section template part
+function digitalstride_page_has_events_section() {
+    if (!is_page()) return false;
+    $sections = get_field('services_sections');
+    if (!$sections || !is_array($sections)) return false;
+    foreach ($sections as $section) {
+        if (!empty($section['acf_fc_layout']) && $section['acf_fc_layout'] === 'events_section') {
+            return true;
+        }
+    }
+    return false;
+}
+
 // ACF Fallback Helper
 function digitalstride_get_option($option) {
     return function_exists('get_field') ? get_field($option, 'option') : get_theme_mod($option);
 }
+
+// Register CPT: Events
+function digitalstride_events_post_type() {
+    register_post_type('ds_event', [
+        'labels' => [
+            'name'               => __('Events', 'digitalstride'),
+            'singular_name'      => __('Event', 'digitalstride'),
+            'add_new_item'       => __('Add New Event', 'digitalstride'),
+            'edit_item'          => __('Edit Event', 'digitalstride'),
+            'view_item'          => __('View Event', 'digitalstride'),
+            'search_items'       => __('Search Events', 'digitalstride'),
+            'not_found'          => __('No events found.', 'digitalstride'),
+        ],
+        'public'      => true,
+        'has_archive' => true,
+        'supports'    => ['title', 'thumbnail'],
+        'menu_icon'   => 'dashicons-calendar-alt',
+        'rewrite'     => ['slug' => 'events'],
+    ]);
+}
+add_action('init', 'digitalstride_events_post_type');
 
 // Register CPT: Services
 function digitalstride_services_post_type() {
