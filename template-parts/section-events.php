@@ -9,13 +9,13 @@
  * and Add to Google / Apple Calendar buttons.
  */
 
-// Query all published events ordered by event date (ACF date_picker returns Ymd)
+// Query all published events. Avoid meta_key constraint so events without a
+// saved date (e.g. newly created drafts) still appear. PHP-sorts by date below.
 $events_query = new WP_Query([
     'post_type'      => 'ds_event',
     'posts_per_page' => -1,
     'post_status'    => 'publish',
-    'meta_key'       => 'event_date',
-    'orderby'        => 'meta_value',
+    'orderby'        => 'date',
     'order'          => 'ASC',
 ]);
 

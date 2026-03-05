@@ -103,6 +103,81 @@ function digitalstride_get_option($option) {
     return function_exists('get_field') ? get_field($option, 'option') : get_theme_mod($option);
 }
 
+// Register Event Details ACF fields programmatically so they always appear on
+// the ds_event edit screen regardless of ACF JSON sync state or file upload.
+add_action('acf/init', function () {
+    if (!function_exists('acf_add_local_field_group')) return;
+    acf_add_local_field_group([
+        'key'    => 'group_ds_events_fields',
+        'title'  => 'Event Details',
+        'fields' => [
+            [
+                'key'          => 'field_ds_evt_description',
+                'label'        => 'Description',
+                'name'         => 'event_description',
+                'type'         => 'wysiwyg',
+                'required'     => 0,
+                'tabs'         => 'all',
+                'toolbar'      => 'full',
+                'media_upload' => 0,
+            ],
+            [
+                'key'            => 'field_ds_evt_date',
+                'label'          => 'Event Date',
+                'name'           => 'event_date',
+                'type'           => 'date_picker',
+                'required'       => 1,
+                'display_format' => 'F j, Y',
+                'return_format'  => 'Ymd',
+                'first_day'      => 0,
+            ],
+            [
+                'key'          => 'field_ds_evt_time',
+                'label'        => 'Event Time',
+                'name'         => 'event_time',
+                'type'         => 'text',
+                'required'     => 0,
+                'instructions' => 'Optional. E.g. 10:00 AM – 2:00 PM',
+                'placeholder'  => '10:00 AM – 2:00 PM',
+            ],
+            [
+                'key'      => 'field_ds_evt_location',
+                'label'    => 'Location',
+                'name'     => 'event_location',
+                'type'     => 'text',
+                'required' => 1,
+            ],
+            [
+                'key'          => 'field_ds_evt_reg_link',
+                'label'        => 'Registration Link',
+                'name'         => 'event_registration_link',
+                'type'         => 'url',
+                'required'     => 0,
+                'instructions' => 'Optional.',
+            ],
+            [
+                'key'           => 'field_ds_evt_photo',
+                'label'         => 'Event Photo',
+                'name'          => 'event_photo',
+                'type'          => 'image',
+                'required'      => 0,
+                'instructions'  => 'Optional. Recommended 2:1 ratio (e.g. 1200×600px).',
+                'return_format' => 'array',
+                'preview_size'  => 'medium',
+            ],
+        ],
+        'location' => [[
+            ['param' => 'post_type', 'operator' => '==', 'value' => 'ds_event'],
+        ]],
+        'menu_order'            => 0,
+        'position'              => 'normal',
+        'style'                 => 'default',
+        'label_placement'       => 'top',
+        'instruction_placement' => 'label',
+        'active'                => true,
+    ]);
+});
+
 // Register CPT: Events
 function digitalstride_events_post_type() {
     register_post_type('ds_event', [
