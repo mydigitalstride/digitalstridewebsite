@@ -470,6 +470,97 @@ add_filter( 'the_content', 'digitalstride_update_legacy_urls' );
 add_filter( 'the_excerpt', 'digitalstride_update_legacy_urls' );
 
 /* =============================================================
+   301 REDIRECTS
+   ============================================================= */
+
+function digitalstride_301_redirects() {
+    $path = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+
+    $redirects = [
+        '/digital-marketing'                           => '/digital-advertising/',
+        '/digital-marketing/'                          => '/digital-advertising/',
+        '/accessibility-statement/Mydigitalstride.com' => '/accessibility-statement/',
+    ];
+
+    if ( isset( $redirects[ $path ] ) ) {
+        wp_redirect( home_url( $redirects[ $path ] ), 301 );
+        exit;
+    }
+}
+add_action( 'template_redirect', 'digitalstride_301_redirects' );
+
+/* =============================================================
+   FALLBACK META DESCRIPTIONS (SEO + AEO)
+   Fills in Yoast meta descriptions only when none has been set
+   in the Yoast admin panel for that post/page.
+   ============================================================= */
+
+function digitalstride_fallback_metadesc( $desc ) {
+    if ( ! empty( $desc ) ) {
+        return $desc;
+    }
+
+    $descriptions = [
+        // Blog posts (/marketing/ category)
+        'whats-the-best-way-to-pick-seo-keywords-for-my-business'
+            => 'Learn how to pick the best SEO keywords for your business. Our guide covers keyword research, search intent, and tools to help you rank higher on Google.',
+        'why-small-businesses-in-york-pa-need-professional-website-design'
+            => 'York, PA small businesses need a professional website to attract local customers. Learn why expert web design is essential for competing and growing online.',
+        'gamification-tactics-to-try-and-avoid'
+            => 'Learn which gamification tactics boost customer engagement and which to avoid. Explore proven marketing strategies that reward loyalty and drive conversions.',
+        'assisted-living-marketing-ideas-2'
+            => 'Discover more assisted living marketing ideas to attract residents and families. Proven digital strategies to grow your senior care community\'s online presence.',
+        'assisted-living-marketing-ideas'
+            => 'Discover top assisted living marketing ideas to attract families and fill vacancies. Learn proven digital strategies tailored for senior care communities.',
+        'last-minute-holiday-promotion-tips-for-small-businesses'
+            => 'Running out of time? These last-minute holiday promotion tips help small businesses drive seasonal sales fast with quick, effective marketing ideas.',
+        'make-your-website-work-smarter-not-harder-a-guide-for-digital-marketers'
+            => 'Make your website work smarter with this guide for digital marketers. Learn optimization tips that generate leads and conversions without the extra effort.',
+        'why-mobile-friendly-website-design-matters-in-2025'
+            => 'Find out why mobile-friendly website design matters in 2025. Responsive design boosts SEO, improves user experience, and converts more mobile visitors.',
+        'how-load-times-impact-website-usability'
+            => 'Slow load times hurt your website\'s usability and rankings. Learn how page speed affects bounce rates and conversions—and how to fix it for better results.',
+        'how-website-optimization-can-boost-your-online-sales'
+            => 'Website optimization can significantly boost your online sales. Discover how speed, UX, and SEO improvements turn more visitors into paying customers.',
+        'transform-your-online-presence-with-digital-strides-website-design-services'
+            => 'Transform your online presence with Digital Stride\'s website design services. Expert web design in York, PA that drives traffic, leads, and real conversions.',
+        'how-do-i-find-the-best-website-designer-near-me'
+            => 'Find the best website designer near you with our expert tips. Learn what to look for, what questions to ask, and how to choose the right design partner.',
+        'what-makes-a-great-e-commerce-website-design-in-2026'
+            => 'What makes a great e-commerce website design in 2026? Explore key features, UX best practices, and design trends that drive online sales and customer trust.',
+        'what-to-look-for-in-a-web-design-company-near-you'
+            => 'Looking for a web design company near you? Learn what to look for, key questions to ask, and how to choose the right partner to build your perfect website.',
+        'how-can-i-dominate-local-seo-and-rank-higher-on-google'
+            => 'Learn how to dominate local SEO and rank higher on Google. Discover proven strategies to appear in local searches, attract nearby customers, and grow fast.',
+        'do-i-need-a-google-my-business-profile-for-local-seo'
+            => 'Yes—a Google Business Profile is essential for local SEO. Learn why optimizing your listing helps you rank higher on Google and attract more local customers.',
+        // Guide posts (/guides/ category)
+        'when-is-it-time-to-redesign-your-website'
+            => 'Not sure if it\'s time to redesign your website? Discover the key signs your site is hurting your business—and what a modern redesign can do for growth.',
+        // Pages
+        'https-staging8-mydigitalstride-com-home-page'
+            => 'Digital Stride helps businesses grow online through expert web design, SEO, and digital marketing services based in York, PA.',
+        'lunch-learn-feedback-quiz'
+            => 'Share your feedback from our Lunch & Learn event. Complete this quick quiz to help Digital Stride improve future sessions and better serve our community.',
+    ];
+
+    $obj = get_queried_object();
+
+    // Singular posts and pages — match by slug
+    if ( $obj && ! empty( $obj->post_name ) && isset( $descriptions[ $obj->post_name ] ) ) {
+        return $descriptions[ $obj->post_name ];
+    }
+
+    // Events archive (/events/)
+    if ( is_post_type_archive( 'ds_event' ) || ( is_page() && $obj && $obj->post_name === 'events' ) ) {
+        return 'Browse upcoming events hosted by Digital Stride. From lunch-and-learns to marketing workshops, find events to grow your business in York, PA.';
+    }
+
+    return $desc;
+}
+add_filter( 'wpseo_metadesc', 'digitalstride_fallback_metadesc' );
+
+/* =============================================================
    MARCH MADNESS — BRACKET ENTRY CPT
    ============================================================= */
 
