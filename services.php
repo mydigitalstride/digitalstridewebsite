@@ -62,7 +62,7 @@ if (have_rows('services_sections')):
         elseif (get_row_layout() == 'package'): 
             // $package_bg_image = get_sub_field('package_background_image'); ?>
             <section class="package-section">
-                <img class="package-background-image" src="<?php the_sub_field('package_background_image'); ?>" alt="">
+                <img class="package-background-image" src="<?php the_sub_field('package_background_image'); ?>" alt="<?php echo esc_attr( get_sub_field('package_title') ); ?> background">
                 <div class="package-header">
                     <h2 class="package-title"><?php the_sub_field('package_title'); ?></h2>
                     <?php if (get_sub_field('package_sub_title_')): ?>

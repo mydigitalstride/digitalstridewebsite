@@ -740,6 +740,141 @@ function ds_mm_round_table( $round_label, $regions, $labels, $picks, $prefix, $c
     return $html;
 }
 
+/* =============================================================
+   IMAGE ALT TAG FALLBACKS
+   Ensures known site images carry descriptive alt text for
+   accessibility (WCAG 2.1 Success Criterion 1.1.1).
+   ============================================================= */
+
+/**
+ * Returns a map of URL path fragments to descriptive alt text for known site images.
+ * Keys are substrings that uniquely identify each image within its upload URL.
+ */
+function digitalstride_get_image_alt_map() {
+    return [
+        '2025/07/Origami.png'               => 'Colorful paper origami crane',
+        '2026/01/Artboard-3-1'              => 'Digital Stride design artwork',
+        '2023/12/702300.png'                => 'X (formerly Twitter) social media icon',
+        '2023/12/Facebook_icon.svg.png'     => 'Facebook social media icon',
+        'PXL_20240821_002849092'            => 'Digital Stride team member photo',
+        '2025/06/2.png'                     => 'Digital Stride hero background gradient',
+        '2025/07/Website-Sketches-3'        => 'Website design wireframe sketch',
+        '2025/07/3-e1752770229938'          => 'Digital Stride design illustration',
+        '2024/10/Ship-Sketch.png'           => 'Hand-drawn ship sketch illustration',
+        '2024/10/Treasure-Chest-Sketch.png' => 'Hand-drawn treasure chest sketch illustration',
+        '2024/10/Hot-Air-Balloon-Sketch.png'=> 'Hand-drawn hot air balloon sketch illustration',
+        '2024/10/Cheetah-Sketch.png'        => 'Hand-drawn cheetah sketch illustration',
+        '2025/07/4-1.png'                   => 'Digital Stride creative illustration',
+        '2026/01/Three-Lightbulbs-hanging'  => 'Three hanging light bulbs',
+        '2026/01/Eye.webp'                  => 'Eye graphic illustration',
+        '2025/06/2-3'                       => 'Digital Stride team member profile photo',
+        '2025/06/4-300x300'                 => 'Digital Stride team member profile photo',
+        '2026/02/Debbie-Photo'              => 'Debbie, Digital Stride team member',
+        '2026/02/Sara-Nguyen'               => 'Sara Nguyen, Digital Stride team member',
+        '2025/08/5.png'                     => 'Digital Stride creative illustration',
+        '2025/08/2-1.png'                   => 'Digital Stride design illustration',
+        '2026/03/image.webp'                => 'Digital Stride featured post image',
+        '2026/02/PXL_20260205_221901227'    => 'Digital Stride event photo',
+        '2023/01/image-1.png'               => 'Digital Stride featured image',
+        '2023/01/image-2.png'               => 'Digital Stride featured image',
+        '2022/11/Business-Manager'          => 'Facebook Business Manager interface screenshot',
+        '2022/11/Page-access.png'           => 'Facebook Page access settings screenshot',
+        '2024/10/FB-DS-post.png'            => 'Digital Stride Facebook post example',
+        '2024/12/image.png'                 => 'Digital Stride featured post image',
+    ];
+}
+
+/**
+ * Adds descriptive alt text to attachment images rendered via WordPress functions
+ * when the alt meta field is empty.
+ *
+ * @param array      $attr       HTML attributes for the image.
+ * @param WP_Post    $attachment Attachment post object.
+ * @param string|int $size       Requested image size.
+ * @return array
+ */
+function digitalstride_fix_attachment_image_alt( $attr, $attachment, $size ) {
+    if ( ! empty( $attr['alt'] ) ) {
+        return $attr;
+    }
+
+    $src = isset( $attr['src'] ) ? $attr['src'] : '';
+    if ( empty( $src ) ) {
+        return $attr;
+    }
+
+    foreach ( digitalstride_get_image_alt_map() as $fragment => $alt_text ) {
+        if ( strpos( $src, $fragment ) !== false ) {
+            $attr['alt'] = $alt_text;
+            break;
+        }
+    }
+
+    return $attr;
+}
+add_filter( 'wp_get_attachment_image_attributes', 'digitalstride_fix_attachment_image_alt', 10, 3 );
+
+/**
+ * Adds descriptive alt text to inline <img> tags in post content
+ * when the alt attribute is absent or empty.
+ *
+ * @param string $content Post content HTML.
+ * @return string
+ */
+function digitalstride_fix_content_image_alts( $content ) {
+    if ( empty( $content ) || strpos( $content, '<img' ) === false ) {
+        return $content;
+    }
+
+    $alt_map = digitalstride_get_image_alt_map();
+
+    return preg_replace_callback(
+        '/<img\b[^>]*>/i',
+        function ( $matches ) use ( $alt_map ) {
+            $tag = $matches[0];
+
+            // Already has a non-empty alt — leave it alone.
+            if ( preg_match( '/\balt=["\']([^"\']+)["\']/', $tag ) ) {
+                return $tag;
+            }
+
+            // Require a src attribute to look up alt text.
+            if ( ! preg_match( '/\bsrc=["\']([^"\']*)["\']/', $tag, $src_match ) ) {
+                return $tag;
+            }
+            $src = $src_match[1];
+
+            // Find the first matching alt text for this URL.
+            $alt_text = '';
+            foreach ( $alt_map as $fragment => $alt ) {
+                if ( strpos( $src, $fragment ) !== false ) {
+                    $alt_text = $alt;
+                    break;
+                }
+            }
+
+            if ( empty( $alt_text ) ) {
+                return $tag;
+            }
+
+            $escaped_alt = esc_attr( $alt_text );
+
+            // Replace an empty alt="", or insert a missing alt attribute.
+            if ( preg_match( '/\balt=["\']["\']/', $tag ) ) {
+                return preg_replace( '/\balt=["\']["\']/', 'alt="' . $escaped_alt . '"', $tag );
+            }
+
+            return preg_replace( '/(\s*\/?>)$/', ' alt="' . $escaped_alt . '"$1', $tag );
+        },
+        $content
+    );
+}
+add_filter( 'the_content', 'digitalstride_fix_content_image_alts' );
+
+/* =============================================================
+   END IMAGE ALT TAG FALLBACKS
+   ============================================================= */
+
 /**
  * Assembles the full HTML confirmation email.
  */
