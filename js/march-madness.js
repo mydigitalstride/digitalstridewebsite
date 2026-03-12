@@ -146,38 +146,33 @@
     // Step 0: Personal info
     { type: 'info', title: "Let's Get Started", roundLabel: 'Your Information' },
 
-    // Steps 1–8: Round 1 (2 steps per region, 4 games each)
-    { type: 'games', roundLabel: 'Round 1', title: 'South Region',    desc: 'Games 1–4 of 8',  games: ['r1_south_g1','r1_south_g2','r1_south_g3','r1_south_g4'] },
-    { type: 'games', roundLabel: 'Round 1', title: 'South Region',    desc: 'Games 5–8 of 8',  games: ['r1_south_g5','r1_south_g6','r1_south_g7','r1_south_g8'] },
-    { type: 'games', roundLabel: 'Round 1', title: 'East Region',     desc: 'Games 1–4 of 8',  games: ['r1_east_g1','r1_east_g2','r1_east_g3','r1_east_g4'] },
-    { type: 'games', roundLabel: 'Round 1', title: 'East Region',     desc: 'Games 5–8 of 8',  games: ['r1_east_g5','r1_east_g6','r1_east_g7','r1_east_g8'] },
-    { type: 'games', roundLabel: 'Round 1', title: 'West Region',     desc: 'Games 1–4 of 8',  games: ['r1_west_g1','r1_west_g2','r1_west_g3','r1_west_g4'] },
-    { type: 'games', roundLabel: 'Round 1', title: 'West Region',     desc: 'Games 5–8 of 8',  games: ['r1_west_g5','r1_west_g6','r1_west_g7','r1_west_g8'] },
-    { type: 'games', roundLabel: 'Round 1', title: 'Midwest Region',  desc: 'Games 1–4 of 8',  games: ['r1_midwest_g1','r1_midwest_g2','r1_midwest_g3','r1_midwest_g4'] },
-    { type: 'games', roundLabel: 'Round 1', title: 'Midwest Region',  desc: 'Games 5–8 of 8',  games: ['r1_midwest_g5','r1_midwest_g6','r1_midwest_g7','r1_midwest_g8'] },
+    // Steps 1–4: Round 1 — all 8 matchups per region (shown in 2-column grid)
+    { type: 'games', roundLabel: 'Round 1', title: 'South Region — First Round',   desc: 'All 16 teams — pick your winners!',  cols: 2, games: ['r1_south_g1','r1_south_g2','r1_south_g3','r1_south_g4','r1_south_g5','r1_south_g6','r1_south_g7','r1_south_g8'] },
+    { type: 'games', roundLabel: 'Round 1', title: 'East Region — First Round',    desc: 'All 16 teams — pick your winners!',  cols: 2, games: ['r1_east_g1','r1_east_g2','r1_east_g3','r1_east_g4','r1_east_g5','r1_east_g6','r1_east_g7','r1_east_g8'] },
+    { type: 'games', roundLabel: 'Round 1', title: 'West Region — First Round',    desc: 'All 16 teams — pick your winners!',  cols: 2, games: ['r1_west_g1','r1_west_g2','r1_west_g3','r1_west_g4','r1_west_g5','r1_west_g6','r1_west_g7','r1_west_g8'] },
+    { type: 'games', roundLabel: 'Round 1', title: 'Midwest Region — First Round', desc: 'All 16 teams — pick your winners!',  cols: 2, games: ['r1_midwest_g1','r1_midwest_g2','r1_midwest_g3','r1_midwest_g4','r1_midwest_g5','r1_midwest_g6','r1_midwest_g7','r1_midwest_g8'] },
 
-    // Steps 9–12: Round of 32 (4 games per region)
-    { type: 'games', roundLabel: 'Round of 32', title: 'South Region',   desc: '4 matchups',  games: ['r2_south_g1','r2_south_g2','r2_south_g3','r2_south_g4'] },
-    { type: 'games', roundLabel: 'Round of 32', title: 'East Region',    desc: '4 matchups',  games: ['r2_east_g1','r2_east_g2','r2_east_g3','r2_east_g4'] },
-    { type: 'games', roundLabel: 'Round of 32', title: 'West Region',    desc: '4 matchups',  games: ['r2_west_g1','r2_west_g2','r2_west_g3','r2_west_g4'] },
-    { type: 'games', roundLabel: 'Round of 32', title: 'Midwest Region', desc: '4 matchups',  games: ['r2_midwest_g1','r2_midwest_g2','r2_midwest_g3','r2_midwest_g4'] },
+    // Steps 5–8: Round of 32 — 4 matchups per region (based on your picks above)
+    { type: 'games', roundLabel: 'Round of 32', title: 'South Region',   desc: '8 teams remain — who advances?',  games: ['r2_south_g1','r2_south_g2','r2_south_g3','r2_south_g4'] },
+    { type: 'games', roundLabel: 'Round of 32', title: 'East Region',    desc: '8 teams remain — who advances?',  games: ['r2_east_g1','r2_east_g2','r2_east_g3','r2_east_g4'] },
+    { type: 'games', roundLabel: 'Round of 32', title: 'West Region',    desc: '8 teams remain — who advances?',  games: ['r2_west_g1','r2_west_g2','r2_west_g3','r2_west_g4'] },
+    { type: 'games', roundLabel: 'Round of 32', title: 'Midwest Region', desc: '8 teams remain — who advances?',  games: ['r2_midwest_g1','r2_midwest_g2','r2_midwest_g3','r2_midwest_g4'] },
 
-    // Steps 13–14: Sweet 16 (mix 2 regions per step for 4 total matchups)
-    { type: 'games', roundLabel: 'Sweet 16', title: 'South & East Regions',  desc: '4 matchups', games: ['r3_south_g1','r3_south_g2','r3_east_g1','r3_east_g2'] },
-    { type: 'games', roundLabel: 'Sweet 16', title: 'West & Midwest Regions', desc: '4 matchups', games: ['r3_west_g1','r3_west_g2','r3_midwest_g1','r3_midwest_g2'] },
+    // Steps 9–10: Sweet 16 — South + East combined, then West + Midwest combined (8 teams each)
+    { type: 'games', roundLabel: 'Sweet 16', title: 'South & East Regions',   desc: 'Pick 4 Sweet 16 winners',  games: ['r3_south_g1','r3_south_g2','r3_east_g1','r3_east_g2'] },
+    { type: 'games', roundLabel: 'Sweet 16', title: 'West & Midwest Regions', desc: 'Pick 4 Sweet 16 winners',  games: ['r3_west_g1','r3_west_g2','r3_midwest_g1','r3_midwest_g2'] },
 
-    // Step 15: Elite Eight (4 games)
-    { type: 'games', roundLabel: 'Elite Eight', title: 'Who advances to the Final Four?', desc: 'One champion per region', games: ['r4_south_g1','r4_east_g1','r4_west_g1','r4_midwest_g1'] },
+    // Step 11: Elite Eight — all 4 regions combined
+    { type: 'games', roundLabel: 'Elite Eight', title: 'Who Goes to the Final Four?', desc: 'One champion advances per region', games: ['r4_south_g1','r4_east_g1','r4_west_g1','r4_midwest_g1'] },
 
-    // Step 16: Final Four + Championship (3 games)
-    { type: 'games', roundLabel: 'Final Four & Championship', title: 'Pick Your Champion', desc: '3 final matchups', games: ['ff_g1','ff_g2','champ_g1'] },
+    // Step 12: Final Four + Championship
+    { type: 'games', roundLabel: 'Final Four & Championship', title: 'Pick Your Champion!', desc: 'Three games to crown the winner', games: ['ff_g1','ff_g2','champ_g1'] },
 
-    // Step 17: Review & Submit
+    // Step 13: Review & Submit
     { type: 'review', roundLabel: 'Almost Done!', title: 'Review Your Bracket' }
   ];
 
-  var TOTAL_STEPS = STEPS.length; // 18 (0–17)
-  var BRACKET_STEPS = TOTAL_STEPS - 2; // 16 game-pick steps (excluding info and review)
+  var TOTAL_STEPS = STEPS.length; // 14 (0–13)
 
   /* ============================================================
      4. STATE
@@ -339,22 +334,20 @@
   /* ── Games Step ── */
   function renderGamesStep(step) {
     var html = renderStepHeader(step);
-    html += '<div class="mm-matchups">';
+    var colClass = step.cols === 2 ? ' mm-matchups--2col' : '';
+    html += '<div class="mm-matchups' + colClass + '">';
 
     // Track region changes so we can show dividers on mixed-region steps
     var lastRegion = null;
+    var multiRegion = hasMultipleRegions(step.games);
 
     step.games.forEach(function (gameId) {
       var game = GAMES[gameId];
       if (!game) return;
 
-      // Region divider on multi-region steps
-      if (step.games.length > 2 && game.region !== lastRegion) {
-        if (lastRegion !== null) {
-          html += '<div class="mm-region-divider">' + escHtml(game.region) + ' Region</div>';
-        } else if (hasMultipleRegions(step.games)) {
-          html += '<div class="mm-region-divider">' + escHtml(game.region) + ' Region</div>';
-        }
+      // Region divider on multi-region steps (spans both columns in 2-col layout)
+      if (multiRegion && game.region !== lastRegion) {
+        html += '<div class="mm-region-divider' + (step.cols === 2 ? ' mm-region-divider--span' : '') + '">' + escHtml(game.region) + ' Region</div>';
         lastRegion = game.region;
       }
 
@@ -951,7 +944,7 @@
       ? mmBracket.siteUrl.replace(/^https?:\/\//, '') : 'mydigitalstride.com';
     doc.text(siteUrl, M, y + 5);
     doc.text(
-      'Prizes: Perfect Bracket = $10,000  |  1st Place = $1,500 AEO Audit & Assessment',
+      'Grand Prize: $10,000 CASH  |  1st: AEO Audit ($1,500)  |  2nd: Perf. Audit ($350)  |  3rd: Listing Sync ($150)',
       PW / 2, y + 5, { align: 'center' }
     );
     doc.text('Submitted: ' + new Date().toLocaleDateString(), PW - M, y + 5, { align: 'right' });

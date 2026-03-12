@@ -727,17 +727,33 @@ function ds_mm_build_confirmation_email( $name, $email, $phone, $favorite_team, 
 
         <!-- Prizes -->
         <table width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-bottom:28px">
+          <!-- Grand Prize -->
           <tr>
-            <td width="48%" style="background:#fffde6;border:2px solid #f2c814;border-radius:8px;padding:16px 12px;text-align:center;vertical-align:top">
+            <td colspan="5" style="background:#f36e21;border:3px solid #f2c814;border-radius:10px;padding:18px 16px;text-align:center">
+              <div style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.8);margin-bottom:4px">Grand Prize &mdash; Perfect Bracket</div>
               <div style="font-size:30px;line-height:1;margin-bottom:6px">&#127942;</div>
-              <div style="font-size:22px;font-weight:700;color:#1d4382;line-height:1">$10,000</div>
-              <div style="font-size:11px;color:#777;margin-top:4px">Perfect Bracket</div>
+              <div style="font-size:26px;font-weight:700;color:#ffffff;line-height:1">$10,000 <span style="color:#f2c814">CASH!</span></div>
             </td>
-            <td width="4%">&nbsp;</td>
-            <td width="48%" style="background:#dae3ff;border:2px solid #1d4382;border-radius:8px;padding:16px 12px;text-align:center;vertical-align:top">
-              <div style="font-size:30px;line-height:1;margin-bottom:6px">&#129351;</div>
-              <div style="font-size:22px;font-weight:700;color:#1d4382;line-height:1">$1,500</div>
-              <div style="font-size:11px;color:#777;margin-top:4px">1st Place &mdash; AEO Audit &amp; Assessment</div>
+          </tr>
+          <tr><td colspan="5" style="height:12px"></td></tr>
+          <!-- 1st / 2nd / 3rd -->
+          <tr>
+            <td width="32%" style="background:#dae3ff;border:2px solid #1d4382;border-radius:8px;padding:14px 10px;text-align:center;vertical-align:top">
+              <div style="font-size:20px;font-weight:700;color:#f2c814;line-height:1">1<sup style="font-size:12px">st</sup></div>
+              <div style="font-size:13px;font-weight:700;color:#1d4382;margin-top:4px;line-height:1.3">AEO Audit &amp; Assessment</div>
+              <div style="font-size:11px;color:#666;margin-top:4px">$1,500 value</div>
+            </td>
+            <td width="2%">&nbsp;</td>
+            <td width="32%" style="background:#f2f5fb;border:2px solid #c6c6c6;border-radius:8px;padding:14px 10px;text-align:center;vertical-align:top">
+              <div style="font-size:20px;font-weight:700;color:#c6c6c6;line-height:1">2<sup style="font-size:12px">nd</sup></div>
+              <div style="font-size:13px;font-weight:700;color:#1d4382;margin-top:4px;line-height:1.3">Website Performance Audit</div>
+              <div style="font-size:11px;color:#666;margin-top:4px">$350 value</div>
+            </td>
+            <td width="2%">&nbsp;</td>
+            <td width="32%" style="background:#fff5ee;border:2px solid #cd7f32;border-radius:8px;padding:14px 10px;text-align:center;vertical-align:top">
+              <div style="font-size:20px;font-weight:700;color:#cd7f32;line-height:1">3<sup style="font-size:12px">rd</sup></div>
+              <div style="font-size:13px;font-weight:700;color:#1d4382;margin-top:4px;line-height:1.3">Local Listing Sync of 40+</div>
+              <div style="font-size:11px;color:#666;margin-top:4px">$150 value</div>
             </td>
           </tr>
         </table>
