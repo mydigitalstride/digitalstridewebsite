@@ -181,7 +181,7 @@
   var state = {
     step: 0,
     picks: {},    // gameId → team name
-    info: { name: '', email: '', phone: '', favoriteTeam: '' }
+    info: { name: '', email: '', company: '', phone: '', favoriteTeam: '' }
   };
 
   /* ============================================================
@@ -216,6 +216,7 @@
         state.info.name.trim() !== '' &&
         state.info.email.trim() !== '' &&
         isValidEmail(state.info.email) &&
+        state.info.company.trim() !== '' &&
         state.info.favoriteTeam.trim() !== ''
       );
     }
@@ -313,6 +314,12 @@
           '<label for="mm-email">Email Address</label>' +
           '<input type="email" id="mm-email" name="email" autocomplete="email" ' +
             'placeholder="jane@example.com" value="' + escHtml(state.info.email) + '">' +
+        '</div>' +
+
+        '<div class="mm-field">' +
+          '<label for="mm-company">Company Name</label>' +
+          '<input type="text" id="mm-company" name="company" autocomplete="organization" ' +
+            'placeholder="Acme Inc." value="' + escHtml(state.info.company) + '">' +
         '</div>' +
 
         '<div class="mm-field">' +
@@ -579,7 +586,7 @@
   }
 
   function highlightInfoErrors() {
-    var fields = { name: 'mm-name', email: 'mm-email', favoriteTeam: 'mm-team' };
+    var fields = { name: 'mm-name', email: 'mm-email', company: 'mm-company', favoriteTeam: 'mm-team' };
     Object.keys(fields).forEach(function (key) {
       var el = container.querySelector('#' + fields[key]);
       if (!el) return;
@@ -618,6 +625,7 @@
       nonce:   (typeof mmBracket !== 'undefined' ? mmBracket.nonce : ''),
       name:    state.info.name,
       email:   state.info.email,
+      company: state.info.company,
       phone:   state.info.phone,
       favoriteTeam: state.info.favoriteTeam,
       picks:   JSON.stringify(state.picks)
@@ -808,14 +816,15 @@
     fc(CLR.bg);
     doc.roundedRect(M, y, CW, 20, 2, 2, 'F');
 
-    var col3 = CW / 3;
+    var col4 = CW / 4;
     var infoFields = [
       ['SUBMITTED BY',  state.info.name          ],
+      ['COMPANY',       state.info.company       ],
       ['EMAIL',         state.info.email         ],
       ['FAVORITE TEAM', state.info.favoriteTeam  ],
     ];
     infoFields.forEach(function (f, i) {
-      var cx = M + i * col3 + 4;
+      var cx = M + i * col4 + 4;
       doc.setFont('helvetica', 'bold');
       doc.setFontSize(6.5);
       tc(CLR.teal);
@@ -823,7 +832,7 @@
       doc.setFont('helvetica', 'normal');
       doc.setFontSize(9.5);
       tc(CLR.text);
-      var val = f[1].length > 26 ? f[1].substring(0, 25) + '\u2026' : f[1];
+      var val = f[1].length > 20 ? f[1].substring(0, 19) + '\u2026' : f[1];
       doc.text(val, cx, y + 14);
     });
     if (state.info.phone) {

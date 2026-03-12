@@ -15,7 +15,7 @@ get_header();
   <!-- ══ HERO ══════════════════════════════════════════════════ -->
   <section class="mm-hero">
     <div class="mm-hero__inner">
-      <div class="mm-hero__badge">&#127936; 2026 March Madness Contest</div>
+      <div class="mm-hero__badge">&#127936; 2026 College Basketball Contest</div>
       <h1 class="mm-hero__title">Fill Out Your Bracket.<br><span class="mm-hero__title-accent">Win Big.</span></h1>
       <p class="mm-hero__sub">Pick all 63 winners for a shot at <strong>$10,000 CASH</strong> &mdash; plus prizes for 1st, 2nd &amp; 3rd place!</p>
 
