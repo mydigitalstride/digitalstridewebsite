@@ -810,11 +810,30 @@
   padding: 1.75rem;
   color: #fff;
   box-sizing: border-box;
-  transition: background 0.35s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.mm-page .mm-seo-bracket:hover {
+/* Gradient layer that fades in on hover */
+.mm-page .mm-seo-bracket::after {
+  content: '';
+  position: absolute;
+  inset: 0;
   background: var(--gradient-teal-blue);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.mm-page .mm-seo-bracket:hover::after {
+  opacity: 1;
+}
+
+/* Keep all children above the pseudo-element */
+.mm-page .mm-seo-bracket > * {
+  position: relative;
+  z-index: 1;
 }
 
 .mm-page .mm-seo-bracket__title {

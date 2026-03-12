@@ -51,7 +51,7 @@ function digitalstride_enqueue_assets() {
             $mm_logo_url = $mm_logo_id ? (string) wp_get_attachment_image_url($mm_logo_id, 'medium') : '';
         }
 
-        wp_enqueue_style('march-madness-css', get_template_directory_uri() . '/styles/march-madness.css', [], '1.0.4');
+        wp_enqueue_style('march-madness-css', get_template_directory_uri() . '/styles/march-madness.css', [], '1.0.5');
 
         // jsPDF (CDN) must load before march-madness-js
         wp_enqueue_script(
