@@ -51,7 +51,7 @@ function digitalstride_enqueue_assets() {
             $mm_logo_url = $mm_logo_id ? (string) wp_get_attachment_image_url($mm_logo_id, 'medium') : '';
         }
 
-        wp_enqueue_style('march-madness-css', get_template_directory_uri() . '/styles/march-madness.css', [], '1.0.1');
+        wp_enqueue_style('march-madness-css', get_template_directory_uri() . '/styles/march-madness.css', [], '1.0.3');
 
         // jsPDF (CDN) must load before march-madness-js
         wp_enqueue_script(
@@ -605,12 +605,13 @@ function ds_handle_mm_bracket_submission() {
     // Collect & sanitize fields
     $name          = isset( $_POST['name'] )         ? sanitize_text_field( wp_unslash( $_POST['name'] ) )         : '';
     $email         = isset( $_POST['email'] )        ? sanitize_email( wp_unslash( $_POST['email'] ) )             : '';
+    $company       = isset( $_POST['company'] )      ? sanitize_text_field( wp_unslash( $_POST['company'] ) )      : '';
     $phone         = isset( $_POST['phone'] )        ? sanitize_text_field( wp_unslash( $_POST['phone'] ) )        : '';
     $favorite_team = isset( $_POST['favoriteTeam'] ) ? sanitize_text_field( wp_unslash( $_POST['favoriteTeam'] ) ) : '';
     $picks_raw     = isset( $_POST['picks'] )        ? wp_unslash( $_POST['picks'] )                               : '{}';
 
     // Basic validation
-    if ( empty( $name ) || empty( $email ) || ! is_email( $email ) || empty( $favorite_team ) ) {
+    if ( empty( $name ) || empty( $email ) || ! is_email( $email ) || empty( $company ) || empty( $favorite_team ) ) {
         wp_send_json_error( 'Please fill in all required fields.' );
     }
 
@@ -650,6 +651,7 @@ function ds_handle_mm_bracket_submission() {
 
     update_post_meta( $post_id, '_mm_name',          $name );
     update_post_meta( $post_id, '_mm_email',         $email );
+    update_post_meta( $post_id, '_mm_company',       $company );
     update_post_meta( $post_id, '_mm_phone',         $phone );
     update_post_meta( $post_id, '_mm_favorite_team', $favorite_team );
     update_post_meta( $post_id, '_mm_picks',         wp_json_encode( $picks_clean ) );
@@ -666,6 +668,7 @@ function ds_handle_mm_bracket_submission() {
     $admin_message =
         "A new bracket entry was submitted.\n\n" .
         "Name:          {$name}\n" .
+        "Company:       {$company}\n" .
         "Email:         {$email}\n" .
         "Phone:         " . ( $phone ?: 'Not provided' ) . "\n" .
         "Favorite Team: {$favorite_team}\n" .
@@ -677,7 +680,7 @@ function ds_handle_mm_bracket_submission() {
 
     // Confirmation email to entrant (HTML)
     $confirm_subject  = 'Your Digital Stride March Madness Bracket is In!';
-    $confirm_html     = ds_mm_build_confirmation_email( $name, $email, $phone, $favorite_team, $picks_clean );
+    $confirm_html     = ds_mm_build_confirmation_email( $name, $email, $company, $phone, $favorite_team, $picks_clean );
     $confirm_headers  = [ 'Content-Type: text/html; charset=UTF-8' ];
 
     wp_mail( $email, $confirm_subject, $confirm_html, $confirm_headers );
@@ -878,7 +881,7 @@ add_filter( 'the_content', 'digitalstride_fix_content_image_alts' );
 /**
  * Assembles the full HTML confirmation email.
  */
-function ds_mm_build_confirmation_email( $name, $email, $phone, $favorite_team, $picks ) {
+function ds_mm_build_confirmation_email( $name, $email, $company, $phone, $favorite_team, $picks ) {
     $regions       = [ 'south', 'east', 'west', 'midwest' ];
     $region_labels = [ 'South', 'East', 'West', 'Midwest' ];
     $site_url      = get_bloginfo( 'url' );
@@ -1006,6 +1009,7 @@ function ds_mm_build_confirmation_email( $name, $email, $phone, $favorite_team, 
             <td style="padding:14px 18px">
               <p style="font-size:11px;color:#888;margin:0 0 4px;font-weight:700;text-transform:uppercase;letter-spacing:0.06em">Entry Details</p>
               <p style="font-size:12px;color:#444;margin:0 0 2px"><strong>Name:</strong> <?php echo esc_html( $name ); ?></p>
+              <p style="font-size:12px;color:#444;margin:0 0 2px"><strong>Company:</strong> <?php echo esc_html( $company ); ?></p>
               <p style="font-size:12px;color:#444;margin:0 0 2px"><strong>Email:</strong> <?php echo esc_html( $email ); ?></p>
               <?php if ( $phone ) : ?><p style="font-size:12px;color:#444;margin:0 0 2px"><strong>Phone:</strong> <?php echo esc_html( $phone ); ?></p><?php endif; ?>
               <p style="font-size:12px;color:#444;margin:0"><strong>Favorite Team:</strong> <?php echo esc_html( $favorite_team ); ?></p>
