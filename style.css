@@ -683,6 +683,10 @@ a {
   padding: 0px 5% 0px 5%;
 }
 
+#mega-menu-wrap-primary #mega-menu-primary > li.mega-menu-item > a.mega-menu-link {
+  font-size: var(--font-size-lg);
+}
+
 @media(min-width:768px) {
   #mega-menu-wrap-primary {
     display: block !important
