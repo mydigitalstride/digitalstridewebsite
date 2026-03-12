@@ -101,75 +101,69 @@ get_header();
 
           <div class="mm-seo-accordion-list">
 
-            <details class="mm-seo-accordion mm-seo-accordion--r1">
+            <details class="mm-seo-accordion mm-seo-accordion--r1" open>
               <summary class="mm-seo-accordion__summary">
                 <span class="mm-seo-accordion__round">Round 1</span>
-                <span class="mm-seo-accordion__name">Get Found</span>
                 <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
               </summary>
               <div class="mm-seo-accordion__body">
-                SEO &amp; local listings so customers can actually find you
+                Be found by customers on search engines
               </div>
             </details>
 
-            <details class="mm-seo-accordion mm-seo-accordion--r2">
+            <details class="mm-seo-accordion mm-seo-accordion--r2" open>
               <summary class="mm-seo-accordion__summary">
                 <span class="mm-seo-accordion__round">Round of 32</span>
-                <span class="mm-seo-accordion__name">Stand Out</span>
                 <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
               </summary>
               <div class="mm-seo-accordion__body">
-                Brand presence &amp; content that makes you the obvious choice
+                Content to become the obvious choice
               </div>
             </details>
 
-            <details class="mm-seo-accordion mm-seo-accordion--r3">
+            <details class="mm-seo-accordion mm-seo-accordion--r3" open>
               <summary class="mm-seo-accordion__summary">
                 <span class="mm-seo-accordion__round">Sweet 16</span>
-                <span class="mm-seo-accordion__name">Convert</span>
                 <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
               </summary>
               <div class="mm-seo-accordion__body">
-                Website UX &amp; CTAs that turn visitors into leads
+                Call to Actions that turn visitors into leads
               </div>
             </details>
 
-            <details class="mm-seo-accordion mm-seo-accordion--r4">
+            <details class="mm-seo-accordion mm-seo-accordion--r4" open>
               <summary class="mm-seo-accordion__summary">
                 <span class="mm-seo-accordion__round">Elite Eight</span>
-                <span class="mm-seo-accordion__name">Nurture</span>
                 <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
               </summary>
               <div class="mm-seo-accordion__body">
-                Email &amp; retargeting that brings warm leads back to close
+                Retargeting and Emails that bring them back
               </div>
             </details>
 
-            <details class="mm-seo-accordion mm-seo-accordion--ff">
+            <details class="mm-seo-accordion mm-seo-accordion--ff" open>
               <summary class="mm-seo-accordion__summary">
                 <span class="mm-seo-accordion__round">Final Four</span>
-                <span class="mm-seo-accordion__name">Dominate</span>
                 <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
               </summary>
               <div class="mm-seo-accordion__body">
-                Full-funnel strategy firing on all cylinders
+                Full-funnel strategy making 3&rsquo;s with ease
               </div>
             </details>
 
             <details class="mm-seo-accordion mm-seo-accordion--champ" open>
               <summary class="mm-seo-accordion__summary">
                 <span class="mm-seo-accordion__round">&#127942; Champion</span>
-                <span class="mm-seo-accordion__name">More Revenue</span>
                 <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
               </summary>
               <div class="mm-seo-accordion__body">
-                Loyal customers, repeat business, and market leadership
+                Loyal Customers, repeat business, market leadership
               </div>
             </details>
 
           </div><!-- /.mm-seo-accordion-list -->
 
-          <a class="mm-seo-bracket__cta" href="#book-consultation">Talk to Our Coaches &rarr;</a>
+          <a class="mm-seo-bracket__cta" href="https://meetings.hubspot.com/exp1st/initial-meeting" target="_blank" rel="noopener">Talk to Our Coaches &rarr;</a>
         </div><!-- /.mm-seo-bracket -->
 
       </div><!-- /.mm-seo-intro -->
