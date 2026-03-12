@@ -101,7 +101,7 @@ get_header();
 
           <div class="mm-seo-accordion-list">
 
-            <details class="mm-seo-accordion mm-seo-accordion--r1" open>
+            <details class="mm-seo-accordion mm-seo-accordion--r1">
               <summary class="mm-seo-accordion__summary">
                 <span class="mm-seo-accordion__round">Round 1</span>
                 <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
@@ -111,7 +111,7 @@ get_header();
               </div>
             </details>
 
-            <details class="mm-seo-accordion mm-seo-accordion--r2" open>
+            <details class="mm-seo-accordion mm-seo-accordion--r2">
               <summary class="mm-seo-accordion__summary">
                 <span class="mm-seo-accordion__round">Round of 32</span>
                 <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
@@ -121,7 +121,7 @@ get_header();
               </div>
             </details>
 
-            <details class="mm-seo-accordion mm-seo-accordion--r3" open>
+            <details class="mm-seo-accordion mm-seo-accordion--r3">
               <summary class="mm-seo-accordion__summary">
                 <span class="mm-seo-accordion__round">Sweet 16</span>
                 <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
@@ -131,7 +131,7 @@ get_header();
               </div>
             </details>
 
-            <details class="mm-seo-accordion mm-seo-accordion--r4" open>
+            <details class="mm-seo-accordion mm-seo-accordion--r4">
               <summary class="mm-seo-accordion__summary">
                 <span class="mm-seo-accordion__round">Elite Eight</span>
                 <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
@@ -141,7 +141,7 @@ get_header();
               </div>
             </details>
 
-            <details class="mm-seo-accordion mm-seo-accordion--ff" open>
+            <details class="mm-seo-accordion mm-seo-accordion--ff">
               <summary class="mm-seo-accordion__summary">
                 <span class="mm-seo-accordion__round">Final Four</span>
                 <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
@@ -151,7 +151,7 @@ get_header();
               </div>
             </details>
 
-            <details class="mm-seo-accordion mm-seo-accordion--champ" open>
+            <details class="mm-seo-accordion mm-seo-accordion--champ">
               <summary class="mm-seo-accordion__summary">
                 <span class="mm-seo-accordion__round">&#127942; Champion</span>
                 <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
