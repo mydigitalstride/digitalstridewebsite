@@ -216,6 +216,7 @@ get_header();
             <li><strong>1st Place (AEO Audit &amp; Assessment, $1,500 value):</strong> Awarded to the participant with the highest number of correct picks.</li>
             <li><strong>2nd Place (Website Performance Audit &amp; Analysis, $350 value):</strong> Awarded to the participant with the second-highest number of correct picks.</li>
             <li><strong>3rd Place (Local Listing Sync of 40+, $150 value):</strong> Awarded to the participant with the third-highest number of correct picks.</li>
+            <li><strong>Winners will be determined and announced on April 6, 2026</strong>, following the conclusion of the NCAA Championship Game.</li>
             <li>Tiebreaker: In the event of a tie in picks, the tiebreaker is determined by the entrant whose championship pick is correct, then by earliest submission timestamp.</li>
             <li>Service prizes (1st&ndash;3rd) have no cash equivalent and must be redeemed within 12 months of notification.</li>
             <li>Digital Stride reserves the right to verify eligibility and correct picks before awarding prizes.</li>

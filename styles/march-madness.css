@@ -209,8 +209,11 @@
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
   min-width: 2.5rem;
+  width: 2.5rem;
   text-align: center;
   line-height: 1;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .mm-prize--1st .mm-prize__place { color: var(--color-yellow); }
@@ -1067,18 +1070,24 @@
 
   .mm-hero__prizes {
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
+    padding: 0;
+    gap: 1rem;
   }
 
   .mm-prize--grand {
     width: 100%;
-    max-width: 320px;
+    max-width: 100%;
   }
 
   .mm-prize-stack {
     width: 100%;
-    max-width: 320px;
+    max-width: 100%;
     min-width: unset;
+  }
+
+  .mm-prize__place {
+    font-size: var(--font-size-lg);
   }
 
   .mm-deadline {
