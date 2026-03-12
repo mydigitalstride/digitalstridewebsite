@@ -71,6 +71,8 @@ get_header();
     <div class="mm-container">
 
       <div class="mm-seo-intro">
+
+        <!-- Left: text copy -->
         <div class="mm-seo-intro__text">
           <div class="mm-seo-intro__eyebrow">Digital Marketing &amp; March Madness</div>
           <h2 class="mm-seo-intro__title">Is Your Business Ready to Go All the Way?</h2>
@@ -93,50 +95,84 @@ get_header();
           </p>
         </div>
 
+        <!-- Right: bracket accordion panel -->
         <div class="mm-seo-bracket">
           <div class="mm-seo-bracket__title">The Digital Marketing Bracket</div>
-          <div class="mm-seo-bracket__rounds">
 
-            <div class="mm-seo-round mm-seo-round--r1">
-              <div class="mm-seo-round__label">Round 1</div>
-              <div class="mm-seo-round__name">Get Found</div>
-              <div class="mm-seo-round__desc">SEO &amp; local listings so customers can actually find you</div>
-            </div>
+          <div class="mm-seo-accordion-list">
 
-            <div class="mm-seo-round mm-seo-round--r2">
-              <div class="mm-seo-round__label">Round of 32</div>
-              <div class="mm-seo-round__name">Stand Out</div>
-              <div class="mm-seo-round__desc">Brand presence &amp; content that makes you the obvious choice</div>
-            </div>
+            <details class="mm-seo-accordion mm-seo-accordion--r1">
+              <summary class="mm-seo-accordion__summary">
+                <span class="mm-seo-accordion__round">Round 1</span>
+                <span class="mm-seo-accordion__name">Get Found</span>
+                <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
+              </summary>
+              <div class="mm-seo-accordion__body">
+                SEO &amp; local listings so customers can actually find you
+              </div>
+            </details>
 
-            <div class="mm-seo-round mm-seo-round--r3">
-              <div class="mm-seo-round__label">Sweet 16</div>
-              <div class="mm-seo-round__name">Convert</div>
-              <div class="mm-seo-round__desc">Website UX &amp; CTAs that turn visitors into leads</div>
-            </div>
+            <details class="mm-seo-accordion mm-seo-accordion--r2">
+              <summary class="mm-seo-accordion__summary">
+                <span class="mm-seo-accordion__round">Round of 32</span>
+                <span class="mm-seo-accordion__name">Stand Out</span>
+                <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
+              </summary>
+              <div class="mm-seo-accordion__body">
+                Brand presence &amp; content that makes you the obvious choice
+              </div>
+            </details>
 
-            <div class="mm-seo-round mm-seo-round--r4">
-              <div class="mm-seo-round__label">Elite Eight</div>
-              <div class="mm-seo-round__name">Nurture</div>
-              <div class="mm-seo-round__desc">Email &amp; retargeting that brings warm leads back to close</div>
-            </div>
+            <details class="mm-seo-accordion mm-seo-accordion--r3">
+              <summary class="mm-seo-accordion__summary">
+                <span class="mm-seo-accordion__round">Sweet 16</span>
+                <span class="mm-seo-accordion__name">Convert</span>
+                <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
+              </summary>
+              <div class="mm-seo-accordion__body">
+                Website UX &amp; CTAs that turn visitors into leads
+              </div>
+            </details>
 
-            <div class="mm-seo-round mm-seo-round--ff">
-              <div class="mm-seo-round__label">Final Four</div>
-              <div class="mm-seo-round__name">Dominate</div>
-              <div class="mm-seo-round__desc">Full-funnel strategy firing on all cylinders</div>
-            </div>
+            <details class="mm-seo-accordion mm-seo-accordion--r4">
+              <summary class="mm-seo-accordion__summary">
+                <span class="mm-seo-accordion__round">Elite Eight</span>
+                <span class="mm-seo-accordion__name">Nurture</span>
+                <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
+              </summary>
+              <div class="mm-seo-accordion__body">
+                Email &amp; retargeting that brings warm leads back to close
+              </div>
+            </details>
 
-            <div class="mm-seo-round mm-seo-round--champ">
-              <div class="mm-seo-round__label">&#127942; Champion</div>
-              <div class="mm-seo-round__name">More Revenue</div>
-              <div class="mm-seo-round__desc">Loyal customers, repeat business, market leadership</div>
-            </div>
+            <details class="mm-seo-accordion mm-seo-accordion--ff">
+              <summary class="mm-seo-accordion__summary">
+                <span class="mm-seo-accordion__round">Final Four</span>
+                <span class="mm-seo-accordion__name">Dominate</span>
+                <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
+              </summary>
+              <div class="mm-seo-accordion__body">
+                Full-funnel strategy firing on all cylinders
+              </div>
+            </details>
 
-          </div>
-          <a class="mm-seo-bracket__cta mm-btn mm-btn--next" href="#book-consultation">Talk to Our Coaches &rarr;</a>
-        </div>
-      </div>
+            <details class="mm-seo-accordion mm-seo-accordion--champ" open>
+              <summary class="mm-seo-accordion__summary">
+                <span class="mm-seo-accordion__round">&#127942; Champion</span>
+                <span class="mm-seo-accordion__name">More Revenue</span>
+                <span class="mm-seo-accordion__chevron" aria-hidden="true">&#8250;</span>
+              </summary>
+              <div class="mm-seo-accordion__body">
+                Loyal customers, repeat business, and market leadership
+              </div>
+            </details>
+
+          </div><!-- /.mm-seo-accordion-list -->
+
+          <a class="mm-seo-bracket__cta" href="#book-consultation">Talk to Our Coaches &rarr;</a>
+        </div><!-- /.mm-seo-bracket -->
+
+      </div><!-- /.mm-seo-intro -->
 
     </div>
   </section>
