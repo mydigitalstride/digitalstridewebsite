@@ -651,6 +651,21 @@
   border-bottom: 2px solid var(--color-light-blue);
   padding-bottom: 0.4rem;
   margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.mm-review__pts {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--color-teal);
+  background: rgba(24,157,167,0.1);
+  border: 1px solid rgba(24,157,167,0.3);
+  border-radius: 2rem;
+  padding: 0.1rem 0.55rem;
 }
 
 .mm-review__info-grid {

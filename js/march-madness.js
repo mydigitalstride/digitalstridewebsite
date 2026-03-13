@@ -443,12 +443,12 @@
 
     // Picks by round
     var rounds = [
-      { label: 'Round 1', min: 1, max: 1 },
-      { label: 'Round of 32', min: 2, max: 2 },
-      { label: 'Sweet 16', min: 3, max: 3 },
-      { label: 'Elite Eight', min: 4, max: 4 },
-      { label: 'Final Four', min: 5, max: 5 },
-      { label: 'Championship', min: 6, max: 6 }
+      { label: 'Round 1',      pts: 1,  min: 1, max: 1 },
+      { label: 'Round of 32', pts: 2,  min: 2, max: 2 },
+      { label: 'Sweet 16',    pts: 4,  min: 3, max: 3 },
+      { label: 'Elite Eight', pts: 8,  min: 4, max: 4 },
+      { label: 'Final Four',  pts: 16, min: 5, max: 5 },
+      { label: 'Championship',pts: 32, min: 6, max: 6 }
     ];
 
     rounds.forEach(function (rnd) {
@@ -462,7 +462,9 @@
       if (!roundGames.length) return;
 
       html += '<div class="mm-review__section">' +
-        '<div class="mm-review__section-title">' + escHtml(rnd.label) + '</div>' +
+        '<div class="mm-review__section-title">' + escHtml(rnd.label) +
+          ' <span class="mm-review__pts">' + rnd.pts + ' pt' + (rnd.pts > 1 ? 's' : '') + ' each</span>' +
+        '</div>' +
         '<div class="mm-review__picks-grid">';
 
       roundGames.forEach(function (gId) {
