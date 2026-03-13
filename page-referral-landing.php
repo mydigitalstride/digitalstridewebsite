@@ -16,11 +16,36 @@ get_header();
   <!-- ══ HERO ══════════════════════════════════════════════════════════ -->
   <section class="rl-hero" aria-label="Referral promotion hero">
     <div class="rl-hero__overlay"></div>
-    <div class="rl-hero__content">
-      <p class="rl-hero__eyebrow">Exclusive Partner Promotion</p>
-      <h1 class="rl-hero__title">Get Rewarded for Every Referral</h1>
-      <p class="rl-hero__sub">Share the people in your network&nbsp;&mdash; we&rsquo;ll make it worth your while.</p>
-      <a href="#referral-form-section" class="rl-hero__cta">Submit Referrals Now <span aria-hidden="true">&darr;</span></a>
+    <div class="rl-hero__layout">
+
+      <!-- Left: branding / eyebrow -->
+      <div class="rl-hero__left">
+        <p class="rl-hero__eyebrow">Exclusive Partner Promotion</p>
+        <h1 class="rl-hero__title">Get Rewarded for Every Referral</h1>
+        <p class="rl-hero__sub">Share the people in your network&nbsp;&mdash; we&rsquo;ll make it worth your while.</p>
+      </div>
+
+      <!-- Center: CTA button -->
+      <div class="rl-hero__center">
+        <a href="#referral-form-section" class="rl-hero__cta">Submit Referrals Now <span aria-hidden="true">&darr;</span></a>
+      </div>
+
+      <!-- Right: offer summary -->
+      <div class="rl-hero__right">
+        <div class="rl-hero__offer">
+          <p class="rl-hero__offer-label">This Promotion</p>
+          <div class="rl-hero__offer-row">
+            <span class="rl-hero__offer-amount">$5</span>
+            <span class="rl-hero__offer-desc">per contact you submit<br><em>(up to 20&nbsp;&mdash;&nbsp;$100 total)</em></span>
+          </div>
+          <div class="rl-hero__offer-divider"></div>
+          <div class="rl-hero__offer-row">
+            <span class="rl-hero__offer-amount rl-hero__offer-amount--gold">$300</span>
+            <span class="rl-hero__offer-desc">Amazon gift card per<br>referral who becomes<br>a customer</span>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -286,6 +311,21 @@ get_header();
           <p class="rl-faq__a">Yes&nbsp;&mdash; we believe in transparency. When we reach out, we&rsquo;ll let them know a trusted colleague referred them. This typically leads to a much warmer conversation.</p>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ BOTTOM CTA ════════════════════════════════════════════════════ -->
+  <section class="rl-bottom-cta" aria-label="Submit referrals call to action">
+    <div class="rl-container">
+      <div class="rl-bottom-cta__inner">
+        <div class="rl-bottom-cta__text">
+          <h2 class="rl-bottom-cta__heading">Ready to Start Earning?</h2>
+          <p class="rl-bottom-cta__sub">Submit your referrals now&nbsp;&mdash; it only takes a few minutes.</p>
+        </div>
+        <a href="#referral-form-section" class="rl-bottom-cta__btn">
+          Submit Your Referrals <span aria-hidden="true">&uarr;</span>
+        </a>
       </div>
     </div>
   </section>
