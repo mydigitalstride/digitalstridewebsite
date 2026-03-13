@@ -27,13 +27,7 @@ get_header();
       <div class="gr-intro__inner">
         <h2 class="gr-intro__heading">Working With You Is the Best Part of What We Do</h2>
         <p>
-          At Digital Stride, we don&rsquo;t take it for granted that you chose us to help grow your business. Every strategy session, every campaign, every late-night email — it&rsquo;s all driven by one thing: genuine care for the people we work with.
-        </p>
-        <p>
-          You&rsquo;re not just a client to us. You&rsquo;re a partner, and honestly, you make our work meaningful. So from the bottom of our hearts — <strong>thank you</strong> for trusting us with something as important as your business.
-        </p>
-        <p>
-          We&rsquo;d love to hear how we&rsquo;re doing. Your feedback helps us get better and helps more great businesses like yours find us. It only takes a moment, and it means the world to our team.
+          At Digital Stride, we genuinely care about the people we work with &mdash; you&rsquo;re not just a client, you&rsquo;re a partner, and your trust means everything to our team. We&rsquo;d love to hear how we&rsquo;re doing, and your feedback helps us improve and helps other great businesses find us. It only takes a moment, and it means the world to us.
         </p>
       </div>
     </div>
@@ -67,19 +61,41 @@ get_header();
         </div>
       </div>
 
-      <!-- ── LOW SCORE response (0-6) ──────────────────────────── -->
+      <!-- ── LOW SCORE response (0-7) ──────────────────────────── -->
       <div class="gr-response gr-response--low" id="response-low" hidden>
         <div class="gr-response__icon" aria-hidden="true">&#128172;</div>
         <h3>Thank you for your honesty</h3>
         <p>
-          We&rsquo;re sorry to hear your experience hasn&rsquo;t been everything it should be. Your feedback is important to us — we&rsquo;d love to make things right.
+          We&rsquo;re sorry to hear your experience hasn&rsquo;t been everything it should be. Please share your feedback below and a member of our team will personally follow up to make things right.
         </p>
-        <p>
-          Please reach out to us directly at <a href="mailto:hello@mydigitalstride.com">hello@mydigitalstride.com</a> and a member of our team will personally follow up to address your concerns.
-        </p>
+
+        <div id="gr-feedback-success" class="gr-form__success" hidden>
+          <span class="gr-form__success-icon" aria-hidden="true">&#10003;</span>
+          <strong>Feedback received!</strong> Thank you &mdash; someone from our team will be in touch shortly.
+        </div>
+
+        <form id="gr-feedback-form" class="gr-feedback-form" novalidate aria-label="Feedback form">
+          <div class="gr-feedback-form__row">
+            <div class="gr-form__group">
+              <label class="gr-form__label" for="fb-name">Your Name <span class="gr-form__required" aria-hidden="true">*</span></label>
+              <input type="text" id="fb-name" name="fb_name" class="gr-form__input" placeholder="Your Name" required />
+            </div>
+            <div class="gr-form__group">
+              <label class="gr-form__label" for="fb-email">Email Address <span class="gr-form__required" aria-hidden="true">*</span></label>
+              <input type="email" id="fb-email" name="fb_email" class="gr-form__input" placeholder="you@example.com" required />
+            </div>
+          </div>
+          <div class="gr-form__group">
+            <label class="gr-form__label" for="fb-message">Your Feedback <span class="gr-form__required" aria-hidden="true">*</span></label>
+            <textarea id="fb-message" name="fb_message" class="gr-form__input gr-form__textarea" placeholder="Tell us what we could do better&hellip;" rows="4" required></textarea>
+          </div>
+          <div class="gr-feedback-form__footer">
+            <button type="submit" class="gr-form__submit">Send Feedback <span aria-hidden="true">&rarr;</span></button>
+          </div>
+        </form>
       </div>
 
-      <!-- ── HIGH SCORE response (7-10) ─────────────────────────── -->
+      <!-- ── HIGH SCORE response (8-10) ─────────────────────────── -->
       <div class="gr-response gr-response--high" id="response-high" hidden>
         <div class="gr-response__icon" aria-hidden="true">&#127775;</div>
         <h3>That means so much to us!</h3>
@@ -107,8 +123,8 @@ get_header();
     </div>
   </section>
 
-  <!-- ══ REFERRAL BONUS ════════════════════════════════════════════ -->
-  <section class="gr-referral" id="referral-section">
+  <!-- ══ REFERRAL BONUS (shown only for NPS 8-10) ═════════════════ -->
+  <section class="gr-referral" id="referral-section" hidden>
     <div class="gr-container">
 
       <div class="gr-referral__badge">
@@ -292,9 +308,10 @@ get_header();
   'use strict';
 
   /* ── NPS score selection ──────────────────────────────────── */
-  var npsButtons = document.querySelectorAll('.gr-nps__btn');
-  var responseLow  = document.getElementById('response-low');
-  var responseHigh = document.getElementById('response-high');
+  var npsButtons     = document.querySelectorAll('.gr-nps__btn');
+  var responseLow    = document.getElementById('response-low');
+  var responseHigh   = document.getElementById('response-high');
+  var referralSection = document.getElementById('referral-section');
 
   npsButtons.forEach(function (btn) {
     btn.addEventListener('click', function () {
@@ -304,22 +321,62 @@ get_header();
       npsButtons.forEach(function (b) { b.classList.remove('is-active'); });
       btn.classList.add('is-active');
 
-      /* Show the right response */
-      if (score >= 7) {
-        responseLow.hidden  = true;
-        responseHigh.hidden = false;
+      /* 8-10 = promoter (show review + referral); 0-7 = detractor/passive (show feedback form) */
+      if (score >= 8) {
+        responseLow.hidden          = true;
+        responseHigh.hidden         = false;
+        if (referralSection) referralSection.hidden = false;
       } else {
-        responseHigh.hidden = true;
-        responseLow.hidden  = false;
+        responseHigh.hidden         = true;
+        responseLow.hidden          = false;
+        if (referralSection) referralSection.hidden = true;
       }
 
       /* Smooth-scroll to response */
-      var target = score >= 7 ? responseHigh : responseLow;
+      var target = score >= 8 ? responseHigh : responseLow;
       setTimeout(function () {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 120);
     });
   });
+
+  /* ── Feedback form (low score) ────────────────────────────── */
+  var feedbackForm    = document.getElementById('gr-feedback-form');
+  var feedbackSuccess = document.getElementById('gr-feedback-success');
+
+  if (feedbackForm) {
+    feedbackForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!feedbackForm.checkValidity()) { feedbackForm.reportValidity(); return; }
+
+      var submitBtn = feedbackForm.querySelector('.gr-form__submit');
+      submitBtn.disabled    = true;
+      submitBtn.textContent = 'Sending\u2026';
+
+      var data = new FormData(feedbackForm);
+      data.append('action', 'gr_feedback_submit');
+      data.append('nonce',  grData.feedbackNonce);
+
+      fetch(grData.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: data })
+        .then(function (res) { return res.json(); })
+        .then(function (json) {
+          if (json.success) {
+            feedbackSuccess.hidden = false;
+            feedbackForm.hidden    = true;
+            feedbackSuccess.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          } else {
+            alert(json.data || 'Something went wrong. Please try again.');
+            submitBtn.disabled    = false;
+            submitBtn.textContent = 'Send Feedback \u2192';
+          }
+        })
+        .catch(function () {
+          alert('Network error. Please check your connection and try again.');
+          submitBtn.disabled    = false;
+          submitBtn.textContent = 'Send Feedback \u2192';
+        });
+    });
+  }
 
   /* ── Referral form ────────────────────────────────────────── */
   var form       = document.getElementById('gr-referral-form');
@@ -329,31 +386,22 @@ get_header();
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      /* Basic HTML5 validation */
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
+      if (!form.checkValidity()) { form.reportValidity(); return; }
 
       var submitBtn = form.querySelector('.gr-form__submit');
       submitBtn.disabled    = true;
       submitBtn.textContent = 'Submitting\u2026';
 
       var data = new FormData(form);
-      data.append('action',  'gr_referral_submit');
-      data.append('nonce',   grData.nonce);
+      data.append('action', 'gr_referral_submit');
+      data.append('nonce',  grData.nonce);
 
-      fetch(grData.ajaxUrl, {
-        method:      'POST',
-        credentials: 'same-origin',
-        body:        data
-      })
+      fetch(grData.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: data })
         .then(function (res) { return res.json(); })
         .then(function (json) {
           if (json.success) {
             successMsg.hidden = false;
             successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            /* Reset only the referral fields — keep submitter info for convenience */
             form.querySelector('#ref-name').value  = '';
             form.querySelector('#ref-email').value = '';
             form.querySelector('#ref-phone').value = '';

@@ -77,8 +77,9 @@ function digitalstride_enqueue_assets() {
         wp_add_inline_script(
             'jquery-core',
             'var grData = ' . wp_json_encode([
-                'ajaxUrl' => admin_url('admin-ajax.php'),
-                'nonce'   => wp_create_nonce('gr_referral_nonce'),
+                'ajaxUrl'       => admin_url('admin-ajax.php'),
+                'nonce'         => wp_create_nonce('gr_referral_nonce'),
+                'feedbackNonce' => wp_create_nonce('gr_feedback_nonce'),
             ]) . ';'
         );
     }
@@ -765,6 +766,51 @@ function ds_handle_gr_referral_submission() {
 }
 add_action( 'wp_ajax_gr_referral_submit',        'ds_handle_gr_referral_submission' );
 add_action( 'wp_ajax_nopriv_gr_referral_submit', 'ds_handle_gr_referral_submission' );
+
+/**
+ * Handles the feedback form AJAX submission from the Google Review landing page (low NPS).
+ */
+function ds_handle_gr_feedback_submission() {
+    if ( ! check_ajax_referer( 'gr_feedback_nonce', 'nonce', false ) ) {
+        wp_send_json_error( 'Security check failed. Please refresh the page and try again.' );
+    }
+
+    $name    = sanitize_text_field( wp_unslash( $_POST['fb_name']    ?? '' ) );
+    $email   = sanitize_email( wp_unslash( $_POST['fb_email']        ?? '' ) );
+    $message = sanitize_textarea_field( wp_unslash( $_POST['fb_message'] ?? '' ) );
+
+    $errors = [];
+    if ( empty( $name ) )                          { $errors[] = 'Your name is required.'; }
+    if ( empty( $email ) || ! is_email( $email ) ) { $errors[] = 'A valid email address is required.'; }
+    if ( empty( $message ) )                       { $errors[] = 'Please enter your feedback.'; }
+
+    if ( ! empty( $errors ) ) {
+        wp_send_json_error( implode( ' ', $errors ) );
+    }
+
+    $to      = 'hello@mydigitalstride.com';
+    $subject = 'Client Feedback — Digital Stride';
+    $headers = [
+        'Content-Type: text/html; charset=UTF-8',
+        'Reply-To: ' . $name . ' <' . $email . '>',
+    ];
+
+    $body  = '<html><body style="font-family:Arial,sans-serif;color:#020b24;">';
+    $body .= '<h2 style="color:#1d4382;">Client Feedback Submission</h2>';
+    $body .= '<table cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%;max-width:560px;">';
+    $body .= '<tr><td style="border-bottom:1px solid #eee;width:100px;font-weight:bold;">Name</td><td style="border-bottom:1px solid #eee;">' . esc_html( $name ) . '</td></tr>';
+    $body .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;">Email</td><td style="border-bottom:1px solid #eee;">' . esc_html( $email ) . '</td></tr>';
+    $body .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;vertical-align:top;">Feedback</td><td style="border-bottom:1px solid #eee;">' . nl2br( esc_html( $message ) ) . '</td></tr>';
+    $body .= '</table>';
+    $body .= '<p style="margin-top:20px;font-size:12px;color:#888;">Submitted via the Digital Stride Google Review page (low NPS score).</p>';
+    $body .= '</body></html>';
+
+    wp_mail( $to, $subject, $body, $headers );
+
+    wp_send_json_success( 'Feedback submitted successfully.' );
+}
+add_action( 'wp_ajax_gr_feedback_submit',        'ds_handle_gr_feedback_submission' );
+add_action( 'wp_ajax_nopriv_gr_feedback_submit', 'ds_handle_gr_feedback_submission' );
 
 /* =============================================================
    MARCH MADNESS — HTML CONFIRMATION EMAIL BUILDER
