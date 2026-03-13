@@ -84,6 +84,18 @@ function digitalstride_enqueue_assets() {
         );
     }
 
+    // Referral Landing page CSS + JS data
+    if (is_page_template('page-referral-landing.php')) {
+        wp_enqueue_style('referral-landing-css', get_template_directory_uri() . '/styles/referral-landing.css', [], '1.0.0');
+        wp_add_inline_script(
+            'jquery-core',
+            'var rlData = ' . wp_json_encode([
+                'ajaxUrl' => admin_url('admin-ajax.php'),
+                'nonce'   => wp_create_nonce('rl_referral_nonce'),
+            ]) . ';'
+        );
+    }
+
     // ACF flexible content layout: Services CSS
     if (is_page()) {
         $sections = get_field('services_sections');
@@ -782,6 +794,92 @@ function ds_handle_gr_referral_submission() {
 }
 add_action( 'wp_ajax_gr_referral_submit',        'ds_handle_gr_referral_submission' );
 add_action( 'wp_ajax_nopriv_gr_referral_submit', 'ds_handle_gr_referral_submission' );
+
+/* =============================================================
+   REFERRAL LANDING PAGE — FORM SUBMISSION
+   ============================================================= */
+
+/**
+ * Handles the referral form AJAX submission from the Referral Landing page.
+ * Accepts submitter name + email, plus up to 20 referrals (name, email, phone).
+ */
+function ds_handle_rl_referral_submission() {
+    if ( ! check_ajax_referer( 'rl_referral_nonce', 'nonce', false ) ) {
+        wp_send_json_error( 'Security check failed. Please refresh the page and try again.' );
+    }
+
+    // Submitter info (name + email required; no phone needed)
+    $sub_name  = sanitize_text_field( wp_unslash( $_POST['submitter_name']  ?? '' ) );
+    $sub_email = sanitize_email( wp_unslash( $_POST['submitter_email']      ?? '' ) );
+
+    $errors = [];
+    if ( empty( $sub_name ) )                                { $errors[] = 'Your name is required.'; }
+    if ( empty( $sub_email ) || ! is_email( $sub_email ) )  { $errors[] = 'A valid email address is required.'; }
+
+    // Referrals array: referrals[n][name], referrals[n][email], referrals[n][phone]
+    $raw_referrals = isset( $_POST['referrals'] ) && is_array( $_POST['referrals'] )
+        ? $_POST['referrals']
+        : [];
+
+    $referrals = [];
+    foreach ( $raw_referrals as $key => $ref ) {
+        $r_name  = sanitize_text_field( wp_unslash( $ref['name']  ?? '' ) );
+        $r_email = sanitize_email( wp_unslash( $ref['email']      ?? '' ) );
+        $r_phone = sanitize_text_field( wp_unslash( $ref['phone'] ?? '' ) );
+
+        if ( empty( $r_name ) && empty( $r_email ) ) continue; // skip fully blank rows
+
+        if ( empty( $r_name ) )                              { $errors[] = 'Name is required for each referral (row ' . intval( $key ) . ').'; }
+        if ( empty( $r_email ) || ! is_email( $r_email ) )  { $errors[] = 'A valid email is required for each referral (row ' . intval( $key ) . ').'; }
+
+        $referrals[] = [ 'name' => $r_name, 'email' => $r_email, 'phone' => $r_phone ];
+
+        if ( count( $referrals ) >= 20 ) break; // hard cap at 20
+    }
+
+    if ( empty( $referrals ) ) {
+        $errors[] = 'Please add at least one referral.';
+    }
+
+    if ( ! empty( $errors ) ) {
+        wp_send_json_error( implode( ' ', $errors ) );
+    }
+
+    // Build notification email to DS team
+    $to      = 'hello@mydigitalstride.com';
+    $subject = 'New Professional Referral Submission (' . count( $referrals ) . ' contact' . ( count( $referrals ) !== 1 ? 's' : '' ) . ') — Digital Stride';
+    $headers = [
+        'Content-Type: text/html; charset=UTF-8',
+        'Reply-To: ' . $sub_name . ' <' . $sub_email . '>',
+    ];
+
+    $body  = '<html><body style="font-family:Arial,sans-serif;color:#020b24;">';
+    $body .= '<h2 style="color:#1d4382;">New Referral Landing Page Submission</h2>';
+    $body .= '<p style="font-size:14px;"><strong>Submitted by:</strong> ' . esc_html( $sub_name ) . ' &lt;' . esc_html( $sub_email ) . '&gt;</p>';
+    $body .= '<p style="font-size:14px;"><strong>Total contacts submitted:</strong> ' . count( $referrals ) . '</p>';
+    $body .= '<table cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%;max-width:620px;margin-top:16px;">';
+    $body .= '<tr style="background:#1d4382;color:#fff;"><th style="text-align:left;padding:10px 12px;">#</th><th style="text-align:left;padding:10px 12px;">Name</th><th style="text-align:left;padding:10px 12px;">Email</th><th style="text-align:left;padding:10px 12px;">Phone</th></tr>';
+
+    foreach ( $referrals as $i => $ref ) {
+        $row_bg = ( $i % 2 === 0 ) ? '#f9fafc' : '#fff';
+        $body .= '<tr style="background:' . $row_bg . ';">';
+        $body .= '<td style="border-bottom:1px solid #eee;padding:8px 12px;font-size:13px;">' . ( $i + 1 ) . '</td>';
+        $body .= '<td style="border-bottom:1px solid #eee;padding:8px 12px;font-size:13px;">' . esc_html( $ref['name'] ) . '</td>';
+        $body .= '<td style="border-bottom:1px solid #eee;padding:8px 12px;font-size:13px;">' . esc_html( $ref['email'] ) . '</td>';
+        $body .= '<td style="border-bottom:1px solid #eee;padding:8px 12px;font-size:13px;">' . ( ! empty( $ref['phone'] ) ? esc_html( $ref['phone'] ) : '&mdash;' ) . '</td>';
+        $body .= '</tr>';
+    }
+
+    $body .= '</table>';
+    $body .= '<p style="margin-top:20px;font-size:12px;color:#888;">Submitted via the Digital Stride Referral Landing Page. Reward: $5 per contact submitted, $300 Amazon gift card per new customer.</p>';
+    $body .= '</body></html>';
+
+    wp_mail( $to, $subject, $body, $headers );
+
+    wp_send_json_success( 'Referrals submitted successfully.' );
+}
+add_action( 'wp_ajax_rl_referral_submit',        'ds_handle_rl_referral_submission' );
+add_action( 'wp_ajax_nopriv_rl_referral_submit', 'ds_handle_rl_referral_submission' );
 
 /**
  * Handles the feedback form AJAX submission from the Google Review landing page (low NPS).
