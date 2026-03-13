@@ -1,5 +1,5 @@
  <section class="package-section">
-                <img class="package-background-image" src="<?php the_sub_field('package_background_image'); ?>" alt="img">
+                <img class="package-background-image" src="<?php the_sub_field('package_background_image'); ?>" alt="<?php echo esc_attr( get_sub_field('package_title') ); ?> background">
                 <div class="package-header">
                     <h2 class="package-title"><?php the_sub_field('package_title'); ?></h2>
                     <?php if (get_sub_field('package_sub_title_')): ?>

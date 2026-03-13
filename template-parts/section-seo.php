@@ -31,7 +31,7 @@ if ($bg_color) {
             ?>
               <li class="benefit-item">
                 <?php if ($icon): ?>
-                  <img src="<?php echo esc_url($icon['url']); ?>" alt="Icon" />
+                  <img src="<?php echo esc_url($icon['url']); ?>" alt="<?php echo esc_attr($icon['alt'] ?: $benefit); ?>" />
                 <?php endif; ?>
                 <span><?php echo esc_html($benefit); ?></span>
               </li>

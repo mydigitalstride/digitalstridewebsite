@@ -361,6 +361,9 @@ function digitalstride_self_canonical() {
 remove_action( 'wp_head', 'rel_canonical' );
 add_action( 'wp_head', 'digitalstride_self_canonical' );
 
+// Suppress Yoast SEO canonical — we manage canonical centrally above.
+add_filter( 'wpseo_canonical', '__return_false' );
+
 // Admin notice if ACF is missing
 function digitalstride_required_plugins_notice() {
     if (!function_exists('get_field')) {
@@ -465,6 +468,97 @@ function digitalstride_update_legacy_urls( $content ) {
 }
 add_filter( 'the_content', 'digitalstride_update_legacy_urls' );
 add_filter( 'the_excerpt', 'digitalstride_update_legacy_urls' );
+
+/* =============================================================
+   301 REDIRECTS
+   ============================================================= */
+
+function digitalstride_301_redirects() {
+    $path = parse_url( $_SERVER['REQUEST_URI'], PHP_URL_PATH );
+
+    $redirects = [
+        '/digital-marketing'                           => '/digital-advertising/',
+        '/digital-marketing/'                          => '/digital-advertising/',
+        '/accessibility-statement/Mydigitalstride.com' => '/accessibility-statement/',
+    ];
+
+    if ( isset( $redirects[ $path ] ) ) {
+        wp_redirect( home_url( $redirects[ $path ] ), 301 );
+        exit;
+    }
+}
+add_action( 'template_redirect', 'digitalstride_301_redirects' );
+
+/* =============================================================
+   FALLBACK META DESCRIPTIONS (SEO + AEO)
+   Fills in Yoast meta descriptions only when none has been set
+   in the Yoast admin panel for that post/page.
+   ============================================================= */
+
+function digitalstride_fallback_metadesc( $desc ) {
+    if ( ! empty( $desc ) ) {
+        return $desc;
+    }
+
+    $descriptions = [
+        // Blog posts (/marketing/ category)
+        'whats-the-best-way-to-pick-seo-keywords-for-my-business'
+            => 'Learn how to pick the best SEO keywords for your business. Our guide covers keyword research, search intent, and tools to help you rank higher on Google.',
+        'why-small-businesses-in-york-pa-need-professional-website-design'
+            => 'York, PA small businesses need a professional website to attract local customers. Learn why expert web design is essential for competing and growing online.',
+        'gamification-tactics-to-try-and-avoid'
+            => 'Learn which gamification tactics boost customer engagement and which to avoid. Explore proven marketing strategies that reward loyalty and drive conversions.',
+        'assisted-living-marketing-ideas-2'
+            => 'Discover more assisted living marketing ideas to attract residents and families. Proven digital strategies to grow your senior care community\'s online presence.',
+        'assisted-living-marketing-ideas'
+            => 'Discover top assisted living marketing ideas to attract families and fill vacancies. Learn proven digital strategies tailored for senior care communities.',
+        'last-minute-holiday-promotion-tips-for-small-businesses'
+            => 'Running out of time? These last-minute holiday promotion tips help small businesses drive seasonal sales fast with quick, effective marketing ideas.',
+        'make-your-website-work-smarter-not-harder-a-guide-for-digital-marketers'
+            => 'Make your website work smarter with this guide for digital marketers. Learn optimization tips that generate leads and conversions without the extra effort.',
+        'why-mobile-friendly-website-design-matters-in-2025'
+            => 'Find out why mobile-friendly website design matters in 2025. Responsive design boosts SEO, improves user experience, and converts more mobile visitors.',
+        'how-load-times-impact-website-usability'
+            => 'Slow load times hurt your website\'s usability and rankings. Learn how page speed affects bounce rates and conversions—and how to fix it for better results.',
+        'how-website-optimization-can-boost-your-online-sales'
+            => 'Website optimization can significantly boost your online sales. Discover how speed, UX, and SEO improvements turn more visitors into paying customers.',
+        'transform-your-online-presence-with-digital-strides-website-design-services'
+            => 'Transform your online presence with Digital Stride\'s website design services. Expert web design in York, PA that drives traffic, leads, and real conversions.',
+        'how-do-i-find-the-best-website-designer-near-me'
+            => 'Find the best website designer near you with our expert tips. Learn what to look for, what questions to ask, and how to choose the right design partner.',
+        'what-makes-a-great-e-commerce-website-design-in-2026'
+            => 'What makes a great e-commerce website design in 2026? Explore key features, UX best practices, and design trends that drive online sales and customer trust.',
+        'what-to-look-for-in-a-web-design-company-near-you'
+            => 'Looking for a web design company near you? Learn what to look for, key questions to ask, and how to choose the right partner to build your perfect website.',
+        'how-can-i-dominate-local-seo-and-rank-higher-on-google'
+            => 'Learn how to dominate local SEO and rank higher on Google. Discover proven strategies to appear in local searches, attract nearby customers, and grow fast.',
+        'do-i-need-a-google-my-business-profile-for-local-seo'
+            => 'Yes—a Google Business Profile is essential for local SEO. Learn why optimizing your listing helps you rank higher on Google and attract more local customers.',
+        // Guide posts (/guides/ category)
+        'when-is-it-time-to-redesign-your-website'
+            => 'Not sure if it\'s time to redesign your website? Discover the key signs your site is hurting your business—and what a modern redesign can do for growth.',
+        // Pages
+        'https-staging8-mydigitalstride-com-home-page'
+            => 'Digital Stride helps businesses grow online through expert web design, SEO, and digital marketing services based in York, PA.',
+        'lunch-learn-feedback-quiz'
+            => 'Share your feedback from our Lunch & Learn event. Complete this quick quiz to help Digital Stride improve future sessions and better serve our community.',
+    ];
+
+    $obj = get_queried_object();
+
+    // Singular posts and pages — match by slug
+    if ( $obj && ! empty( $obj->post_name ) && isset( $descriptions[ $obj->post_name ] ) ) {
+        return $descriptions[ $obj->post_name ];
+    }
+
+    // Events archive (/events/)
+    if ( is_post_type_archive( 'ds_event' ) || ( is_page() && $obj && $obj->post_name === 'events' ) ) {
+        return 'Browse upcoming events hosted by Digital Stride. From lunch-and-learns to marketing workshops, find events to grow your business in York, PA.';
+    }
+
+    return $desc;
+}
+add_filter( 'wpseo_metadesc', 'digitalstride_fallback_metadesc' );
 
 /* =============================================================
    MARCH MADNESS — BRACKET ENTRY CPT
@@ -648,6 +742,141 @@ function ds_mm_round_table( $round_label, $regions, $labels, $picks, $prefix, $c
     $html .= '</table></div>';
     return $html;
 }
+
+/* =============================================================
+   IMAGE ALT TAG FALLBACKS
+   Ensures known site images carry descriptive alt text for
+   accessibility (WCAG 2.1 Success Criterion 1.1.1).
+   ============================================================= */
+
+/**
+ * Returns a map of URL path fragments to descriptive alt text for known site images.
+ * Keys are substrings that uniquely identify each image within its upload URL.
+ */
+function digitalstride_get_image_alt_map() {
+    return [
+        '2025/07/Origami.png'               => 'Colorful paper origami crane',
+        '2026/01/Artboard-3-1'              => 'Digital Stride design artwork',
+        '2023/12/702300.png'                => 'X (formerly Twitter) social media icon',
+        '2023/12/Facebook_icon.svg.png'     => 'Facebook social media icon',
+        'PXL_20240821_002849092'            => 'Digital Stride team member photo',
+        '2025/06/2.png'                     => 'Digital Stride hero background gradient',
+        '2025/07/Website-Sketches-3'        => 'Website design wireframe sketch',
+        '2025/07/3-e1752770229938'          => 'Digital Stride design illustration',
+        '2024/10/Ship-Sketch.png'           => 'Hand-drawn ship sketch illustration',
+        '2024/10/Treasure-Chest-Sketch.png' => 'Hand-drawn treasure chest sketch illustration',
+        '2024/10/Hot-Air-Balloon-Sketch.png'=> 'Hand-drawn hot air balloon sketch illustration',
+        '2024/10/Cheetah-Sketch.png'        => 'Hand-drawn cheetah sketch illustration',
+        '2025/07/4-1.png'                   => 'Digital Stride creative illustration',
+        '2026/01/Three-Lightbulbs-hanging'  => 'Three hanging light bulbs',
+        '2026/01/Eye.webp'                  => 'Eye graphic illustration',
+        '2025/06/2-3'                       => 'Digital Stride team member profile photo',
+        '2025/06/4-300x300'                 => 'Digital Stride team member profile photo',
+        '2026/02/Debbie-Photo'              => 'Debbie, Digital Stride team member',
+        '2026/02/Sara-Nguyen'               => 'Sara Nguyen, Digital Stride team member',
+        '2025/08/5.png'                     => 'Digital Stride creative illustration',
+        '2025/08/2-1.png'                   => 'Digital Stride design illustration',
+        '2026/03/image.webp'                => 'Digital Stride featured post image',
+        '2026/02/PXL_20260205_221901227'    => 'Digital Stride event photo',
+        '2023/01/image-1.png'               => 'Digital Stride featured image',
+        '2023/01/image-2.png'               => 'Digital Stride featured image',
+        '2022/11/Business-Manager'          => 'Facebook Business Manager interface screenshot',
+        '2022/11/Page-access.png'           => 'Facebook Page access settings screenshot',
+        '2024/10/FB-DS-post.png'            => 'Digital Stride Facebook post example',
+        '2024/12/image.png'                 => 'Digital Stride featured post image',
+    ];
+}
+
+/**
+ * Adds descriptive alt text to attachment images rendered via WordPress functions
+ * when the alt meta field is empty.
+ *
+ * @param array      $attr       HTML attributes for the image.
+ * @param WP_Post    $attachment Attachment post object.
+ * @param string|int $size       Requested image size.
+ * @return array
+ */
+function digitalstride_fix_attachment_image_alt( $attr, $attachment, $size ) {
+    if ( ! empty( $attr['alt'] ) ) {
+        return $attr;
+    }
+
+    $src = isset( $attr['src'] ) ? $attr['src'] : '';
+    if ( empty( $src ) ) {
+        return $attr;
+    }
+
+    foreach ( digitalstride_get_image_alt_map() as $fragment => $alt_text ) {
+        if ( strpos( $src, $fragment ) !== false ) {
+            $attr['alt'] = $alt_text;
+            break;
+        }
+    }
+
+    return $attr;
+}
+add_filter( 'wp_get_attachment_image_attributes', 'digitalstride_fix_attachment_image_alt', 10, 3 );
+
+/**
+ * Adds descriptive alt text to inline <img> tags in post content
+ * when the alt attribute is absent or empty.
+ *
+ * @param string $content Post content HTML.
+ * @return string
+ */
+function digitalstride_fix_content_image_alts( $content ) {
+    if ( empty( $content ) || strpos( $content, '<img' ) === false ) {
+        return $content;
+    }
+
+    $alt_map = digitalstride_get_image_alt_map();
+
+    return preg_replace_callback(
+        '/<img\b[^>]*>/i',
+        function ( $matches ) use ( $alt_map ) {
+            $tag = $matches[0];
+
+            // Already has a non-empty alt — leave it alone.
+            if ( preg_match( '/\balt=["\']([^"\']+)["\']/', $tag ) ) {
+                return $tag;
+            }
+
+            // Require a src attribute to look up alt text.
+            if ( ! preg_match( '/\bsrc=["\']([^"\']*)["\']/', $tag, $src_match ) ) {
+                return $tag;
+            }
+            $src = $src_match[1];
+
+            // Find the first matching alt text for this URL.
+            $alt_text = '';
+            foreach ( $alt_map as $fragment => $alt ) {
+                if ( strpos( $src, $fragment ) !== false ) {
+                    $alt_text = $alt;
+                    break;
+                }
+            }
+
+            if ( empty( $alt_text ) ) {
+                return $tag;
+            }
+
+            $escaped_alt = esc_attr( $alt_text );
+
+            // Replace an empty alt="", or insert a missing alt attribute.
+            if ( preg_match( '/\balt=["\']["\']/', $tag ) ) {
+                return preg_replace( '/\balt=["\']["\']/', 'alt="' . $escaped_alt . '"', $tag );
+            }
+
+            return preg_replace( '/(\s*\/?>)$/', ' alt="' . $escaped_alt . '"$1', $tag );
+        },
+        $content
+    );
+}
+add_filter( 'the_content', 'digitalstride_fix_content_image_alts' );
+
+/* =============================================================
+   END IMAGE ALT TAG FALLBACKS
+   ============================================================= */
 
 /**
  * Assembles the full HTML confirmation email.

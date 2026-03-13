@@ -1,8 +1,8 @@
 <?php
 /**
- * Template Name: March Madness Bracket
+ * Template Name: College Basketball Bracket
  *
- * Digital Stride 2026 March Madness bracket contest page.
+ * Digital Stride 2026 College Basketball bracket contest page.
  * Grand Prize: $10,000 CASH (perfect bracket)
  * 1st: AEO Audit ($1,500) | 2nd: Website Perf. Audit ($350) | 3rd: Local Listing Sync ($150)
  */
@@ -23,7 +23,7 @@ get_header();
       <div class="mm-deadline">
         <span class="mm-deadline__icon">&#8987;</span>
         <div class="mm-deadline__text">
-          <strong>Entry Window:</strong> 6:00 PM ET Sunday, March 15 through tip-off of the first game.<br>
+          <strong>Entry Window:</strong> 6:00 PM ET Sunday, March 15 through the start of the first game of the Round of 64 (Thursday, March 19, 2026).<br>
           <em>Open to U.S. residents 18 years or older. No purchase necessary.</em>
         </div>
       </div>
@@ -74,10 +74,10 @@ get_header();
 
         <!-- Left: text copy -->
         <div class="mm-seo-intro__text">
-          <div class="mm-seo-intro__eyebrow">Digital Marketing &amp; March Madness</div>
+          <div class="mm-seo-intro__eyebrow">Digital Marketing &amp; College Basketball</div>
           <h2 class="mm-seo-intro__title">Is Your Business Ready to Go All the Way?</h2>
           <p>
-            March Madness isn&rsquo;t just a basketball tournament &mdash; it&rsquo;s the perfect metaphor for digital marketing.
+            College Basketball in March isn&rsquo;t just a basketball tournament &mdash; it&rsquo;s the perfect metaphor for digital marketing.
             Every team shows up on Selection Sunday hoping they&rsquo;ve done enough to earn a spot. Sound familiar?
             Every day, your business is competing in <em>its own bracket</em>: the search results page.
           </p>
@@ -174,6 +174,7 @@ get_header();
   <!-- ══ BRACKET FORM ══════════════════════════════════════════ -->
   <section class="mm-form-section">
     <div class="mm-container">
+      <h2 class="mm-seo-intro__title">Submit your winning bracket!</h2>
       <div id="mm-bracket-form" class="mm-bracket-form">
         <!-- Injected by march-madness.js -->
         <noscript>
@@ -212,13 +213,16 @@ get_header();
         <div>
           <h3 class="mm-rules__subtitle">Prizes &amp; Winners</h3>
           <ul class="mm-rules__list">
-            <li><strong>Grand Prize ($10,000 CASH):</strong> Awarded only if a participant submits a perfect bracket (all 63 picks correct). Odds of a perfect bracket are approximately 1 in 9.2 quintillion. If no perfect bracket is submitted, this prize will not be awarded.</li>
-            <li><strong>1st Place (AEO Audit &amp; Assessment, $1,500 value):</strong> Awarded to the participant with the highest number of correct picks.</li>
-            <li><strong>2nd Place (Website Performance Audit &amp; Analysis, $350 value):</strong> Awarded to the participant with the second-highest number of correct picks.</li>
-            <li><strong>3rd Place (Local Listing Sync of 40+, $150 value):</strong> Awarded to the participant with the third-highest number of correct picks.</li>
-            <li><strong>Winners will be determined and announced on April 6, 2026</strong>, following the conclusion of the NCAA Championship Game.</li>
-            <li>Tiebreaker: In the event of a tie in picks, the tiebreaker is determined by the entrant whose championship pick is correct, then by earliest submission timestamp.</li>
-            <li>Service prizes (1st&ndash;3rd) have no cash equivalent and must be redeemed within 12 months of notification.</li>
+            <li><strong>Grand Prize ($10,000 CASH):</strong> Awarded only for a verified perfect bracket (63/63 games). If no perfect bracket is submitted, no Grand Prize will be awarded. Odds of winning the Grand Prize depend on the entrant's ability to correctly predict the outcome of all 63 games; the mathematical probability of a perfect bracket is extremely low.</li>
+            <li><strong>1st–3rd Place:</strong>  Awarded based on highest point totals (1 point per correct pick).</li>
+                <ul>
+                <li>  1st Place: AEO Audit & Assessment ($1,500 value).</li>
+                <li>  2nd Place: Website Performance Audit & Analysis ($350 value).</li>
+                <li>  3rd Place: Local Listing Sync of 40+ ($150 value).</li>
+                <li>  Total Prize Pool ARV: $2,000 (excluding Grand Prize).</li></ul>
+            <li><strong>Tiebreaker: </strong>(1) Correct Championship winner, then (2) Closest prediction of the total combined points in the Championship game, then (3) Earliest submission timestamp.</li>
+            <li>Tax Reporting: Winners of prizes valued at $600 or more will be required to provide a W-9 form for tax reporting purposes.</li>  
+            <li>Service prizes (1st&ndash;3rd) have no cash equivalent and must be redeemed within 12 months of notification. Prizes are non-transferable and no substitution will be made except as provided herein at the Sponsor’s sole discretion.</li>
             <li>Digital Stride reserves the right to verify eligibility and correct picks before awarding prizes.</li>
           </ul>
 
@@ -226,9 +230,10 @@ get_header();
           <ul class="mm-rules__list">
             <li>By entering this contest, you agree that <strong>Digital Stride may contact you via email or phone for marketing and promotional purposes</strong>, including information about digital marketing services.</li>
             <li>You may opt out of marketing communications at any time by clicking &ldquo;unsubscribe&rdquo; in any email or contacting us directly.</li>
+
             <li>Your information will never be sold to third parties. See our Privacy Policy for full details.</li>
             <li>Digital Stride reserves the right to modify, suspend, or cancel this contest at any time.</li>
-            <li>Teams listed are projected seedings. Actual teams are subject to change after Selection Sunday, March 16, 2026.</li>
+            <li>Teams listed are projected seedings. Actual teams are subject to change after Selection Sunday, March 15, 2026.</li>
           </ul>
         </div>
 

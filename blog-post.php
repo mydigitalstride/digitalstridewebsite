@@ -16,7 +16,7 @@ get_header(); ?>
         <p class="hero-subtitle">Insights, tutorials, and spotlights from our team.</p>
       </div>
       <div class="hero-right">
-        <img class="hero-image" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/default-hero.jpg' ); ?>" alt="">
+        <img class="hero-image" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/default-hero.jpg' ); ?>" alt="Digital Stride Blog">
       </div>
     </div>
   </section>

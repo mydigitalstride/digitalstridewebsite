@@ -29,7 +29,7 @@ if ($shared_bg) {
           <div class="section-content"><?php the_sub_field('content'); ?></div>
         </div>
         <div class="hero-right">
-          <img class="section-image" src="<?php the_sub_field('section_image'); ?>" alt="img">
+          <img class="section-image" src="<?php the_sub_field('section_image'); ?>" alt="<?php echo esc_attr(get_sub_field('section_title')); ?>">
         </div>
       </div>
     </div>
@@ -38,7 +38,7 @@ if ($shared_bg) {
    <?php elseif (get_row_layout() == 'strategy'): ?>
     <section class="strategy-local-section">
           <div class="strategy-left">
-           <img class="strategy-image" src="<?php the_sub_field('strategy_image'); ?>" alt="image">
+           <img class="strategy-image" src="<?php the_sub_field('strategy_image'); ?>" alt="Our Strategy">
           </div>
           <div class="strategy-right">
             <?php the_sub_field('people_first'); ?>
