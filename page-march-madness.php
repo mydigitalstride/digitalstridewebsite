@@ -211,18 +211,28 @@ get_header();
         </div>
 
         <div>
+          <h3 class="mm-rules__subtitle">Scoring</h3>
+          <ul class="mm-rules__list">
+            <li>Each correct pick earns points based on the round: <strong>Round 1 = 1 pt, Round of 32 = 2 pts, Sweet 16 = 4 pts, Elite Eight = 8 pts, Final Four = 16 pts, Championship = 32 pts.</strong></li>
+            <li>The maximum possible score for a perfect bracket is 192 points.</li>
+            <li>1st&ndash;3rd place prizes are awarded based on total points accumulated, not raw pick count.</li>
+          </ul>
+
           <h3 class="mm-rules__subtitle">Prizes &amp; Winners</h3>
           <ul class="mm-rules__list">
-            <li><strong>Grand Prize ($10,000 CASH):</strong> Awarded only for a verified perfect bracket (63/63 games). If no perfect bracket is submitted, no Grand Prize will be awarded. Odds of winning the Grand Prize depend on the entrant's ability to correctly predict the outcome of all 63 games; the mathematical probability of a perfect bracket is extremely low.</li>
-            <li><strong>1st–3rd Place:</strong>  Awarded based on highest point totals (1 point per correct pick).</li>
-                <ul>
-                <li>  1st Place: AEO Audit & Assessment ($1,500 value).</li>
-                <li>  2nd Place: Website Performance Audit & Analysis ($350 value).</li>
-                <li>  3rd Place: Local Listing Sync of 40+ ($150 value).</li>
-                <li>  Total Prize Pool ARV: $2,000 (excluding Grand Prize).</li></ul>
-            <li><strong>Tiebreaker: </strong>(1) Correct Championship winner, then (2) Closest prediction of the total combined points in the Championship game, then (3) Earliest submission timestamp.</li>
-            <li>Tax Reporting: Winners of prizes valued at $600 or more will be required to provide a W-9 form for tax reporting purposes.</li>  
-            <li>Service prizes (1st&ndash;3rd) have no cash equivalent and must be redeemed within 12 months of notification. Prizes are non-transferable and no substitution will be made except as provided herein at the Sponsor’s sole discretion.</li>
+            <li><strong>Grand Prize ($10,000 CASH):</strong> Awarded only for a verified perfect bracket (63/63 games). If no perfect bracket is submitted, no Grand Prize will be awarded. Odds of winning the Grand Prize depend on the entrant&rsquo;s ability to correctly predict all 63 game outcomes; the mathematical probability of a perfect bracket is extremely low.</li>
+            <li><strong>1st&ndash;3rd Place:</strong> Awarded based on highest total point scores using the 1-2-4-8-16-32 scoring system.
+              <ul>
+                <li>1st Place: AEO Audit &amp; Assessment ($1,500 value).</li>
+                <li>2nd Place: Website Performance Audit &amp; Analysis ($350 value).</li>
+                <li>3rd Place: Local Listing Sync of 40+ ($150 value).</li>
+                <li>Total Prize Pool ARV: $2,000 (excluding Grand Prize).</li>
+              </ul>
+            </li>
+            <li><strong>Winners will be determined and announced on April 6, 2026</strong>, following the conclusion of the NCAA Championship Game. Winners will be announced on Digital Stride&rsquo;s social media channels and notified directly by email.</li>
+            <li><strong>Tiebreaker:</strong> (1) Correct Championship winner, then (2) Closest prediction of total combined points in the Championship game, then (3) Earliest submission timestamp.</li>
+            <li>Tax Reporting: Winners of prizes valued at $600 or more will be required to provide a W-9 form for tax reporting purposes.</li>
+            <li>Service prizes (1st&ndash;3rd) have no cash equivalent and must be redeemed within 12 months of notification. Prizes are non-transferable and no substitution will be made except at the Sponsor&rsquo;s sole discretion.</li>
             <li>Digital Stride reserves the right to verify eligibility and correct picks before awarding prizes.</li>
           </ul>
 
