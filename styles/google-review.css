@@ -90,7 +90,7 @@
 }
 
 .gr-intro__inner {
-  max-width: 780px;
+  max-width: 960px;
   margin: 0 auto;
   text-align: center;
 }
@@ -581,6 +581,30 @@
   transform: none;
 }
 
+/* ── FEEDBACK FORM (inside low-score response) ──────────────── */
+.gr-feedback-form {
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.gr-feedback-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.gr-form__textarea {
+  resize: vertical;
+  min-height: 100px;
+  font-family: var(--font-sans);
+}
+
+.gr-feedback-form__footer {
+  margin-top: 1.25rem;
+  text-align: right;
+}
+
 /* ── RESPONSIVE ─────────────────────────────────────────────── */
 @media screen and (max-width: 900px) {
   .gr-referral__inner {
@@ -605,6 +629,10 @@
 }
 
 @media screen and (max-width: 640px) {
+  .gr-feedback-form__row {
+    grid-template-columns: 1fr;
+  }
+
   .gr-hero {
     min-height: 380px;
   }
