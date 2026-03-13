@@ -718,25 +718,42 @@ function ds_handle_gr_referral_submission() {
         wp_send_json_error( 'Security check failed. Please refresh the page and try again.' );
     }
 
-    // Sanitise & validate required fields
-    $referral_name  = sanitize_text_field( wp_unslash( $_POST['referral_name']  ?? '' ) );
-    $referral_email = sanitize_email( wp_unslash( $_POST['referral_email']  ?? '' ) );
-    $referral_phone = sanitize_text_field( wp_unslash( $_POST['referral_phone']  ?? '' ) );
-    $sub_name       = sanitize_text_field( wp_unslash( $_POST['submitter_name']  ?? '' ) );
-    $sub_email      = sanitize_email( wp_unslash( $_POST['submitter_email'] ?? '' ) );
-    $sub_phone      = sanitize_text_field( wp_unslash( $_POST['submitter_phone'] ?? '' ) );
+    // Sanitise & validate required fields (referral 1 name + email required; phone optional)
+    $referral_name  = sanitize_text_field( wp_unslash( $_POST['referral_name']    ?? '' ) );
+    $referral_email = sanitize_email( wp_unslash( $_POST['referral_email']        ?? '' ) );
+    $referral_phone = sanitize_text_field( wp_unslash( $_POST['referral_phone']   ?? '' ) );
+    $ref2_name      = sanitize_text_field( wp_unslash( $_POST['referral_2_name']  ?? '' ) );
+    $ref2_email     = sanitize_email( wp_unslash( $_POST['referral_2_email']      ?? '' ) );
+    $ref2_phone     = sanitize_text_field( wp_unslash( $_POST['referral_2_phone'] ?? '' ) );
+    $ref3_name      = sanitize_text_field( wp_unslash( $_POST['referral_3_name']  ?? '' ) );
+    $ref3_email     = sanitize_email( wp_unslash( $_POST['referral_3_email']      ?? '' ) );
+    $ref3_phone     = sanitize_text_field( wp_unslash( $_POST['referral_3_phone'] ?? '' ) );
+    $sub_name       = sanitize_text_field( wp_unslash( $_POST['submitter_name']   ?? '' ) );
+    $sub_email      = sanitize_email( wp_unslash( $_POST['submitter_email']       ?? '' ) );
+    $sub_phone      = sanitize_text_field( wp_unslash( $_POST['submitter_phone']  ?? '' ) );
 
     $errors = [];
-    if ( empty( $referral_name ) )                   { $errors[] = 'Referral name is required.'; }
-    if ( empty( $referral_email ) || ! is_email( $referral_email ) ) { $errors[] = 'A valid referral email is required.'; }
-    if ( empty( $referral_phone ) )                  { $errors[] = 'Referral phone is required.'; }
-    if ( empty( $sub_name ) )                        { $errors[] = 'Your name is required.'; }
-    if ( empty( $sub_email ) || ! is_email( $sub_email ) )           { $errors[] = 'Your valid email is required.'; }
-    if ( empty( $sub_phone ) )                       { $errors[] = 'Your phone number is required.'; }
+    if ( empty( $referral_name ) )                                    { $errors[] = 'Referral 1 name is required.'; }
+    if ( empty( $referral_email ) || ! is_email( $referral_email ) )  { $errors[] = 'A valid email for Referral 1 is required.'; }
+    if ( empty( $sub_name ) )                                         { $errors[] = 'Your name is required.'; }
+    if ( empty( $sub_email ) || ! is_email( $sub_email ) )            { $errors[] = 'Your valid email is required.'; }
+    if ( empty( $sub_phone ) )                                        { $errors[] = 'Your phone number is required.'; }
 
     if ( ! empty( $errors ) ) {
         wp_send_json_error( implode( ' ', $errors ) );
     }
+
+    // Helper to build a referral row block
+    $ref_row = function ( $label, $name, $email, $phone ) {
+        if ( empty( $name ) && empty( $email ) && empty( $phone ) ) { return ''; }
+        $out  = '<tr style="background:#dae3ff;"><th colspan="2" style="text-align:left;padding:10px 12px;font-size:14px;color:#1d4382;">' . esc_html( $label ) . '</th></tr>';
+        $out .= '<tr><td style="border-bottom:1px solid #eee;width:140px;font-weight:bold;">Name</td><td style="border-bottom:1px solid #eee;">' . esc_html( $name ) . '</td></tr>';
+        $out .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;">Email</td><td style="border-bottom:1px solid #eee;">' . esc_html( $email ) . '</td></tr>';
+        if ( ! empty( $phone ) ) {
+            $out .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;">Phone</td><td style="border-bottom:1px solid #eee;">' . esc_html( $phone ) . '</td></tr>';
+        }
+        return $out;
+    };
 
     // Build the notification email to the DS team
     $to      = 'hello@mydigitalstride.com';
@@ -748,10 +765,9 @@ function ds_handle_gr_referral_submission() {
     $body  = '<html><body style="font-family:Arial,sans-serif;color:#020b24;">';
     $body .= '<h2 style="color:#1d4382;">New Referral Submission</h2>';
     $body .= '<table cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%;max-width:560px;">';
-    $body .= '<tr style="background:#dae3ff;"><th colspan="2" style="text-align:left;padding:10px 12px;font-size:14px;color:#1d4382;">Referral Information</th></tr>';
-    $body .= '<tr><td style="border-bottom:1px solid #eee;width:140px;font-weight:bold;">Name</td><td style="border-bottom:1px solid #eee;">' . esc_html( $referral_name ) . '</td></tr>';
-    $body .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;">Email</td><td style="border-bottom:1px solid #eee;">' . esc_html( $referral_email ) . '</td></tr>';
-    $body .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;">Phone</td><td style="border-bottom:1px solid #eee;">' . esc_html( $referral_phone ) . '</td></tr>';
+    $body .= $ref_row( 'Referral 1', $referral_name, $referral_email, $referral_phone );
+    $body .= $ref_row( 'Referral 2', $ref2_name, $ref2_email, $ref2_phone );
+    $body .= $ref_row( 'Referral 3', $ref3_name, $ref3_email, $ref3_phone );
     $body .= '<tr style="background:#dae3ff;"><th colspan="2" style="text-align:left;padding:10px 12px;font-size:14px;color:#1d4382;">Submitted By</th></tr>';
     $body .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;">Name</td><td style="border-bottom:1px solid #eee;">' . esc_html( $sub_name ) . '</td></tr>';
     $body .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;">Email</td><td style="border-bottom:1px solid #eee;">' . esc_html( $sub_email ) . '</td></tr>';
