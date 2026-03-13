@@ -18,32 +18,37 @@ get_header();
     <div class="rl-hero__overlay"></div>
     <div class="rl-hero__layout">
 
-      <!-- Left: branding / eyebrow -->
-      <div class="rl-hero__left">
-        <p class="rl-hero__eyebrow">Exclusive Partner Promotion</p>
-        <h1 class="rl-hero__title">Get Rewarded for Every Referral</h1>
-        <p class="rl-hero__sub">Share the people in your network&nbsp;&mdash; we&rsquo;ll make it worth your while.</p>
-      </div>
+      <!-- Top row: left heading + right offer -->
+      <div class="rl-hero__top-row">
 
-      <!-- Center: CTA button -->
-      <div class="rl-hero__center">
-        <a href="#referral-form-section" class="rl-hero__cta">Submit Referrals Now <span aria-hidden="true">&darr;</span></a>
-      </div>
+        <!-- Left: branding / eyebrow -->
+        <div class="rl-hero__left">
+          <p class="rl-hero__eyebrow">Exclusive Partner Promotion</p>
+          <h1 class="rl-hero__title">Get Rewarded for Every Referral</h1>
+          <p class="rl-hero__sub">Share the people in your network&nbsp;&mdash; we&rsquo;ll make it worth your while.</p>
+        </div>
 
-      <!-- Right: offer summary -->
-      <div class="rl-hero__right">
-        <div class="rl-hero__offer">
-          <p class="rl-hero__offer-label">This Promotion</p>
-          <div class="rl-hero__offer-row">
-            <span class="rl-hero__offer-amount">$5</span>
-            <span class="rl-hero__offer-desc">per contact you submit<br><em>(up to 20&nbsp;&mdash;&nbsp;$100 total)</em></span>
-          </div>
-          <div class="rl-hero__offer-divider"></div>
-          <div class="rl-hero__offer-row">
-            <span class="rl-hero__offer-amount rl-hero__offer-amount--gold">$300</span>
-            <span class="rl-hero__offer-desc">Amazon gift card per<br>referral who becomes<br>a customer</span>
+        <!-- Right: offer summary -->
+        <div class="rl-hero__right">
+          <div class="rl-hero__offer">
+            <p class="rl-hero__offer-label">This Promotion</p>
+            <div class="rl-hero__offer-row">
+              <span class="rl-hero__offer-amount">$5</span>
+              <span class="rl-hero__offer-desc">per contact you submit<br><em>(up to 20&nbsp;&mdash;&nbsp;$100 total)</em></span>
+            </div>
+            <div class="rl-hero__offer-divider"></div>
+            <div class="rl-hero__offer-row">
+              <span class="rl-hero__offer-amount rl-hero__offer-amount--gold">$300</span>
+              <span class="rl-hero__offer-desc">Amazon gift card per<br>referral who becomes<br>a customer</span>
+            </div>
           </div>
         </div>
+
+      </div>
+
+      <!-- Bottom row: CTA button centered below both columns -->
+      <div class="rl-hero__center">
+        <a href="#referral-form-section" class="rl-hero__cta">Submit Referrals Now <span aria-hidden="true">&darr;</span></a>
       </div>
 
     </div>
