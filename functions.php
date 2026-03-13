@@ -70,6 +70,19 @@ function digitalstride_enqueue_assets() {
         ]);
     }
 
+    // Google Review landing page CSS + JS data
+    if (is_page_template('page-google-review.php')) {
+        wp_enqueue_style('google-review-css', get_template_directory_uri() . '/styles/google-review.css', [], '1.0.0');
+        // Inline script to expose ajaxUrl + nonce to the page's inline JS
+        wp_add_inline_script(
+            'jquery-core',
+            'var grData = ' . wp_json_encode([
+                'ajaxUrl' => admin_url('admin-ajax.php'),
+                'nonce'   => wp_create_nonce('gr_referral_nonce'),
+            ]) . ';'
+        );
+    }
+
     // ACF flexible content layout: Services CSS
     if (is_page()) {
         $sections = get_field('services_sections');
@@ -689,6 +702,69 @@ function ds_handle_mm_bracket_submission() {
 }
 add_action( 'wp_ajax_mm_submit_bracket',        'ds_handle_mm_bracket_submission' );
 add_action( 'wp_ajax_nopriv_mm_submit_bracket', 'ds_handle_mm_bracket_submission' );
+
+/* =============================================================
+   GOOGLE REVIEW — REFERRAL FORM SUBMISSION
+   ============================================================= */
+
+/**
+ * Handles the referral form AJAX submission from the Google Review landing page.
+ * Validates nonce, sanitises fields, emails the team, and returns JSON.
+ */
+function ds_handle_gr_referral_submission() {
+    // Verify nonce
+    if ( ! check_ajax_referer( 'gr_referral_nonce', 'nonce', false ) ) {
+        wp_send_json_error( 'Security check failed. Please refresh the page and try again.' );
+    }
+
+    // Sanitise & validate required fields
+    $referral_name  = sanitize_text_field( wp_unslash( $_POST['referral_name']  ?? '' ) );
+    $referral_email = sanitize_email( wp_unslash( $_POST['referral_email']  ?? '' ) );
+    $referral_phone = sanitize_text_field( wp_unslash( $_POST['referral_phone']  ?? '' ) );
+    $sub_name       = sanitize_text_field( wp_unslash( $_POST['submitter_name']  ?? '' ) );
+    $sub_email      = sanitize_email( wp_unslash( $_POST['submitter_email'] ?? '' ) );
+    $sub_phone      = sanitize_text_field( wp_unslash( $_POST['submitter_phone'] ?? '' ) );
+
+    $errors = [];
+    if ( empty( $referral_name ) )                   { $errors[] = 'Referral name is required.'; }
+    if ( empty( $referral_email ) || ! is_email( $referral_email ) ) { $errors[] = 'A valid referral email is required.'; }
+    if ( empty( $referral_phone ) )                  { $errors[] = 'Referral phone is required.'; }
+    if ( empty( $sub_name ) )                        { $errors[] = 'Your name is required.'; }
+    if ( empty( $sub_email ) || ! is_email( $sub_email ) )           { $errors[] = 'Your valid email is required.'; }
+    if ( empty( $sub_phone ) )                       { $errors[] = 'Your phone number is required.'; }
+
+    if ( ! empty( $errors ) ) {
+        wp_send_json_error( implode( ' ', $errors ) );
+    }
+
+    // Build the notification email to the DS team
+    $to      = 'hello@mydigitalstride.com';
+    $subject = 'New Referral Submission — Digital Stride';
+
+    $headers  = [ 'Content-Type: text/html; charset=UTF-8' ];
+    $headers[] = 'Reply-To: ' . $sub_name . ' <' . $sub_email . '>';
+
+    $body  = '<html><body style="font-family:Arial,sans-serif;color:#020b24;">';
+    $body .= '<h2 style="color:#1d4382;">New Referral Submission</h2>';
+    $body .= '<table cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%;max-width:560px;">';
+    $body .= '<tr style="background:#dae3ff;"><th colspan="2" style="text-align:left;padding:10px 12px;font-size:14px;color:#1d4382;">Referral Information</th></tr>';
+    $body .= '<tr><td style="border-bottom:1px solid #eee;width:140px;font-weight:bold;">Name</td><td style="border-bottom:1px solid #eee;">' . esc_html( $referral_name ) . '</td></tr>';
+    $body .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;">Email</td><td style="border-bottom:1px solid #eee;">' . esc_html( $referral_email ) . '</td></tr>';
+    $body .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;">Phone</td><td style="border-bottom:1px solid #eee;">' . esc_html( $referral_phone ) . '</td></tr>';
+    $body .= '<tr style="background:#dae3ff;"><th colspan="2" style="text-align:left;padding:10px 12px;font-size:14px;color:#1d4382;">Submitted By</th></tr>';
+    $body .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;">Name</td><td style="border-bottom:1px solid #eee;">' . esc_html( $sub_name ) . '</td></tr>';
+    $body .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;">Email</td><td style="border-bottom:1px solid #eee;">' . esc_html( $sub_email ) . '</td></tr>';
+    $body .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;">Phone</td><td style="border-bottom:1px solid #eee;">' . esc_html( $sub_phone ) . '</td></tr>';
+    $body .= '</table>';
+    $body .= '<p style="margin-top:20px;font-size:12px;color:#888;">Submitted via the Digital Stride Google Review &amp; Referral page.</p>';
+    $body .= '</body></html>';
+
+    wp_mail( $to, $subject, $body, $headers );
+
+    wp_send_json_success( 'Referral submitted successfully.' );
+}
+add_action( 'wp_ajax_gr_referral_submit',        'ds_handle_gr_referral_submission' );
+add_action( 'wp_ajax_nopriv_gr_referral_submit', 'ds_handle_gr_referral_submission' );
 
 /* =============================================================
    MARCH MADNESS — HTML CONFIRMATION EMAIL BUILDER
