@@ -575,8 +575,13 @@
   }
 
   function scrollToForm() {
-    var el = document.getElementById('march-madness');
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var el = container;
+    if (!el) return;
+    var rect = el.getBoundingClientRect();
+    // Only scroll if the top of the form is above the visible viewport
+    if (rect.top < 0) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   function showPickReminder() {
