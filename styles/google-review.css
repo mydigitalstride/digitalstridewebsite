@@ -2,6 +2,9 @@
    GOOGLE REVIEW LANDING PAGE  — Digital Stride
    ============================================================ */
 
+/* Fix: CSS display properties must not override the HTML hidden attribute */
+[hidden] { display: none !important; }
+
 /* ── Shared layout ──────────────────────────────────────────── */
 .gr-page {
   font-family: var(--font-sans);
@@ -478,6 +481,13 @@
   width: 100%;
 }
 
+.gr-form__legend-optional {
+  font-weight: var(--font-weight-normal, 400);
+  font-size: var(--font-size-sm);
+  color: #888;
+  margin-left: 0.35rem;
+}
+
 .gr-form__row {
   display: grid;
   gap: 1.25rem;
@@ -584,6 +594,11 @@
 /* ── FEEDBACK FORM (inside low-score response) ──────────────── */
 .gr-feedback-form {
   margin-top: 1.5rem;
+  text-align: left;
+}
+
+.gr-feedback-form .gr-form__label,
+.gr-feedback-form .gr-form__group {
   text-align: left;
 }
 

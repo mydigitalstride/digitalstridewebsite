@@ -180,9 +180,9 @@ get_header();
           novalidate
           aria-label="Referral submission form"
         >
-          <!-- Who is being referred -->
+          <!-- Referral 1 -->
           <fieldset class="gr-form__fieldset">
-            <legend class="gr-form__legend">Referral&rsquo;s Information</legend>
+            <legend class="gr-form__legend">Referral 1</legend>
 
             <div class="gr-form__row gr-form__row--3">
               <div class="gr-form__group">
@@ -216,9 +216,7 @@ get_header();
               </div>
 
               <div class="gr-form__group">
-                <label class="gr-form__label" for="ref-phone">
-                  Phone Number <span class="gr-form__required" aria-hidden="true">*</span>
-                </label>
+                <label class="gr-form__label" for="ref-phone">Phone Number</label>
                 <input
                   type="tel"
                   id="ref-phone"
@@ -226,11 +224,95 @@ get_header();
                   class="gr-form__input"
                   placeholder="(555) 555-5555"
                   autocomplete="tel"
-                  required
                 />
               </div>
             </div>
+          </fieldset>
 
+          <!-- Referral 2 (all optional) -->
+          <fieldset class="gr-form__fieldset">
+            <legend class="gr-form__legend">Referral 2 <span class="gr-form__legend-optional">(Optional)</span></legend>
+
+            <div class="gr-form__row gr-form__row--3">
+              <div class="gr-form__group">
+                <label class="gr-form__label" for="ref2-name">Full Name</label>
+                <input
+                  type="text"
+                  id="ref2-name"
+                  name="referral_2_name"
+                  class="gr-form__input"
+                  placeholder="Jane Smith"
+                  autocomplete="name"
+                />
+              </div>
+
+              <div class="gr-form__group">
+                <label class="gr-form__label" for="ref2-email">Email Address</label>
+                <input
+                  type="email"
+                  id="ref2-email"
+                  name="referral_2_email"
+                  class="gr-form__input"
+                  placeholder="jane@example.com"
+                  autocomplete="email"
+                />
+              </div>
+
+              <div class="gr-form__group">
+                <label class="gr-form__label" for="ref2-phone">Phone Number</label>
+                <input
+                  type="tel"
+                  id="ref2-phone"
+                  name="referral_2_phone"
+                  class="gr-form__input"
+                  placeholder="(555) 555-5555"
+                  autocomplete="tel"
+                />
+              </div>
+            </div>
+          </fieldset>
+
+          <!-- Referral 3 (all optional) -->
+          <fieldset class="gr-form__fieldset">
+            <legend class="gr-form__legend">Referral 3 <span class="gr-form__legend-optional">(Optional)</span></legend>
+
+            <div class="gr-form__row gr-form__row--3">
+              <div class="gr-form__group">
+                <label class="gr-form__label" for="ref3-name">Full Name</label>
+                <input
+                  type="text"
+                  id="ref3-name"
+                  name="referral_3_name"
+                  class="gr-form__input"
+                  placeholder="Jane Smith"
+                  autocomplete="name"
+                />
+              </div>
+
+              <div class="gr-form__group">
+                <label class="gr-form__label" for="ref3-email">Email Address</label>
+                <input
+                  type="email"
+                  id="ref3-email"
+                  name="referral_3_email"
+                  class="gr-form__input"
+                  placeholder="jane@example.com"
+                  autocomplete="email"
+                />
+              </div>
+
+              <div class="gr-form__group">
+                <label class="gr-form__label" for="ref3-phone">Phone Number</label>
+                <input
+                  type="tel"
+                  id="ref3-phone"
+                  name="referral_3_phone"
+                  class="gr-form__input"
+                  placeholder="(555) 555-5555"
+                  autocomplete="tel"
+                />
+              </div>
+            </div>
           </fieldset>
 
           <!-- Who is submitting -->
@@ -402,9 +484,12 @@ get_header();
           if (json.success) {
             successMsg.hidden = false;
             successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            form.querySelector('#ref-name').value  = '';
-            form.querySelector('#ref-email').value = '';
-            form.querySelector('#ref-phone').value = '';
+            ['#ref-name','#ref-email','#ref-phone',
+             '#ref2-name','#ref2-email','#ref2-phone',
+             '#ref3-name','#ref3-email','#ref3-phone'].forEach(function (id) {
+              var el = form.querySelector(id);
+              if (el) el.value = '';
+            });
           } else {
             alert(json.data || 'Something went wrong. Please try again.');
           }
