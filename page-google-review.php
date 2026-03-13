@@ -1,0 +1,376 @@
+<?php
+/**
+ * Template Name: Google Review Landing Page
+ *
+ * NPS-gated Google review request with referral bonus form.
+ * @package DigitalStride
+ */
+
+get_header();
+?>
+
+<main class="gr-page" id="google-review-page">
+
+  <!-- ══ HERO ══════════════════════════════════════════════════════ -->
+  <section class="gr-hero" aria-label="Thank you hero">
+    <div class="gr-hero__overlay"></div>
+    <div class="gr-hero__content">
+      <p class="gr-hero__eyebrow">We appreciate you</p>
+      <h1 class="gr-hero__title">Thank You</h1>
+      <p class="gr-hero__sub">From the entire Digital Stride team</p>
+    </div>
+  </section>
+
+  <!-- ══ GRATITUDE INTRO ═══════════════════════════════════════════ -->
+  <section class="gr-intro">
+    <div class="gr-container">
+      <div class="gr-intro__inner">
+        <h2 class="gr-intro__heading">Working With You Is the Best Part of What We Do</h2>
+        <p>
+          At Digital Stride, we don&rsquo;t take it for granted that you chose us to help grow your business. Every strategy session, every campaign, every late-night email — it&rsquo;s all driven by one thing: genuine care for the people we work with.
+        </p>
+        <p>
+          You&rsquo;re not just a client to us. You&rsquo;re a partner, and honestly, you make our work meaningful. So from the bottom of our hearts — <strong>thank you</strong> for trusting us with something as important as your business.
+        </p>
+        <p>
+          We&rsquo;d love to hear how we&rsquo;re doing. Your feedback helps us get better and helps more great businesses like yours find us. It only takes a moment, and it means the world to our team.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ NPS SATISFACTION ══════════════════════════════════════════ -->
+  <section class="gr-nps" id="nps-section">
+    <div class="gr-container">
+
+      <div class="gr-nps__card">
+        <div class="gr-nps__icon" aria-hidden="true">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+        </div>
+        <h2 class="gr-nps__heading">How satisfied are you with the service from Digital Stride?</h2>
+        <p class="gr-nps__sub">On a scale of 0 to 10, how likely are you to recommend us to a friend or colleague?</p>
+
+        <div class="gr-nps__scale" role="group" aria-label="Satisfaction score 0 to 10">
+          <?php for ( $i = 0; $i <= 10; $i++ ) : ?>
+            <button
+              type="button"
+              class="gr-nps__btn"
+              data-score="<?php echo esc_attr( $i ); ?>"
+              aria-label="Score <?php echo esc_attr( $i ); ?>"
+            ><?php echo esc_html( $i ); ?></button>
+          <?php endfor; ?>
+        </div>
+
+        <div class="gr-nps__labels" aria-hidden="true">
+          <span>Not likely at all</span>
+          <span>Extremely likely</span>
+        </div>
+      </div>
+
+      <!-- ── LOW SCORE response (0-6) ──────────────────────────── -->
+      <div class="gr-response gr-response--low" id="response-low" hidden>
+        <div class="gr-response__icon" aria-hidden="true">&#128172;</div>
+        <h3>Thank you for your honesty</h3>
+        <p>
+          We&rsquo;re sorry to hear your experience hasn&rsquo;t been everything it should be. Your feedback is important to us — we&rsquo;d love to make things right.
+        </p>
+        <p>
+          Please reach out to us directly at <a href="mailto:hello@mydigitalstride.com">hello@mydigitalstride.com</a> and a member of our team will personally follow up to address your concerns.
+        </p>
+      </div>
+
+      <!-- ── HIGH SCORE response (7-10) ─────────────────────────── -->
+      <div class="gr-response gr-response--high" id="response-high" hidden>
+        <div class="gr-response__icon" aria-hidden="true">&#127775;</div>
+        <h3>That means so much to us!</h3>
+        <p>
+          We&rsquo;re thrilled you&rsquo;ve had a great experience with Digital Stride. Would you be willing to share that with the world? A Google Review helps other businesses find us and takes less than 2 minutes.
+        </p>
+        <a
+          href="https://g.page/r/CcMj7xiuJUJ_EBM/review"
+          class="gr-review-btn"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Leave a Google Review for Digital Stride"
+        >
+          <svg class="gr-review-btn__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true">
+            <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.2l6.7-6.7C35.6 2.4 30.1 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.8 6C12.3 13 17.7 9.5 24 9.5z"/>
+            <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.8-2.2 5.2-4.7 6.8l7.3 5.7c4.3-4 6.8-9.9 7.2-16.5z"/>
+            <path fill="#FBBC05" d="M10.5 28.7A14.4 14.4 0 0 1 9.5 24c0-1.6.3-3.2.7-4.7l-7.8-6A23.8 23.8 0 0 0 0 24c0 3.9.9 7.5 2.5 10.8l8-6.1z"/>
+            <path fill="#34A853" d="M24 48c6.1 0 11.2-2 14.9-5.5l-7.3-5.7c-2 1.4-4.6 2.2-7.6 2.2-6.3 0-11.7-4.3-13.6-10l-8 6.1C6.5 42.6 14.6 48 24 48z"/>
+          </svg>
+          Leave a Google Review
+        </a>
+        <p class="gr-review-btn__note">Opens Google Reviews in a new tab &mdash; only takes 2 minutes!</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══ REFERRAL BONUS ════════════════════════════════════════════ -->
+  <section class="gr-referral" id="referral-section">
+    <div class="gr-container">
+
+      <div class="gr-referral__badge">
+        <span class="gr-referral__badge-text">Referral Bonus</span>
+      </div>
+
+      <div class="gr-referral__inner">
+
+        <div class="gr-referral__text">
+          <h2 class="gr-referral__heading">Know Someone Who Could Use Digital Stride?</h2>
+          <p>
+            Great clients tend to know other great people. If you refer a friend, colleague, or fellow business owner to Digital Stride and they become a customer, we&rsquo;ll send you a <strong>$200 Amazon gift card</strong> as a thank-you.
+          </p>
+          <ul class="gr-referral__perks">
+            <li>
+              <span class="gr-referral__perk-icon" aria-hidden="true">&#9989;</span>
+              No limits &mdash; refer as many people as you like
+            </li>
+            <li>
+              <span class="gr-referral__perk-icon" aria-hidden="true">&#9989;</span>
+              Gift card sent once they become an active customer
+            </li>
+            <li>
+              <span class="gr-referral__perk-icon" aria-hidden="true">&#9989;</span>
+              Works for any Digital Stride service
+            </li>
+          </ul>
+        </div>
+
+        <div class="gr-referral__card-wrap">
+          <div class="gr-referral__gift-card" aria-hidden="true">
+            <div class="gr-referral__gift-amount">$200</div>
+            <div class="gr-referral__gift-label">Amazon Gift Card</div>
+            <div class="gr-referral__gift-sub">Per successful referral</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Referral form ─────────────────────────────────────── -->
+      <div class="gr-form-wrap">
+        <h3 class="gr-form__heading">Submit a Referral</h3>
+        <p class="gr-form__sub">Fill out the form below for each person you&rsquo;d like to refer. You can submit this form multiple times.</p>
+
+        <div id="gr-form-success" class="gr-form__success" hidden>
+          <span class="gr-form__success-icon" aria-hidden="true">&#127881;</span>
+          <strong>Referral submitted!</strong> Thank you &mdash; we&rsquo;ll be in touch with your referral soon. Feel free to submit another below.
+        </div>
+
+        <form
+          id="gr-referral-form"
+          class="gr-form"
+          novalidate
+          aria-label="Referral submission form"
+        >
+          <!-- Who is being referred -->
+          <fieldset class="gr-form__fieldset">
+            <legend class="gr-form__legend">Referral&rsquo;s Information</legend>
+
+            <div class="gr-form__row gr-form__row--3">
+              <div class="gr-form__group">
+                <label class="gr-form__label" for="ref-name">
+                  Full Name <span class="gr-form__required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="ref-name"
+                  name="referral_name"
+                  class="gr-form__input"
+                  placeholder="Jane Smith"
+                  autocomplete="name"
+                  required
+                />
+              </div>
+
+              <div class="gr-form__group">
+                <label class="gr-form__label" for="ref-email">
+                  Email Address <span class="gr-form__required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="ref-email"
+                  name="referral_email"
+                  class="gr-form__input"
+                  placeholder="jane@example.com"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+
+              <div class="gr-form__group">
+                <label class="gr-form__label" for="ref-phone">
+                  Phone Number <span class="gr-form__required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="tel"
+                  id="ref-phone"
+                  name="referral_phone"
+                  class="gr-form__input"
+                  placeholder="(555) 555-5555"
+                  autocomplete="tel"
+                  required
+                />
+              </div>
+            </div>
+
+          </fieldset>
+
+          <!-- Who is submitting -->
+          <fieldset class="gr-form__fieldset">
+            <legend class="gr-form__legend">Your Information</legend>
+
+            <div class="gr-form__row gr-form__row--3">
+              <div class="gr-form__group">
+                <label class="gr-form__label" for="sub-name">
+                  Your Name <span class="gr-form__required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="text"
+                  id="sub-name"
+                  name="submitter_name"
+                  class="gr-form__input"
+                  placeholder="Your Name"
+                  autocomplete="name"
+                  required
+                />
+              </div>
+
+              <div class="gr-form__group">
+                <label class="gr-form__label" for="sub-email">
+                  Your Email <span class="gr-form__required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="email"
+                  id="sub-email"
+                  name="submitter_email"
+                  class="gr-form__input"
+                  placeholder="you@example.com"
+                  autocomplete="email"
+                  required
+                />
+              </div>
+
+              <div class="gr-form__group">
+                <label class="gr-form__label" for="sub-phone">
+                  Your Phone <span class="gr-form__required" aria-hidden="true">*</span>
+                </label>
+                <input
+                  type="tel"
+                  id="sub-phone"
+                  name="submitter_phone"
+                  class="gr-form__input"
+                  placeholder="(555) 555-5555"
+                  autocomplete="tel"
+                  required
+                />
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="gr-form__footer">
+            <p class="gr-form__disclaimer">
+              By submitting, you agree that Digital Stride may contact your referral. We never sell your information to third parties.
+            </p>
+            <button type="submit" class="gr-form__submit">
+              Submit Referral
+              <span class="gr-form__submit-arrow" aria-hidden="true">&rarr;</span>
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── NPS score selection ──────────────────────────────────── */
+  var npsButtons = document.querySelectorAll('.gr-nps__btn');
+  var responseLow  = document.getElementById('response-low');
+  var responseHigh = document.getElementById('response-high');
+
+  npsButtons.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var score = parseInt(btn.getAttribute('data-score'), 10);
+
+      /* Update active state */
+      npsButtons.forEach(function (b) { b.classList.remove('is-active'); });
+      btn.classList.add('is-active');
+
+      /* Show the right response */
+      if (score >= 7) {
+        responseLow.hidden  = true;
+        responseHigh.hidden = false;
+      } else {
+        responseHigh.hidden = true;
+        responseLow.hidden  = false;
+      }
+
+      /* Smooth-scroll to response */
+      var target = score >= 7 ? responseHigh : responseLow;
+      setTimeout(function () {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 120);
+    });
+  });
+
+  /* ── Referral form ────────────────────────────────────────── */
+  var form       = document.getElementById('gr-referral-form');
+  var successMsg = document.getElementById('gr-form-success');
+
+  if (form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      /* Basic HTML5 validation */
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      var submitBtn = form.querySelector('.gr-form__submit');
+      submitBtn.disabled    = true;
+      submitBtn.textContent = 'Submitting\u2026';
+
+      var data = new FormData(form);
+      data.append('action',  'gr_referral_submit');
+      data.append('nonce',   grData.nonce);
+
+      fetch(grData.ajaxUrl, {
+        method:      'POST',
+        credentials: 'same-origin',
+        body:        data
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (json) {
+          if (json.success) {
+            successMsg.hidden = false;
+            successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            /* Reset only the referral fields — keep submitter info for convenience */
+            form.querySelector('#ref-name').value  = '';
+            form.querySelector('#ref-email').value = '';
+            form.querySelector('#ref-phone').value = '';
+          } else {
+            alert(json.data || 'Something went wrong. Please try again.');
+          }
+        })
+        .catch(function () {
+          alert('Network error. Please check your connection and try again.');
+        })
+        .finally(function () {
+          submitBtn.disabled    = false;
+          submitBtn.textContent = 'Submit Referral \u2192';
+        });
+    });
+  }
+})();
+</script>
+
+<?php get_footer(); ?>
