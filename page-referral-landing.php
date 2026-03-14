@@ -34,7 +34,7 @@ get_header();
             <p class="rl-hero__offer-label">This Promotion</p>
             <div class="rl-hero__offer-row">
               <span class="rl-hero__offer-amount">$5</span>
-              <span class="rl-hero__offer-desc">per contact you submit<br><em>(up to 20&nbsp;&mdash;&nbsp;$100 total)</em></span>
+              <span class="rl-hero__offer-desc">Amazon gift card per contact<br><em>(one submission, up to 20&nbsp;&mdash;&nbsp;$100 total)</em></span>
             </div>
             <div class="rl-hero__offer-divider"></div>
             <div class="rl-hero__offer-row">
@@ -71,9 +71,9 @@ get_header();
             <i class="fa-solid fa-address-card"></i>
           </div>
           <div class="rl-reward-card__amount">$5</div>
-          <div class="rl-reward-card__label">Per Contact Submitted</div>
+          <div class="rl-reward-card__label">Amazon Gift Card Per Contact Submitted</div>
           <p class="rl-reward-card__desc">
-            Submit up to&nbsp;<strong>20 contacts</strong>&nbsp;and earn&nbsp;<strong>$5</strong>&nbsp;for each one&nbsp;&mdash; that&rsquo;s up to&nbsp;<strong>$100</strong>&nbsp;just for sharing names!
+            Submit up to&nbsp;<strong>20 contacts</strong>&nbsp;in a single submission and earn a&nbsp;<strong>$5 Amazon gift card</strong>&nbsp;for each one&nbsp;&mdash; up to&nbsp;<strong>$100 total</strong>. Each person may only submit once.
           </p>
           <div class="rl-reward-card__max">Up to $100 total</div>
         </div>
@@ -121,7 +121,7 @@ get_header();
             <i class="fa-solid fa-user-plus"></i>
           </div>
           <h3 class="rl-how__step-title">Submit Your Contacts</h3>
-          <p class="rl-how__step-desc">Fill out the form below with the name, email, and phone for each person you&rsquo;d like to refer. You can submit up to&nbsp;20.</p>
+          <p class="rl-how__step-desc">Fill out the form below with the name, email, and phone for each person you&rsquo;d like to refer. You may submit up to&nbsp;<strong>20 contacts</strong>&nbsp;in a single submission&nbsp;&mdash; each person is limited to one submission total.</p>
         </div>
 
         <div class="rl-how__connector" aria-hidden="true"></div>
@@ -143,7 +143,7 @@ get_header();
             <i class="fa-solid fa-gift"></i>
           </div>
           <h3 class="rl-how__step-title">Collect Your Rewards</h3>
-          <p class="rl-how__step-desc">You receive&nbsp;<strong>$5</strong>&nbsp;per contact submitted and a&nbsp;<strong>$300 Amazon gift card</strong>&nbsp;for each one who becomes a customer.</p>
+          <p class="rl-how__step-desc">You receive a&nbsp;<strong>$5 Amazon gift card</strong>&nbsp;per contact submitted and a&nbsp;<strong>$300 Amazon gift card</strong>&nbsp;for each one who becomes a customer.</p>
         </div>
 
       </div>
@@ -166,7 +166,7 @@ get_header();
         <span class="rl-form__success-icon" aria-hidden="true">&#127881;</span>
         <div>
           <strong>Referrals submitted successfully!</strong><br>
-          Thank you&nbsp;&mdash; we&rsquo;ll be in touch with your contacts soon. Your $5-per-contact reward will be processed within 5 business days.
+          Thank you&nbsp;&mdash; we&rsquo;ll be in touch with your contacts soon. Your $5 Amazon gift card per contact will be processed within 5 business days.
         </div>
       </div>
 
@@ -298,12 +298,12 @@ get_header();
 
         <div class="rl-faq__item">
           <h3 class="rl-faq__q"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> When do I get paid?</h3>
-          <p class="rl-faq__a">The $5 gift card per submitted contact is processed within 5 business days of submission. The $300 Amazon gift card is sent once your referral signs on as an active Digital Stride customer.</p>
+          <p class="rl-faq__a">The $5 Amazon gift card per submitted contact is processed within 5 business days of submission. The $300 Amazon gift card is sent once your referral signs on as an active Digital Stride customer.</p>
         </div>
 
         <div class="rl-faq__item">
           <h3 class="rl-faq__q"><i class="fa-solid fa-circle-question" aria-hidden="true"></i> Is there a limit on how many I can refer?</h3>
-          <p class="rl-faq__a">You may submit up to 20 contacts per form submission. There&rsquo;s no limit to the number of people who can become customers&nbsp;&mdash; each one earns you a $300 Amazon gift card.</p>
+          <p class="rl-faq__a">Each person may submit only once, with up to 20 contacts in that submission. There&rsquo;s no cap on how many of those contacts can become customers&nbsp;&mdash; each one earns you a $300 Amazon gift card.</p>
         </div>
 
         <div class="rl-faq__item">
