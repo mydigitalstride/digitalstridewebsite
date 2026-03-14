@@ -59,6 +59,13 @@ get_header();
           <span>Not likely at all</span>
           <span>Extremely likely</span>
         </div>
+
+        <div class="gr-nps__submit-wrap" id="nps-submit-wrap" hidden>
+          <p class="gr-nps__selected-msg" id="nps-selected-msg" aria-live="polite"></p>
+          <button type="button" class="gr-nps__submit-btn" id="nps-submit-btn">
+            Submit Score <span aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
       </div>
 
       <!-- ── LOW SCORE response (0-7) ──────────────────────────── -->
@@ -390,37 +397,55 @@ get_header();
   'use strict';
 
   /* ── NPS score selection ──────────────────────────────────── */
-  var npsButtons     = document.querySelectorAll('.gr-nps__btn');
-  var responseLow    = document.getElementById('response-low');
-  var responseHigh   = document.getElementById('response-high');
+  var npsButtons      = document.querySelectorAll('.gr-nps__btn');
+  var responseLow     = document.getElementById('response-low');
+  var responseHigh    = document.getElementById('response-high');
   var referralSection = document.getElementById('referral-section');
+  var npsSubmitWrap   = document.getElementById('nps-submit-wrap');
+  var npsSubmitBtn    = document.getElementById('nps-submit-btn');
+  var npsSelectedMsg  = document.getElementById('nps-selected-msg');
+  var selectedScore   = null;
 
   npsButtons.forEach(function (btn) {
     btn.addEventListener('click', function () {
-      var score = parseInt(btn.getAttribute('data-score'), 10);
+      selectedScore = parseInt(btn.getAttribute('data-score'), 10);
 
       /* Update active state */
       npsButtons.forEach(function (b) { b.classList.remove('is-active'); });
       btn.classList.add('is-active');
 
+      /* Show the submit button and a confirmation message */
+      npsSelectedMsg.textContent = 'You selected ' + selectedScore + ' out of 10.';
+      npsSubmitWrap.hidden = false;
+    });
+  });
+
+  if (npsSubmitBtn) {
+    npsSubmitBtn.addEventListener('click', function () {
+      if (selectedScore === null) { return; }
+
       /* 8-10 = promoter (show review + referral); 0-7 = detractor/passive (show feedback form) */
-      if (score >= 8) {
-        responseLow.hidden          = true;
-        responseHigh.hidden         = false;
+      if (selectedScore >= 8) {
+        responseLow.hidden  = true;
+        responseHigh.hidden = false;
         if (referralSection) referralSection.hidden = false;
       } else {
-        responseHigh.hidden         = true;
-        responseLow.hidden          = false;
+        responseHigh.hidden = true;
+        responseLow.hidden  = false;
         if (referralSection) referralSection.hidden = true;
       }
 
+      /* Disable score buttons so score can't be changed after submit */
+      npsButtons.forEach(function (b) { b.disabled = true; });
+      npsSubmitBtn.disabled = true;
+
       /* Smooth-scroll to response */
-      var target = score >= 8 ? responseHigh : responseLow;
+      var target = selectedScore >= 8 ? responseHigh : responseLow;
       setTimeout(function () {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }, 120);
     });
-  });
+  }
 
   /* ── Feedback form (low score) ────────────────────────────── */
   var feedbackForm    = document.getElementById('gr-feedback-form');
