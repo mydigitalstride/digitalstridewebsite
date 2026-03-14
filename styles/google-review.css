@@ -216,6 +216,48 @@
   padding: 0 4px;
 }
 
+/* NPS submit step */
+.gr-nps__submit-wrap {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  animation: gr-fade-in 0.25s ease;
+}
+
+.gr-nps__selected-msg {
+  font-size: var(--font-size-sm);
+  color: #555;
+  margin: 0;
+}
+
+.gr-nps__submit-btn {
+  background: var(--color-orange);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 2rem;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.gr-nps__submit-btn:hover {
+  background: var(--color-orange-dark, #c95a0a);
+}
+
+.gr-nps__submit-btn:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+@keyframes gr-fade-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* Response panels */
 .gr-response {
   max-width: 700px;
