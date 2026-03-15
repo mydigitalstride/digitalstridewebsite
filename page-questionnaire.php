@@ -227,23 +227,23 @@ get_header();
         <h2 class="qb-step__heading">What area do you serve?</h2>
         <p class="qb-step__sub">This affects local SEO architecture and location page strategy.</p>
 
-        <div class="qb-options qb-options--grid-2x2">
-          <button type="button" class="qb-option" data-field="coverage" data-value="single">
+        <div class="qb-options qb-options--list">
+          <button type="button" class="qb-option qb-option--wide" data-field="coverage" data-value="single">
             <span class="qb-option__icon" aria-hidden="true">📍</span>
             <span class="qb-option__label">Single location</span>
             <span class="qb-option__hint">One city or town</span>
           </button>
-          <button type="button" class="qb-option" data-field="coverage" data-value="multi_location">
+          <button type="button" class="qb-option qb-option--wide" data-field="coverage" data-value="multi_location">
             <span class="qb-option__icon" aria-hidden="true">🗺️</span>
             <span class="qb-option__label">Multi-location</span>
             <span class="qb-option__hint">Multiple cities, regions, or storefronts</span>
           </button>
-          <button type="button" class="qb-option" data-field="coverage" data-value="mobile">
+          <button type="button" class="qb-option qb-option--wide" data-field="coverage" data-value="mobile">
             <span class="qb-option__icon" aria-hidden="true">🚐</span>
             <span class="qb-option__label">Mobile / dispatched</span>
             <span class="qb-option__hint">Service area-based, no fixed location</span>
           </button>
-          <button type="button" class="qb-option" data-field="coverage" data-value="national">
+          <button type="button" class="qb-option qb-option--wide" data-field="coverage" data-value="national">
             <span class="qb-option__icon" aria-hidden="true">🌐</span>
             <span class="qb-option__label">National / Online only</span>
             <span class="qb-option__hint">No geographic restrictions</span>
