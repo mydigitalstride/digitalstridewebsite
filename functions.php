@@ -102,9 +102,15 @@ function digitalstride_enqueue_assets() {
         // jsPDF for client-side PDF generation (loaded before questionnaire.js)
         wp_enqueue_script('jspdf', 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js', [], '2.5.1', true);
         wp_enqueue_script('questionnaire-js', get_template_directory_uri() . '/js/questionnaire.js', ['jspdf'], '1.1.0', true);
+        $qb_logo_url = '';
+        if (function_exists('get_field')) {
+            $qb_logo_id  = get_field('header_logo', 'option');
+            $qb_logo_url = $qb_logo_id ? (string) wp_get_attachment_image_url($qb_logo_id, 'full') : '';
+        }
         wp_localize_script('questionnaire-js', 'qbData', [
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce'   => wp_create_nonce('qb_quote_nonce'),
+            'logoUrl' => esc_url($qb_logo_url),
         ]);
     }
 

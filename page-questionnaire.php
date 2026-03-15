@@ -630,7 +630,7 @@ get_header();
 
           <!-- CTAs -->
           <div class="qb-quote__cta-row">
-            <a href="/contact" class="qb-btn qb-btn--primary">Book a Discovery Call</a>
+            <a href="https://meetings.hubspot.com/exp1st/website-cost-estimator" class="qb-btn qb-btn--primary" target="_blank" rel="noopener">Book a Discovery Call</a>
             <button type="button" class="qb-btn qb-btn--ghost" id="qb-restart-btn">
               <span aria-hidden="true">↺</span> Start Over
             </button>
