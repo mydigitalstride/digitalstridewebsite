@@ -324,12 +324,12 @@ get_header();
             </div>
           </label>
           <label class="qb-check">
-            <input type="checkbox" name="integrations" value="lms" class="qb-check__input" />
+            <input type="checkbox" name="integrations" value="customer_portal" class="qb-check__input" />
             <span class="qb-check__box" aria-hidden="true"></span>
             <span class="qb-check__icon" aria-hidden="true">🎓</span>
             <div class="qb-check__text">
-              <span class="qb-check__label">LMS / enrollment system</span>
-              <span class="qb-check__hint">Course management, student portals, financial aid pages</span>
+              <span class="qb-check__label">Customer Portal</span>
+              <span class="qb-check__hint">Client login, account management, member access&nbsp; <strong>+$600–$3,000</strong></span>
             </div>
           </label>
           <label class="qb-check">

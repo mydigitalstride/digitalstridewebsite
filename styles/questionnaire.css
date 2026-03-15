@@ -176,6 +176,7 @@
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 12px;
   margin-bottom: 32px;
+  align-items: stretch;
 }
 
 /* 4-item grids look better as 2×2 (coverage step, timeline step) */
@@ -184,6 +185,7 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 12px;
   margin-bottom: 32px;
+  align-items: stretch;
 }
 
 /* ─── Options: List ──────────────────────────────────────────────────── */
@@ -209,6 +211,9 @@
   transition: all var(--qb-transition);
   font-family: var(--qb-font);
   position: relative;
+  height: 100%; /* stretch to fill grid cell so all items in a row match */
+  box-sizing: border-box;
+  justify-content: flex-start;
 }
 
 .qb-option:hover {
@@ -265,6 +270,7 @@
   align-items: center;
   gap: 14px;
   padding: 16px 20px;
+  min-height: 76px;
 }
 
 .qb-option--wide .qb-option__icon {
@@ -284,6 +290,7 @@
   align-items: center;
   gap: 14px;
   padding: 16px 20px;
+  min-height: 72px;
 }
 
 .qb-option--sized .qb-option__icon {

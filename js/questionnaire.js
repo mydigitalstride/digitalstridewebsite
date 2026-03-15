@@ -45,7 +45,7 @@
   var INTEGRATION_ADDONS = {
     booking:    { label: 'Online Booking / Appointment Scheduler', icon: '📅', min: 150,  max: 500  },
     crm:        { label: 'CRM / Dispatch Integration',             icon: '⚙️',  min: 1500, max: 4000 },
-    lms:        { label: 'LMS / Enrollment System',                icon: '🎓', min: 0,    max: 0    },
+    customer_portal: { label: 'Customer Portal',                  icon: '🎓', min: 600,  max: 3000 },
     email_mktg: { label: 'Email Marketing Integration',            icon: '📧', min: 150,  max: 500  }
   };
 
@@ -170,7 +170,7 @@
   }
 
   function isEcomPath()   { return state.businessType === 'ecommerce' || state.primaryGoal === 'sell_products'; }
-  function isSchoolPath() { return state.businessType === 'trade_school' || state.primaryGoal === 'enroll_students' || state.integrations.indexOf('lms') !== -1; }
+  function isSchoolPath() { return state.businessType === 'trade_school' || state.primaryGoal === 'enroll_students'; }
 
   /* ─── Pricing ────────────────────────────────────────────────────── */
 
@@ -299,20 +299,18 @@
     updateProgress(currentStep);
     updateEstimateBadge();
 
-    // When entering step 6, hide LMS option for trade school paths
+    // When entering step 6, hide Customer Portal option for trade school paths
     if (String(next) === '6') {
-      var lmsCheck = qs('.qb-check input[value="lms"]');
-      if (lmsCheck) {
-        var lmsRow = lmsCheck.closest('.qb-check');
+      var cpCheck = qs('.qb-check input[value="customer_portal"]');
+      if (cpCheck) {
+        var cpRow = cpCheck.closest('.qb-check');
         if (isSchoolPath()) {
-          // Trade school already includes LMS — hide the option and uncheck it
-          lmsRow.hidden = true;
-          lmsCheck.checked = false;
-          lmsRow.classList.remove('is-checked');
-          // Remove from state
-          state.integrations = state.integrations.filter(function (i) { return i !== 'lms'; });
+          cpRow.hidden = true;
+          cpCheck.checked = false;
+          cpRow.classList.remove('is-checked');
+          state.integrations = state.integrations.filter(function (i) { return i !== 'customer_portal'; });
         } else {
-          lmsRow.hidden = false;
+          cpRow.hidden = false;
         }
       }
     }
@@ -502,7 +500,7 @@
     if (state.contentNeeds === 'copy_photo') items.push({ icon: '📸', label: CONTENT_ADDONS.copy_photo.label, priceLabel: fmt(CONTENT_ADDONS.copy_photo.min) + '\u2013' + fmt(CONTENT_ADDONS.copy_photo.max) });
 
     state.integrations.forEach(function (k) {
-      if (k !== 'none' && k !== 'lms' && INTEGRATION_ADDONS[k] && INTEGRATION_ADDONS[k].min) {
+      if (k !== 'none' && INTEGRATION_ADDONS[k] && INTEGRATION_ADDONS[k].min) {
         items.push({ icon: INTEGRATION_ADDONS[k].icon, label: INTEGRATION_ADDONS[k].label,
           priceLabel: fmt(INTEGRATION_ADDONS[k].min) + '\u2013' + fmt(INTEGRATION_ADDONS[k].max) });
       }
@@ -641,7 +639,7 @@
 
     // ── Tier badge
     y += 10;
-    doc.setFillColor(hexToRGB(tierMeta.color));
+    var tRgb = hexToRGB(tierMeta.color); doc.setFillColor(tRgb[0], tRgb[1], tRgb[2]);
     doc.roundedRect(14, y, 45, 8, 2, 2, 'F');
     doc.setTextColor(255, 255, 255);
     doc.setFontSize(9);
@@ -839,9 +837,10 @@
         notes:    (el('qb-notes')    || {}).value || ''
       };
 
-      // Generate PDF
-      var pdfDoc   = generatePDF(contact);
-      var pdfB64   = pdfDoc ? pdfDoc.output('datauristring') : '';
+      // Generate PDF (wrapped in try-catch so a PDF failure never freezes the form)
+      var pdfDoc = null;
+      try { pdfDoc = generatePDF(contact); } catch (e) { console.warn('PDF generation failed:', e); }
+      var pdfB64 = pdfDoc ? pdfDoc.output('datauristring') : '';
       var summary  = buildSummaryText(contact);
 
       var data = new FormData(form);
