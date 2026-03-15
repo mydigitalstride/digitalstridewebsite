@@ -178,6 +178,14 @@
   margin-bottom: 32px;
 }
 
+/* 4-item grids look better as 2×2 (coverage step, timeline step) */
+.qb-options--grid-2x2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
 /* ─── Options: List ──────────────────────────────────────────────────── */
 .qb-options--list {
   display: flex;
@@ -573,6 +581,19 @@
   transform: none;
 }
 
+.qb-btn--download {
+  background: #fff;
+  color: var(--qb-teal);
+  border: 2px solid var(--qb-teal);
+  padding: 10px 22px;
+  font-size: 14px;
+}
+
+.qb-btn--download:hover {
+  background: var(--qb-teal);
+  color: #fff;
+}
+
 .qb-btn--ghost {
   background: transparent;
   color: var(--qb-slate);
@@ -596,6 +617,179 @@
   background: #d95c12;
   transform: translateY(-1px);
   box-shadow: 0 4px 16px rgba(243, 110, 33, 0.3);
+}
+
+/* ─── Product Count Step ─────────────────────────────────────────────── */
+.qb-product-count-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.qb-product-count__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.qb-product-count__label {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--qb-blue);
+}
+
+.qb-product-count__input {
+  font-family: var(--qb-font);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--qb-blue);
+  background: #fff;
+  border: 2px solid #e2e8f0;
+  border-radius: var(--qb-radius-sm);
+  padding: 14px 20px;
+  max-width: 260px;
+  outline: none;
+  transition: border-color var(--qb-transition);
+}
+
+.qb-product-count__input:focus {
+  border-color: var(--qb-teal);
+  box-shadow: 0 0 0 3px rgba(24, 157, 167, 0.1);
+}
+
+.qb-product-count__hint {
+  font-size: 13px;
+  color: var(--qb-slate);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.qb-product-count__tier-heading {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--qb-slate);
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.qb-product-count__tier-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.qb-count-preset {
+  font-family: var(--qb-font);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--qb-blue);
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 99px;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: all var(--qb-transition);
+}
+
+.qb-count-preset:hover,
+.qb-count-preset.is-active {
+  background: var(--qb-teal);
+  border-color: var(--qb-teal);
+  color: #fff;
+}
+
+/* ─── Contact Step ───────────────────────────────────────────────────── */
+.qb-contact-step {
+  background: linear-gradient(135deg, #f0fdfe 0%, #eff6ff 100%);
+  border: 2px solid rgba(24, 157, 167, 0.2);
+  border-radius: var(--qb-radius);
+  padding: 40px;
+}
+
+.qb-contact-step__split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+.qb-contact-step__heading {
+  font-size: clamp(20px, 3vw, 28px);
+  font-weight: 700;
+  color: var(--qb-blue);
+  margin: 0 0 14px;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.qb-contact-step__body {
+  font-size: 14px;
+  color: var(--qb-slate);
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+.qb-contact-step__perks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.qb-contact-step__perks li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--qb-blue);
+}
+
+.qb-contact-step__perks li span {
+  width: 22px;
+  height: 22px;
+  background: var(--qb-teal);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  flex-shrink: 0;
+}
+
+/* ─── Quote Header Actions ───────────────────────────────────────────── */
+.qb-quote__header-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.qb-quote__sent-note {
+  font-size: 13px;
+  color: var(--qb-slate);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.qb-quote__cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 8px;
+  margin-top: 8px;
+  border-top: 1px solid #f1f5f9;
 }
 
 /* ─── Quote Results ──────────────────────────────────────────────────── */
@@ -1131,13 +1325,22 @@
     gap: 12px;
   }
 
-  .qb-contact-split {
+  .qb-contact-step__split {
     grid-template-columns: 1fr;
     gap: 24px;
   }
 
-  .qb-quote__contact-block {
+  .qb-contact-step {
     padding: 24px 20px;
+  }
+
+  .qb-quote__header-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .qb-quote__cta-row {
+    flex-direction: column;
   }
 
   .qb-form__row {

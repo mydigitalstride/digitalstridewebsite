@@ -98,8 +98,10 @@ function digitalstride_enqueue_assets() {
 
     // Quote Questionnaire page CSS + JS
     if (is_page_template('page-questionnaire.php')) {
-        wp_enqueue_style('questionnaire-css', get_template_directory_uri() . '/styles/questionnaire.css', [], '1.0.0');
-        wp_enqueue_script('questionnaire-js', get_template_directory_uri() . '/js/questionnaire.js', [], '1.0.0', true);
+        wp_enqueue_style('questionnaire-css', get_template_directory_uri() . '/styles/questionnaire.css', [], '1.1.0');
+        // jsPDF for client-side PDF generation (loaded before questionnaire.js)
+        wp_enqueue_script('jspdf', 'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js', [], '2.5.1', true);
+        wp_enqueue_script('questionnaire-js', get_template_directory_uri() . '/js/questionnaire.js', ['jspdf'], '1.1.0', true);
         wp_localize_script('questionnaire-js', 'qbData', [
             'ajaxUrl' => admin_url('admin-ajax.php'),
             'nonce'   => wp_create_nonce('qb_quote_nonce'),
@@ -942,7 +944,10 @@ add_action( 'wp_ajax_nopriv_gr_feedback_submit', 'ds_handle_gr_feedback_submissi
 
 /**
  * Handles the AJAX quote submission from the website questionnaire tool.
- * Sends a formatted email to the site admin with all answers + estimates.
+ *
+ * - Saves the PDF (base64) to a temp file and attaches it to both emails.
+ * - Sends to: (1) results@mydigitalstride.com  (2) the client's email address.
+ * - Temp file is deleted after sending.
  */
 function ds_handle_qb_quote_submission() {
     check_ajax_referer( 'qb_quote_nonce', 'nonce' );
@@ -953,19 +958,37 @@ function ds_handle_qb_quote_submission() {
     $phone     = sanitize_text_field( $_POST['phone']         ?? '' );
     $notes     = sanitize_textarea_field( $_POST['notes']     ?? '' );
     $tier      = sanitize_text_field( $_POST['qb_tier']       ?? '' );
-    $platform  = sanitize_text_field( $_POST['qb_platform']   ?? '' );
-    $timeline  = sanitize_text_field( $_POST['qb_timeline']   ?? '' );
     $summary   = sanitize_textarea_field( $_POST['summary']   ?? '' );
+    $pdf_b64   = $_POST['pdf_b64'] ?? '';  // raw data URI from jsPDF
 
     // Basic validation
     if ( empty( $name ) || ! is_email( $email ) ) {
         wp_send_json_error( 'Please provide a valid name and email address.' );
     }
 
-    $to      = get_option( 'admin_email' );
-    $subject = 'New Website Quote Request — ' . ( $business ?: $name ) . ' (' . ucfirst( $tier ) . ' Tier)';
+    $site_name   = get_bloginfo( 'name' );
+    $admin_email = get_option( 'admin_email' );
+    $ds_email    = 'results@mydigitalstride.com';
+    $tier_label  = ucfirst( str_replace( '_', ' ', $tier ) );
+    $subject     = 'Website Quote — ' . ( $business ?: $name ) . ' (' . $tier_label . ' Tier)';
 
-    $body  = "New quote request from the Digital Stride website questionnaire.\n\n";
+    // ── Save PDF temp file (if provided) ────────────────────────────
+    $pdf_path = '';
+    if ( ! empty( $pdf_b64 ) ) {
+        // Strip data URI prefix: "data:application/pdf;base64,<data>"
+        $b64_data = preg_replace( '/^data:[^;]+;base64,/', '', $pdf_b64 );
+        $pdf_data = base64_decode( $b64_data );
+        if ( $pdf_data !== false ) {
+            $upload_dir = wp_upload_dir();
+            $pdf_path   = $upload_dir['basedir'] . '/qb-quote-' . sanitize_file_name( $name ) . '-' . time() . '.pdf';
+            file_put_contents( $pdf_path, $pdf_data );
+        }
+    }
+
+    $attachments = $pdf_path ? [ $pdf_path ] : [];
+
+    // ── Email body ──────────────────────────────────────────────────
+    $body  = "New website quote request via the Digital Stride questionnaire.\n\n";
     $body .= "=== CONTACT ===\n";
     $body .= "Name:     {$name}\n";
     $body .= "Business: {$business}\n";
@@ -975,19 +998,36 @@ function ds_handle_qb_quote_submission() {
         $body .= "=== NOTES ===\n{$notes}\n\n";
     }
     $body .= $summary . "\n\n";
-    $body .= "---\nSubmitted via the Website Quote Questionnaire on " . get_bloginfo( 'name' );
+    $body .= "---\nSubmitted via the Website Quote Questionnaire on {$site_name}";
 
-    $headers = [
+    $from_header    = "From: {$site_name} <{$admin_email}>";
+    $reply_to       = is_email( $email ) ? "Reply-To: {$name} <{$email}>" : '';
+
+    // ── Send to Digital Stride team ─────────────────────────────────
+    $ds_headers = [ 'Content-Type: text/plain; charset=UTF-8', $from_header ];
+    if ( $reply_to ) $ds_headers[] = $reply_to;
+    $sent_ds = wp_mail( $ds_email, $subject, $body, $ds_headers, $attachments );
+
+    // ── Send confirmation copy to client ────────────────────────────
+    $client_body  = "Hi {$name},\n\n";
+    $client_body .= "Thank you for requesting a quote from Digital Stride! We've received your information and will follow up within 1 business day with a detailed proposal.\n\n";
+    $client_body .= "Your quote summary is attached as a PDF for your records.\n\n";
+    $client_body .= $summary . "\n\n";
+    $client_body .= "---\nDigital Stride | results@mydigitalstride.com";
+
+    $client_subject = 'Your Digital Stride Website Quote — ' . ( $business ?: $name );
+    $client_headers = [
         'Content-Type: text/plain; charset=UTF-8',
-        'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>',
+        "From: Digital Stride <{$ds_email}>",
     ];
-    if ( is_email( $email ) ) {
-        $headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
+    wp_mail( $email, $client_subject, $client_body, $client_headers, $attachments );
+
+    // ── Clean up temp PDF ────────────────────────────────────────────
+    if ( $pdf_path && file_exists( $pdf_path ) ) {
+        unlink( $pdf_path );
     }
 
-    $sent = wp_mail( $to, $subject, $body, $headers );
-
-    if ( $sent ) {
+    if ( $sent_ds ) {
         wp_send_json_success( 'Quote submitted successfully.' );
     } else {
         wp_send_json_error( 'There was a problem sending your request. Please try again or call us directly.' );
