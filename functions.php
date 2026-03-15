@@ -96,6 +96,16 @@ function digitalstride_enqueue_assets() {
         );
     }
 
+    // Quote Questionnaire page CSS + JS
+    if (is_page_template('page-questionnaire.php')) {
+        wp_enqueue_style('questionnaire-css', get_template_directory_uri() . '/styles/questionnaire.css', [], '1.0.0');
+        wp_enqueue_script('questionnaire-js', get_template_directory_uri() . '/js/questionnaire.js', [], '1.0.0', true);
+        wp_localize_script('questionnaire-js', 'qbData', [
+            'ajaxUrl' => admin_url('admin-ajax.php'),
+            'nonce'   => wp_create_nonce('qb_quote_nonce'),
+        ]);
+    }
+
     // ACF flexible content layout: Services CSS
     if (is_page()) {
         $sections = get_field('services_sections');
@@ -925,6 +935,66 @@ function ds_handle_gr_feedback_submission() {
 }
 add_action( 'wp_ajax_gr_feedback_submit',        'ds_handle_gr_feedback_submission' );
 add_action( 'wp_ajax_nopriv_gr_feedback_submit', 'ds_handle_gr_feedback_submission' );
+
+/* =============================================================
+   QUOTE QUESTIONNAIRE — FORM SUBMISSION
+   ============================================================= */
+
+/**
+ * Handles the AJAX quote submission from the website questionnaire tool.
+ * Sends a formatted email to the site admin with all answers + estimates.
+ */
+function ds_handle_qb_quote_submission() {
+    check_ajax_referer( 'qb_quote_nonce', 'nonce' );
+
+    $name      = sanitize_text_field( $_POST['name']          ?? '' );
+    $business  = sanitize_text_field( $_POST['business']      ?? '' );
+    $email     = sanitize_email(      $_POST['email']         ?? '' );
+    $phone     = sanitize_text_field( $_POST['phone']         ?? '' );
+    $notes     = sanitize_textarea_field( $_POST['notes']     ?? '' );
+    $tier      = sanitize_text_field( $_POST['qb_tier']       ?? '' );
+    $platform  = sanitize_text_field( $_POST['qb_platform']   ?? '' );
+    $timeline  = sanitize_text_field( $_POST['qb_timeline']   ?? '' );
+    $summary   = sanitize_textarea_field( $_POST['summary']   ?? '' );
+
+    // Basic validation
+    if ( empty( $name ) || ! is_email( $email ) ) {
+        wp_send_json_error( 'Please provide a valid name and email address.' );
+    }
+
+    $to      = get_option( 'admin_email' );
+    $subject = 'New Website Quote Request — ' . ( $business ?: $name ) . ' (' . ucfirst( $tier ) . ' Tier)';
+
+    $body  = "New quote request from the Digital Stride website questionnaire.\n\n";
+    $body .= "=== CONTACT ===\n";
+    $body .= "Name:     {$name}\n";
+    $body .= "Business: {$business}\n";
+    $body .= "Email:    {$email}\n";
+    $body .= "Phone:    {$phone}\n\n";
+    if ( $notes ) {
+        $body .= "=== NOTES ===\n{$notes}\n\n";
+    }
+    $body .= $summary . "\n\n";
+    $body .= "---\nSubmitted via the Website Quote Questionnaire on " . get_bloginfo( 'name' );
+
+    $headers = [
+        'Content-Type: text/plain; charset=UTF-8',
+        'From: ' . get_bloginfo( 'name' ) . ' <' . get_option( 'admin_email' ) . '>',
+    ];
+    if ( is_email( $email ) ) {
+        $headers[] = 'Reply-To: ' . $name . ' <' . $email . '>';
+    }
+
+    $sent = wp_mail( $to, $subject, $body, $headers );
+
+    if ( $sent ) {
+        wp_send_json_success( 'Quote submitted successfully.' );
+    } else {
+        wp_send_json_error( 'There was a problem sending your request. Please try again or call us directly.' );
+    }
+}
+add_action( 'wp_ajax_qb_quote_submit',        'ds_handle_qb_quote_submission' );
+add_action( 'wp_ajax_nopriv_qb_quote_submit', 'ds_handle_qb_quote_submission' );
 
 /* =============================================================
    MARCH MADNESS — HTML CONFIRMATION EMAIL BUILDER
