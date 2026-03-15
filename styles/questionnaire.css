@@ -14,6 +14,7 @@
   --qb-red:        #ef4444;
   --qb-slate:      #64748b;
   --qb-grad:       linear-gradient(135deg, #189DA7 0%, #1d4382 100%);
+  --qb-grad-hover: var(--gradient-yellow-orange, linear-gradient(135deg, #f2c814, #ff4a07));
   --qb-shadow:     0 4px 24px rgba(29, 67, 130, 0.10);
   --qb-shadow-lg:  0 8px 40px rgba(29, 67, 130, 0.15);
   --qb-radius:     12px;
@@ -194,6 +195,11 @@
   flex-direction: column;
   gap: 10px;
   margin-bottom: 32px;
+}
+
+.qb-options--list .qb-option {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* ─── Option Button ──────────────────────────────────────────────────── */
@@ -521,15 +527,15 @@
 }
 
 .qb-btn--next {
-  background: var(--qb-teal);
+  background: var(--qb-orange);
   color: #fff;
   margin-left: auto;
 }
 
 .qb-btn--next:hover:not(:disabled) {
-  background: #147d86;
+  background: var(--qb-grad-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(24, 157, 167, 0.3);
+  box-shadow: 0 4px 16px rgba(243, 110, 33, 0.35);
 }
 
 .qb-btn--next:disabled,
@@ -542,16 +548,16 @@
 }
 
 .qb-btn--cta {
-  background: var(--qb-grad);
+  background: var(--qb-orange);
   color: #fff;
   padding: 16px 32px;
   font-size: 16px;
 }
 
 .qb-btn--cta:hover:not(:disabled) {
-  opacity: 0.92;
+  background: var(--qb-grad-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(29, 67, 130, 0.3);
+  box-shadow: 0 6px 24px rgba(243, 110, 33, 0.35);
 }
 
 .qb-btn--back {
@@ -569,7 +575,7 @@
 .qb-btn--submit {
   width: 100%;
   justify-content: center;
-  background: var(--qb-grad);
+  background: var(--qb-orange);
   color: #fff;
   padding: 16px;
   font-size: 16px;
@@ -577,9 +583,9 @@
 }
 
 .qb-btn--submit:hover:not(:disabled) {
-  opacity: 0.92;
+  background: var(--qb-grad-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 24px rgba(29, 67, 130, 0.3);
+  box-shadow: 0 6px 24px rgba(243, 110, 33, 0.35);
 }
 
 .qb-btn--submit:disabled {
@@ -589,16 +595,17 @@
 }
 
 .qb-btn--download {
-  background: #fff;
-  color: var(--qb-teal);
-  border: 2px solid var(--qb-teal);
+  background: var(--qb-orange);
+  color: #fff;
+  border: none;
   padding: 10px 22px;
   font-size: 14px;
 }
 
 .qb-btn--download:hover {
-  background: var(--qb-teal);
-  color: #fff;
+  background: var(--qb-grad-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(243, 110, 33, 0.35);
 }
 
 .qb-btn--ghost {
@@ -621,9 +628,9 @@
 }
 
 .qb-btn--primary:hover {
-  background: #d95c12;
+  background: var(--qb-grad-hover);
   transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(243, 110, 33, 0.3);
+  box-shadow: 0 4px 16px rgba(243, 110, 33, 0.35);
 }
 
 /* ─── Product Count Step ─────────────────────────────────────────────── */

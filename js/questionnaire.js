@@ -161,6 +161,25 @@
   var currentStep  = '1';
   var TOTAL_STEPS  = 9;   // visual step count for progress bar
 
+  // Pre-load logo as base64 so it's ready when PDF is generated
+  var _logoBase64 = null;
+  (function () {
+    var url = window.qbData && window.qbData.logoUrl;
+    if (!url) return;
+    var img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.onload = function () {
+      try {
+        var c = document.createElement('canvas');
+        c.width = img.naturalWidth; c.height = img.naturalHeight;
+        var ctx = c.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        _logoBase64 = c.toDataURL('image/png');
+      } catch (e) { /* cross-origin canvas blocked — logo skipped */ }
+    };
+    img.src = url;
+  }());
+
   /* ─── Step helpers ───────────────────────────────────────────────── */
 
   /** Map step ID → visual step number (for progress bar). */
@@ -529,7 +548,7 @@
     plansEl.innerHTML = PAYMENT_PLANS.map(function (plan, idx) {
       var total   = Math.round(mid * (1 + plan.fee));
       var monthly = Math.round(total / plan.months);
-      var cls     = 'qb-plan-card' + (idx === 1 ? ' qb-plan-card--popular' : '');
+      var cls     = 'qb-plan-card' + (idx === 0 ? ' qb-plan-card--popular' : '');
       return '<div class="' + cls + '">' +
         '<p class="qb-plan-card__months">' + plan.months + ' Monthly Payments</p>' +
         '<p class="qb-plan-card__fee">' + plan.feeLabel + '</p>' +
@@ -610,18 +629,26 @@
 
     // ── Header bar
     doc.setFillColor(29, 67, 130);
-    doc.rect(0, 0, 210, 28, 'F');
-    doc.setFillColor(24, 157, 167);
-    doc.rect(0, 24, 210, 4, 'F');
+    doc.rect(0, 0, 210, 30, 'F');
+    doc.setFillColor(243, 110, 33);
+    doc.rect(0, 26, 210, 4, 'F');
 
+    // Logo (if preloaded) — else fall back to text
+    if (_logoBase64) {
+      try { doc.addImage(_logoBase64, 'PNG', 10, 4, 60, 0); }
+      catch (e) { _logoBase64 = null; } // reset so fallback text used
+    }
+    if (!_logoBase64) {
+      doc.setTextColor(255, 255, 255);
+      doc.setFontSize(18);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Digital Stride', 14, 13);
+    }
     doc.setTextColor(255, 255, 255);
-    doc.setFontSize(18);
-    doc.setFont('helvetica', 'bold');
-    doc.text('Digital Stride', 14, 13);
     doc.setFontSize(11);
     doc.setFont('helvetica', 'normal');
-    doc.text('Website Quote Estimate', 14, 20);
-    doc.text(new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }), 148, 20);
+    doc.text('Website Quote Estimate', 14, 22);
+    doc.text(new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }), 140, 22);
 
     // ── Client info
     var y = 36;
@@ -760,7 +787,7 @@
       var total   = Math.round(prefPrices.midpoint * (1 + plan.fee));
       var monthly = Math.round(total / plan.months);
       var x = 14 + idx * 62;
-      var isPopular = idx === 1;
+      var isPopular = idx === 0;
 
       if (isPopular) { doc.setFillColor(224, 253, 254); doc.rect(x, y, 58, 24, 'F'); }
       doc.setDrawColor(220,220,220);
@@ -796,14 +823,36 @@
       doc.text(contact.notes, 14, y, { maxWidth: 182 });
     }
 
+    // ── Schedule a Meeting CTA
+    y += 30;
+    if (y > 245) { doc.addPage(); y = 20; }
+    doc.setFillColor(243, 245, 255);
+    doc.roundedRect(14, y, 182, 22, 3, 3, 'F');
+    doc.setTextColor(29, 67, 130);
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Ready to take the next step?', 18, y + 8);
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(80, 80, 80);
+    doc.text('Schedule a free discovery call:', 18, y + 15);
+    doc.setTextColor(243, 110, 33);
+    doc.textWithLink('meetings.hubspot.com/exp1st/website-cost-estimator', 68, y + 15,
+      { url: 'https://meetings.hubspot.com/exp1st/website-cost-estimator' });
+
     // ── Footer
     doc.setFillColor(29, 67, 130);
-    doc.rect(0, 280, 210, 17, 'F');
+    doc.rect(0, 277, 210, 20, 'F');
+    doc.setFillColor(243, 110, 33);
+    doc.rect(0, 274, 210, 3, 'F');
     doc.setTextColor(255,255,255);
     doc.setFontSize(8);
     doc.setFont('helvetica', 'normal');
-    doc.text('This is an estimate only. Final pricing is confirmed in writing at proposal.', 14, 287);
-    doc.text('Digital Stride  |  results@mydigitalstride.com', 14, 292);
+    doc.text('Digital Stride  |  results@mydigitalstride.com  |  mydigitalstride.com', 14, 283);
+    doc.text('This is an estimate only. Final pricing confirmed in writing at proposal.', 14, 289);
+    doc.setTextColor(200, 220, 255);
+    doc.textWithLink('Schedule your free call \u2192', 14, 294,
+      { url: 'https://meetings.hubspot.com/exp1st/website-cost-estimator' });
 
     return doc;
   }
