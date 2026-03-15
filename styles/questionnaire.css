@@ -196,6 +196,11 @@
   margin-bottom: 32px;
 }
 
+.qb-options--list .qb-option {
+  width: 100%;
+  box-sizing: border-box;
+}
+
 /* ─── Option Button ──────────────────────────────────────────────────── */
 .qb-option {
   display: flex;

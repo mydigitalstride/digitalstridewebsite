@@ -529,8 +529,8 @@ get_header();
                     <input type="text" id="qb-name" name="name" class="qb-form__input" placeholder="Jane Smith" autocomplete="name" required />
                   </div>
                   <div class="qb-form__group">
-                    <label class="qb-form__label" for="qb-business">Business Name</label>
-                    <input type="text" id="qb-business" name="business" class="qb-form__input" placeholder="Acme Services LLC" autocomplete="organization" />
+                    <label class="qb-form__label" for="qb-business">Business Name <span class="qb-form__req" aria-hidden="true">*</span></label>
+                    <input type="text" id="qb-business" name="business" class="qb-form__input" placeholder="Acme Services LLC" autocomplete="organization" required />
                   </div>
                 </div>
                 <div class="qb-form__row">
@@ -578,7 +578,7 @@ get_header();
                 <span aria-hidden="true">⬇</span> Download PDF Quote
               </button>
               <p class="qb-quote__sent-note">
-                <span aria-hidden="true">📧</span> A copy has been emailed to you and our team.
+                <span aria-hidden="true">📧</span> A copy has been emailed to you.
               </p>
             </div>
           </div>
