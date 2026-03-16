@@ -17,44 +17,44 @@
 
   var TEAMS = {
     South: {
-      1: 'Duke',            16: 'High Point',
-      8: 'Miss. State',      9: 'Vanderbilt',
-      5: 'Gonzaga',         12: 'Drake',
-      4: 'Michigan State',  13: 'Furman',
-      6: 'Baylor',          11: 'NC State',
-      3: 'Kentucky',        14: 'Colgate',
-      7: 'Creighton',       10: 'New Mexico',
-      2: 'Alabama',         15: 'Montana State'
+      1: 'Florida',         16: 'PV A&M/Lehigh',
+      8: 'Clemson',          9: 'Iowa',
+      5: 'Vanderbilt',      12: 'McNeese',
+      4: 'Nebraska',        13: 'Troy',
+      6: 'North Carolina',  11: 'VCU',
+      3: 'Illinois',        14: 'Penn',
+      7: "Saint Mary's",    10: 'Texas A&M',
+      2: 'Houston',         15: 'Idaho'
     },
     East: {
-      1: 'Auburn',          16: 'Sacred Heart',
-      8: 'Dayton',           9: "St. Mary's",
-      5: 'Illinois',        12: 'UC San Diego',
-      4: 'Texas A&M',       13: 'Vermont',
-      6: 'Marquette',       11: 'Nebraska',
-      3: 'Wisconsin',       14: 'Wofford',
-      7: 'UCLA',            10: 'Colorado State',
-      2: 'Tennessee',       15: 'Longwood'
+      1: 'Duke',            16: 'Siena',
+      8: 'Ohio State',       9: 'TCU',
+      5: "St. John's",      12: 'Northern Iowa',
+      4: 'Kansas',          13: 'Cal Baptist',
+      6: 'Louisville',      11: 'South Florida',
+      3: 'Michigan State',  14: 'North Dakota St.',
+      7: 'UCLA',            10: 'UCF',
+      2: 'UConn',           15: 'Furman'
     },
     West: {
-      1: 'Kansas',          16: 'Norfolk State',
-      8: 'Xavier',           9: 'Oklahoma',
-      5: 'Connecticut',     12: 'San Diego State',
-      4: 'Missouri',        13: 'Grand Canyon',
-      6: 'Indiana',         11: 'Oregon',
-      3: 'Houston',         14: 'Morehead State',
-      7: 'Rutgers',         10: 'Utah State',
-      2: 'Iowa State',      15: 'Robert Morris'
+      1: 'Arizona',         16: 'LIU',
+      8: 'Villanova',        9: 'Utah State',
+      5: 'Wisconsin',       12: 'High Point',
+      4: 'Arkansas',        13: 'Hawaii',
+      6: 'BYU',             11: 'Texas/NC State',
+      3: 'Gonzaga',         14: 'Kennesaw State',
+      7: 'Miami (FL)',      10: 'Missouri',
+      2: 'Purdue',          15: 'Queens'
     },
     Midwest: {
-      1: 'Florida',         16: 'Texas Southern',
-      8: 'Ohio State',       9: 'West Virginia',
-      5: 'Arizona',         12: 'Liberty',
-      4: 'Purdue',          13: 'Samford',
-      6: 'Virginia',        11: 'Pittsburgh',
-      3: 'Michigan',        14: 'Chattanooga',
-      7: 'Louisville',      10: 'Arkansas',
-      2: "St. John's",      15: 'Bethune-Cookman'
+      1: 'Michigan',        16: 'UMBC/Howard',
+      8: 'Georgia',          9: 'Saint Louis',
+      5: 'Texas Tech',      12: 'Akron',
+      4: 'Alabama',         13: 'Hofstra',
+      6: 'Tennessee',       11: 'Miami OH/SMU',
+      3: 'Virginia',        14: 'Wright State',
+      7: 'Kentucky',        10: 'Santa Clara',
+      2: 'Iowa State',      15: 'Tennessee State'
     }
   };
 
