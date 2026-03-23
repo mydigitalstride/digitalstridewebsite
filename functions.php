@@ -365,11 +365,17 @@ function ds_referral_submissions_admin_page() {
     global $wpdb;
     $table = $wpdb->prefix . 'rl_referral_submissions';
 
-    $days   = isset( $_GET['days'] ) ? max( 1, intval( $_GET['days'] ) ) : 7;
-    $rows   = $wpdb->get_results( $wpdb->prepare(
-        "SELECT * FROM {$table} WHERE submitted_at >= %s ORDER BY submitted_at DESC",
-        gmdate( 'Y-m-d H:i:s', strtotime( "-{$days} days" ) )
-    ) );
+    $days = isset( $_GET['days'] ) ? $_GET['days'] : 'all';
+    $days = ( $days === 'all' ) ? 'all' : max( 1, intval( $days ) );
+
+    if ( $days === 'all' ) {
+        $rows = $wpdb->get_results( "SELECT * FROM {$table} ORDER BY submitted_at DESC" );
+    } else {
+        $rows = $wpdb->get_results( $wpdb->prepare(
+            "SELECT * FROM {$table} WHERE submitted_at >= %s ORDER BY submitted_at DESC",
+            gmdate( 'Y-m-d H:i:s', strtotime( "-{$days} days" ) )
+        ) );
+    }
 
     echo '<div class="wrap">';
     echo '<h1>Referral Submissions</h1>';
@@ -377,21 +383,22 @@ function ds_referral_submissions_admin_page() {
     // Filter bar
     echo '<form method="get" style="margin:12px 0 20px;">';
     echo '<input type="hidden" name="page" value="ds-referral-submissions" />';
-    echo 'Show submissions from the last ';
-    echo '<select name="days" onchange="this.form.submit()">';
+    echo 'Show: <select name="days" onchange="this.form.submit()">';
+    echo '<option value="all"' . ( $days === 'all' ? ' selected' : '' ) . '>All time</option>';
     foreach ( [ 3, 7, 14, 30 ] as $d ) {
-        $sel = ( $d === $days ) ? ' selected' : '';
-        echo "<option value=\"{$d}\"{$sel}>{$d} days</option>";
+        $sel = ( $days === $d ) ? ' selected' : '';
+        echo "<option value=\"{$d}\"{$sel}>Last {$d} days</option>";
     }
     echo '</select></form>';
 
     if ( empty( $rows ) ) {
-        echo '<p>No submissions found in the last ' . esc_html( $days ) . ' days.</p>';
+        echo '<p>No submissions found.</p>';
         echo '</div>';
         return;
     }
 
-    echo '<p><strong>' . count( $rows ) . '</strong> submission(s) in the last ' . esc_html( $days ) . ' day(s).</p>';
+    $label = ( $days === 'all' ) ? 'all time' : 'the last ' . $days . ' day(s)';
+    echo '<p><strong>' . count( $rows ) . '</strong> submission(s) &mdash; ' . esc_html( $label ) . '.</p>';
 
     foreach ( $rows as $row ) {
         $referrals = json_decode( $row->referrals_json, true ) ?: [];
