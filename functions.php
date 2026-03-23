@@ -345,7 +345,79 @@ add_filter('template_include', function ($template) {
 // and ensure Events CPT appears.
 add_action('admin_menu', function () {
     remove_menu_page('edit.php?post_type=services');
+
+    add_menu_page(
+        'Referral Submissions',
+        'Referral Submissions',
+        'manage_options',
+        'ds-referral-submissions',
+        'ds_referral_submissions_admin_page',
+        'dashicons-groups',
+        30
+    );
 }, 999);
+
+function ds_referral_submissions_admin_page() {
+    if ( ! current_user_can( 'manage_options' ) ) {
+        return;
+    }
+
+    global $wpdb;
+    $table = $wpdb->prefix . 'rl_referral_submissions';
+
+    $days   = isset( $_GET['days'] ) ? max( 1, intval( $_GET['days'] ) ) : 7;
+    $rows   = $wpdb->get_results( $wpdb->prepare(
+        "SELECT * FROM {$table} WHERE submitted_at >= %s ORDER BY submitted_at DESC",
+        gmdate( 'Y-m-d H:i:s', strtotime( "-{$days} days" ) )
+    ) );
+
+    echo '<div class="wrap">';
+    echo '<h1>Referral Submissions</h1>';
+
+    // Filter bar
+    echo '<form method="get" style="margin:12px 0 20px;">';
+    echo '<input type="hidden" name="page" value="ds-referral-submissions" />';
+    echo 'Show submissions from the last ';
+    echo '<select name="days" onchange="this.form.submit()">';
+    foreach ( [ 3, 7, 14, 30 ] as $d ) {
+        $sel = ( $d === $days ) ? ' selected' : '';
+        echo "<option value=\"{$d}\"{$sel}>{$d} days</option>";
+    }
+    echo '</select></form>';
+
+    if ( empty( $rows ) ) {
+        echo '<p>No submissions found in the last ' . esc_html( $days ) . ' days.</p>';
+        echo '</div>';
+        return;
+    }
+
+    echo '<p><strong>' . count( $rows ) . '</strong> submission(s) in the last ' . esc_html( $days ) . ' day(s).</p>';
+
+    foreach ( $rows as $row ) {
+        $referrals = json_decode( $row->referrals_json, true ) ?: [];
+        echo '<details style="margin-bottom:16px;border:1px solid #ddd;border-radius:4px;background:#fff;">';
+        echo '<summary style="padding:12px 16px;cursor:pointer;font-weight:600;font-size:14px;">';
+        echo esc_html( $row->submitter_name ) . ' &lt;' . esc_html( $row->submitter_email ) . '&gt;';
+        echo ' &mdash; ' . esc_html( $row->referral_count ) . ' contact(s)';
+        echo ' <span style="font-weight:400;color:#666;margin-left:12px;">' . esc_html( $row->submitted_at ) . '</span>';
+        echo '</summary>';
+        echo '<div style="padding:0 16px 16px;">';
+        echo '<table class="widefat striped" style="margin-top:12px;">';
+        echo '<thead><tr><th>#</th><th>Name</th><th>Email</th><th>Phone</th></tr></thead><tbody>';
+        foreach ( $referrals as $i => $ref ) {
+            echo '<tr>';
+            echo '<td>' . ( $i + 1 ) . '</td>';
+            echo '<td>' . esc_html( $ref['name'] ) . '</td>';
+            echo '<td>' . esc_html( $ref['email'] ) . '</td>';
+            echo '<td>' . ( ! empty( $ref['phone'] ) ? esc_html( $ref['phone'] ) : '&mdash;' ) . '</td>';
+            echo '</tr>';
+        }
+        echo '</tbody></table>';
+        echo '</div></details>';
+    }
+
+    echo '</div>';
+}
 
 // Theme Customizer
 function digitalstride_customize_register($wp_customize) {
