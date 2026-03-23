@@ -317,8 +317,35 @@ add_action('admin_init', function () {
 // Flush rewrite rules when the theme is switched
 add_action('after_switch_theme', function () {
     digitalstride_events_post_type();
+    ds_create_rl_referral_table();
     flush_rewrite_rules();
 });
+
+// Create the referral submissions table if it doesn't exist yet
+function ds_create_rl_referral_table() {
+    global $wpdb;
+    $table   = $wpdb->prefix . 'rl_referral_submissions';
+    $charset = $wpdb->get_charset_collate();
+
+    $sql = "CREATE TABLE IF NOT EXISTS {$table} (
+        id              BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+        submitter_name  VARCHAR(255)    NOT NULL DEFAULT '',
+        submitter_email VARCHAR(255)    NOT NULL DEFAULT '',
+        referrals_json  LONGTEXT        NOT NULL,
+        referral_count  TINYINT UNSIGNED NOT NULL DEFAULT 0,
+        submitted_at    DATETIME        NOT NULL,
+        PRIMARY KEY (id)
+    ) {$charset};";
+
+    require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+    dbDelta( $sql );
+}
+add_action( 'init', function () {
+    if ( ! get_option( 'ds_rl_referral_table_v1' ) ) {
+        ds_create_rl_referral_table();
+        update_option( 'ds_rl_referral_table_v1', true );
+    }
+} );
 
 // Force the events page template regardless of the Page Attributes selection in WP Admin.
 // This ensures page-events.php always loads for the page with slug "events".
@@ -863,8 +890,20 @@ function ds_handle_rl_referral_submission() {
         wp_send_json_error( implode( ' ', $errors ) );
     }
 
+    // Save submission to database
+    global $wpdb;
+    $table = $wpdb->prefix . 'rl_referral_submissions';
+
+    $wpdb->insert( $table, [
+        'submitter_name'  => $sub_name,
+        'submitter_email' => $sub_email,
+        'referrals_json'  => wp_json_encode( $referrals ),
+        'referral_count'  => count( $referrals ),
+        'submitted_at'    => current_time( 'mysql' ),
+    ], [ '%s', '%s', '%s', '%d', '%s' ] );
+
     // Build notification email to DS team
-    $to      = 'hello@mydigitalstride.com';
+    $to      = 'Results@mydigitalstride.com';
     $subject = 'New Professional Referral Submission (' . count( $referrals ) . ' contact' . ( count( $referrals ) !== 1 ? 's' : '' ) . ') — Digital Stride';
     $headers = [
         'Content-Type: text/html; charset=UTF-8',
