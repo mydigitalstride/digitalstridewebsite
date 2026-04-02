@@ -21,112 +21,115 @@ get_header();
     </div>
   </section>
 
-  <!-- ══ GRATITUDE INTRO ═══════════════════════════════════════════ -->
-  <section class="gr-intro">
-    <div class="gr-container">
-      <div class="gr-intro__inner">
-        <h2 class="gr-intro__heading">Working With You Is the Best Part of What We Do</h2>
-        <p>
-          At Digital Stride, we genuinely care about the people we work with &mdash; you&rsquo;re not just a client, you&rsquo;re a partner, and your trust means everything to our team. We&rsquo;d love to hear how we&rsquo;re doing, and your feedback helps us improve and helps other great businesses find us. It only takes a moment, and it means the world to us.
-        </p>
-      </div>
-    </div>
-  </section>
-
   <!-- ══ NPS SATISFACTION ══════════════════════════════════════════ -->
   <section class="gr-nps" id="nps-section">
     <div class="gr-container">
+      <div class="gr-nps__layout">
 
-      <div class="gr-nps__card">
-        <div class="gr-nps__icon" aria-hidden="true">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
-        </div>
-        <h2 class="gr-nps__heading">How satisfied are you with the service from Digital Stride?</h2>
-        <p class="gr-nps__sub">On a scale of 0 to 10, how likely are you to recommend us to a friend or colleague?</p>
+        <!-- ── Left column: NPS card + response panels (≈60%) ──── -->
+        <div class="gr-nps__main">
 
-        <div class="gr-nps__scale" role="group" aria-label="Satisfaction score 0 to 10">
-          <?php for ( $i = 0; $i <= 10; $i++ ) : ?>
-            <button
-              type="button"
-              class="gr-nps__btn"
-              data-score="<?php echo esc_attr( $i ); ?>"
-              aria-label="Score <?php echo esc_attr( $i ); ?>"
-            ><?php echo esc_html( $i ); ?></button>
-          <?php endfor; ?>
-        </div>
-
-        <div class="gr-nps__labels" aria-hidden="true">
-          <span>Not likely at all</span>
-          <span>Extremely likely</span>
-        </div>
-
-        <div class="gr-nps__submit-wrap" id="nps-submit-wrap" hidden>
-          <p class="gr-nps__selected-msg" id="nps-selected-msg" aria-live="polite"></p>
-          <button type="button" class="gr-nps__submit-btn" id="nps-submit-btn">
-            Submit Score <span aria-hidden="true">&rarr;</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- ── LOW SCORE response (0-7) ──────────────────────────── -->
-      <div class="gr-response gr-response--low" id="response-low" hidden>
-        <div class="gr-response__icon" aria-hidden="true">&#128172;</div>
-        <h3>Thank you for your honesty</h3>
-        <p>
-          We&rsquo;re sorry to hear your experience hasn&rsquo;t been everything it should be. Please share your feedback below and a member of our team will personally follow up to make things right.
-        </p>
-
-        <div id="gr-feedback-success" class="gr-form__success" hidden>
-          <span class="gr-form__success-icon" aria-hidden="true">&#10003;</span>
-          <strong>Feedback received!</strong> Thank you &mdash; someone from our team will be in touch shortly.
-        </div>
-
-        <form id="gr-feedback-form" class="gr-feedback-form" novalidate aria-label="Feedback form">
-          <div class="gr-feedback-form__row">
-            <div class="gr-form__group">
-              <label class="gr-form__label" for="fb-name">Your Name <span class="gr-form__required" aria-hidden="true">*</span></label>
-              <input type="text" id="fb-name" name="fb_name" class="gr-form__input" placeholder="Your Name" required />
+          <div class="gr-nps__card">
+            <div class="gr-nps__icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
             </div>
-            <div class="gr-form__group">
-              <label class="gr-form__label" for="fb-email">Email Address <span class="gr-form__required" aria-hidden="true">*</span></label>
-              <input type="email" id="fb-email" name="fb_email" class="gr-form__input" placeholder="you@example.com" required />
+            <h2 class="gr-nps__heading">How satisfied are you with the service from Digital Stride?</h2>
+            <p class="gr-nps__sub">On a scale of 0 to 10, how likely are you to recommend us to a friend or colleague?</p>
+
+            <div class="gr-nps__scale" role="group" aria-label="Satisfaction score 0 to 10">
+              <?php for ( $i = 0; $i <= 10; $i++ ) : ?>
+                <button
+                  type="button"
+                  class="gr-nps__btn"
+                  data-score="<?php echo esc_attr( $i ); ?>"
+                  aria-label="Score <?php echo esc_attr( $i ); ?>"
+                ><?php echo esc_html( $i ); ?></button>
+              <?php endfor; ?>
+            </div>
+
+            <div class="gr-nps__labels" aria-hidden="true">
+              <span>Not likely at all</span>
+              <span>Extremely likely</span>
+            </div>
+
+            <div class="gr-nps__submit-wrap" id="nps-submit-wrap" hidden>
+              <p class="gr-nps__selected-msg" id="nps-selected-msg" aria-live="polite"></p>
+              <button type="button" class="gr-nps__submit-btn" id="nps-submit-btn">
+                Submit Score <span aria-hidden="true">&rarr;</span>
+              </button>
             </div>
           </div>
-          <div class="gr-form__group">
-            <label class="gr-form__label" for="fb-message">Your Feedback <span class="gr-form__required" aria-hidden="true">*</span></label>
-            <textarea id="fb-message" name="fb_message" class="gr-form__input gr-form__textarea" placeholder="Tell us what we could do better&hellip;" rows="4" required></textarea>
-          </div>
-          <div class="gr-feedback-form__footer">
-            <button type="submit" class="gr-form__submit">Send Feedback <span aria-hidden="true">&rarr;</span></button>
-          </div>
-        </form>
-      </div>
 
-      <!-- ── HIGH SCORE response (8-10) ─────────────────────────── -->
-      <div class="gr-response gr-response--high" id="response-high" hidden>
-        <div class="gr-response__icon" aria-hidden="true">&#127775;</div>
-        <h3>That means so much to us!</h3>
-        <p>
-          We&rsquo;re thrilled you&rsquo;ve had a great experience with Digital Stride. Would you be willing to share that with the world? A Google Review helps other businesses find us and takes less than 2 minutes.
-        </p>
-        <a
-          href="https://g.page/r/CcMj7xiuJUJ_EBM/review"
-          class="gr-review-btn"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Leave a Google Review for Digital Stride"
-        >
-          <svg class="gr-review-btn__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true">
-            <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.2l6.7-6.7C35.6 2.4 30.1 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.8 6C12.3 13 17.7 9.5 24 9.5z"/>
-            <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.8-2.2 5.2-4.7 6.8l7.3 5.7c4.3-4 6.8-9.9 7.2-16.5z"/>
-            <path fill="#FBBC05" d="M10.5 28.7A14.4 14.4 0 0 1 9.5 24c0-1.6.3-3.2.7-4.7l-7.8-6A23.8 23.8 0 0 0 0 24c0 3.9.9 7.5 2.5 10.8l8-6.1z"/>
-            <path fill="#34A853" d="M24 48c6.1 0 11.2-2 14.9-5.5l-7.3-5.7c-2 1.4-4.6 2.2-7.6 2.2-6.3 0-11.7-4.3-13.6-10l-8 6.1C6.5 42.6 14.6 48 24 48z"/>
-          </svg>
-          Leave a Google Review
-        </a>
-        <p class="gr-review-btn__note">Opens Google Reviews in a new tab &mdash; only takes 2 minutes!</p>
-      </div>
+          <!-- ── LOW SCORE response (0-7) ────────────────────── -->
+          <div class="gr-response gr-response--low" id="response-low" hidden>
+            <div class="gr-response__icon" aria-hidden="true">&#128172;</div>
+            <h3>Thank you for your honesty</h3>
+            <p>
+              We&rsquo;re sorry to hear your experience hasn&rsquo;t been everything it should be. Please share your feedback below and a member of our team will personally follow up to make things right.
+            </p>
 
+            <div id="gr-feedback-success" class="gr-form__success" hidden>
+              <span class="gr-form__success-icon" aria-hidden="true">&#10003;</span>
+              <strong>Feedback received!</strong> Thank you &mdash; someone from our team will be in touch shortly.
+            </div>
+
+            <form id="gr-feedback-form" class="gr-feedback-form" novalidate aria-label="Feedback form">
+              <div class="gr-feedback-form__row">
+                <div class="gr-form__group">
+                  <label class="gr-form__label" for="fb-name">Your Name <span class="gr-form__required" aria-hidden="true">*</span></label>
+                  <input type="text" id="fb-name" name="fb_name" class="gr-form__input" placeholder="Your Name" required />
+                </div>
+                <div class="gr-form__group">
+                  <label class="gr-form__label" for="fb-email">Email Address <span class="gr-form__required" aria-hidden="true">*</span></label>
+                  <input type="email" id="fb-email" name="fb_email" class="gr-form__input" placeholder="you@example.com" required />
+                </div>
+              </div>
+              <div class="gr-form__group">
+                <label class="gr-form__label" for="fb-message">Your Feedback <span class="gr-form__required" aria-hidden="true">*</span></label>
+                <textarea id="fb-message" name="fb_message" class="gr-form__input gr-form__textarea" placeholder="Tell us what we could do better&hellip;" rows="4" required></textarea>
+              </div>
+              <div class="gr-feedback-form__footer">
+                <button type="submit" class="gr-form__submit">Send Feedback <span aria-hidden="true">&rarr;</span></button>
+              </div>
+            </form>
+          </div>
+
+          <!-- ── HIGH SCORE response (8-10) ───────────────────── -->
+          <div class="gr-response gr-response--high" id="response-high" hidden>
+            <div class="gr-response__icon" aria-hidden="true">&#127775;</div>
+            <h3>That means so much to us!</h3>
+            <p>
+              We&rsquo;re thrilled you&rsquo;ve had a great experience with Digital Stride. Would you be willing to share that with the world? A Google Review helps other businesses find us and takes less than 2 minutes.
+            </p>
+            <a
+              href="https://g.page/r/CcMj7xiuJUJ_EBM/review"
+              class="gr-review-btn"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Leave a Google Review for Digital Stride"
+            >
+              <svg class="gr-review-btn__logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" aria-hidden="true">
+                <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.2l6.7-6.7C35.6 2.4 30.1 0 24 0 14.6 0 6.6 5.4 2.7 13.3l7.8 6C12.3 13 17.7 9.5 24 9.5z"/>
+                <path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h12.7c-.5 2.8-2.2 5.2-4.7 6.8l7.3 5.7c4.3-4 6.8-9.9 7.2-16.5z"/>
+                <path fill="#FBBC05" d="M10.5 28.7A14.4 14.4 0 0 1 9.5 24c0-1.6.3-3.2.7-4.7l-7.8-6A23.8 23.8 0 0 0 0 24c0 3.9.9 7.5 2.5 10.8l8-6.1z"/>
+                <path fill="#34A853" d="M24 48c6.1 0 11.2-2 14.9-5.5l-7.3-5.7c-2 1.4-4.6 2.2-7.6 2.2-6.3 0-11.7-4.3-13.6-10l-8 6.1C6.5 42.6 14.6 48 24 48z"/>
+              </svg>
+              Leave a Google Review
+            </a>
+            <p class="gr-review-btn__note">Opens Google Reviews in a new tab &mdash; only takes 2 minutes!</p>
+          </div>
+
+        </div><!-- /.gr-nps__main -->
+
+        <!-- ── Right column: Gratitude intro (≈40%) ────────────── -->
+        <aside class="gr-nps__aside">
+          <h2 class="gr-intro__heading">Working With You Is the Best Part of What We Do</h2>
+          <p>
+            At Digital Stride, we genuinely care about the people we work with &mdash; you&rsquo;re not just a client, you&rsquo;re a partner, and your trust means everything to our team. We&rsquo;d love to hear how we&rsquo;re doing, and your feedback helps us improve and helps other great businesses find us. It only takes a moment, and it means the world to us.
+          </p>
+        </aside>
+
+      </div><!-- /.gr-nps__layout -->
     </div>
   </section>
 
