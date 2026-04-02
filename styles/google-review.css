@@ -19,17 +19,15 @@
   padding: 0 5%;
 }
 
-/* ── HERO ───────────────────────────────────────────────────── */
+/* ── HERO (minimised) ───────────────────────────────────────── */
 .gr-hero {
   position: relative;
-  min-height: 520px;
+  min-height: 160px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
 
-  /* Fallback background in case no photo is available;
-     WordPress users can swap this with a featured image via inline style */
   background-image:
     url('https://staging8.mydigitalstride.com/wp-content/uploads/2025/06/3-1.png');
   background-size: cover;
@@ -37,7 +35,6 @@
   background-repeat: no-repeat;
 }
 
-/* Gradient overlay — teal → blue with slight opacity */
 .gr-hero__overlay {
   position: absolute;
   inset: 0;
@@ -53,73 +50,82 @@
   position: relative;
   z-index: 2;
   text-align: center;
-  padding: 3rem 5%;
+  padding: 1.25rem 5%;
   max-width: 800px;
 }
 
 .gr-hero__eyebrow {
-  font-size: var(--font-size-med);
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   color: rgba(255, 255, 255, 0.85);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.35rem;
 }
 
 .gr-hero__title {
-  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-size: clamp(1.6rem, 4vw, 2.75rem);
   font-weight: var(--font-weight-bold);
   color: #fff;
-  line-height: 1.05;
-  margin: 0 0 1rem;
-  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  line-height: 1.1;
+  margin: 0 0 0.35rem;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
 
-  /* Override global h1 gradient fill */
   background: none !important;
   -webkit-background-clip: unset !important;
   -webkit-text-fill-color: #fff !important;
 }
 
 .gr-hero__sub {
-  font-size: var(--font-size-lg);
+  font-size: var(--font-size-base);
   color: rgba(255, 255, 255, 0.9);
   margin: 0;
 }
 
-/* ── GRATITUDE INTRO ────────────────────────────────────────── */
-.gr-intro {
-  padding: 5rem 0 4rem;
-  background: var(--color-white);
-}
-
-.gr-intro__inner {
-  max-width: 960px;
-  margin: 0 auto;
-  text-align: center;
-}
-
+/* ── GRATITUDE INTRO (now inside NPS aside) ─────────────────── */
 .gr-intro__heading {
-  font-size: var(--font-size-3xl);
+  font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   background: var(--gradient-teal-blue);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  margin-bottom: 1.5rem;
-  line-height: var(--line-height-tight);
-}
-
-.gr-intro__inner p {
-  font-size: var(--font-size-med);
-  line-height: var(--line-height-loose);
-  color: var(--color-text);
   margin-bottom: 1.25rem;
+  line-height: var(--line-height-tight);
 }
 
 /* ── NPS SECTION ────────────────────────────────────────────── */
 .gr-nps {
-  padding: 4rem 0 5rem;
+  padding: 3rem 0 4rem;
   background: var(--gradient-white-light-blue);
+}
+
+/* Two-column layout: NPS + responses (left 60%) | intro aside (right 40%) */
+.gr-nps__layout {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.gr-nps__main {
+  min-width: 0; /* prevent overflow in grid */
+}
+
+.gr-nps__aside {
+  position: sticky;
+  top: 2rem;
+  padding: 2rem 1.75rem;
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(29, 67, 130, 0.08);
+}
+
+.gr-nps__aside p {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-loose);
+  color: var(--color-text);
+  margin: 0;
 }
 
 .gr-nps__card {
@@ -691,7 +697,16 @@
   }
 
   .gr-hero {
-    min-height: 380px;
+    min-height: 120px;
+  }
+
+  .gr-nps__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .gr-nps__aside {
+    position: static;
+    order: -1; /* show intro above the card on mobile */
   }
 
   .gr-nps__card {
