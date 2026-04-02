@@ -72,7 +72,7 @@ function digitalstride_enqueue_assets() {
 
     // Google Review landing page CSS + JS data
     if (is_page_template('page-google-review.php')) {
-        wp_enqueue_style('google-review-css', get_template_directory_uri() . '/styles/google-review.css', [], '1.0.0');
+        wp_enqueue_style('google-review-css', get_template_directory_uri() . '/styles/google-review.css', [], filemtime(get_template_directory() . '/styles/google-review.css'));
         // Inline script to expose ajaxUrl + nonce to the page's inline JS
         wp_add_inline_script(
             'jquery-core',
