@@ -1,20 +1,20 @@
-=== KBRACE ===
+=== Digital Stride ===
 
-Contributors: automattic
+Contributors: digitalstride
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready
 
-Requires at least: 4.5
-Tested up to: 5.4
-Requires PHP: 5.6
-Stable tag: 1.0.0
+Requires at least: 6.0
+Tested up to: 6.6
+Requires PHP: 8.0
+Stable tag: 1.1
 License: GNU General Public License v2 or later
-License URI: LICENSE
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A starter theme called KBRACE.
+Digital Stride custom WordPress theme for digital marketing.
 
 == Description ==
 
-Description
+Digital Stride is a custom WordPress theme built for digital marketing agencies. It uses Advanced Custom Fields (ACF) for flexible content management.
 
 == Installation ==
 
@@ -26,11 +26,14 @@ Description
 
 = Does this theme support any plugins? =
 
-KBRACE includes support for WooCommerce and for Infinite Scroll in Jetpack.
+Digital Stride requires Advanced Custom Fields (ACF) for full functionality.
 
 == Changelog ==
 
-= 1.0 - May 12 2015 =
+= 1.1 =
+* Updated theme header and metadata
+
+= 1.0 =
 * Initial release
 
 == Credits ==
