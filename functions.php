@@ -1,4 +1,29 @@
 <?php
+/* =============================================================
+   SITEGROUND HOSTING — HTTPS REVERSE-PROXY FIX
+   SiteGround routes HTTPS traffic through a load balancer that
+   strips the HTTPS flag before it reaches PHP.  WordPress reads
+   $_SERVER['HTTPS'] via is_ssl() to decide whether to generate
+   HTTPS login/admin URLs and whether to enforce SSL for admin.
+   When is_ssl() incorrectly returns false the WordPress Manager
+   auto-login in SiteGround's control panel fails because
+   WordPress either produces HTTP redirect URLs or creates a
+   redirect loop.
+
+   The actual protocol is always forwarded in the standard
+   HTTP_X_FORWARDED_PROTO header.  Setting $_SERVER['HTTPS']
+   from that header here (functions.php is loaded by wp-login.php
+   via wp-load.php → wp-settings.php, before the SSL-redirect
+   checks run) makes is_ssl() reliable on SiteGround hosting.
+   ============================================================= */
+if (
+    isset( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) &&
+    'https' === strtolower( $_SERVER['HTTP_X_FORWARDED_PROTO'] ) &&
+    ( empty( $_SERVER['HTTPS'] ) || 'off' === strtolower( $_SERVER['HTTPS'] ) )
+) {
+    $_SERVER['HTTPS'] = 'on';
+}
+
 // Theme Support
 function digitalstride_setup() {
     add_theme_support('post-thumbnails');
