@@ -1009,19 +1009,86 @@ add_action( 'wp_ajax_gr_feedback_submit',        'ds_handle_gr_feedback_submissi
 add_action( 'wp_ajax_nopriv_gr_feedback_submit', 'ds_handle_gr_feedback_submission' );
 
 /* =============================================================
+   EDUCATIONAL REVIEW — FULL SUBMISSION (Step 1 + NPS score)
+   ============================================================= */
+
+/**
+ * Receives all Step 1 experience answers + NPS score and emails
+ * a combined report to results@mydigitalstride.com.
+ */
+function ds_handle_er_full_submission() {
+    if ( ! check_ajax_referer( 'er_submit_nonce', 'nonce', false ) ) {
+        wp_send_json_error( 'Security check failed.' );
+    }
+
+    $rating_map = [
+        'excellent'        => 'Excellent',
+        'good'             => 'Good',
+        'fair'             => 'Fair',
+        'needs_improvement'=> 'Could Be Better',
+    ];
+    $attend_map = [
+        'yes'   => 'Absolutely',
+        'maybe' => 'Maybe',
+        'no'    => 'Probably Not',
+    ];
+
+    $program     = sanitize_text_field( wp_unslash( $_POST['program_name']            ?? '' ) );
+    $rating_raw  = sanitize_text_field( wp_unslash( $_POST['overall_rating']          ?? '' ) );
+    $rating      = $rating_map[ $rating_raw ] ?? $rating_raw;
+    $valuable    = sanitize_text_field( wp_unslash( $_POST['valuable']                ?? '' ) );
+    $takeaway    = sanitize_textarea_field( wp_unslash( $_POST['key_takeaway']        ?? '' ) );
+    $improve     = sanitize_textarea_field( wp_unslash( $_POST['improvement_suggestions'] ?? '' ) );
+    $attend_raw  = sanitize_text_field( wp_unslash( $_POST['attend_again']            ?? '' ) );
+    $attend      = $attend_map[ $attend_raw ] ?? $attend_raw;
+    $nps         = intval( $_POST['nps_score'] ?? -1 );
+    $nps_label   = $nps >= 9 ? 'Promoter' : ( $nps >= 7 ? 'Passive' : 'Detractor' );
+
+    $td  = 'style="border-bottom:1px solid #eee;padding:8px;"';
+    $tdb = 'style="border-bottom:1px solid #eee;padding:8px;font-weight:bold;width:160px;vertical-align:top;"';
+
+    $body  = '<html><body style="font-family:Arial,sans-serif;color:#020b24;">';
+    $body .= '<h2 style="color:#1d4382;">Educational Program Review Submission</h2>';
+    $body .= '<table cellpadding="0" cellspacing="0" style="border-collapse:collapse;width:100%;max-width:600px;">';
+
+    $body .= '<tr><td ' . $tdb . '>Program / Session</td><td ' . $td . '>' . esc_html( $program ) . '</td></tr>';
+    $body .= '<tr><td ' . $tdb . '>Overall Rating</td><td ' . $td . '>' . esc_html( $rating ) . '</td></tr>';
+    $body .= '<tr><td ' . $tdb . '>Most Valuable</td><td ' . $td . '>' . esc_html( $valuable ) . '</td></tr>';
+    $body .= '<tr><td ' . $tdb . '>Biggest Takeaway</td><td ' . $td . '>' . ( $takeaway ? nl2br( esc_html( $takeaway ) ) : '<em style="color:#999;">Not provided</em>' ) . '</td></tr>';
+    $body .= '<tr><td ' . $tdb . '>Suggestions</td><td ' . $td . '>' . ( $improve ? nl2br( esc_html( $improve ) ) : '<em style="color:#999;">Not provided</em>' ) . '</td></tr>';
+    $body .= '<tr><td ' . $tdb . '>Attend Again?</td><td ' . $td . '>' . esc_html( $attend ) . '</td></tr>';
+    $body .= '<tr><td ' . $tdb . '>NPS Score</td><td ' . $td . '><strong>' . esc_html( $nps ) . ' / 10</strong> &mdash; ' . esc_html( $nps_label ) . '</td></tr>';
+
+    $body .= '</table>';
+    $body .= '<p style="margin-top:20px;font-size:12px;color:#888;">Submitted via the Digital Stride Educational Review page.</p>';
+    $body .= '</body></html>';
+
+    wp_mail(
+        'results@mydigitalstride.com',
+        'Educational Program Review — ' . ( $program ?: 'No Program Specified' ),
+        $body,
+        [ 'Content-Type: text/html; charset=UTF-8' ]
+    );
+
+    wp_send_json_success();
+}
+add_action( 'wp_ajax_er_full_submit',        'ds_handle_er_full_submission' );
+add_action( 'wp_ajax_nopriv_er_full_submit', 'ds_handle_er_full_submission' );
+
+/* =============================================================
    EDUCATIONAL REVIEW — FEEDBACK FORM SUBMISSION (low NPS)
    ============================================================= */
 
 /**
- * Handles the feedback form AJAX submission from the Educational Review page (low NPS).
+ * Handles the additional feedback form shown to low-NPS respondents.
  */
 function ds_handle_er_feedback_submission() {
     if ( ! check_ajax_referer( 'er_feedback_nonce', 'nonce', false ) ) {
         wp_send_json_error( 'Security check failed. Please refresh the page and try again.' );
     }
 
-    $name    = sanitize_text_field( wp_unslash( $_POST['fb_name']    ?? '' ) );
-    $email   = sanitize_email( wp_unslash( $_POST['fb_email']        ?? '' ) );
+    $name    = sanitize_text_field( wp_unslash( $_POST['fb_name']        ?? '' ) );
+    $email   = sanitize_email( wp_unslash( $_POST['fb_email']            ?? '' ) );
     $message = sanitize_textarea_field( wp_unslash( $_POST['fb_message'] ?? '' ) );
 
     $errors = [];
@@ -1033,24 +1100,28 @@ function ds_handle_er_feedback_submission() {
         wp_send_json_error( implode( ' ', $errors ) );
     }
 
-    $to      = 'hello@mydigitalstride.com';
-    $subject = 'Educational Program Feedback — Digital Stride';
-    $headers = [
-        'Content-Type: text/html; charset=UTF-8',
-        'Reply-To: ' . $name . ' <' . $email . '>',
-    ];
+    $td  = 'style="border-bottom:1px solid #eee;padding:8px;"';
+    $tdb = 'style="border-bottom:1px solid #eee;padding:8px;font-weight:bold;width:100px;"';
 
     $body  = '<html><body style="font-family:Arial,sans-serif;color:#020b24;">';
-    $body .= '<h2 style="color:#1d4382;">Educational Program Feedback</h2>';
-    $body .= '<table cellpadding="8" cellspacing="0" style="border-collapse:collapse;width:100%;max-width:560px;">';
-    $body .= '<tr><td style="border-bottom:1px solid #eee;width:100px;font-weight:bold;">Name</td><td style="border-bottom:1px solid #eee;">' . esc_html( $name ) . '</td></tr>';
-    $body .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;">Email</td><td style="border-bottom:1px solid #eee;">' . esc_html( $email ) . '</td></tr>';
-    $body .= '<tr><td style="border-bottom:1px solid #eee;font-weight:bold;vertical-align:top;">Feedback</td><td style="border-bottom:1px solid #eee;">' . nl2br( esc_html( $message ) ) . '</td></tr>';
+    $body .= '<h2 style="color:#1d4382;">Educational Program — Low NPS Follow-up</h2>';
+    $body .= '<table cellpadding="0" cellspacing="0" style="border-collapse:collapse;width:100%;max-width:560px;">';
+    $body .= '<tr><td ' . $tdb . '>Name</td><td ' . $td . '>' . esc_html( $name ) . '</td></tr>';
+    $body .= '<tr><td ' . $tdb . '>Email</td><td ' . $td . '>' . esc_html( $email ) . '</td></tr>';
+    $body .= '<tr><td ' . $tdb . '>Feedback</td><td ' . $td . '>' . nl2br( esc_html( $message ) ) . '</td></tr>';
     $body .= '</table>';
-    $body .= '<p style="margin-top:20px;font-size:12px;color:#888;">Submitted via the Educational Review page (low NPS score).</p>';
+    $body .= '<p style="margin-top:20px;font-size:12px;color:#888;">Submitted via the Educational Review page (low NPS).</p>';
     $body .= '</body></html>';
 
-    wp_mail( $to, $subject, $body, $headers );
+    wp_mail(
+        'results@mydigitalstride.com',
+        'Educational Program Follow-up — ' . $name,
+        $body,
+        [
+            'Content-Type: text/html; charset=UTF-8',
+            'Reply-To: ' . $name . ' <' . $email . '>',
+        ]
+    );
 
     wp_send_json_success( 'Feedback submitted successfully.' );
 }
