@@ -11,6 +11,17 @@
  * @package DigitalStride
  */
 
+/* Load page-specific assets regardless of how WordPress selected this template */
+add_action('wp_head', function () {
+    $ver = filemtime(get_template_directory() . '/styles/educational-review.css');
+    $url = esc_url(get_template_directory_uri() . '/styles/educational-review.css');
+    echo '<link rel="stylesheet" id="educational-review-css" href="' . $url . '?ver=' . $ver . '" media="all">' . "\n";
+    echo '<script>var erData = ' . wp_json_encode([
+        'ajaxUrl'       => admin_url('admin-ajax.php'),
+        'feedbackNonce' => wp_create_nonce('er_feedback_nonce'),
+    ]) . ';</script>' . "\n";
+});
+
 get_header();
 ?>
 

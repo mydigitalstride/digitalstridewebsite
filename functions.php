@@ -109,18 +109,6 @@ function digitalstride_enqueue_assets() {
         );
     }
 
-    // Educational Review landing page CSS + JS data
-    if (is_page_template('page-educational-review.php')) {
-        wp_enqueue_style('educational-review-css', get_template_directory_uri() . '/styles/educational-review.css', [], filemtime(get_template_directory() . '/styles/educational-review.css'));
-        wp_add_inline_script(
-            'jquery-core',
-            'var erData = ' . wp_json_encode([
-                'ajaxUrl'       => admin_url('admin-ajax.php'),
-                'feedbackNonce' => wp_create_nonce('er_feedback_nonce'),
-            ]) . ';'
-        );
-    }
-
     // Referral Landing page CSS + JS data
     if (is_page_template('page-referral-landing.php')) {
         wp_enqueue_style('referral-landing-css', get_template_directory_uri() . '/styles/referral-landing.css', [], '1.0.0');
