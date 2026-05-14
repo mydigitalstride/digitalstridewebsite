@@ -60,15 +60,17 @@
   margin-bottom: 0.35rem;
 }
 
+/* Override global h1 margin-top and text-fill */
 .er-hero__title {
-  font-size: clamp(1.7rem, 4.5vw, 3rem);
-  font-weight: var(--font-weight-bold);
-  color: #fff;
-  line-height: 1.1;
-  margin: 0 0 0.45rem;
+  font-size: clamp(1.7rem, 4.5vw, 3rem) !important;
+  font-weight: var(--font-weight-bold) !important;
+  color: #fff !important;
+  line-height: 1.1 !important;
+  margin: 0 0 0.45rem !important;
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
   background: none !important;
   -webkit-background-clip: unset !important;
+  background-clip: unset !important;
   -webkit-text-fill-color: #fff !important;
 }
 
@@ -81,7 +83,7 @@
 /* ── MAIN SECTION ───────────────────────────────────────────── */
 .er-main {
   padding: 3rem 0 5rem;
-  background: var(--gradient-white-light-blue);
+  background: var(--gradient-white-light-blue) !important;
 }
 
 /* Two-column grid */
@@ -106,21 +108,23 @@
 }
 
 .er-aside__card {
-  background: #fff;
+  background: #fff !important;
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(29, 67, 130, 0.08);
   padding: 2rem 1.75rem;
 }
 
+/* Override global h2 gradient/margin on aside heading */
 .er-aside__heading {
-  font-size: var(--font-size-xl);
-  font-weight: var(--font-weight-bold);
-  background: var(--gradient-teal-blue);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 1rem;
-  line-height: var(--line-height-tight);
+  font-size: var(--font-size-xl) !important;
+  font-weight: var(--font-weight-bold) !important;
+  background: var(--gradient-teal-blue) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  margin-top: 0 !important;
+  margin-bottom: 1rem !important;
+  line-height: var(--line-height-tight) !important;
 }
 
 .er-aside__card p {
@@ -170,7 +174,7 @@
 
 /* ── PROGRESS INDICATOR ─────────────────────────────────────── */
 .er-progress {
-  background: #fff;
+  background: #fff !important;
   border-radius: 16px;
   box-shadow: 0 4px 24px rgba(29, 67, 130, 0.08);
   padding: 1.5rem 1.75rem;
@@ -235,10 +239,11 @@
 
 /* ── STEP CARDS ─────────────────────────────────────────────── */
 .er-step__card {
-  background: #fff;
+  background: #fff !important;
   border-radius: 16px;
-  box-shadow: 0 8px 48px rgba(29, 67, 130, 0.10);
-  padding: 3rem 3.5rem;
+  box-shadow: 0 8px 48px rgba(29, 67, 130, 0.14) !important;
+  padding: 3rem 3.5rem !important;
+  text-align: center;
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
@@ -249,32 +254,49 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--color-teal);
-  background: rgba(24, 157, 167, 0.1);
+  background: rgba(24, 157, 167, 0.1) !important;
   border-radius: 99px;
   padding: 0.25rem 0.85rem;
   margin-bottom: 1.25rem;
 }
 
+/* Icon: clamp to 52×52 — override any theme SVG injection */
 .er-step__icon {
-  width: 52px;
-  height: 52px;
-  margin: 0 auto 1rem;
+  width: 52px !important;
+  height: 52px !important;
+  margin: 0 auto 1rem !important;
   color: var(--color-teal);
+  display: block;
+  overflow: hidden;
 }
 
 .er-step__icon svg {
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  fill: none !important;
+  stroke: currentColor !important;
 }
 
+.er-step__icon svg path,
+.er-step__icon svg circle,
+.er-step__icon svg line,
+.er-step__icon svg polyline,
+.er-step__icon svg rect {
+  fill: none !important;
+  stroke: currentColor !important;
+}
+
+/* Override global h2 margins and re-apply gradient text */
 .er-step__heading {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
-  background: var(--gradient-teal-blue);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 0.6rem;
+  font-size: var(--font-size-2xl) !important;
+  font-weight: var(--font-weight-bold) !important;
+  background: var(--gradient-teal-blue) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  margin-top: 0 !important;
+  margin-bottom: 0.6rem !important;
   text-align: center;
 }
 
@@ -311,8 +333,8 @@
   font-family: var(--font-sans);
   font-size: var(--font-size-base);
   color: var(--color-text);
-  background: #fff;
-  border: 1.5px solid rgba(29, 67, 130, 0.2);
+  background: #fff !important;
+  border: 1.5px solid rgba(29, 67, 130, 0.2) !important;
   border-radius: 8px;
   padding: 0.7rem 1rem;
   width: 100%;
@@ -325,12 +347,12 @@
 }
 
 .er-form__input:focus {
-  border-color: var(--color-teal);
+  border-color: var(--color-teal) !important;
   box-shadow: 0 0 0 3px rgba(24, 157, 167, 0.15);
 }
 
 .er-form__input:invalid:not(:placeholder-shown) {
-  border-color: var(--color-orange);
+  border-color: var(--color-orange) !important;
 }
 
 .er-form__textarea {
@@ -340,25 +362,29 @@
 }
 
 .er-form__fieldset {
-  border: none;
-  padding: 0;
-  margin: 0 0 1.75rem;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 0 1.75rem !important;
 }
 
 .er-form__fieldset--inline {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.25rem !important;
 }
 
 .er-form__legend {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text);
+  font-size: var(--font-size-sm) !important;
+  font-weight: var(--font-weight-medium) !important;
+  color: var(--color-text) !important;
+  -webkit-text-fill-color: var(--color-text) !important;
   margin-bottom: 0.85rem;
   display: block;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
 }
 
 .er-form__legend-optional {
-  font-weight: var(--font-weight-normal, 400);
+  font-weight: var(--font-weight-regular, 400);
   color: #888;
   margin-left: 0.3rem;
 }
@@ -369,29 +395,30 @@
 }
 
 .er-form__submit {
-  display: inline-flex;
+  display: inline-flex !important;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.9rem 2.25rem;
-  border-radius: 8px;
-  background: var(--color-orange);
-  background-image: var(--gradient-yellow-orange);
-  background-size: 0% 100%;
-  background-position: 0% 0%;
-  background-repeat: no-repeat;
+  padding: 0.9rem 2.25rem !important;
+  border-radius: 8px !important;
+  background: var(--color-orange) !important;
+  background-image: var(--gradient-yellow-orange) !important;
+  background-size: 0% 100% !important;
+  background-position: 0% 0% !important;
+  background-repeat: no-repeat !important;
   color: #fff !important;
-  font-family: var(--font-sans);
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-bold);
-  border: none;
+  font-family: var(--font-sans) !important;
+  font-size: var(--font-size-base) !important;
+  font-weight: var(--font-weight-bold) !important;
+  border: none !important;
   cursor: pointer;
   transition: background-size 0.35s ease, box-shadow 0.25s ease, transform 0.2s ease;
   max-width: none !important;
   width: auto !important;
+  text-decoration: none !important;
 }
 
 .er-form__submit:hover {
-  background-size: 100% 100%;
+  background-size: 100% 100% !important;
   box-shadow: 0 6px 24px rgba(243, 110, 33, 0.35);
   transform: translateY(-1px);
 }
@@ -406,7 +433,7 @@
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  background: #d4edda;
+  background: #d4edda !important;
   color: #155724;
   border: 1px solid #c3e6cb;
   border-radius: 8px;
@@ -426,18 +453,22 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
+/* position: relative needed so the hidden absolute radio input stays inside */
 .er-rating-option {
   cursor: pointer;
   display: block;
+  position: relative;
 }
 
 .er-rating-option input[type="radio"] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
+  position: absolute !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none;
 }
 
 .er-rating-option__card {
@@ -448,7 +479,7 @@
   padding: 1rem 0.5rem;
   border-radius: 12px;
   border: 2px solid rgba(29, 67, 130, 0.14);
-  background: #fff;
+  background: #fff !important;
   text-align: center;
   transition: border-color 0.2s ease, background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
   user-select: none;
@@ -456,13 +487,13 @@
 
 .er-rating-option:hover .er-rating-option__card {
   border-color: var(--color-teal);
-  background: rgba(24, 157, 167, 0.04);
+  background: rgba(24, 157, 167, 0.06) !important;
   transform: translateY(-2px);
 }
 
 .er-rating-option.is-selected .er-rating-option__card {
   border-color: var(--color-blue);
-  background: rgba(29, 67, 130, 0.06);
+  background: rgba(29, 67, 130, 0.06) !important;
   box-shadow: 0 4px 16px rgba(29, 67, 130, 0.15);
   transform: translateY(-2px);
 }
@@ -476,8 +507,11 @@
 .er-rating-option__label {
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
-  color: var(--color-text);
+  color: var(--color-text) !important;
+  -webkit-text-fill-color: var(--color-text) !important;
   line-height: var(--line-height-tight);
+  background: none !important;
+  -webkit-background-clip: unset !important;
 }
 
 /* ── CHECKBOX GRID ──────────────────────────────────────────── */
@@ -487,6 +521,7 @@
   gap: 0.6rem;
 }
 
+/* position: relative so hidden absolute checkbox stays inside */
 .er-check-option {
   display: flex;
   align-items: center;
@@ -495,28 +530,32 @@
   padding: 0.55rem 0.75rem;
   border-radius: 8px;
   border: 1.5px solid rgba(29, 67, 130, 0.12);
+  background: #fff !important;
   transition: border-color 0.2s ease, background 0.2s ease;
+  position: relative;
 }
 
 .er-check-option:hover {
   border-color: var(--color-teal);
-  background: rgba(24, 157, 167, 0.04);
+  background: rgba(24, 157, 167, 0.04) !important;
 }
 
 .er-check-option input[type="checkbox"] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
+  position: absolute !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none;
 }
 
 .er-check-option__box {
-  width: 18px;
-  height: 18px;
+  width: 18px !important;
+  height: 18px !important;
+  min-width: 18px;
   border-radius: 4px;
-  border: 2px solid rgba(29, 67, 130, 0.25);
+  border: 2px solid rgba(29, 67, 130, 0.25) !important;
   flex-shrink: 0;
-  background: #fff;
+  background: #fff !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -524,8 +563,8 @@
 }
 
 .er-check-option input[type="checkbox"]:checked ~ .er-check-option__box {
-  background: var(--color-teal);
-  border-color: var(--color-teal);
+  background: var(--color-teal) !important;
+  border-color: var(--color-teal) !important;
 }
 
 .er-check-option input[type="checkbox"]:checked ~ .er-check-option__box::after {
@@ -546,6 +585,8 @@
 .er-check-option__label {
   font-size: var(--font-size-sm);
   color: var(--color-text);
+  -webkit-text-fill-color: var(--color-text) !important;
+  background: none !important;
   transition: color 0.2s ease;
 }
 
@@ -565,14 +606,18 @@
   color: var(--color-text);
   padding: 0.5rem 1rem;
   border-radius: 99px;
-  border: 1.5px solid rgba(29, 67, 130, 0.14);
-  background: #fff;
+  border: 1.5px solid rgba(29, 67, 130, 0.14) !important;
+  background: #fff !important;
+  background-image: none !important;
+  background-size: auto !important;
   transition: border-color 0.2s ease, background 0.2s ease;
+  max-width: none !important;
+  width: fit-content !important;
 }
 
 .er-inline-radio__option:hover {
-  border-color: var(--color-teal);
-  background: rgba(24, 157, 167, 0.05);
+  border-color: var(--color-teal) !important;
+  background: rgba(24, 157, 167, 0.05) !important;
 }
 
 .er-inline-radio__option input[type="radio"] {
@@ -589,15 +634,16 @@
 }
 
 .er-nps__btn {
-  width: 52px;
-  height: 52px;
+  width: 52px !important;
+  height: 52px !important;
   border-radius: 50% !important;
   border: 2px solid var(--color-light-grey) !important;
   background: #fff !important;
   background-image: none !important;
+  background-size: auto !important;
   color: var(--color-text) !important;
   font-size: var(--font-size-med) !important;
-  font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium) !important;
   cursor: pointer;
   transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease, transform 0.15s ease;
   display: flex;
@@ -605,11 +651,14 @@
   justify-content: center;
   flex-shrink: 0;
   max-width: none !important;
+  padding: 0 !important;
 }
 
 .er-nps__btn:hover {
   border-color: var(--color-teal) !important;
   background: var(--color-light-teal) !important;
+  background-image: none !important;
+  background-size: auto !important;
   color: var(--color-blue) !important;
   transform: scale(1.08);
 }
@@ -649,19 +698,24 @@
 }
 
 .er-nps__submit-btn {
-  background: var(--color-orange);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 0.75rem 2rem;
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-bold);
+  background: var(--color-orange) !important;
+  background-image: none !important;
+  background-size: auto !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 0.75rem 2rem !important;
+  font-size: var(--font-size-base) !important;
+  font-weight: var(--font-weight-bold) !important;
   cursor: pointer;
   transition: background 0.2s, opacity 0.2s;
+  max-width: none !important;
+  width: auto !important;
 }
 
 .er-nps__submit-btn:hover {
-  background: var(--color-orange-dark, #c95a0a);
+  background: var(--color-orange-dark, #c95a0a) !important;
+  background-image: none !important;
 }
 
 .er-nps__submit-btn:disabled {
@@ -680,12 +734,12 @@
 }
 
 .er-response--low {
-  background: var(--color-light-orange);
+  background: var(--color-light-orange) !important;
   border: 1px solid rgba(243, 110, 33, 0.25);
 }
 
 .er-response--high {
-  background: var(--color-light-teal);
+  background: var(--color-light-teal) !important;
   border: 1px solid rgba(24, 157, 167, 0.3);
 }
 
@@ -695,10 +749,16 @@
   display: block;
 }
 
+/* Override global h3 size — response panel headings */
 .er-response h3 {
-  font-size: var(--font-size-xl);
-  color: var(--color-blue);
-  margin-bottom: 0.75rem;
+  font-size: var(--font-size-xl) !important;
+  color: var(--color-blue) !important;
+  -webkit-text-fill-color: var(--color-blue) !important;
+  background: none !important;
+  -webkit-background-clip: unset !important;
+  background-clip: unset !important;
+  margin-top: 0 !important;
+  margin-bottom: 0.75rem !important;
 }
 
 .er-response p {
@@ -709,40 +769,48 @@
 
 /* Google Review button */
 .er-review-btn {
-  display: inline-flex;
+  display: inline-flex !important;
   align-items: center;
   gap: 0.75rem;
   margin: 1.5rem auto 0.75rem;
   padding: 1rem 2rem;
   border-radius: 8px;
-  background: #fff;
-  border: 2px solid rgba(29, 67, 130, 0.2);
+  background: #fff !important;
+  background-image: none !important;
+  background-size: auto !important;
+  border: 2px solid rgba(29, 67, 130, 0.2) !important;
   color: var(--color-text) !important;
+  -webkit-text-fill-color: var(--color-text) !important;
   font-family: var(--font-sans);
   font-size: var(--font-size-med);
   font-weight: var(--font-weight-bold);
   text-decoration: none !important;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
   transition: box-shadow 0.25s ease, transform 0.2s ease, border-color 0.2s ease;
+  max-width: none !important;
+  width: fit-content !important;
 }
 
 .er-review-btn:hover {
   box-shadow: 0 8px 32px rgba(29, 67, 130, 0.18);
   transform: translateY(-2px);
-  border-color: var(--color-blue);
+  border-color: var(--color-blue) !important;
+  background: #fff !important;
   text-decoration: none !important;
 }
 
 .er-review-btn__logo {
-  width: 28px;
-  height: 28px;
+  width: 28px !important;
+  height: 28px !important;
   flex-shrink: 0;
 }
 
 .er-review-btn__note {
   font-size: var(--font-size-xs) !important;
-  color: #777;
+  color: #777 !important;
   margin: 0 !important;
+  -webkit-text-fill-color: #777 !important;
+  background: none !important;
 }
 
 /* ── FEEDBACK FORM (low score) ──────────────────────────────── */
@@ -791,11 +859,11 @@
   }
 
   .er-step__card {
-    padding: 2rem 1.5rem;
+    padding: 2rem 1.5rem !important;
   }
 
   .er-step__heading {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-xl) !important;
   }
 
   .er-rating-grid {
@@ -807,8 +875,8 @@
   }
 
   .er-nps__btn {
-    width: 44px;
-    height: 44px;
+    width: 44px !important;
+    height: 44px !important;
     font-size: var(--font-size-base) !important;
   }
 
