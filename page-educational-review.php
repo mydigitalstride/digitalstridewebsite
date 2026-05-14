@@ -19,6 +19,7 @@ add_action('wp_head', function () {
     echo '<script>var erData = ' . wp_json_encode([
         'ajaxUrl'       => admin_url('admin-ajax.php'),
         'feedbackNonce' => wp_create_nonce('er_feedback_nonce'),
+        'submitNonce'   => wp_create_nonce('er_submit_nonce'),
     ]) . ';</script>' . "\n";
 });
 
@@ -377,7 +378,6 @@ get_header();
   var responseHigh   = document.getElementById('response-high');
 
   var expForm        = document.getElementById('er-experience-form');
-  var expSubmitBtn   = document.getElementById('exp-submit-btn');
 
   var npsButtons     = document.querySelectorAll('.er-nps__btn');
   var npsSubmitWrap  = document.getElementById('nps-submit-wrap');
@@ -391,7 +391,8 @@ get_header();
   var feedbackForm    = document.getElementById('er-feedback-form');
   var feedbackSuccess = document.getElementById('er-feedback-success');
 
-  var selectedScore  = null;
+  var selectedScore    = null;
+  var step1FormData    = {}; /* Captured when Step 1 is submitted */
 
   /* ── Helpers ──────────────────────────────────────────────── */
   function setProgress(step) {
@@ -410,7 +411,7 @@ get_header();
     }
   }
 
-  function scrollTo(el) {
+  function smoothScrollTo(el) {
     setTimeout(function () {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 100);
@@ -421,7 +422,6 @@ get_header();
     expForm.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      /* Validate radio for overall_rating explicitly (browsers don't always report fieldset) */
       var ratingChecked = expForm.querySelector('input[name="overall_rating"]:checked');
       if (!ratingChecked) {
         var firstRatingInput = expForm.querySelector('input[name="overall_rating"]');
@@ -438,7 +438,18 @@ get_header();
         return;
       }
 
-      /* Animate the step card out, then show NPS step */
+      /* Capture Step 1 answers to include in the NPS email later */
+      var fd = new FormData(expForm);
+      step1FormData = {
+        program_name:             fd.get('program_name')             || '',
+        overall_rating:           fd.get('overall_rating')           || '',
+        valuable:                 fd.getAll('valuable[]'),
+        key_takeaway:             fd.get('key_takeaway')             || '',
+        improvement_suggestions:  fd.get('improvement_suggestions')  || '',
+        attend_again:             fd.get('attend_again')             || '',
+      };
+
+      /* Animate out, then reveal NPS step */
       var card = stepExperience.querySelector('.er-step__card');
       if (card) { card.style.opacity = '0'; card.style.transform = 'translateY(-12px)'; }
 
@@ -446,7 +457,7 @@ get_header();
         stepExperience.hidden = true;
         stepNps.hidden = false;
         setProgress(2);
-        scrollTo(stepNps);
+        smoothScrollTo(stepNps);
       }, 300);
     });
   }
@@ -468,17 +479,34 @@ get_header();
 
       npsButtons.forEach(function (b) { b.disabled = true; });
       npsSubmitBtn.disabled = true;
+      npsSubmitBtn.textContent = 'Submitting…';
 
-      stepNps.hidden = true;
-      setProgress(3);
+      /* Send combined Step 1 + NPS data to server */
+      var data = new FormData();
+      data.append('action',       'er_full_submit');
+      data.append('nonce',        erData.submitNonce);
+      data.append('nps_score',    selectedScore);
+      data.append('program_name',            step1FormData.program_name);
+      data.append('overall_rating',          step1FormData.overall_rating);
+      data.append('valuable',                step1FormData.valuable.join(', '));
+      data.append('key_takeaway',            step1FormData.key_takeaway);
+      data.append('improvement_suggestions', step1FormData.improvement_suggestions);
+      data.append('attend_again',            step1FormData.attend_again);
 
-      if (selectedScore >= 8) {
-        responseHigh.hidden = false;
-        scrollTo(responseHigh);
-      } else {
-        responseLow.hidden = false;
-        scrollTo(responseLow);
-      }
+      fetch(erData.ajaxUrl, { method: 'POST', credentials: 'same-origin', body: data })
+        .finally(function () {
+          /* Show the appropriate response panel regardless of email result */
+          stepNps.hidden = true;
+          setProgress(3);
+
+          if (selectedScore >= 8) {
+            responseHigh.hidden = false;
+            smoothScrollTo(responseHigh);
+          } else {
+            responseLow.hidden = false;
+            smoothScrollTo(responseLow);
+          }
+        });
     });
   }
 
