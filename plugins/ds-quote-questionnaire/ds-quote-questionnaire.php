@@ -18,6 +18,8 @@ define( 'DS_QB_VERSION',  '1.0.0' );
 define( 'DS_QB_DIR',      plugin_dir_path( __FILE__ ) );
 define( 'DS_QB_URL',      plugin_dir_url( __FILE__ ) );
 
+$GLOBALS['ds_qb_config'] = require DS_QB_DIR . 'includes/config.php';
+
 /* =============================================================
    ASSETS
    ============================================================= */
@@ -62,6 +64,7 @@ function ds_qb_enqueue_assets() {
         'ajaxUrl' => admin_url( 'admin-ajax.php' ),
         'nonce'   => wp_create_nonce( 'qb_quote_nonce' ),
         'logoUrl' => esc_url( $logo_url ),
+        'config'  => $GLOBALS['ds_qb_config'],
     ] );
 }
 
