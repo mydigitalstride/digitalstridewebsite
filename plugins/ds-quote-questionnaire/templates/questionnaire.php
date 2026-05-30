@@ -6,15 +6,17 @@
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
+
+$cfg = $GLOBALS['ds_qb_config'];
 ?>
 <main class="qb-page" id="qb-page">
 
   <!-- ══ HERO ══════════════════════════════════════════════════════════ -->
   <section class="qb-hero">
     <div class="qb-hero__inner">
-      <p class="qb-hero__eyebrow">Free &amp; no-obligation</p>
-      <h1 class="qb-hero__title">Get Your Custom Website Quote</h1>
-      <p class="qb-hero__sub">Answer 9 quick questions and get a real price range — broken down by platform, with flexible payment plans and a downloadable PDF.</p>
+      <p class="qb-hero__eyebrow"><?php echo $cfg['hero']['eyebrow']; ?></p>
+      <h1 class="qb-hero__title"><?php echo esc_html( $cfg['hero']['title'] ); ?></h1>
+      <p class="qb-hero__sub"><?php echo esc_html( $cfg['hero']['subtitle'] ); ?></p>
     </div>
   </section>
 
@@ -38,40 +40,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
       <!-- ── STEP 1: Business Type ──────────────────────────────────── -->
       <div class="qb-step is-active" id="qb-step-1" data-step="1">
-        <h2 class="qb-step__heading">What type of business do you run?</h2>
-        <p class="qb-step__sub">This shapes our starting point for your website's goals and pricing.</p>
+        <h2 class="qb-step__heading"><?php echo esc_html( $cfg['step1']['heading'] ); ?></h2>
+        <p class="qb-step__sub"><?php echo esc_html( $cfg['step1']['sub'] ); ?></p>
 
         <div class="qb-options qb-options--grid">
-          <button type="button" class="qb-option" data-field="businessType" data-value="trades">
-            <span class="qb-option__icon" aria-hidden="true">🔧</span>
-            <span class="qb-option__label">Home Services / Trades</span>
-            <span class="qb-option__hint">Plumbing, HVAC, electrical, cleaning, landscaping</span>
+          <?php foreach ( $cfg['step1']['options'] as $opt ) : ?>
+          <button type="button" class="qb-option" data-field="businessType" data-value="<?php echo esc_attr( $opt['value'] ); ?>">
+            <span class="qb-option__icon" aria-hidden="true"><?php echo $opt['icon']; ?></span>
+            <span class="qb-option__label"><?php echo esc_html( $opt['label'] ); ?></span>
+            <span class="qb-option__hint"><?php echo esc_html( $opt['hint'] ); ?></span>
           </button>
-          <button type="button" class="qb-option" data-field="businessType" data-value="contractor">
-            <span class="qb-option__icon" aria-hidden="true">🏗️</span>
-            <span class="qb-option__label">Specialty Contractor</span>
-            <span class="qb-option__hint">Construction, roofing, concrete, remodeling</span>
-          </button>
-          <button type="button" class="qb-option" data-field="businessType" data-value="industrial">
-            <span class="qb-option__icon" aria-hidden="true">🏭</span>
-            <span class="qb-option__label">Industrial / Commercial</span>
-            <span class="qb-option__hint">B2B services, manufacturing, logistics</span>
-          </button>
-          <button type="button" class="qb-option" data-field="businessType" data-value="ecommerce">
-            <span class="qb-option__icon" aria-hidden="true">🛒</span>
-            <span class="qb-option__label">eCommerce / Products</span>
-            <span class="qb-option__hint">Online store, physical goods, subscriptions</span>
-          </button>
-          <button type="button" class="qb-option" data-field="businessType" data-value="trade_school">
-            <span class="qb-option__icon" aria-hidden="true">🎓</span>
-            <span class="qb-option__label">Trade School / Vocational</span>
-            <span class="qb-option__hint">Enrollment-based, courses, certification programs</span>
-          </button>
-          <button type="button" class="qb-option" data-field="businessType" data-value="other">
-            <span class="qb-option__icon" aria-hidden="true">💼</span>
-            <span class="qb-option__label">Other Service Business</span>
-            <span class="qb-option__hint">Professional services, healthcare, real estate</span>
-          </button>
+          <?php endforeach; ?>
         </div>
 
         <div class="qb-nav qb-nav--end">
@@ -83,36 +62,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 
       <!-- ── STEP 2: Primary Goal (skipped for eCommerce) ──────────── -->
       <div class="qb-step" id="qb-step-2" data-step="2">
-        <h2 class="qb-step__heading">What's the #1 job your new website needs to do?</h2>
-        <p class="qb-step__sub">Focus on the single most important outcome for your business.</p>
+        <h2 class="qb-step__heading"><?php echo esc_html( $cfg['step2']['heading'] ); ?></h2>
+        <p class="qb-step__sub"><?php echo esc_html( $cfg['step2']['sub'] ); ?></p>
 
         <div class="qb-options qb-options--list">
-          <button type="button" class="qb-option qb-option--wide" data-field="primaryGoal" data-value="calls_leads">
-            <span class="qb-option__icon" aria-hidden="true">📞</span>
-            <span class="qb-option__label">Generate phone calls &amp; inbound leads</span>
-          </button>
-          <button type="button" class="qb-option qb-option--wide" data-field="primaryGoal" data-value="estimates">
-            <span class="qb-option__icon" aria-hidden="true">📋</span>
-            <span class="qb-option__label">Capture estimate requests &amp; form submissions</span>
-          </button>
-          <button type="button" class="qb-option qb-option--wide" data-field="primaryGoal" data-value="sell_products">
-            <span class="qb-option__icon" aria-hidden="true">🛍️</span>
+          <?php foreach ( $cfg['step2']['options'] as $opt ) : ?>
+          <button type="button" class="qb-option qb-option--wide" data-field="primaryGoal" data-value="<?php echo esc_attr( $opt['value'] ); ?>">
+            <span class="qb-option__icon" aria-hidden="true"><?php echo $opt['icon']; ?></span>
+            <?php if ( ! empty( $opt['hint'] ) ) : ?>
             <div class="qb-option__text">
-              <span class="qb-option__label">Sell products or services directly online</span>
-              <span class="qb-option__hint">Starts at <strong>$5,000–$18,000</strong></span>
+              <span class="qb-option__label"><?php echo $opt['label']; ?></span>
+              <span class="qb-option__hint"><?php echo $opt['hint']; ?></span>
             </div>
+            <?php else : ?>
+            <span class="qb-option__label"><?php echo $opt['label']; ?></span>
+            <?php endif; ?>
           </button>
-          <button type="button" class="qb-option qb-option--wide" data-field="primaryGoal" data-value="enroll_students">
-            <span class="qb-option__icon" aria-hidden="true">🎓</span>
-            <div class="qb-option__text">
-              <span class="qb-option__label">Enroll students or course participants</span>
-              <span class="qb-option__hint">Starts at <strong>$12,000–$28,000</strong></span>
-            </div>
-          </button>
-          <button type="button" class="qb-option qb-option--wide" data-field="primaryGoal" data-value="credibility">
-            <span class="qb-option__icon" aria-hidden="true">⭐</span>
-            <span class="qb-option__label">Build brand credibility &amp; online presence</span>
-          </button>
+          <?php endforeach; ?>
         </div>
 
         <div class="qb-nav">
@@ -127,8 +93,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
       <!-- ── STEP 2b: Product Count (eCommerce only) ───────────────── -->
       <div class="qb-step" id="qb-step-2b" data-step="2">
-        <h2 class="qb-step__heading">Approximately how many products will you sell?</h2>
-        <p class="qb-step__sub">This helps us estimate catalog setup, variant management, and product photography scope.</p>
+        <h2 class="qb-step__heading"><?php echo esc_html( $cfg['step2b']['heading'] ); ?></h2>
+        <p class="qb-step__sub"><?php echo esc_html( $cfg['step2b']['sub'] ); ?></p>
 
         <div class="qb-product-count-wrap">
           <div class="qb-product-count__field">
@@ -143,17 +109,16 @@ if ( ! defined( 'ABSPATH' ) ) {
               aria-describedby="qb-product-count-hint"
             />
             <p id="qb-product-count-hint" class="qb-product-count__hint">
-              Each product adds approximately <strong>$50–$100</strong> to your estimate for setup, photography coordination, and content.
+              <?php echo $cfg['step2b']['hint']; ?>
             </p>
           </div>
 
           <div class="qb-product-count__tiers">
             <p class="qb-product-count__tier-heading">Common ranges:</p>
             <div class="qb-product-count__tier-list">
-              <button type="button" class="qb-count-preset" data-value="10">1–10 products</button>
-              <button type="button" class="qb-count-preset" data-value="25">10–50 products</button>
-              <button type="button" class="qb-count-preset" data-value="100">50–200 products</button>
-              <button type="button" class="qb-count-preset" data-value="300">200+ products</button>
+              <?php foreach ( $cfg['step2b']['presets'] as $preset ) : ?>
+              <button type="button" class="qb-count-preset" data-value="<?php echo esc_attr( $preset['value'] ); ?>"><?php echo esc_html( $preset['label'] ); ?></button>
+              <?php endforeach; ?>
             </div>
           </div>
         </div>
@@ -170,42 +135,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
       <!-- ── STEP 3: Website Size ───────────────────────────────────── -->
       <div class="qb-step" id="qb-step-3" data-step="3">
-        <h2 class="qb-step__heading">How large is your website project?</h2>
-        <p class="qb-step__sub">Estimate the number of pages and complexity. We'll scope it together.</p>
+        <h2 class="qb-step__heading"><?php echo esc_html( $cfg['step3']['heading'] ); ?></h2>
+        <p class="qb-step__sub"><?php echo esc_html( $cfg['step3']['sub'] ); ?></p>
 
         <div class="qb-options qb-options--list">
-          <button type="button" class="qb-option qb-option--sized" data-field="websiteSize" data-value="small">
-            <span class="qb-option__icon" aria-hidden="true">📄</span>
+          <?php foreach ( $cfg['step3']['options'] as $opt ) : ?>
+          <button type="button" class="qb-option qb-option--sized" data-field="websiteSize" data-value="<?php echo esc_attr( $opt['value'] ); ?>">
+            <span class="qb-option__icon" aria-hidden="true"><?php echo $opt['icon']; ?></span>
             <div class="qb-option__text">
-              <span class="qb-option__label">Small — 1 to 5 pages</span>
-              <span class="qb-option__hint">Home, About, Services, Contact &amp; one more</span>
+              <span class="qb-option__label"><?php echo esc_html( $opt['label'] ); ?></span>
+              <span class="qb-option__hint"><?php echo $opt['hint']; ?></span>
             </div>
-            <span class="qb-option__tier-badge qb-option__tier-badge--starter">No add-on</span>
+            <span class="qb-option__tier-badge qb-option__tier-badge--<?php echo esc_attr( $opt['badge_style'] ); ?>"><?php echo esc_html( $opt['badge'] ); ?></span>
           </button>
-          <button type="button" class="qb-option qb-option--sized" data-field="websiteSize" data-value="medium">
-            <span class="qb-option__icon" aria-hidden="true">📑</span>
-            <div class="qb-option__text">
-              <span class="qb-option__label">Medium — 6 to 15 pages</span>
-              <span class="qb-option__hint">Multiple service pages, blog, location pages</span>
-            </div>
-            <span class="qb-option__tier-badge qb-option__tier-badge--professional">+$1,000–$2,500</span>
-          </button>
-          <button type="button" class="qb-option qb-option--sized" data-field="websiteSize" data-value="large">
-            <span class="qb-option__icon" aria-hidden="true">📚</span>
-            <div class="qb-option__text">
-              <span class="qb-option__label">Large — 15 to 30 pages</span>
-              <span class="qb-option__hint">eCommerce catalog, multi-location, rich content</span>
-            </div>
-            <span class="qb-option__tier-badge qb-option__tier-badge--ecommerce">+$2,000–$5,000</span>
-          </button>
-          <button type="button" class="qb-option qb-option--sized" data-field="websiteSize" data-value="complex">
-            <span class="qb-option__icon" aria-hidden="true">🏢</span>
-            <div class="qb-option__text">
-              <span class="qb-option__label">Complex — 30+ pages or custom functionality</span>
-              <span class="qb-option__hint">LMS, enrollment systems, custom features, multi-site</span>
-            </div>
-            <span class="qb-option__tier-badge qb-option__tier-badge--enterprise">+$5,000–$10,000</span>
-          </button>
+          <?php endforeach; ?>
         </div>
 
         <div class="qb-nav">
@@ -220,30 +163,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
       <!-- ── STEP 4: Service Coverage ──────────────────────────────── -->
       <div class="qb-step" id="qb-step-4" data-step="4">
-        <h2 class="qb-step__heading">What area do you serve?</h2>
-        <p class="qb-step__sub">This affects local SEO architecture and location page strategy.</p>
+        <h2 class="qb-step__heading"><?php echo esc_html( $cfg['step4']['heading'] ); ?></h2>
+        <p class="qb-step__sub"><?php echo esc_html( $cfg['step4']['sub'] ); ?></p>
 
         <div class="qb-options qb-options--list">
-          <button type="button" class="qb-option qb-option--wide" data-field="coverage" data-value="single">
-            <span class="qb-option__icon" aria-hidden="true">📍</span>
-            <span class="qb-option__label">Single location</span>
-            <span class="qb-option__hint">One city or town</span>
+          <?php foreach ( $cfg['step4']['options'] as $opt ) : ?>
+          <button type="button" class="qb-option qb-option--wide" data-field="coverage" data-value="<?php echo esc_attr( $opt['value'] ); ?>">
+            <span class="qb-option__icon" aria-hidden="true"><?php echo $opt['icon']; ?></span>
+            <span class="qb-option__label"><?php echo esc_html( $opt['label'] ); ?></span>
+            <span class="qb-option__hint"><?php echo esc_html( $opt['hint'] ); ?></span>
           </button>
-          <button type="button" class="qb-option qb-option--wide" data-field="coverage" data-value="multi_location">
-            <span class="qb-option__icon" aria-hidden="true">🗺️</span>
-            <span class="qb-option__label">Multi-location</span>
-            <span class="qb-option__hint">Multiple cities, regions, or storefronts</span>
-          </button>
-          <button type="button" class="qb-option qb-option--wide" data-field="coverage" data-value="mobile">
-            <span class="qb-option__icon" aria-hidden="true">🚐</span>
-            <span class="qb-option__label">Mobile / dispatched</span>
-            <span class="qb-option__hint">Service area-based, no fixed location</span>
-          </button>
-          <button type="button" class="qb-option qb-option--wide" data-field="coverage" data-value="national">
-            <span class="qb-option__icon" aria-hidden="true">🌐</span>
-            <span class="qb-option__label">National / Online only</span>
-            <span class="qb-option__hint">No geographic restrictions</span>
-          </button>
+          <?php endforeach; ?>
         </div>
 
         <div class="qb-nav">
@@ -258,31 +188,19 @@ if ( ! defined( 'ABSPATH' ) ) {
 
       <!-- ── STEP 5: Content Needs ──────────────────────────────────── -->
       <div class="qb-step" id="qb-step-5" data-step="5">
-        <h2 class="qb-step__heading">Who will handle content and copy?</h2>
-        <p class="qb-step__sub">Great copy is the single biggest difference between a website that sits there and one that converts.</p>
+        <h2 class="qb-step__heading"><?php echo esc_html( $cfg['step5']['heading'] ); ?></h2>
+        <p class="qb-step__sub"><?php echo esc_html( $cfg['step5']['sub'] ); ?></p>
 
         <div class="qb-options qb-options--list">
-          <button type="button" class="qb-option qb-option--wide" data-field="contentNeeds" data-value="client_provides">
-            <span class="qb-option__icon" aria-hidden="true">✍️</span>
+          <?php foreach ( $cfg['step5']['options'] as $opt ) : ?>
+          <button type="button" class="qb-option qb-option--wide" data-field="contentNeeds" data-value="<?php echo esc_attr( $opt['value'] ); ?>">
+            <span class="qb-option__icon" aria-hidden="true"><?php echo $opt['icon']; ?></span>
             <div class="qb-option__text">
-              <span class="qb-option__label">I'll provide all content</span>
-              <span class="qb-option__hint">You supply all text, photos, and video</span>
+              <span class="qb-option__label"><?php echo esc_html( $opt['label'] ); ?></span>
+              <span class="qb-option__hint"><?php echo $opt['hint']; ?></span>
             </div>
           </button>
-          <button type="button" class="qb-option qb-option--wide" data-field="contentNeeds" data-value="copy_ds">
-            <span class="qb-option__icon" aria-hidden="true">📝</span>
-            <div class="qb-option__text">
-              <span class="qb-option__label">Digital Stride writes the copy</span>
-              <span class="qb-option__hint">Professional copywriting optimised for conversions&nbsp; <strong>+$1,200–$3,500</strong></span>
-            </div>
-          </button>
-          <button type="button" class="qb-option qb-option--wide" data-field="contentNeeds" data-value="copy_photo">
-            <span class="qb-option__icon" aria-hidden="true">📸</span>
-            <div class="qb-option__text">
-              <span class="qb-option__label">Copy + professional photography / video</span>
-              <span class="qb-option__hint">Full written and visual content production&nbsp; <strong>+$2,000–$6,500</strong></span>
-            </div>
-          </button>
+          <?php endforeach; ?>
         </div>
 
         <div class="qb-nav">
@@ -297,46 +215,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
       <!-- ── STEP 6: Integrations ───────────────────────────────────── -->
       <div class="qb-step" id="qb-step-6" data-step="6">
-        <h2 class="qb-step__heading">What integrations does your website need?</h2>
-        <p class="qb-step__sub">Select all that apply — these connect your website to the tools you already use.</p>
+        <h2 class="qb-step__heading"><?php echo esc_html( $cfg['step6']['heading'] ); ?></h2>
+        <p class="qb-step__sub"><?php echo esc_html( $cfg['step6']['sub'] ); ?></p>
 
         <div class="qb-options qb-options--checklist" id="qb-integrations-list">
+          <?php foreach ( $cfg['step6']['integrations'] as $item ) : ?>
           <label class="qb-check">
-            <input type="checkbox" name="integrations" value="booking" class="qb-check__input" />
+            <input type="checkbox" name="integrations" value="<?php echo esc_attr( $item['value'] ); ?>" class="qb-check__input" />
             <span class="qb-check__box" aria-hidden="true"></span>
-            <span class="qb-check__icon" aria-hidden="true">📅</span>
+            <span class="qb-check__icon" aria-hidden="true"><?php echo $item['icon']; ?></span>
             <div class="qb-check__text">
-              <span class="qb-check__label">Online booking / appointment scheduler</span>
-              <span class="qb-check__hint">Calendly, Acuity, or a custom booking widget&nbsp; <strong>+$150–$500</strong></span>
+              <span class="qb-check__label"><?php echo esc_html( $item['label'] ); ?></span>
+              <span class="qb-check__hint"><?php echo $item['hint']; ?></span>
             </div>
           </label>
-          <label class="qb-check">
-            <input type="checkbox" name="integrations" value="crm" class="qb-check__input" />
-            <span class="qb-check__box" aria-hidden="true"></span>
-            <span class="qb-check__icon" aria-hidden="true">⚙️</span>
-            <div class="qb-check__text">
-              <span class="qb-check__label">CRM / dispatch software (Jobber, ServiceTitan)</span>
-              <span class="qb-check__hint">Connect leads directly to your field management system&nbsp; <strong>+$1,500–$4,000</strong></span>
-            </div>
-          </label>
-          <label class="qb-check">
-            <input type="checkbox" name="integrations" value="customer_portal" class="qb-check__input" />
-            <span class="qb-check__box" aria-hidden="true"></span>
-            <span class="qb-check__icon" aria-hidden="true">🎓</span>
-            <div class="qb-check__text">
-              <span class="qb-check__label">Customer Portal</span>
-              <span class="qb-check__hint">Client login, account management, member access&nbsp; <strong>+$600–$3,000</strong></span>
-            </div>
-          </label>
-          <label class="qb-check">
-            <input type="checkbox" name="integrations" value="email_mktg" class="qb-check__input" />
-            <span class="qb-check__box" aria-hidden="true"></span>
-            <span class="qb-check__icon" aria-hidden="true">📧</span>
-            <div class="qb-check__text">
-              <span class="qb-check__label">Email marketing integration</span>
-              <span class="qb-check__hint">Mailchimp, Klaviyo, ActiveCampaign, etc.&nbsp; <strong>+$150–$500</strong></span>
-            </div>
-          </label>
+          <?php endforeach; ?>
           <label class="qb-check qb-check--none">
             <input type="checkbox" name="integrations" value="none" class="qb-check__input" />
             <span class="qb-check__box" aria-hidden="true"></span>
@@ -359,37 +252,21 @@ if ( ! defined( 'ABSPATH' ) ) {
 
       <!-- ── STEP 7: Add-ons ────────────────────────────────────────── -->
       <div class="qb-step" id="qb-step-7" data-step="7">
-        <h2 class="qb-step__heading">Any additional services?</h2>
-        <p class="qb-step__sub">Optional add-ons that enhance reach, accessibility, and visibility.</p>
+        <h2 class="qb-step__heading"><?php echo esc_html( $cfg['step7']['heading'] ); ?></h2>
+        <p class="qb-step__sub"><?php echo esc_html( $cfg['step7']['sub'] ); ?></p>
 
         <div class="qb-options qb-options--checklist" id="qb-addons-list">
+          <?php foreach ( $cfg['step7']['addons'] as $item ) : ?>
           <label class="qb-check">
-            <input type="checkbox" name="addons" value="local_seo" class="qb-check__input" />
+            <input type="checkbox" name="addons" value="<?php echo esc_attr( $item['value'] ); ?>" class="qb-check__input" />
             <span class="qb-check__box" aria-hidden="true"></span>
-            <span class="qb-check__icon" aria-hidden="true">📍</span>
+            <span class="qb-check__icon" aria-hidden="true"><?php echo $item['icon']; ?></span>
             <div class="qb-check__text">
-              <span class="qb-check__label">Local SEO setup (GMB, schema, citations)</span>
-              <span class="qb-check__hint">Price scales with site size: <strong>$300–$4,500</strong> depending on scope</span>
+              <span class="qb-check__label"><?php echo esc_html( $item['label'] ); ?></span>
+              <span class="qb-check__hint"><?php echo $item['hint']; ?></span>
             </div>
           </label>
-          <label class="qb-check">
-            <input type="checkbox" name="addons" value="ada" class="qb-check__input" />
-            <span class="qb-check__box" aria-hidden="true"></span>
-            <span class="qb-check__icon" aria-hidden="true">♿</span>
-            <div class="qb-check__text">
-              <span class="qb-check__label">ADA / WCAG accessibility compliance</span>
-              <span class="qb-check__hint">Full audit and remediation to meet standards&nbsp; <strong>+$300–$800</strong></span>
-            </div>
-          </label>
-          <label class="qb-check">
-            <input type="checkbox" name="addons" value="multilang" class="qb-check__input" />
-            <span class="qb-check__box" aria-hidden="true"></span>
-            <span class="qb-check__icon" aria-hidden="true">🌐</span>
-            <div class="qb-check__text">
-              <span class="qb-check__label">Multi-language support</span>
-              <span class="qb-check__hint">Reach additional language markets&nbsp; <strong>+$500–$1,500</strong></span>
-            </div>
-          </label>
+          <?php endforeach; ?>
           <label class="qb-check qb-check--none">
             <input type="checkbox" name="addons" value="none" class="qb-check__input" />
             <span class="qb-check__box" aria-hidden="true"></span>
@@ -412,8 +289,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
       <!-- ── STEP 8: Platform Preference ───────────────────────────── -->
       <div class="qb-step" id="qb-step-8" data-step="8">
-        <h2 class="qb-step__heading">Do you have a platform preference?</h2>
-        <p class="qb-step__sub">Each platform has different strengths. Your quote will show all three options side by side.</p>
+        <h2 class="qb-step__heading"><?php echo esc_html( $cfg['step8']['heading'] ); ?></h2>
+        <p class="qb-step__sub"><?php echo esc_html( $cfg['step8']['sub'] ); ?></p>
 
         <div class="qb-options qb-options--platform">
           <button type="button" class="qb-option qb-option--platform" data-field="platform" data-value="elementor">
@@ -469,25 +346,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 
       <!-- ── STEP 9: Timeline ───────────────────────────────────────── -->
       <div class="qb-step" id="qb-step-9" data-step="9">
-        <h2 class="qb-step__heading">What's your timeline?</h2>
-        <p class="qb-step__sub">Is there a hard deadline driving this project?</p>
+        <h2 class="qb-step__heading"><?php echo esc_html( $cfg['step9']['heading'] ); ?></h2>
+        <p class="qb-step__sub"><?php echo esc_html( $cfg['step9']['sub'] ); ?></p>
 
         <div class="qb-options qb-options--grid">
-          <button type="button" class="qb-option" data-field="timeline" data-value="flexible">
-            <span class="qb-option__icon" aria-hidden="true">🗓️</span>
-            <span class="qb-option__label">Flexible</span>
-            <span class="qb-option__hint">3–5 months, standard pacing</span>
+          <?php foreach ( $cfg['step9']['options'] as $opt ) : ?>
+          <button type="button" class="qb-option" data-field="timeline" data-value="<?php echo esc_attr( $opt['value'] ); ?>">
+            <span class="qb-option__icon" aria-hidden="true"><?php echo $opt['icon']; ?></span>
+            <span class="qb-option__label"><?php echo esc_html( $opt['label'] ); ?></span>
+            <span class="qb-option__hint"><?php echo esc_html( $opt['hint'] ); ?></span>
           </button>
-          <button type="button" class="qb-option" data-field="timeline" data-value="normal">
-            <span class="qb-option__icon" aria-hidden="true">📅</span>
-            <span class="qb-option__label">Soon</span>
-            <span class="qb-option__hint">2–3 months, moderate urgency</span>
-          </button>
-          <button type="button" class="qb-option" data-field="timeline" data-value="rush">
-            <span class="qb-option__icon" aria-hidden="true">⚡</span>
-            <span class="qb-option__label">Rush</span>
-            <span class="qb-option__hint">Under 6 weeks</span>
-          </button>
+          <?php endforeach; ?>
         </div>
 
         <div class="qb-nav">
@@ -507,12 +376,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 
             <!-- Left: pitch -->
             <div class="qb-contact-step__left">
-              <h2 class="qb-contact-step__heading">Ready to lock in your price?</h2>
-              <p class="qb-contact-step__body">This estimate is your starting point. Share your details below and we'll follow up with a detailed proposal — or book a free discovery call to talk through your project.</p>
+              <h2 class="qb-contact-step__heading"><?php echo esc_html( $cfg['step10']['heading'] ); ?></h2>
+              <p class="qb-contact-step__body"><?php echo esc_html( $cfg['step10']['body'] ); ?></p>
               <ul class="qb-contact-step__perks">
-                <li><span aria-hidden="true">✓</span> No sales pressure, no commitment</li>
-                <li><span aria-hidden="true">✓</span> Full scope and pricing in writing</li>
-                <li><span aria-hidden="true">✓</span> Response within 1 business day</li>
+                <?php foreach ( $cfg['step10']['perks'] as $perk ) : ?>
+                <li><span aria-hidden="true">✓</span> <?php echo esc_html( $perk ); ?></li>
+                <?php endforeach; ?>
               </ul>
             </div>
 
@@ -544,7 +413,7 @@ if ( ! defined( 'ABSPATH' ) ) {
                   <textarea id="qb-notes" name="notes" class="qb-form__input qb-form__textarea" rows="3" placeholder="Specific features, integrations, questions, or anything else we should know&hellip;"></textarea>
                 </div>
                 <button type="submit" class="qb-btn qb-btn--submit" id="qb-submit-btn">
-                  Get My Full Proposal <span aria-hidden="true">&rarr;</span>
+                  <?php echo esc_html( $cfg['step10']['submit_label'] ); ?> <span aria-hidden="true">&rarr;</span>
                 </button>
               </form>
             </div>
@@ -626,7 +495,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
           <!-- CTAs -->
           <div class="qb-quote__cta-row">
-            <a href="https://meetings.hubspot.com/exp1st/website-cost-estimator" class="qb-btn qb-btn--primary" target="_blank" rel="noopener">Book a Discovery Call</a>
+            <a href="<?php echo esc_url( $cfg['cta']['booking_url'] ); ?>" class="qb-btn qb-btn--primary" target="_blank" rel="noopener"><?php echo esc_html( $cfg['cta']['booking_label'] ); ?></a>
             <button type="button" class="qb-btn qb-btn--ghost" id="qb-restart-btn">
               <span aria-hidden="true">↺</span> Start Over
             </button>

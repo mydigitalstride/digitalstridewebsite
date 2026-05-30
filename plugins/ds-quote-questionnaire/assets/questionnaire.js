@@ -12,10 +12,15 @@
 (function () {
   'use strict';
 
+  /* ─── Config from server ────────────────────────────────────────── */
+
+  var cfg     = (window.qbData && window.qbData.config) || {};
+  var pricing = cfg.pricing || {};
+
   /* ─── Pricing Tables ─────────────────────────────────────────────── */
 
   /** Base prices by business type (Elementor baseline, before multipliers). */
-  var BASE_PRICES = {
+  var BASE_PRICES = pricing.base || {
     trades:       { min: 2500,  max: 5500  },
     contractor:   { min: 2500,  max: 5500  },
     industrial:   { min: 2500,  max: 5500  },
@@ -25,13 +30,13 @@
   };
 
   /** When a non-eCommerce business picks an eCommerce/school goal, override base. */
-  var GOAL_OVERRIDES = {
+  var GOAL_OVERRIDES = pricing.goal_overrides || {
     sell_products:   { min: 5000,  max: 18000 },
     enroll_students: { min: 12000, max: 28000 }
   };
 
   /** Additive amounts for website size (step 3). */
-  var SIZE_ADDONS = {
+  var SIZE_ADDONS = pricing.size_addons || {
     small:   { min: 0,    max: 0     },
     medium:  { min: 1000, max: 2500  },
     large:   { min: 2000, max: 5000  },
@@ -39,39 +44,43 @@
   };
 
   /** Per-product cost for eCommerce product count step. */
-  var PER_PRODUCT = { min: 50, max: 100 };
+  var PER_PRODUCT = pricing.per_product || { min: 50, max: 100 };
 
-  /** Integration add-ons (step 6). Payment gateway removed per spec. */
+  /** Integration add-ons (step 6). */
+  // Build INTEGRATION_ADDONS by merging config pricing with label/icon data
+  var _intCfgPrices = pricing.integrations || {};
   var INTEGRATION_ADDONS = {
-    booking:    { label: 'Online Booking / Appointment Scheduler', icon: '📅', min: 150,  max: 500  },
-    crm:        { label: 'CRM / Dispatch Integration',             icon: '⚙️',  min: 1500, max: 4000 },
-    customer_portal: { label: 'Customer Portal',                  icon: '🎓', min: 600,  max: 3000 },
-    email_mktg: { label: 'Email Marketing Integration',            icon: '📧', min: 150,  max: 500  }
+    booking:    { label: 'Online Booking / Appointment Scheduler', icon: '📅', min: (_intCfgPrices.booking         || {min:150,  max:500  }).min, max: (_intCfgPrices.booking         || {min:150,  max:500  }).max },
+    crm:        { label: 'CRM / Dispatch Integration',             icon: '⚙️',  min: (_intCfgPrices.crm             || {min:1500, max:4000 }).min, max: (_intCfgPrices.crm             || {min:1500, max:4000 }).max },
+    customer_portal: { label: 'Customer Portal',                  icon: '🎓', min: (_intCfgPrices.customer_portal  || {min:600,  max:3000 }).min, max: (_intCfgPrices.customer_portal  || {min:600,  max:3000 }).max },
+    email_mktg: { label: 'Email Marketing Integration',            icon: '📧', min: (_intCfgPrices.email_mktg       || {min:150,  max:500  }).min, max: (_intCfgPrices.email_mktg       || {min:150,  max:500  }).max }
   };
 
   /** Local SEO pricing scales with site size. */
-  var LOCAL_SEO_BY_SIZE = {
+  var LOCAL_SEO_BY_SIZE = pricing.local_seo_by_size || {
     small:   { min: 300,  max: 800  },
     medium:  { min: 500,  max: 1000 },
     large:   { min: 500,  max: 1500 },
     complex: { min: 2500, max: 4500 }
   };
 
-  /** Other add-ons (step 7). Rush removed per spec. */
+  /** Other add-ons (step 7). */
+  var _addonCfgPrices = pricing.addons || {};
   var ADDON_PRICES = {
     local_seo: null,  // size-based — see LOCAL_SEO_BY_SIZE
-    multilang: { label: 'Multi-language Support',                    icon: '🌐', min: 500, max: 1500 },
-    ada:       { label: 'ADA / WCAG Accessibility Audit',            icon: '♿', min: 300, max: 800  }
+    multilang: { label: 'Multi-language Support',         icon: '🌐', min: (_addonCfgPrices.multilang || {min:500, max:1500}).min, max: (_addonCfgPrices.multilang || {min:500, max:1500}).max },
+    ada:       { label: 'ADA / WCAG Accessibility Audit', icon: '♿', min: (_addonCfgPrices.ada       || {min:300, max:800 }).min, max: (_addonCfgPrices.ada       || {min:300, max:800 }).max }
   };
 
   /** Content add-ons (step 5). */
+  var _contentCfgPrices = pricing.content || {};
   var CONTENT_ADDONS = {
-    copy_ds:    { label: 'DS Writes All Copy',                          icon: '📝', min: 1200, max: 3500 },
-    copy_photo: { label: 'Copywriting + Professional Photography/Video', icon: '📸', min: 2000, max: 6500 }
+    copy_ds:    { label: 'DS Writes All Copy',                          icon: '📝', min: (_contentCfgPrices.copy_ds    || {min:1200, max:3500}).min, max: (_contentCfgPrices.copy_ds    || {min:1200, max:3500}).max },
+    copy_photo: { label: 'Copywriting + Professional Photography/Video', icon: '📸', min: (_contentCfgPrices.copy_photo || {min:2000, max:6500}).min, max: (_contentCfgPrices.copy_photo || {min:2000, max:6500}).max }
   };
 
   /** Platform multipliers applied to the computed base+addons total. */
-  var PLATFORM_MULT = {
+  var PLATFORM_MULT = pricing.platform_mult || {
     elementor: 1.0,
     custom:    1.25,
     shopify:   0.95
@@ -137,11 +146,14 @@
     }
   };
 
-  var PAYMENT_PLANS = [
-    { months: 3,  fee: 0,    feeLabel: '0% finance fee'  },
-    { months: 6,  fee: 0.05, feeLabel: '5% finance fee'  },
-    { months: 12, fee: 0.10, feeLabel: '10% finance fee' }
-  ];
+  var PAYMENT_PLANS = (pricing.payment_plans || [
+    { months: 3,  fee: 0,    fee_label: '0% finance fee'  },
+    { months: 6,  fee: 0.05, fee_label: '5% finance fee'  },
+    { months: 12, fee: 0.10, fee_label: '10% finance fee' }
+  ]).map(function (p) {
+    // Normalise: config uses fee_label, internal code uses feeLabel
+    return { months: p.months, fee: p.fee, feeLabel: p.feeLabel || p.fee_label || '' };
+  });
 
   /* ─── Application State ──────────────────────────────────────────── */
 
@@ -835,10 +847,11 @@
     doc.setFontSize(9);
     doc.setFont('helvetica', 'normal');
     doc.setTextColor(80, 80, 80);
+    var _bookingUrl = (cfg.cta && cfg.cta.booking_url) || 'https://meetings.hubspot.com/exp1st/website-cost-estimator';
+    var _bookingUrlShort = _bookingUrl.replace(/^https?:\/\//, '');
     doc.text('Schedule a free discovery call:', 18, y + 15);
     doc.setTextColor(243, 110, 33);
-    doc.textWithLink('meetings.hubspot.com/exp1st/website-cost-estimator', 68, y + 15,
-      { url: 'https://meetings.hubspot.com/exp1st/website-cost-estimator' });
+    doc.textWithLink(_bookingUrlShort, 68, y + 15, { url: _bookingUrl });
 
     // ── Footer
     doc.setFillColor(29, 67, 130);
@@ -851,8 +864,7 @@
     doc.text('Digital Stride  |  results@mydigitalstride.com  |  mydigitalstride.com', 14, 283);
     doc.text('This is an estimate only. Final pricing confirmed in writing at proposal.', 14, 289);
     doc.setTextColor(200, 220, 255);
-    doc.textWithLink('Schedule your free call \u2192', 14, 294,
-      { url: 'https://meetings.hubspot.com/exp1st/website-cost-estimator' });
+    doc.textWithLink('Schedule your free call \u2192', 14, 294, { url: _bookingUrl });
 
     return doc;
   }
