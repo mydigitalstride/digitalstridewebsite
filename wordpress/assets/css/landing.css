@@ -163,6 +163,31 @@ address {
   border-color: var(--clr-white);
 }
 
+.btn--gradient {
+  background-image: linear-gradient(135deg, var(--clr-orange), var(--clr-gold));
+  color: var(--clr-white);
+  border-color: transparent;
+}
+
+.btn--gradient:hover,
+.btn--gradient:focus-visible {
+  background-image: linear-gradient(135deg, var(--clr-orange-hover), var(--clr-gold-dark));
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(232, 124, 32, 0.35);
+}
+
+.btn--outline-white {
+  background-color: transparent;
+  color: var(--clr-white);
+  border-color: var(--clr-white);
+}
+
+.btn--outline-white:hover,
+.btn--outline-white:focus-visible {
+  background-color: var(--clr-white);
+  color: var(--clr-teal-dark);
+}
+
 .btn--sm {
   padding: 0.6rem 1.4rem;
   font-size: 0.9rem;
