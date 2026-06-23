@@ -14,6 +14,10 @@
 $nav_logo      = function_exists( 'get_field' ) ? get_field( 'nav_logo', 'option' ) : null;
 $header_cta    = function_exists( 'get_field' ) ? get_field( 'header_cta_text', 'option' ) : 'Book Your Consultation';
 $header_cta_url = function_exists( 'get_field' ) ? get_field( 'header_cta_url', 'option' ) : '#contact';
+$header_gradient_btn     = function_exists( 'get_field' ) ? get_field( 'header_gradient_button_text', 'option' ) : 'Get Started';
+$header_gradient_btn_url = function_exists( 'get_field' ) ? get_field( 'header_gradient_button_url', 'option' ) : '#';
+$header_outline_btn      = function_exists( 'get_field' ) ? get_field( 'header_outline_button_text', 'option' ) : 'Learn More';
+$header_outline_btn_url  = function_exists( 'get_field' ) ? get_field( 'header_outline_button_url', 'option' ) : '#';
 ?>
 
 <header class="site-header" id="site-header">
@@ -54,6 +58,14 @@ $header_cta_url = function_exists( 'get_field' ) ? get_field( 'header_cta_url', 
                 <?php echo esc_html( $header_cta ?: 'Book Your Consultation' ); ?>
             </a>
 
+            <a href="<?php echo esc_url( $header_gradient_btn_url ?: '#' ); ?>" class="btn btn--gradient btn--sm site-header__cta">
+                <?php echo esc_html( $header_gradient_btn ?: 'Get Started' ); ?>
+            </a>
+
+            <a href="<?php echo esc_url( $header_outline_btn_url ?: '#' ); ?>" class="btn btn--outline-white btn--sm site-header__cta">
+                <?php echo esc_html( $header_outline_btn ?: 'Learn More' ); ?>
+            </a>
+
             <button class="site-header__mobile-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobile-nav">
                 <span></span>
                 <span></span>
@@ -81,6 +93,12 @@ $header_cta_url = function_exists( 'get_field' ) ? get_field( 'header_cta_url', 
         ?>
         <a href="<?php echo esc_url( $header_cta_url ?: '#contact' ); ?>" class="btn btn--orange">
             <?php echo esc_html( $header_cta ?: 'Book Your Consultation' ); ?>
+        </a>
+        <a href="<?php echo esc_url( $header_gradient_btn_url ?: '#' ); ?>" class="btn btn--gradient">
+            <?php echo esc_html( $header_gradient_btn ?: 'Get Started' ); ?>
+        </a>
+        <a href="<?php echo esc_url( $header_outline_btn_url ?: '#' ); ?>" class="btn btn--outline-white">
+            <?php echo esc_html( $header_outline_btn ?: 'Learn More' ); ?>
         </a>
     </div>
 </header>

@@ -537,6 +537,32 @@
         "label": "Header CTA Button URL",
         "name": "header_cta_url",
         "type": "url"
+      },
+      {
+        "key": "field_ss_header_gradient_button_text",
+        "label": "Header Gradient Button Text",
+        "name": "header_gradient_button_text",
+        "type": "text",
+        "default_value": "Get Started"
+      },
+      {
+        "key": "field_ss_header_gradient_button_url",
+        "label": "Header Gradient Button URL",
+        "name": "header_gradient_button_url",
+        "type": "url"
+      },
+      {
+        "key": "field_ss_header_outline_button_text",
+        "label": "Header Outline Button Text",
+        "name": "header_outline_button_text",
+        "type": "text",
+        "default_value": "Learn More"
+      },
+      {
+        "key": "field_ss_header_outline_button_url",
+        "label": "Header Outline Button URL",
+        "name": "header_outline_button_url",
+        "type": "url"
       }
     ],
     "location": [
